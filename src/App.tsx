@@ -17,21 +17,22 @@ import { toPng } from 'html-to-image';
 import { jsPDF } from 'jspdf';
 import Typed from 'typed.js';
 
-const kaniLabLogoImg = '/src/assets/images/logo.png';
-const rocheCobasImg = '/src/assets/images/cobas6000.jpg';
-const mindrayBS2000Img = '/src/assets/images/59ea81316c.jpg.500x500.jpg';
-const mindrayBC5800Img = '/src/assets/images/mindray-bc-5800.jpg';
-const coagulationImg = '/src/assets/images/C2000-4-AnalizadorCoagulacionSemiautomatico-1.jpg';
-const bioradPcrImg = '/src/assets/images/lsr_CFX-Connect-Real-Time-PCR-Detection-System-PDP.png';
-const abbottC8000Img = '/src/assets/images/C8000.png';
-const coatronXImg = '/src/assets/images/Coatron-X.jpg';
-const termizUnivImg = '/src/assets/images/terdu.jpg';
-const tashkentMedicalImg = '/src/assets/images/ttatf.jpg';
-const sertifikatImg = '/src/assets/images/3-sertifikat.jpg';
-const cert1Img = '/src/assets/images/sertifikat-1.jfif';
-const cert2Img = '/src/assets/images/sertifikat-2.jfif';
-const cert3Img = '/src/assets/images/sertifikat-3.jfif';
-const markazOldImg = '/src/assets/images/markaz old.jpg';
+import kaniLabLogoImg from './assets/images/logo.png';
+import rocheCobasImg from './assets/images/cobas6000.jpg';
+import mindrayBS2000Img from './assets/images/59ea81316c.jpg.500x500.jpg';
+import mindrayBC5800Img from './assets/images/mindray-bc-5800.jpg';
+import coagulationImg from './assets/images/C2000-4-AnalizadorCoagulacionSemiautomatico-1.jpg';
+import bioradPcrImg from './assets/images/lsr_CFX-Connect-Real-Time-PCR-Detection-System-PDP.png';
+import abbottC8000Img from './assets/images/C8000.png';
+import coatronXImg from './assets/images/Coatron-X.jpg';
+import termizUnivImg from './assets/images/terdu.jpg';
+import tashkentMedicalImg from './assets/images/ttatf.jpg';
+import cert1Img from './assets/images/sertifikat-1.jfif';
+import cert2Img from './assets/images/sertifikat-2.jfif';
+import cert3Img from './assets/images/sertifikat-3.jfif';
+import markazOldImg from './assets/images/markaz old.jpg';
+
+const sertifikatImg = cert3Img;
 
 const ANALYZERS_DATA = [
   {
