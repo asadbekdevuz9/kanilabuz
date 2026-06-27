@@ -1,0 +1,6 @@
+{
+  "name": "KANILAB",
+  "description": "An ultra-premium, futuristic clinical laboratory landing page featuring advanced diagnostics, real-time booking, language selection, and responsive luxury UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,5874 @@
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { 
+  Activity, Calendar, Clock, MapPin, Phone, Mail, ChevronDown, Check, 
+  Star, ShieldCheck, Cpu, ArrowRight, Search, ShoppingCart, User, 
+  Send, Sun, Moon, Sparkles, X, Globe, Microscope, FileText, 
+  Award, Trash2, Printer, CheckCircle2, ChevronRight, Eye, RefreshCw,
+  SlidersHorizontal, Filter, Grid, List, ArrowUpDown, ChevronUp, Plus, AlertCircle,
+  Heart, Menu, Maximize2, ClipboardList, Database, Zap, ChevronLeft, Circle, ArrowLeft
+} from 'lucide-react';
+
+// ==========================================
+// TYPES & DATA STRUCTURES
+// ==========================================
+
+import { TestItem, LABORATORY_TESTS } from './testsData';
+import { toPng } from 'html-to-image';
+import { jsPDF } from 'jspdf';
+import Typed from 'typed.js';
+
+const kaniLabLogoImg = '/src/assets/images/logo.png';
+const rocheCobasImg = '/src/assets/images/cobas6000.jpg';
+const mindrayBS2000Img = '/src/assets/images/59ea81316c.jpg.500x500.jpg';
+const mindrayBC5800Img = '/src/assets/images/mindray-bc-5800.jpg';
+const coagulationImg = '/src/assets/images/C2000-4-AnalizadorCoagulacionSemiautomatico-1.jpg';
+const bioradPcrImg = '/src/assets/images/lsr_CFX-Connect-Real-Time-PCR-Detection-System-PDP.png';
+const abbottC8000Img = '/src/assets/images/C8000.png';
+const coatronXImg = '/src/assets/images/Coatron-X.jpg';
+const termizUnivImg = '/src/assets/images/terdu.jpg';
+const tashkentMedicalImg = '/src/assets/images/ttatf.jpg';
+const sertifikatImg = '/src/assets/images/3-sertifikat.jpg';
+const cert1Img = '/src/assets/images/sertifikat-1.jfif';
+const cert2Img = '/src/assets/images/sertifikat-2.jfif';
+const cert3Img = '/src/assets/images/sertifikat-3.jfif';
+const markazOldImg = '/src/assets/images/markaz old.jpg';
+
+const ANALYZERS_DATA = [
+  {
+    id: 'roche-cobas-6000',
+    name: 'Roche Cobas 6000 (c502, e411)',
+    badge: 'Roche • Swiss',
+    badgeColor: 'bg-red-600',
+    image: rocheCobasImg,
+    shortDesc: {
+      uz: 'Immunokimyoviy va gormon analizlari uchun robotlashtirilgan liniya. Tahlillarning 99.9% analitik aniqligini kafolatlaydi.',
+      ru: 'Автоматизированная линия для иммунохимических и гормональных исследований. Гарантирует 99.9% аналитическую точность.',
+      tr: 'İmmünokimyasal ve hormon analizleri için robotik hat. Analizlerin %99.9 analitik doğruluğunu garanti eder.'
+    },
+    category: { uz: 'Gormonlar va immunologiya', ru: 'Гормоны и иммунология', tr: 'Hormonlar ve İmmünoloji' },
+    model: 'Cobas c502',
+    scientificDetails: {
+      uz: 'Roche Cobas 6000 (c502, e411) — elektroximilyuminessensiya (ECLIA) va fotometrik texnologiyalarni o‘zida birlashtirgan gibrid tizim. U gormonlar, onkomarkerlar va infeksion kasalliklarni aniqlashda misli ko‘rilmagan sezgirlikni ta’minlaydi. Kuniga 1000 dan ortiq tahlillarni inson aralashuvisiz, avtomatik kalibratsiya va sifat nazorati ostida bajaradi. Qurilmada maxsus elektrokimyoviy o‘lchash katakchalari qo‘llanilgan bo‘lib, umuman antigen-antitelo reaksiyalari ruteniy kompleksi yordamida yorug‘lik nurlanishi orqali hisoblanadi. Shuningdek, reaktivlar bilan ishlashda krossovka va kontaminatsiyani oldini olish uchun 0.1 mikrolitrgacha aniqlikda ishlovchi pipetkalash tizimiga ega. Reaksiya vaqti turiga qarab atigi 9-18 daqiqani tashkil etadi, bu esa bemorlar va shifokorlar uchun javoblarni maksimal tezkorlikda yetkazish imkonini beradi. Har bir test reaktivida avtomatik ravishda shtrix-kodni o‘qish orqali xatoliklar ehtimoli nolga tenglashtiriladi.',
+      ru: 'Roche Cobas 6000 (c502, e411) — гибридная система, объединяющая электрохемилюминесценцию (ECLIA) и фотометрические технологии. Обеспечивает беспрецедентную чувствительность при выявлении гормонов, онкомаркеров и инфекционных заболеваний. Выполняет более 1000 тестов в день без вмешательства человека с автоматической калибровкой и контролем качества. В устройстве используются специальные электрохимические измерительные ячейки, посредством которых реакции антиген-антитело рассчитываются за счет излучения света с использованием рутениевого комплекса. Кроме того, имеется система пипетирования, работающая с точностью до 0,1 микролитра, чтобы предотвратить контаминацию. Время реакции составляет всего 9–18 минут, что позволяет максимально быстро предоставлять ответы. Путем автоматического считывания штрих-кода вероятность ошибок сводится к нулю.',
+      tr: 'Roche Cobas 6000 (c502, e411), elektrokimyasal lüminesans (ECLIA) ve fotometrik teknolojileri birleştiren hibrit bir sistemdir. Hormon, tümör belirteçleri ve enfeksiyon hastalıklarının tespitinde eşsiz hassasiyet sağlar. Günde 1000\'den fazla testi insan müdahalesi olmadan otomatik kalibrasyon ve kalite kontrolüyle gerçekleştirir. Cihazda, antijen-antikor reaksiyonlarının rutenyum kompleksi kullanılarak ışık emisyonu yoluyla ölçüldüğü özel elektrokimyasal ölçüm hücreleri kullanılır. Ayrıca, kontaminasyonu önlemek için 0.1 mikrolitreye kadar hassasiyette çalışan pipetleme sistemine sahiptir. Reaksiyon süresi analiz türüne göre sadece 9-18 dakikadır ve bu sayede sonuçlar en hızlı şekilde teslim edilir. Her test reaktifinde otomatik barkod okuma sayesinde hata payı sıfıra indirgenmiştir.'
+    },
+    specs: [
+      { label: { uz: 'Ishlash prinsipi', ru: 'Принцип работы', tr: 'Çalışma Prensibi' }, value: 'ECLIA & Fotometriya' },
+      { label: { uz: 'Unumdorlik', ru: 'Производительность', tr: 'Performans' }, value: '1000+ tahlil/soat' },
+      { label: { uz: 'Ishlab chiqaruvchi', ru: 'Производитель', tr: 'Üretici' }, value: 'Roche Diagnostics (Shveysariya)' },
+      { label: { uz: 'Reaksiya aniqligi', ru: 'Точность реакции', tr: 'Reaksiyon Hassasiyeti' }, value: '99.9% / 0.1 mkl gacha' },
+      { label: { uz: 'O\'lchash texnologiyasi', ru: 'Технология измерения', tr: 'Ölçüm Teknolojisi' }, value: 'Ruteniy markalash' },
+      { label: { uz: 'Kalibratsiya', ru: 'Калибровка', tr: 'Kalibrasyon' }, value: 'Avtomatik (2-point/Full)' }
+    ]
+  },
+  {
+    id: 'mindray-bs-2000m',
+    name: 'Mindray BS-2000M',
+    badge: 'Mindray • High Speed',
+    badgeColor: 'bg-blue-600',
+    image: mindrayBS2000Img,
+    shortDesc: {
+      uz: 'Tezkor biokimyoviy tahlillar uchun to‘liq avtomatlashtirilgan yuqori tezlikda ishlovchi tahlil tizimi.',
+      ru: 'Высокоскоростной автоматический биохимический анализатор для оперативных исследований.',
+      tr: 'Hızlı biyokimyasal analizler için tam otomatik, yüksek hızlı analiz sistemi.'
+    },
+    category: { uz: 'Biokimyo', ru: 'Биохимия', tr: 'Biyokimya' },
+    model: 'BS-2000M',
+    scientificDetails: {
+      uz: 'Mindray BS-2000M — yuqori samarali biokimyoviy analizator bo‘lib, ilg‘or golografik diffraksion panjarali fotometriya tizimiga ega. Qurilma qon zardobi fermentlari, lipidlar spektri va substratlar konsentratsiyasini nanometrik aniqlikda o‘lchaydi. Barcha namunalarni maxsus mikserlar va ultratovushli aralashtirish texnologiyasi orqali bir xil massaga keltiradi. Kengaytirilgan absorbsiya spektri (340nm dan 800nm gacha bo‘lgan 14 xil to‘lqin uzunligi) har qanday nodir reaktivlar bilan ishlashga hamda gemoliz, ikteriya va lipemiya ta\'sirini (HIL indekslari orqali) avtomatik tarzda istisno qilishga yordam beradi. Tizim reaktivlarni 2-8°C gradusda doimiy sovitish kamerasida saqlaydi, bu ularning barqarorligini taminlaydi va xatoliklarni kamaytiradi.',
+      ru: 'Mindray BS-2000M — высокоэффективный биохимический анализатор с передовой голографической дифракционной фотометрией. Устройство измеряет ферменты сыворотки крови, липидный спектр и концентрацию субстратов с нанометрической точностью. Доводит все пробы до однородной массы с помощью специальных миксеров и технологии ультразвукового смешивания. Расширенный спектр абсорбции (14 длин волн от 340 нм до 800 нм) помогает работать с любыми реагентами и автоматически исключать влияние гемолиза, иктеричности и липемии. Система хранит реагенты при температуре 2-8°С в холодильной камере, что обеспечивает их стабильность.',
+      tr: 'Mindray BS-2000M, gelişmiş holografik kırınım ızgaralı fotometri sistemine sahip yüksek verimli bir biyokimyasal analizördür. Cihaz, kan serumu enzimlerini, lipid spektrumunu ve substrat konsantrasyonunu nanometrik hassasiyetle ölçer. Özel mikserler ve ultrasonik karıştırma teknolojisiyle tüm numuneleri homojen bir kütleye getirir. Genişletilmiş absorpsiyon spektrumu (340nm ila 800nm arasında 14 farklı dalga boyu) her türlü nadir reaktifle çalışmaya ve hemoliz, ikter ve lipemi etkisini (HIL indeksleri aracılığıyla) otomatik olarak hariç tutmaya yardımcı olur. Sistem reaktifleri 2-8°C derecede sürekli soğutmalı haznede saklayarak kararlılıklarını sağlar ve hataları en aza indirir.'
+    },
+    specs: [
+      { label: { uz: 'Optik tizim', ru: 'Оптическая система', tr: 'Optik Sistem' }, value: 'Golografik difraksiya' },
+      { label: { uz: 'Tezlik', ru: 'Скорость', tr: 'Hız' }, value: '2000 fotometrik test/soat' },
+      { label: { uz: 'Reagent bloki', ru: 'Блок реагентов', tr: 'Reaktif Bloğu' }, value: 'Muzlatish tizimi bilan' },
+      { label: { uz: 'To\'lqin uzunliklari', ru: 'Длины волн', tr: 'Dalga Boyları' }, value: '340nm - 800nm (14 kanal)' },
+      { label: { uz: 'HIL Indeksi', ru: 'HIL Индекс', tr: 'HIL İndeksi' }, value: 'Avtomatik tekshiruv' },
+      { label: { uz: 'Aralashtirish', ru: 'Смешивание', tr: 'Karıştırma' }, value: 'Ultratovushli texnologiya' }
+    ]
+  },
+  {
+    id: 'mindray-bc-5800',
+    name: 'Mindray BC-5800',
+    badge: 'Mindray • Hematology',
+    badgeColor: 'bg-cyan-600',
+    image: mindrayBC5800Img,
+    shortDesc: {
+      uz: '5-diff avtomatlashtirilgan gematologik tahlil tizimi. Qon tahlillarining aniq va tezkor ko‘rsatkichlarini ta’minlaydi.',
+      ru: 'Высокоточный гематологический анализатор 5-diff с автоматической загрузкой пробирок.',
+      tr: '5-diff otomatik hematolojik analiz sistemi. Kan analizlerinin doğru ve hızlı göstergelerini sağlar.'
+    },
+    category: { uz: 'Gematologiya', ru: 'Гематология', tr: 'Hematoloji' },
+    model: 'BC-5800',
+    scientificDetails: {
+      uz: 'Mindray BC-5800 analizatori hujayralarni yorug‘likning uch burchak ostida tarqalishi (tri-angle laser scatter), kimyoviy bo‘yash va oqim sitometriyasi (flow cytometry) yordamida o‘rganadi. U texnologiya leykotsitlarni nafaqat hajmi, balki yadrosining tuzilishi va granulyatsiyasiga ko‘ra 5 ta asosiy subpopulyatsiyaga (neytrofillar, limfotsitlar, monotsitlar, eozinofillar, bazofillar) mikroskopik aniqlikda ajratadi. Eritrotsitlar va trombotsitlarni tahlil qilish uchun ikki o‘lchamli gidrodinamik fokuslash usuli qo‘llanilgan, bu esa kichik yoki anomal trombotsitlarni eritrotsitlardan farqlashda juda muhimdir. Tizim retikulotsitlar sonini ham maxsus lyuminessent bo‘yash yordamida hisoblash imkoniyatiga ega bo‘lib, kamqonlik (anemiya) diagnostikasida bebaho ahamiyatga ega.',
+      ru: 'Анализатор Mindray BC-5800 изучает клетки с помощью трехуглового лазерного рассеяния, химического окрашивания и проточной цитометрии. Эта технология разделяет лейкоциты не только по размеру, но и по строению ядра и грануляции на 5 основных субпопуляций. Для анализа эритроцитов и тромбоцитов применяется метод двумерной гидродинамической фокусировки, что очень важно для отличия мелких или аномальных тромбоцитов от эритроцитов. В системе также реализован подсчет количества ретикулоцитов с помощью специального люминесцентного окрашивания, что имеет неоценимое значение при диагностике анемий.',
+      tr: 'Mindray BC-5800 analizörü hücreleri üç açılı ışık saçılımı (tri-angle laser scatter), kimyasal boyama ve akış sitometrisi (flow cytometry) kullanarak inceler. Bu teknoloji, lökositleri sadece boyutlarına göre değil, aynı zamanda çekirdeklerinin yapısına ve granülasyonlarına göre 5 ana alt popülasyona (nötrofiller, lenfositler, monositler, eozinfiller, bazofiller) mikroskobik hassasiyetle ayırır. Eritrositler ve trombositlerin analizi için iki boyutlu hidrodinamik odaklama yöntemi uygulanmıştır; bu, küçük veya anormal trombositleri eritrositlerden ayırt etmede son derece önemlidir. Sistem, anemilerin teşhisinde paha biçilmez bir öneme sahip olan retikülosit sayısını da özel floresan boyama yardımıyla hesaplayabilmektedir.'
+    },
+    specs: [
+      { label: { uz: 'Metodologiya', ru: 'Методология', tr: 'Metodoloji' }, value: 'Oqim sitometriyasi & Lazer' },
+      { label: { uz: 'Differensiatsiya', ru: 'Дифференциация', tr: 'Diferansiasyon' }, value: '5-Diff (Leykoformulalar)' },
+      { label: { uz: 'O‘tkazuvchanlik', ru: 'Пропускная способность', tr: 'Geçirgenlik' }, value: '90 test/soat' },
+      { label: { uz: 'Gidrodinamik fokus', ru: 'Гидродин. фокусировка', tr: 'Hidrodinamik Odak' }, value: 'Ikki o\'lchamli tizim' },
+      { label: { uz: 'Retikulotsitlar tahlili', ru: 'Анализ ретикулоцитов', tr: 'Retikülosit Analizi' }, value: 'Lyuminessent usul' },
+      { label: { uz: 'Anomal hujayralar', ru: 'Аномальные клетки', tr: 'Anormal Hücreler' }, value: 'Signallash qobiliyati' }
+    ]
+  },
+  {
+    id: 'mindray-ba-88a',
+    name: 'Mindray BA-88A',
+    badge: 'Mindray • Coagulation',
+    badgeColor: 'bg-indigo-600',
+    image: coagulationImg,
+    shortDesc: {
+      uz: 'Yarim-avtomatlashtirilgan koagulyatsion va biokimyoviy tahlillar uchun mos keluvchi qurilma. Qon ivish tizimini tekshiradi.',
+      ru: 'Полуавтоматический анализатор для коагулологии и экспресс-биохимии.',
+      tr: 'Yarı otomatik koagülasyon ve biyokimyasal analizler için uygun cihaz. Kan pıhtılaşma sistemini kontrol eder.'
+    },
+    category: { uz: 'Koagulogramma (Ivish)', ru: 'Коагулограмма', tr: 'Koagülogram (Pıhtılaşma)' },
+    model: 'BA-88A / C2000',
+    scientificDetails: {
+      uz: 'Ushbu qurilma qon plazmasidagi fibrinolitik va koagulyatsion faollikni baholash uchun mo‘ljallangan ishonchli apparatdir. U trombin vaqti, protrombin indeksi, fibrinogen miqdori va faollashtirilgan qisman tromboplastin vaqtini (AChTV) aniqlashda nefelometrik va optik-mexanik datchiklar kombinatsiyasidan foydalanadi. O‘ziga xosligi shundaki, u koagulyatsiya jarayonidagi mikro-laxtalarni o‘sish dinamikasini egri chiziq orqali vizualizatsiya qiladi. Bu funksiya jarrohlik operatsiyalaridan oldin qon ketish xavfini yoki qon quyqalari hosil bo‘lish patologiyalarini o‘ta ishonchli aniqlash imkonini beradi. Haroratni doimiy nazorat qiluvchi Peltier bloklari bilan jihozlangan bo‘lib, reaksiya uchun mukammal 37°C muhitini saqlaydi.',
+      ru: 'Устройство предназначено для оценки фибринолитической и коагуляционной активности плазмы крови. Использует комбинацию нефелометрических и оптико-механических датчиков для определения тромбинового времени, протромбинового индекса и АЧТВ. Визуализирует динамику роста микросгустков в процессе коагуляции с помощью кривой. Эта функция позволяет с высокой степенью надежности выявлять риск кровотечений перед хирургическими операциями или патологии тромбообразования. Оснащен блоками Пельтье, обеспечивающими постоянный контроль температуры.',
+      tr: 'Bu cihaz, kan plazmasındaki fibrinolitik ve koagülasyon aktivitesini değerlendirmek üzere tasarlanmış güvenilir bir araçtır. Trombin süresi, protrombin indeksi, fibrinojen konsantrasyonu ve aktive parsiyel tromboplastin süresinin (aPTT) saptanmasında nefelometrik ve optik-mekanik sensör kombinasyonunu kullanır. Koagülasyon sürecindeki mikro pıhtı büyüme dinamiklerini bir eğri üzerinden görselleştirebilmesi en önemli özelliğidir. Bu fonksiyon, cerrahi operasyonlardan önce kanama riskini veya kan pıhtısı oluşum patolojilerini son derece güvenilir bir şekilde tespit etmeye olanak tanır. Sıcaklığı sürekli kontrol eden Peltier blokları ile donatılmış olup reaksiyon için mükemmel 37°C ortamını korur.'
+    },
+    specs: [
+      { label: { uz: 'Sensor turi', ru: 'Тип сенсора', tr: 'Sensör Tipi' }, value: 'Optik-Mexanik gibrid' },
+      { label: { uz: 'Tahlil turlari', ru: 'Виды анализов', tr: 'Analiz Türleri' }, value: 'PT, APTT, FIB, TT, D-Dimer' },
+      { label: { uz: 'Avtomatlashtirish', ru: 'Автоматизация', tr: 'Otomasyon' }, value: 'Yarim-avtomat' },
+      { label: { uz: 'O\'lchash harorati', ru: 'Температура измерения', tr: 'Ölçüm Sıcaklığı' }, value: '37°C (Peltier bloki)' },
+      { label: { uz: 'Vizualizatsiya', ru: 'Визуализация', tr: 'Görselleştirme' }, value: 'Dinamik egri chiziqlar' },
+      { label: { uz: 'Deteksiya', ru: 'Детекция', tr: 'Deteksiyon' }, value: 'Nefelometrik usul' }
+    ]
+  },
+  {
+    id: 'biorad-cfx',
+    name: 'Bio-Rad CFX Connect',
+    badge: 'Bio-Rad • USA',
+    badgeColor: 'bg-green-600',
+    image: bioradPcrImg,
+    shortDesc: {
+      uz: 'Real-time rejimida ishlaydigan PSR amplifikatori. Infeksiya va genetik tahlillar diagnostikasi uchun mo‘ljallangan.',
+      ru: 'Передовой ПЦР-амплификатор реального времени для выявления инфекций и генетической диагностики высокой чувствительности.',
+      tr: 'Gerçek zamanlı çalışan PCR amplifikatörü. Enfeksiyon ve genetik analiz tanıları için tasarlanmıştır.'
+    },
+    category: { uz: 'Molekulyar Genetik (PSR)', ru: 'ПЦР-диагностика', tr: 'Moleküler Genetik (PCR)' },
+    model: 'CFX Connect',
+    scientificDetails: {
+      uz: 'Bio-Rad CFX Connect tizimi — bu Real-Time PCR (miqdoriy polimeraza zanjirli reaksiya) texnologiyasining eng so‘nggi yutuqlarini o‘zida mujassam etgan. Suyuq kristalli va qattiq jismli Peltier termobloklari yordamida o‘ta tezkor harorat sikllarini (isitish/sovitish) mikrosekund tezligida amalga oshiradi. Uning ilg‘or optik tizimi 3 xil rangli (multiplex) fluoressent bo‘yoqlarni bir vaqtning o‘zida skanerlashi mumkin bo‘lib, virus yuklamasi va genetik mutatsiyalarni (DNK/RNK dagi o‘zgarishlarni) bitta naychada 3 xil patogen uchun aniqlay oladi. Gepatit, OIV, HPV, infeksion va genetik kasalliklarni aniqlashda eng past konsentratsiyalarni ham o‘tkazib yubormaslik uchun yuqori sezuvchan fotoelektron ko‘paytiruvchi naychalarga ega.',
+      ru: 'Система Bio-Rad CFX Connect — это вершина технологии Real-Time PCR (количественной ПЦР). Осуществляет сверхбыстрые температурные циклы с помощью элементов Пельтье на микросекундной скорости. Его передовая оптическая система позволяет одновременно сканировать трехцветные флуоресцентные красители, способные определять вирусную нагрузку и генетические мутации для 3 разных патогенов в одной пробирке. Обладает высокочувствительными фотоэлектронными умножителями, чтобы не упустить даже самые низкие концентрации при выявлении гепатита, ВИЧ, ВПЧ и генетических заболеваний.',
+      tr: 'Bio-Rad CFX Connect sistemi, Real-Time PCR (kantitatif polimeraz zincir reaksiyonu) teknolojisinin en son başarılarını bünyesinde barındırır. Sıvı kristal ve katı hal Peltier termoblokları yardımıyla ultra hızlı sıcaklık döngülerini (ısıtma/soğutma) mikrosaniye hızında gerçekleştirir. Gelişmiş optik sistemi aynı anda 3 farklı renkte (multiplex) floresan boyayı tarayabilir, bu sayede tek bir tüpte 3 farklı patojen için viral yükü ve genetik mutasyonları saptayabilir. Hepatit, HIV, HPV, enfeksiyon ve genetik hastalıkların tespitinde en düşük konsantrasyonları bile kaçırmamak için yüksek hassasiyetli fotoelektron çoğaltıcı tüplere sahiptir.'
+    },
+    specs: [
+      { label: { uz: 'Optik kanallar', ru: 'Оптические каналы', tr: 'Optik Kanallar' }, value: '3 xil rangli fluoressensiya' },
+      { label: { uz: 'Reaksiya hajmi', ru: 'Объем реакции', tr: 'Reaksiyon Hacmi' }, value: '10-50 mkl' },
+      { label: { uz: 'Harorat aniqligi', ru: 'Точность температуры', tr: 'Sıcaklık Hassasiyeti' }, value: '±0.2°C' },
+      { label: { uz: 'Termoblok moduli', ru: 'Модуль термоблока', tr: 'Termoblok Modülü' }, value: 'Peltier elementlari' },
+      { label: { uz: 'Multiplexing', ru: 'Мультиплексирование', tr: 'Multiplexing' }, value: 'Bir vaqtda 3 ta patogen' },
+      { label: { uz: 'Sezuvchanlik', ru: 'Чувствительность', tr: 'Hassasiyet' }, value: '1 kopiyagacha DNK/RNK' }
+    ]
+  },
+  {
+    id: 'abbott-c8000',
+    name: 'Abbott Architect C8000',
+    badge: 'Abbott • USA',
+    badgeColor: 'bg-purple-600',
+    image: abbottC8000Img,
+    shortDesc: {
+      uz: 'Yuqori unumdorlikdagi to\'liq avtomatlashtirilgan biokimyoviy analizator. Bir kunda minglab tahlillarni yuqori aniqlik bilan bajaradi.',
+      ru: 'Высокопроизводительный полностью автоматизированный биохимический анализатор. Выполняет тысячи анализов в день с высокой точностью.',
+      tr: 'Yüksek verimli tam otomatik biyokimyasal analizör. Günde binlerce testi yüksek hassasiyetle gerçekleştirir.'
+    },
+    category: { uz: 'Biokimyo (Yuksak darajali)', ru: 'Биохимия (Высший уровень)', tr: 'Biyokimya (Yüksek Düzey)' },
+    model: 'Architect C8000',
+    scientificDetails: {
+      uz: 'Abbott Architect C8000 — klinik biokimyoning eng zamonaviy yechimi. Qurilma fotometriya, turbidimetriya va ion-selektiv elektrod (ISE) texnologiyalarini birlashtirib, qon kimyosining 60 dan ortiq ko\'rsatkichini bir vaqtning o\'zida tahlil qilish qobiliyatiga ega. Kuniga 8000 ta testga yetuvchi unumdorligi bilan laboratoriyaning ish yukini sezilarli darajada kamaytiradi. Reagentlarni avtomatik almashtirish tizimi uzluksiz ishlash imkonini beradi. Qurilmadagi integral kalibrlash tizimi har bir namunadan oldin aniqlikni ta\'minlaydi va xatoliklarni minimal darajaga tushiradi.',
+      ru: 'Abbott Architect C8000 — самое современное решение в клинической биохимии. Устройство сочетает фотометрию, турбидиметрию и технологию ионоселективных электродов (ISE), что позволяет одновременно анализировать более 60 показателей биохимии крови. Производительность до 8000 тестов в день значительно снижает нагрузку на лабораторию. Система автоматической замены реагентов обеспечивает бесперебойную работу. Встроенная система калибровки гарантирует точность перед каждым образцом.',
+      tr: 'Abbott Architect C8000, klinik biyokimyada en modern çözümdür. Cihaz fotometri, türbidimetri ve iyon seçici elektrot (ISE) teknolojilerini birleştirerek aynı anda kan kimyasının 60\'tan fazla parametresini analiz edebilir. Günlük 8000 teste kadar ulaşan verimliliğiyle laboratuvarın iş yükünü önemli ölçüde azaltır. Otomatik reaktif değiştirme sistemi kesintisiz çalışmayı mümkün kılar. Entegre kalibrasyon sistemi her numune öncesinde doğruluğu garanti eder.'
+    },
+    specs: [
+      { label: { uz: 'Texnologiya', ru: 'Технология', tr: 'Teknoloji' }, value: 'Fotometriya + ISE + Turbidimetriya' },
+      { label: { uz: 'Unumdorlik', ru: 'Производительность', tr: 'Verimlilik' }, value: '8000 test/kun' },
+      { label: { uz: 'Tahlillar soni', ru: 'Количество анализов', tr: 'Analiz Sayısı' }, value: '60+ biokimyoviy ko\'rsatkich' },
+      { label: { uz: 'Reagent', ru: 'Реагент', tr: 'Reaktif' }, value: 'Avtomatik almashtirish' },
+      { label: { uz: 'Kalibratsiya', ru: 'Калибровка', tr: 'Kalibrasyon' }, value: 'Har bir namunadan oldin' },
+      { label: { uz: 'Ishlab chiqaruvchi', ru: 'Производитель', tr: 'Üretici' }, value: 'Abbott Diagnostics (AQSH)' }
+    ]
+  },
+  {
+    id: 'coatron-x',
+    name: 'Coatron X Koagulyometr',
+    badge: 'Teco • Germany',
+    badgeColor: 'bg-teal-600',
+    image: coatronXImg,
+    shortDesc: {
+      uz: 'Qon ivishini to\'liq tahlil qiluvchi avtomatik koagulyometr. PT, APTT, Fibrinogen va D-Dimer testlarini tezkor bajaradi.',
+      ru: 'Автоматический коагулометр для полного анализа свёртывания крови. Быстро выполняет тесты PT, APTT, Фибриноген и D-Димер.',
+      tr: 'Kan pıhtılaşmasını tam analiz eden otomatik koagülometre. PT, APTT, Fibrinojen ve D-Dimer testlerini hızlıca gerçekleştirir.'
+    },
+    category: { uz: 'Koagulyatsiya (Ivish)', ru: 'Коагуляция (Свёртываемость)', tr: 'Koagülasyon (Pıhtılaşma)' },
+    model: 'Coatron X',
+    scientificDetails: {
+      uz: 'Coatron X — Germaniyaning Teco Medical Instruments kompaniyasi tomonidan ishlab chiqarilgan professional koagulyometr. Qurilma qon plazmasining ivish sistemasini mexano-optik sensor texnologiyasi yordamida o\'rganadi. PT (Protrombin vaqti), APTT (Faollashtirilgan qisman tromboplastin vaqti), Fibrinogen va D-Dimer kabi muhim ko\'rsatkichlarni bir vaqtning o\'zida tahlil qila oladi. Trombozni oldini olish va qon ketishni nazorat qilishda beqiyos ahamiyatga ega. Qurilmaning yuqori aniqlik va sezgirligi tufayli klinik muhimligu yuqori bo\'lgan anomaliyalar ham katta ishonchlilik bilan aniqlanadi.',
+      ru: 'Coatron X — профессиональный коагулометр производства немецкой компании Teco Medical Instruments. Прибор исследует систему свертывания плазмы крови с помощью технологии механо-оптических сенсоров. Способен одновременно анализировать важнейшие показатели: PT (протромбиновое время), APTT (АЧТВ), фибриноген и D-димер. Имеет огромное значение для профилактики тромбозов и контроля кровотечений. Благодаря высокой точности и чувствительности даже клинически значимые аномалии выявляются с высокой надежностью.',
+      tr: 'Coatron X, Alman Teco Medical Instruments şirketi tarafından üretilen profesyonel bir koagülometredir. Cihaz, kan plazmasının pıhtılaşma sistemini mekanik-optik sensör teknolojisi ile inceler. PT (Protrombin süresi), APTT, Fibrinojen ve D-Dimer gibi kritik göstergeleri aynı anda analiz edebilir. Tromboz önleme ve kanama kontrolünde eşsiz bir öneme sahiptir. Yüksek doğruluk ve hassasiyeti sayesinde klinik önemi yüksek anomaliler bile büyük güvenilirlikle tespit edilir.'
+    },
+    specs: [
+      { label: { uz: 'Sensor texnologiyasi', ru: 'Сенсорная технология', tr: 'Sensör Teknolojisi' }, value: 'Mexano-optik gibrid' },
+      { label: { uz: 'Tahlil turlari', ru: 'Виды анализов', tr: 'Analiz Türleri' }, value: 'PT, APTT, FIB, D-Dimer, TT' },
+      { label: { uz: 'Avtomatlashtirish', ru: 'Автоматизация', tr: 'Otomasyon' }, value: 'To\'liq avtomat' },
+      { label: { uz: 'Ishlab chiqaruvchi', ru: 'Производитель', tr: 'Üretici' }, value: 'Teco Medical (Germaniya)' },
+      { label: { uz: 'Harorat nazorati', ru: 'Контроль температуры', tr: 'Sıcaklık Kontrolü' }, value: '37°C stabillashtirilgan' },
+      { label: { uz: 'Natija vaqti', ru: 'Время результата', tr: 'Sonuç Süresi' }, value: '3-10 daqiqa' }
+    ]
+  }
+];
+
+// ==========================================
+// PHONE COUNTRY DIAL CODES
+// ==========================================
+const PHONE_COUNTRIES = [
+  { code: 'UZ', name: "O'zbekiston",        dialCode: '+998', flag: '🇺🇿', length: 9,  placeholder: '90 123 45 67' },
+  { code: 'RU', name: 'Rossiya',             dialCode: '+7',   flag: '🇷🇺', length: 10, placeholder: '912 345 67 89' },
+  { code: 'KZ', name: "Qozog'iston",         dialCode: '+7',   flag: '🇰🇿', length: 10, placeholder: '701 234 56 78' },
+  { code: 'KG', name: "Qirg'iziston",        dialCode: '+996', flag: '🇰🇬', length: 9,  placeholder: '700 123 456' },
+  { code: 'TJ', name: 'Tojikiston',          dialCode: '+992', flag: '🇹🇯', length: 9,  placeholder: '917 12 3456' },
+  { code: 'TM', name: 'Turkmaniston',        dialCode: '+993', flag: '🇹🇲', length: 8,  placeholder: '65 123456' },
+  { code: 'TR', name: 'Turkiya',             dialCode: '+90',  flag: '🇹🇷', length: 10, placeholder: '505 123 45 67' },
+  { code: 'AZ', name: 'Ozarbayjon',          dialCode: '+994', flag: '🇦🇿', length: 9,  placeholder: '50 123 45 67' },
+  { code: 'GE', name: 'Gruziya',             dialCode: '+995', flag: '🇬🇪', length: 9,  placeholder: '555 12 34 56' },
+  { code: 'AM', name: 'Armaniston',          dialCode: '+374', flag: '🇦🇲', length: 8,  placeholder: '77 123456' },
+  { code: 'AF', name: 'Afgʻoniston',         dialCode: '+93',  flag: '🇦🇫', length: 9,  placeholder: '70 123 4567' },
+  { code: 'PK', name: 'Pokiston',            dialCode: '+92',  flag: '🇵🇰', length: 10, placeholder: '301 234 5678' },
+  { code: 'IN', name: 'Hindiston',           dialCode: '+91',  flag: '🇮🇳', length: 10, placeholder: '98765 43210' },
+  { code: 'CN', name: 'Xitoy',               dialCode: '+86',  flag: '🇨🇳', length: 11, placeholder: '131 2345 6789' },
+  { code: 'JP', name: 'Yaponiya',            dialCode: '+81',  flag: '🇯🇵', length: 10, placeholder: '90 1234 5678' },
+  { code: 'KR', name: 'Janubiy Koreya',      dialCode: '+82',  flag: '🇰🇷', length: 10, placeholder: '10 1234 5678' },
+  { code: 'AE', name: 'BAA',                 dialCode: '+971', flag: '🇦🇪', length: 9,  placeholder: '50 123 4567' },
+  { code: 'SA', name: 'Saudiya Arabistoni',  dialCode: '+966', flag: '🇸🇦', length: 9,  placeholder: '50 123 4567' },
+  { code: 'IR', name: 'Eron',                dialCode: '+98',  flag: '🇮🇷', length: 10, placeholder: '912 345 6789' },
+  { code: 'IQ', name: 'Iroq',                dialCode: '+964', flag: '🇮🇶', length: 10, placeholder: '790 123 4567' },
+  { code: 'IL', name: 'Isroil',              dialCode: '+972', flag: '🇮🇱', length: 9,  placeholder: '50 123 4567' },
+  { code: 'JO', name: 'Iordaniya',           dialCode: '+962', flag: '🇯🇴', length: 9,  placeholder: '79 012 3456' },
+  { code: 'KW', name: 'Quvayt',              dialCode: '+965', flag: '🇰🇼', length: 8,  placeholder: '5012 3456' },
+  { code: 'QA', name: 'Qatar',               dialCode: '+974', flag: '🇶🇦', length: 8,  placeholder: '3312 3456' },
+  { code: 'BH', name: 'Bahrayn',             dialCode: '+973', flag: '🇧🇭', length: 8,  placeholder: '3600 0000' },
+  { code: 'OM', name: 'Ummon',               dialCode: '+968', flag: '🇴🇲', length: 8,  placeholder: '9212 3456' },
+  { code: 'YE', name: 'Yaman',               dialCode: '+967', flag: '🇾🇪', length: 9,  placeholder: '712 345 678' },
+  { code: 'LB', name: 'Livan',               dialCode: '+961', flag: '🇱🇧', length: 8,  placeholder: '71 123 456' },
+  { code: 'SY', name: 'Suriya',              dialCode: '+963', flag: '🇸🇾', length: 9,  placeholder: '944 567 890' },
+  { code: 'EG', name: 'Misr',                dialCode: '+20',  flag: '🇪🇬', length: 10, placeholder: '100 123 4567' },
+  { code: 'MA', name: 'Marokash',            dialCode: '+212', flag: '🇲🇦', length: 9,  placeholder: '612 345 678' },
+  { code: 'DZ', name: 'Jazoir',              dialCode: '+213', flag: '🇩🇿', length: 9,  placeholder: '551 234 567' },
+  { code: 'TN', name: 'Tunis',               dialCode: '+216', flag: '🇹🇳', length: 8,  placeholder: '20 123 456' },
+  { code: 'LY', name: 'Liviya',              dialCode: '+218', flag: '🇱🇾', length: 9,  placeholder: '912 345 678' },
+  { code: 'ZA', name: 'Janubiy Afrika',      dialCode: '+27',  flag: '🇿🇦', length: 9,  placeholder: '71 123 4567' },
+  { code: 'NG', name: 'Nigeriya',            dialCode: '+234', flag: '🇳🇬', length: 10, placeholder: '802 345 6789' },
+  { code: 'KE', name: 'Keniya',              dialCode: '+254', flag: '🇰🇪', length: 9,  placeholder: '712 345 678' },
+  { code: 'GH', name: 'Gana',               dialCode: '+233', flag: '🇬🇭', length: 9,  placeholder: '244 123 456' },
+  { code: 'ET', name: 'Efiopiya',            dialCode: '+251', flag: '🇪🇹', length: 9,  placeholder: '911 234 567' },
+  { code: 'US', name: 'AQSH',               dialCode: '+1',   flag: '🇺🇸', length: 10, placeholder: '212 345 6789' },
+  { code: 'CA', name: 'Kanada',              dialCode: '+1',   flag: '🇨🇦', length: 10, placeholder: '416 123 4567' },
+  { code: 'MX', name: 'Meksika',             dialCode: '+52',  flag: '🇲🇽', length: 10, placeholder: '55 1234 5678' },
+  { code: 'BR', name: 'Braziliya',           dialCode: '+55',  flag: '🇧🇷', length: 11, placeholder: '11 9 1234 5678' },
+  { code: 'AR', name: 'Argentina',           dialCode: '+54',  flag: '🇦🇷', length: 10, placeholder: '11 2345 6789' },
+  { code: 'CL', name: 'Chili',              dialCode: '+56',  flag: '🇨🇱', length: 9,  placeholder: '9 1234 5678' },
+  { code: 'CO', name: 'Kolumbiya',           dialCode: '+57',  flag: '🇨🇴', length: 10, placeholder: '312 345 6789' },
+  { code: 'VE', name: 'Venesuela',           dialCode: '+58',  flag: '🇻🇪', length: 10, placeholder: '412 123 4567' },
+  { code: 'PE', name: 'Peru',               dialCode: '+51',  flag: '🇵🇪', length: 9,  placeholder: '912 345 678' },
+  { code: 'GB', name: 'Buyuk Britaniya',     dialCode: '+44',  flag: '🇬🇧', length: 10, placeholder: '7911 123456' },
+  { code: 'DE', name: 'Germaniya',           dialCode: '+49',  flag: '🇩🇪', length: 11, placeholder: '151 12345678' },
+  { code: 'FR', name: 'Fransiya',            dialCode: '+33',  flag: '🇫🇷', length: 9,  placeholder: '6 12 34 56 78' },
+  { code: 'IT', name: 'Italiya',             dialCode: '+39',  flag: '🇮🇹', length: 10, placeholder: '312 345 6789' },
+  { code: 'ES', name: 'Ispaniya',            dialCode: '+34',  flag: '🇪🇸', length: 9,  placeholder: '612 345 678' },
+  { code: 'NL', name: 'Niderlandiya',        dialCode: '+31',  flag: '🇳🇱', length: 9,  placeholder: '6 12345678' },
+  { code: 'BE', name: 'Belgiya',             dialCode: '+32',  flag: '🇧🇪', length: 9,  placeholder: '471 12 34 56' },
+  { code: 'SE', name: 'Shvetsiya',           dialCode: '+46',  flag: '🇸🇪', length: 9,  placeholder: '70 123 45 67' },
+  { code: 'NO', name: 'Norvegiya',           dialCode: '+47',  flag: '🇳🇴', length: 8,  placeholder: '406 12 345' },
+  { code: 'DK', name: 'Daniya',              dialCode: '+45',  flag: '🇩🇰', length: 8,  placeholder: '20 12 34 56' },
+  { code: 'FI', name: 'Finlandiya',          dialCode: '+358', flag: '🇫🇮', length: 9,  placeholder: '40 123 4567' },
+  { code: 'CH', name: 'Shveytsariya',        dialCode: '+41',  flag: '🇨🇭', length: 9,  placeholder: '78 123 45 67' },
+  { code: 'AT', name: 'Avstriya',            dialCode: '+43',  flag: '🇦🇹', length: 10, placeholder: '664 123456' },
+  { code: 'PL', name: 'Polsha',              dialCode: '+48',  flag: '🇵🇱', length: 9,  placeholder: '512 345 678' },
+  { code: 'CZ', name: 'Chexiya',             dialCode: '+420', flag: '🇨🇿', length: 9,  placeholder: '601 234 567' },
+  { code: 'HU', name: 'Vengriya',            dialCode: '+36',  flag: '🇭🇺', length: 9,  placeholder: '20 123 4567' },
+  { code: 'RO', name: 'Ruminiya',            dialCode: '+40',  flag: '🇷🇴', length: 9,  placeholder: '712 345 678' },
+  { code: 'BG', name: 'Bolgariya',           dialCode: '+359', flag: '🇧🇬', length: 9,  placeholder: '87 123 4567' },
+  { code: 'HR', name: 'Xorvatiya',           dialCode: '+385', flag: '🇭🇷', length: 9,  placeholder: '91 234 5678' },
+  { code: 'RS', name: 'Serbiya',             dialCode: '+381', flag: '🇷🇸', length: 9,  placeholder: '60 1234567' },
+  { code: 'SK', name: 'Slovakiya',           dialCode: '+421', flag: '🇸🇰', length: 9,  placeholder: '912 345 678' },
+  { code: 'SI', name: 'Sloveniya',           dialCode: '+386', flag: '🇸🇮', length: 8,  placeholder: '31 234 567' },
+  { code: 'UA', name: 'Ukraina',             dialCode: '+380', flag: '🇺🇦', length: 9,  placeholder: '50 123 45 67' },
+  { code: 'BY', name: 'Belarus',             dialCode: '+375', flag: '🇧🇾', length: 9,  placeholder: '29 123 45 67' },
+  { code: 'MD', name: 'Moldova',             dialCode: '+373', flag: '🇲🇩', length: 8,  placeholder: '62 012 345' },
+  { code: 'LT', name: 'Litva',               dialCode: '+370', flag: '🇱🇹', length: 8,  placeholder: '61 234 567' },
+  { code: 'LV', name: 'Latviya',             dialCode: '+371', flag: '🇱🇻', length: 8,  placeholder: '21 234 567' },
+  { code: 'EE', name: 'Estoniya',            dialCode: '+372', flag: '🇪🇪', length: 8,  placeholder: '5123 4567' },
+  { code: 'PT', name: 'Portugaliya',         dialCode: '+351', flag: '🇵🇹', length: 9,  placeholder: '912 345 678' },
+  { code: 'GR', name: 'Gretsiya',            dialCode: '+30',  flag: '🇬🇷', length: 10, placeholder: '694 123 4567' },
+  { code: 'AU', name: 'Avstraliya',          dialCode: '+61',  flag: '🇦🇺', length: 9,  placeholder: '412 345 678' },
+  { code: 'NZ', name: 'Yangi Zelandiya',     dialCode: '+64',  flag: '🇳🇿', length: 9,  placeholder: '21 234 5678' },
+  { code: 'SG', name: 'Singapur',            dialCode: '+65',  flag: '🇸🇬', length: 8,  placeholder: '8123 4567' },
+  { code: 'MY', name: 'Malayziya',           dialCode: '+60',  flag: '🇲🇾', length: 9,  placeholder: '12 345 6789' },
+  { code: 'TH', name: 'Tailand',             dialCode: '+66',  flag: '🇹🇭', length: 9,  placeholder: '81 234 5678' },
+  { code: 'VN', name: 'Vyetnam',             dialCode: '+84',  flag: '🇻🇳', length: 9,  placeholder: '91 234 5678' },
+  { code: 'ID', name: 'Indoneziya',          dialCode: '+62',  flag: '🇮🇩', length: 10, placeholder: '812 3456 789' },
+  { code: 'PH', name: 'Filippin',            dialCode: '+63',  flag: '🇵🇭', length: 10, placeholder: '917 123 4567' },
+  { code: 'BD', name: 'Bangladesh',          dialCode: '+880', flag: '🇧🇩', length: 10, placeholder: '1812 345678' },
+  { code: 'LK', name: 'Shri-Lanka',          dialCode: '+94',  flag: '🇱🇰', length: 9,  placeholder: '71 234 5678' },
+  { code: 'NP', name: 'Nepal',               dialCode: '+977', flag: '🇳🇵', length: 10, placeholder: '984 123 4567' },
+  { code: 'MM', name: 'Myanma',              dialCode: '+95',  flag: '🇲🇲', length: 9,  placeholder: '9 2123 4567' },
+  { code: 'KH', name: 'Kambodja',            dialCode: '+855', flag: '🇰🇭', length: 9,  placeholder: '12 345 678' },
+  { code: 'MN', name: "Mo'g'uliston",        dialCode: '+976', flag: '🇲🇳', length: 8,  placeholder: '8812 3456' },
+];
+
+
+
+
+// ==========================================
+export const MEDICAL_FIELDS_METADATA: Record<string, { uz: string; ru: string; iconName: string }> = {
+  all: { uz: 'Barcha tahlillar', ru: 'Все анализы', iconName: 'Microscope' },
+  packages: { uz: 'Sogʻlomlashtirish paketlari', ru: 'Профилактические пакеты', iconName: 'Sparkles' },
+  biochemistry: { uz: 'Biokimyo tahlillari', ru: 'Биохимические анализы', iconName: 'Activity' },
+  hematology: { uz: 'Gematologiya', ru: 'Гематологические тесты', iconName: 'Activity' },
+  hormones: { uz: 'Gormonlar va Onkomarkerlar', ru: 'Гормоны и Онкомаркеры', iconName: 'Award' },
+  coagulogram: { uz: 'Koagulogramma (Ivish)', ru: 'Коагулограмма (Свертываемость)', iconName: 'Clock' },
+  infections: { uz: 'Infeksiyalar skriningi', ru: 'Скрининг на инфекции', iconName: 'ShieldCheck' },
+  blood_groups: { uz: 'Qon guruhi va Rezus-faktor', ru: 'Группа крови и резус-фактор', iconName: 'Heart' },
+  pcr: { uz: 'Zudlik bilan PZR tahlillari', ru: 'Высокоточные ПЦР исследования', iconName: 'Cpu' },
+  microbiology: { uz: 'Mikrobiologiya va Bakteriologiya', ru: 'Микробиология и Бактериология', iconName: 'Microscope' },
+  allergy: { uz: 'Allergiya va Immunoglobulinlar', ru: 'Аллергологические тесты', iconName: 'Activity' },
+  immunology: { uz: 'Immunologik holat', ru: 'Иммунологический статус', iconName: 'ShieldCheck' },
+  genetics: { uz: 'Genetika va DNK', ru: 'Генетика и ДНК-исследования', iconName: 'Cpu' },
+  urine: { uz: 'Siydik tahlillari', ru: 'Анализы мочи', iconName: 'FileText' },
+  stool: { uz: 'Ahlat tahlillari (Kala)', ru: 'Анализы кала', iconName: 'FileText' },
+  pregnancy: { uz: 'Homiladorlik va HCG', ru: 'Диагностика беременности', iconName: 'Heart' },
+  cardiology: { uz: 'Kardiologik tahlillar (Yurak)', ru: 'Кардиологические маркеры', iconName: 'Activity' },
+  diabetes: { uz: 'Diabet va Glyukoza', ru: 'Диагностика диабета', iconName: 'Activity' },
+  kidney: { uz: 'Buyrak va Siydik yoʻllari', ru: 'Почечные пробы', iconName: 'FileText' },
+  liver: { uz: 'Jigar faoliyati (Pechenochnie)', ru: 'Печеночные пробы', iconName: 'Activity' },
+  lipid_profile: { uz: 'Lipid profili (Xolesterin)', ru: 'Липидный профиль (Холестерин)', iconName: 'Activity' },
+  vitamin: { uz: 'Vitaminlar miqdori (D, B12)', ru: 'Исследования витаминов', iconName: 'Sparkles' },
+  tumor_markers: { uz: 'Oʻsma markerlari (Onkomarkerlar)', ru: 'Онкомаркеры и опухоли', iconName: 'Award' }
+};
+
+export function classifyTest(test: TestItem): string[] {
+  const fields: string[] = [];
+  const nameUz = (test.name?.uz || '').toLowerCase();
+  const nameRu = (test.name?.ru || '').toLowerCase();
+  const descUz = (test.desc?.uz || '').toLowerCase();
+  const descRu = (test.desc?.ru || '').toLowerCase();
+  const text = `${nameUz} ${nameRu} ${descUz} ${descRu}`;
+
+  // Direct categories matching database
+  if (test.category === 'packages') fields.push('packages');
+  if (test.category === 'biochemistry') fields.push('biochemistry');
+  if (test.category === 'hematology') fields.push('hematology');
+  if (test.category === 'hormones') fields.push('hormones');
+  if (test.category === 'coagulogram') fields.push('coagulogram');
+  if (test.category === 'infections') fields.push('infections');
+  if (test.category === 'blood_groups') fields.push('blood_groups');
+
+  // Keyword-based classification matching user requirement list
+  if (text.includes('pcr') || text.includes('пцр') || text.includes('полимераз') || text.includes('polimeraz') || text.includes('пзр')) {
+    fields.push('pcr');
+  }
+  if (text.includes('posev') || text.includes('посев') || text.includes('bakter') || text.includes('bacter') || text.includes('mikrobi') || text.includes('microbi') || text.includes('kultur') || text.includes('bakteriyologik')) {
+    fields.push('microbiology');
+  }
+  if (text.includes('allerg') || text.includes('ige') || text.includes('аллерг') || text.includes('аллерген')) {
+    fields.push('allergy');
+  }
+  if (text.includes('immun') || text.includes('иммун') || text.includes('иммуноблот')) {
+    fields.push('immunology');
+  }
+  if (text.includes('genet') || text.includes('генети') || text.includes('dnk') || text.includes('rnk') || text.includes('dna') || text.includes('rna') || text.includes('nasl') || text.includes('гены')) {
+    fields.push('genetics');
+  }
+  if (text.includes('moch') || text.includes('moche') || text.includes('peshob') || text.includes('nechipo') || text.includes('моч') || text.includes('сийик')) {
+    fields.push('urine');
+  }
+  if (text.includes('kala') || text.includes('axlat') || text.includes(' feces ') || text.includes(' stool ') || text.includes('кал')) {
+    fields.push('stool');
+  }
+  if (text.includes('pregnancy') || text.includes('homilador') || text.includes('hcg') || text.includes('xgch') || text.includes('хгч') || text.includes('estriol') || text.includes('progesteron') || text.includes('хорион')) {
+    fields.push('pregnancy');
+  }
+  if (text.includes('kardio') || text.includes('cardio') || text.includes('yurak') || text.includes('serdce') || text.includes('troponin') || text.includes('pro-bnp') || text.includes('кардио') || text.includes('миоглобин')) {
+    fields.push('cardiology');
+  }
+  if (text.includes('diabet') || text.includes('glyuk') || text.includes('gluc') || text.includes('saxar') || text.includes('shakar') || text.includes('insul') || text.includes('hba1c') || text.includes('диабет') || text.includes('глюкоз')) {
+    fields.push('diabetes');
+  }
+  if (text.includes('pochk') || text.includes('kreatinin') || text.includes('mochevina') || text.includes('kidney') || text.includes('renal') || text.includes('buyrak') || text.includes('cystat') || text.includes('tsistat') || text.includes('почк') || text.includes('креатинин') || text.includes('мочевин')) {
+    fields.push('kidney');
+  }
+  if (text.includes('pechen') || text.includes('alt') || text.includes('ast') || text.includes('bilirubin') || text.includes('jigar') || text.includes('liver') || text.includes('gepat') || text.includes('печен') || text.includes('билирубин')) {
+    fields.push('liver');
+  }
+  if (text.includes('lipid') || text.includes('xolest') || text.includes('cholest') || text.includes('ldl') || text.includes('hdl') || text.includes('triglic') || text.includes('tg') || text.includes('липид') || text.includes('холест') || text.includes('триглицерид')) {
+    fields.push('lipid_profile');
+  }
+  if (text.includes('vitamin') || text.includes('vit ') || text.includes('витамин') || text.includes('каротин') || text.includes('фолат')) {
+    fields.push('vitamin');
+  }
+  if (text.includes('tumor') || text.includes('onko') || text.includes('psa') || text.includes('ca-') || text.includes('ca 1') || text.includes('ca 2') || text.includes('ca 5') || text.includes('carcino') || text.includes('cancer') || text.includes('rak') || text.includes('онко') || text.includes('пса') || text.includes('альфа-фетопротеин')) {
+    fields.push('tumor_markers');
+  }
+
+  // Fallback to avoid empty
+  if (fields.length === 0) {
+    fields.push('biochemistry');
+  }
+
+  return fields;
+}
+
+const KaniLabLogo = ({ className = "w-10 h-10" }: { className?: string }) => {
+  return (
+    <img 
+      src={kaniLabLogoImg} 
+      alt="KaniLab Logo" 
+      className={`${className} object-contain rounded-lg`}
+      referrerPolicy="no-referrer"
+    />
+  );
+};
+
+// ==========================================
+// GALLERY DATA
+// ==========================================
+const GALLERY_PHOTOS = [
+  {
+    id: 'lab1',
+    title: { uz: 'Roche cobas® 8000 tizimi', ru: 'Система Roche cobas® 8000' },
+    desc: { uz: 'Toʻliq avtomatlashtirilgan bioximiya va immunoximiya liniyasi.', ru: 'Швейцарский роботизированный экспресс-анализатор.' },
+    tag: 'Biochemistry'
+  },
+  {
+    id: 'lab2',
+    title: { uz: 'Sysmex XN-3100 gematologiya', ru: 'Гематологическая линия Sysmex XN-3100' },
+    desc: { uz: 'Yaponiya texnologiyasi asosida qon hujayralarining 3D tahlili.', ru: 'Японская станция цифрового анализа клеток крови с ИИ-валидацией.' },
+    tag: 'Hematology'
+  },
+  {
+    id: 'lab3',
+    title: { uz: 'Molekulyar PSR Boks', ru: 'Стерильный бокс ПЦР-диагностики' },
+    desc: { uz: 'RNK/DNK tahlillari uchun ISO 5 toifadagi toza laminar xona.', ru: 'Абсолютная стерильность по международным стандартам чистоты ISO.' },
+    tag: 'Molecular'
+  }
+];
+
+// ==========================================
+// TRANSLATION DICTIONARY
+// ==========================================
+
+const TRANSLATIONS = {
+  uz: {
+    navHome: 'Bosh sahifa',
+    navAbout: 'Laboratoriya haqida',
+    navAboutUs: 'Biz haqimizda',
+    navAboutHistory: 'Bizning tariximiz',
+    navAboutValues: 'Bizning qadriyatlarimiz',
+    navAboutMission: 'Bizning maqsad va vazifalarimiz',
+    navServices: 'Tahlillar',
+    navTeam: 'Jamoamiz',
+    deptManagement: 'Rahbariyat',
+    deptLab: 'Laboratoriya va Diagnostika',
+    deptFinance: 'Buxgalteriya va Moliya',
+    deptService: 'Servis va Qo‘llab-quvvatlash',
+    deptAdmin: 'Ma’muriy bo‘limlar',
+    navFAQ: 'Savol-javoblar',
+    navContact: 'Kontaktlar',
+    navBranches: 'Filiallar',
+    navContactMain: 'Markaz bilan aloqa',
+    btnBook: 'Navbat olish',
+    btnAnalyses: 'Tahlillar katalogi',
+    btnContactUs: 'Biz bilan bogʻlanish',
+    badgeGen: 'Xalqaro hamkorlik & sifat',
+    heroHeadline: 'O‘zbekiston, Turkiya va Niderlandiya tajribasi',
+    heroSub: '2019-yildan buyon xalqaro hamkorlik va ilg‘or robotlashtirilgan diagnostika tizimlari orqali salomatligingiz xizmatida.',
+    statPatients: 'Muvaffaqiyatli diagnostika',
+    statTests: 'Tahlillar turi',
+    statAccuracy: 'Aniqlik darajasi',
+    statExperience: 'Yillik tajriba',
+    pcrResult: 'Tezkor PSR Tahlili',
+    negative: 'MANFIY',
+    confirmed: 'Tasdiqlandi 14:45',
+    dnaReport: 'DNK Hisoboti',
+    ready: 'Koʻrib chiqishga tayyor',
+    aboutTitle: 'KANI-LAB Haqida',
+    aboutSub: 'Xalqaro standartlar darajasidagi tibbiy ekspertiza',
+    aboutText1: 'KANILAB - Surxondaryo viloyatidagi eng ilgʻor sinov standartlarini zamonaviy diagnostika tizimlari bilan birlashtirgan premium klinik laboratoriyadir. Bizning Termiz shahridagi bosh laboratoriyamiz jahon yetakchilari - Roche, Sysmex va Abbott kabi eng soʻnggi robotlashtirilgan analizatorlar bilan jihozlangan.',
+    aboutText2: 'Biz ISO 15189 xalqaro standartlariga muvofiq ishlaymiz va Surxondaryo viloyatining barcha tumanlarida oʻz filiallarimizga egamiz hamda Termiz shahridagi yetakchi shifoxonalar bilan faol hamkorlik qilamiz. Har bir namuna mutlaqo xavfsiz, barkodlangan va ikki bosqichli shifokorlar nazorati ostida tekshiriladi.',
+    tech1: 'Avtomatlashtirilgan tahlillar',
+    tech2: 'Robotlashtirilgan barkod tracking',
+    tech3: 'Toʻliq steril va ogʻriqsiz namuna olish',
+    tech4: 'ISO 15189 xalqaro sertifikati',
+    serviceTitle: 'Diagnostika Dasturlari',
+    serviceSub: 'Sizning salomatligingiz uchun premium laboratoriya tahlillari toʻplami',
+    searchPlaceholder: 'Tahlillarni izlash (masalan, qon, gormon, PSR...)',
+    categoryAll: 'Barchasi',
+    categoryPackages: 'Diagnostik paketlar',
+    categoryHematology: 'Gematologiya',
+    categoryBiochem: 'Biokimyo',
+    categoryHormones: 'Gormonlar va onkomarkerlar',
+    categoryInfections: 'Infeksion tadqiqotlar',
+    categoryCoagulogram: 'Koagulogramma',
+    categoryBloodGroups: 'Qon guruhi',
+    categoryAllergy: 'Allergiya panellari',
+    categoryPcr: 'Molekulyar Genetik (PSR)',
+    categoryUrine: 'Siydik tahlillari',
+    categoryBacteriology: 'Bakteriologik tadqiqotlar',
+    categoryGeneralClinical: 'Umumklinik tahlillar',
+    fastingRequired: 'Och qoringa topshiriladi',
+    fastingNoNeeded: 'Parhez talab qilinmaydi',
+    resultsIn: 'Natija muddati',
+    price: 'Narxi',
+    addToCart: 'Tanlash',
+    selected: 'Tanlandi',
+    cartTotal: 'Jami tanlangan tahlillar',
+    cartEmpty: 'Hech qanday tahlil tanlanmagan. Roʻyxatdan kerakli tahlillarni tanlang.',
+    btnProceedBooking: 'Shaxsiy navbatni band qilish',
+    aiAssistantTitle: 'Aqlli Diagnostika Maslahatchisi',
+    aiAssistantSub: 'Klinik belgilar (simptomlar) bo‘yicha tahlillarni tavsiya qilish',
+    aiWelcome: 'Salom! Men KANILAB diagnostika maslahatchisiman. Oʻzingizda kuzatilayotgan asosiy belgilarni (simptomlarni) tanlang va bizning robotlashtirilgan tizimimiz sizga eng muhim tahlillar roʻyxatini shakllantirib beradi:',
+    symptomFatigue: 'Doimiy charchoq va holsizlik',
+    symptomAllergy: 'Mavsumiy allergiya va toshmalar',
+    symptomBiohack: 'Fitnes va bioxaking (Sogʻliq monitoringi)',
+    symptomCheckup: 'Yillik umumiy profilaktik koʻrik',
+    aiReplyFatigue: 'Doimiy charchoq va quvvatsizlik koʻpincha Vitamin D/B12 tanqisligi, qalqonsimon bez muammolari (TSH) yoki yashirin anemiya bilan bogʻliq boʻladi. Quyidagi tahlillarni topshirishni tavsiya qilaman:',
+    aiReplyAllergy: 'Mavsumiy burun bitishi, toshmalar va koʻz yoshlanishi uchun allergik reaksiyani qoʻzgʻatuvchi antigenlarni aniqlash zarur. Sizga quyidagi panel mos keladi:',
+    aiReplyBiohack: 'Sizning jismoniy chidamliligingiz, gormonal balansingiz va umumiy metabolizmingizni optimallashtirish uchun quyidagi premium tahlillar majmuasi tavsiya etiladi:',
+    aiReplyCheckup: 'Sogʻlom hayot kechirish va kasalliklarni erta aniqlash uchun yiliga bir marta quyidagi tahlillardan oʻtish tibbiyot dunyosida oltin standart hisoblanadi:',
+    addSuggested: 'Tavsiya qilingan tahlillarni tanlash',
+    processTitle: 'Tahlil Topshirish Jarayoni',
+    processSub: 'Bizda har bir qadam raqamlashtirilgan va xavfsiz',
+    step1Title: 'Raqamli roʻyxatdan oʻtish',
+    step1Desc: 'Saytimizda yoki Telegram-bot orqali navbatingizni va tahlillarni oldindan belgilang.',
+    step2Title: 'Steril va ogʻriqsiz namuna',
+    step2Desc: 'Premium tibbiy kabinetimizda bir martalik vakuum tizimlar yordamida tezkor namuna olish.',
+    step3Title: 'Avtomatlashtirilgan tahlil',
+    step3Desc: 'Namuna robotlashtirilgan transport tizimi orqali analizatorga yuboriladi, xatolik ehtimoli 0%.',
+    step4Title: 'Raqamli hisobot',
+    step4Desc: 'Natijalar tayyor boʻlishi bilan SMS va Telegram orqali shifrlangan PDF hisobot yuboriladi.',
+    docTitle: 'Bizning Jamoamiz',
+    docSub: 'Kani-Lab professional jamoasi',
+    galleryTitle: 'Bizning Ilmiy Laboratoriyamiz',
+    gallerySub: 'Xalqaro ISO standartlariga mos keluvchi robotlashgan klinikamizdan fotolavhalar',
+    faqTitle: 'Koʻp beriladigan savollar',
+    faqSub: 'Tahlillar va KANILAB xizmatlariga doir barcha maʼlumotlar',
+    contactTitle: 'Sizni Premium Markazimizda kutamiz',
+    contactSub: 'Biz bilan bogʻlaning yoki Termiz shahridagi bosh laboratoriyamizga tashrif buyuring',
+    contactFormTitle: 'Savollaringiz bormi? Shifokor bilan bogʻlaning',
+    formName: 'Toʻliq ismingiz',
+    formPhone: 'Telefon raqamingiz',
+    formMsg: 'Xabar yoki klinik belgilaringiz',
+    formSubmit: 'Soʻrov yuborish',
+    formSuccess: 'Sizning arizangiz muvaffaqiyatli qabul qilindi. 15 daqiqa ichida tibbiy maslahatchimiz siz bilan bogʻlanadi.',
+    address: 'Surxondaryo viloyati, Termiz sh., Alisher Navoiy koʻchasi, 26A-uy (Moʻljal: Eski Koʻz Kasalxonasi binosi ichida)',
+    workingHours: 'Dush - Shanba: 08:00 - 17:00 | Yakshanba: Yopilgan',
+    footerCopyright: '© 2026 KANILAB CLINICAL CORP. BARCHA HUQUQLAR HIMOYA QILINGAN.',
+    modalTitle: 'Raqamli Navbat Band Qilish',
+    modalStep1: 'Tahlillar',
+    modalStep2: 'Maʼlumotlar',
+    modalStep3: 'Sana va Vaqt',
+    modalStep4: 'Chipta',
+    selectedTestsLabel: 'Tanlangan tahlillar roʻyxati',
+    noTestsSelectedModal: 'Siz hali tahlil tanlamadingiz. Quyidagi tahlillarni chiptangizga qoʻshishingiz mumkin:',
+    inputName: 'Ism va Familiyangiz (Pasport boʻyicha)',
+    inputEmail: 'Elektron pochta manzilingiz (PDF natijalar uchun)',
+    selectBranch: 'Klinika filialini tanlang',
+    branch1: 'Termiz Markaziy Laboratoriyasi (Alisher Navoiy koʻchasi)',
+    branch2: 'Denov tumani filiali (Sharaf Rashidov koʻchasi)',
+    branch3: 'Sherobod tumani filiali (Ipak Yoʻli koʻchasi)',
+    selectDate: 'Tashrif sanasini tanlang',
+    selectTime: 'Qulay vaqt oraligʻini tanlang',
+    btnBack: 'Orqaga',
+    btnNext: 'Keyingisi',
+    btnConfirm: 'Navbatni tasdiqlash',
+    bookingProcessing: 'Sizga raqamli chipta tayyorlanmoqda. Diagnostika bazasi yangilanmoqda...',
+    ticketTitle: 'ELEKTRON KLINIK PASSPORT',
+    ticketSub: 'KANILAB Premium Diagnostics',
+    ticketID: 'Chipta raqami',
+    patient: 'Bemor',
+    date: 'Tashrif sanasi',
+    time: 'Vaqt',
+    location: 'Filial',
+    preparation: 'Tahlil topshirishga tayyorgarlik',
+    prepText: 'Iltimos, tahlil topshirishdan 8-12 soat oldin ovqatlanmang. Faqat toza gazsiz suv ichish mumkin. Oʻzingiz bilan shaxsingizni tasdiqlovchi hujjatni oling.',
+    btnPrint: 'Chiptani saqlash / Chop etish',
+    btnDone: 'Yopish',
+    viewAll: 'Barcha tahlillar',
+    reviewsTitle: 'Mijozlarimiz fikrlari',
+    rating: 'Baho',
+    reviews: [
+      {
+        name: 'Dilnoza Umarova',
+        role: 'Bemor',
+        review: 'Kani-Lab dagi xizmat juda ham aʼlo darajada! Navbatlarsiz, hamma narsa elektron va tezkor. Tahlil natijalari 4 soatda Telegram orqali keldi. Juda qulay va zamonaviy.'
+      },
+      {
+        name: 'Sardor Rahimov',
+        role: 'Doimiy mijoz',
+        review: 'Klinikada tozalik va xavfsizlik yuqori darajada. Hamshiralar qoʻli juda yengil ekan, namuna olishda mutlaqo ogʻriq sezmadim. Professional jamoaga rahmat.'
+      },
+      {
+        name: 'Malika Karimova',
+        role: 'Bemor',
+        review: 'Semptomlar bo‘yicha tahlil tanlash xizmatidan foydalandim. Hammasi juda oson, aniq va tushunarli boʻldi. Har bir bemorga premium yondashuv sezilib turadi.'
+      }
+    ],
+    items: [
+      {
+        q: '1. Tahlil natijalarini qanday va qayerdan olsam bo‘ladi?',
+        a: 'Natijalaringiz tayyor bo‘lishi bilan sizga Telegram botimiz orqali avtomatik xabar keladi. Natijalarni ushbu bot orqali yoki laboratoriyamizga tashrif buyurib, qog‘oz shaklida olishingiz mumkin.'
+      },
+      {
+        q: '2. Tahlil topshirishdan oldin nimalarga e’tibor berish kerak?',
+        a: 'Aniq natijalar uchun tahlil turiga qarab (ayniqsa, biokimyoviy tahlillar) och qoringa kelish tavsiya etiladi. Shifokorimiz sizga ro‘yxatdan o‘tish jarayonida tahlil turi bo‘yicha aniq tayyorgarlik ko‘rsatmalarini beradi.'
+      },
+      {
+        q: '3. KANILAB ma’lumotlar maxfiyligini qanday ta’minlaydi?',
+        a: 'Barcha mijozlar ma’lumotlari va tahlil natijalari shifrlangan tizimda saqlanadi. Biz xalqaro ISO 15189 standartlariga rioya qilamiz, bu esa ma’lumotlar xavfsizligi va maxfiyligini to‘liq kafolatlaydi.'
+      },
+      {
+        q: '4. Nega sizning laboratoriyangizni tanlashim kerak?',
+        a: 'Biz "College of American Pathologists" (CAP) xalqaro tashkilotining sifat nazorati dasturlarida ishtirok etamiz va dunyodagi eng ilg‘or Roche, Sysmex va Abbott laboratoriya tizimlaridan foydalanamiz. Bizning har bir namuna ikki bosqichli shifokorlar nazorati ostida tekshiriladi.'
+      },
+      {
+        q: '5. Laboratoriyangizda qaysi turdagi tahlillarni topshirish mumkin?',
+        a: 'Biz biokimyoviy, immunologik, gormonal, mikrobiologik va PCR tahlillarining keng spektrini taklif etamiz. Xizmatlarimiz haqica batafsil ma’lumotni saytimizning "Xizmatlar" (Services) bo‘limidan topishingiz mumkin.'
+      },
+      {
+        q: '6. Tahlil natijalari tezligi qanday?',
+        a: 'Biz tezkorlikka katta e’tibor qaratamiz: biokimyoviy tahlillar 2 soatgacha, gormonal va immunologik tahlillar esa 4 soatgacha muddatda tayyor bo‘ladi. Murakkabroq tahlillar (PCR yoki mikrobiologik) uchun aniq muddatlar tahlil turiga qarab 3 kundan 10 kungacha davom etishi mumkin.'
+      }
+    ]
+  },
+  ru: {
+    navHome: 'Главная',
+    navAbout: 'О лаборатории',
+    navAboutUs: 'О нас',
+    navAboutHistory: 'Наша история',
+    navAboutValues: 'Наши ценности',
+    navAboutMission: 'Наши цели и задачи',
+    navServices: 'Анализы',
+    navTeam: 'Наша команда',
+    deptManagement: 'Руководство',
+    deptLab: 'Лаборатория и диагностика',
+    deptFinance: 'Бухгалтерия и финансы',
+    deptService: 'Сервис и поддержка',
+    deptAdmin: 'Административные отделы',
+    navFAQ: 'Вопросы',
+    navContact: 'Контакты',
+    navBranches: 'Филиалы',
+    navContactMain: 'Связьс центром',
+    btnBook: 'Запись на прием',
+    btnAnalyses: 'Каталог анализов',
+    btnContactUs: 'Связаться с нами',
+    badgeGen: 'Международное партнерство & качество',
+    heroHeadline: 'Опыт Узбекистана, Турции и Нидерландов',
+    heroSub: 'На службе вашего здоровья с 2019 года благодаря международному сотрудничеству и передовым роботизированным системам диагностики.',
+    statPatients: 'Успешных диагностик',
+    statTests: 'Видов тестов',
+    statAccuracy: 'Точность результатов',
+    statExperience: 'Лет опыта',
+    pcrResult: 'Срочный ПЦР Тест',
+    negative: 'ОТРИЦАТЕЛЬНЫЙ',
+    confirmed: 'Подтверждено 14:45',
+    dnaReport: 'ДНК Отчет',
+    ready: 'Готов к просмотру',
+    aboutTitle: 'О KANI-LAB',
+    aboutSub: 'Медицинская экспертиза мирового уровня',
+    aboutText1: 'KANILAB — инновационная клинико-диагностическая лаборатория премиум-класса в Сурхандарьинской области. Наш главный центр в городе Термезе оснащен лучшими роботизированными комплексами от Roche, Sysmex и Abbott.',
+    aboutText2: 'Мы работаем по стандартам ISO 15189 и имеем филиалы во всех районах Сурхандарьинской области, а также активно сотрудничаем с больницами города Термеза. Каждая пробирка снабжается уникальным штрих-кодом, исключающим человеческий фактор на всех этапах анализа.',
+    tech1: 'Автоматизированная диагностика',
+    tech2: 'Роботизированный трекинг проб',
+    tech3: 'Безболезненный вакуумный забор',
+    tech4: 'Сертификация ISO 15189',
+    serviceTitle: 'Программы Диагностики',
+    serviceSub: 'Полный спектр высокоточных лабораторных исследований для вашего здоровья',
+    searchPlaceholder: 'Поиск исследований (например, кровь, гормоны, ПЦР, витамин...)',
+    categoryAll: 'Все анализы',
+    categoryPackages: 'Диагностические пакеты',
+    categoryHematology: 'Гематология',
+    categoryBiochem: 'Биохимия',
+    categoryHormones: 'Гормоны и онкомаркеры',
+    categoryInfections: 'Инфекционные исследования',
+    categoryCoagulogram: 'Коагулограмма',
+    categoryBloodGroups: 'Группа крови',
+    categoryAllergy: 'Аллергопанели',
+    categoryPcr: 'Полимеразная цепная реакция (ПЦР)',
+    categoryUrine: 'Анализ мочи',
+    categoryBacteriology: 'Бактериологические исследования',
+    categoryGeneralClinical: 'Общеклинические исследования',
+    fastingRequired: 'Строго натощак',
+    fastingNoNeeded: 'Без специальной диеты',
+    resultsIn: 'Срок выполнения',
+    price: 'Стоимость',
+    addToCart: 'Выбрать',
+    selected: 'Выбрано',
+    cartTotal: 'Выбранные исследования',
+    cartEmpty: 'Вы пока не выбрали ни одного анализа. Воспользуйтесь списком выше.',
+    btnProceedBooking: 'Оформить цифровую запись',
+    aiAssistantTitle: 'Умный помощник по симптомам',
+    aiAssistantSub: 'Рекомендации по выбору анализов на основе ваших клинических симптомов',
+    aiWelcome: 'Здравствуйте! Я автоматизированный консультант KANILAB. Выберите симптомы, которые вас беспокоят, и наша система мгновенно сформирует для вас оптимальную программу исследований:',
+    symptomFatigue: 'Постоянная усталость и упадок сил',
+    symptomAllergy: 'Сезонная аллергия и кожные высыпания',
+    symptomBiohack: 'Фитнес-мониторинг и биохакинг',
+    symptomCheckup: 'Ежегодный общий чек-ап организма',
+    aiReplyFatigue: 'Хроническая усталость часто связана с дефицитом Витамина D и B12, дисфункцией щитовидной железы (ТТГ) или скрытой анемией. Рекомендую сдать следующий комплекс:',
+    aiReplyAllergy: 'Для определения причин сезонного насморка, зуда и слезотечения важно количественно измерить специфические иммуноглобулины. Подходящий профиль:',
+    aiReplyBiohack: 'Для оптимизации тренировочного процесса, оценки гормонального баланса и метаболического статуса рекомендуем следующий премиум-комплекс:',
+    aiReplyCheckup: 'Базовый контроль состояния здоровья включает основные маркеры крови, метаболизма и воспалительных процессов. Это золотой стандарт профилактики:',
+    addSuggested: 'Добавить рекомендованные анализы в чек',
+    processTitle: 'Как мы работаем',
+    processSub: 'Каждый этап полностью автоматизирован для вашей безопасности',
+    step1Title: 'Цифровая регистрация',
+    step1Desc: 'Забронируйте удобное время на сайте или через Telegram-бот без очередей.',
+    step2Title: 'Премиальный забор крови',
+    step2Desc: 'Забор биоматериала одноразовыми вакуумными системами в комфортных боксах.',
+    step3Title: 'Автоматизированный анализ',
+    step3Desc: 'Штрих-кодированные пробирки передаются роботам-анализаторам. Исключены любые ошибки.',
+    step4Title: 'Электронный паспорт здоровья',
+    step4Desc: 'Получите защищенный PDF-отчет с подробной расшифровкой на Telegram, почту или SMS.',
+    docTitle: 'Научный Совет Лаборатории',
+    docSub: 'Наши эксперты с европейским образованием, контролирующие точность исследований',
+    galleryTitle: 'Технологическое превосходство',
+    gallerySub: 'Взгляд изнутри на стерильные роботизированные лаборатории KANILAB',
+    faqTitle: 'Часто задаваемые вопросы',
+    faqSub: 'Всё, что вам нужно знать перед сдачей лабораторных тестов',
+    contactTitle: 'Премиальный сервис ждет вас',
+    contactSub: 'Свяжитесь с нами или посетите нашу центральную лабораторию в Термезе',
+    contactFormTitle: 'Остались вопросы? Проконсультируйтесь с нами',
+    formName: 'Ваше имя и фамилия',
+    formPhone: 'Номер телефона',
+    formMsg: 'Клинические жалобы или вопросы',
+    formSubmit: 'Отправить запрос',
+    formSuccess: 'Ваша заявка успешно отправлена! Наш медицинский координатор свяжется с вами в течение 15 минут.',
+    address: 'Сурхандарьинская область, г. Термез, ул. Алишера Навои, д. 26А (Ориентир: внутри здания бывшей Глазной больницы / Eski Ko\'z Kasalxonasi)',
+    workingHours: 'Пн - Сб: 08:00 - 17:00 | Вс: Закрыто',
+    footerCopyright: '© 2026 KANILAB CLINICAL CORP. ВСЕ ПРАВА ЗАЩИЩЕНЫ.',
+    modalTitle: 'Электронная Запись на Анализы',
+    modalStep1: 'Анализы',
+    modalStep2: 'Данные',
+    modalStep3: 'Дата и Время',
+    modalStep4: 'Билет',
+    selectedTestsLabel: 'Список выбранных тестов',
+    noTestsSelectedModal: 'Вы пока не выбрали анализы. Вы можете добавить подходящие ниже:',
+    inputName: 'Имя и фамилия пациента (по паспорту)',
+    inputEmail: 'Ваш E-mail (для отправки PDF результатов)',
+    selectBranch: 'Выберите медицинский филиал',
+    branch1: 'Термезская Центральная Лаборатория (ул. Алишера Навои)',
+    branch2: 'Филиал в Денауском районе (ул. Шарафа Рашидова)',
+    branch3: 'Филиал в Шерабадском районе (ул. Ипак Йули)',
+    selectDate: 'Выберите дату визита',
+    selectTime: 'Выберите удобный временной слот',
+    btnBack: 'Назад',
+    btnNext: 'Далее',
+    btnConfirm: 'Подтвердить запись',
+    bookingProcessing: 'Генерируется ваш цифровой медицинский паспорт. Пожалуйста, подождите...',
+    ticketTitle: 'ЦИФРОВОЙ МЕДИЦИНСКИЙ ПАСПОРТ',
+    ticketSub: 'Премиальная Диагностика KANILAB',
+    ticketID: 'ID Записи',
+    patient: 'Пациент',
+    date: 'Дата визита',
+    time: 'Время',
+    location: 'Филиал',
+    preparation: 'Подготовка к исследованию',
+    prepText: 'Пожалуйста, не принимайте пищу за 8-12 часов до забора крови. Разрешается пить чистую негазированную воду. Возьмите с собой удостоверение личности.',
+    btnPrint: 'Сохранить / Распечатать билет',
+    btnDone: 'Закрыть',
+    viewAll: 'Все анализы',
+    reviewsTitle: 'Отзывы наших пациентов',
+    rating: 'Оценка',
+    reviews: [
+      {
+        name: 'Дильноза Умарова',
+        role: 'Пациент',
+        review: 'Обслуживание в Kani-Lab на высшем уровне! Всё автоматизировано, без очередей. Результаты анализов пришли в Telegram уже через 4 часа. Очень удобно и современно.'
+      },
+      {
+        name: 'Сардор Рахимов',
+        role: 'Постоянный клиент',
+        review: 'Чистота и стерильность в клинике поражают. У медсестер очень легкая рука, забор крови прошел абсолютно безболезненно. Спасибо за такой профессионализм!'
+      },
+      {
+        name: 'Малика Каримова',
+        role: 'Пациент',
+        review: 'Воспользовалась автоматизированным подбором анализов по симптомам. Всё предельно ясно и структурировано. Чувствуется действительно премиальный подход.'
+      }
+    ],
+    items: [
+      {
+        q: '1. Как и где я могу получить результаты анализов?',
+        a: 'Как только ваши результаты будут готовы, вы автоматически получите уведомление через наш Telegram-бот. Результаты можно скачать через бот либо получить в бумажном виде, посетив нашу лабораторию.'
+      },
+      {
+        q: '2. На что обратить внимание перед сдачей анализов?',
+        a: 'Для точных результатов рекомендуется приходить натощак в зависимости от вида анализа (особенно для биохимических тестов). Наш врач предоставит вам точные инструкции по подготовке при регистрации.'
+      },
+      {
+        q: '3. Как KANILAB обеспечивает конфиденциальность данных?',
+        a: 'Все данные клиентов и результаты анализов хранятся в зашифрованной системе. Мы строго соблюдаем международные стандарты ISO 15189, что гарантирует полную безопасность и конфиденциальность ваших данных.'
+      },
+      {
+        q: '4. Почему я должен выбрать вашу лабораторию?',
+        a: 'Мы участвуем в международных программах контроля качества College of American Pathologists (CAP) и используем передовые лабораторные системы Roche, Sysmex и Abbott. Каждый образец проходит двухэтапный контроль врачей-экспертов.'
+      },
+      {
+        q: '5. Какие виды анализов можно сдать в вашей лаборатории?',
+        a: 'Мы предлагаем широкий спектр биохимических, иммунологических, гормональных, микробиологических и ПЦР-исследований. Подробную информацию об услугах можно найти в разделе «Анализы» на нашем сайте.'
+      },
+      {
+        q: '6. Какова скорость готовности результатов?',
+        a: 'Мы уделяем приоритетное внимание скорости: биохимические анализы готовы в течение 2 часов, гормональные и иммунологические — до 4 часов. Для более сложных тестов (ПЦР или микробиологические) сроки могут составлять от 3 до 10 дней в зависимости от вида анализа.'
+      }
+    ]
+  },
+  tr: {
+    navHome: 'Ana Sayfa',
+    navAbout: 'Laboratuvar Hakkında',
+    navAboutUs: 'Hakkımızda',
+    navAboutHistory: 'Tarihimiz',
+    navAboutValues: 'Değerlerimiz',
+    navAboutMission: 'Amaç ve Misyonumuz',
+    navServices: 'Analizler',
+    navTeam: 'Ekibimiz',
+    deptManagement: 'Yönetim',
+    deptLab: 'Laboratuvar ve Teşhis',
+    deptFinance: 'Muhasebe ve Finans',
+    deptService: 'Hizmet ve Destek',
+    deptAdmin: 'İdari Bölümler',
+    navFAQ: 'Sıkça Sorulan Sorular',
+    navContact: 'İletişim',
+    navBranches: 'Şubeler',
+    navContactMain: 'Merkezle İletişim',
+    btnBook: 'Sıra Al',
+    btnAnalyses: 'Analiz Kataloğu',
+    btnContactUs: 'Bize Ulaşın',
+    badgeGen: 'Uluslararası İşbirliği ve Kalite',
+    heroHeadline: 'Özbekistan, Türkiye ve Hollanda Deneyimi',
+    heroSub: "2019'dan beri uluslararası işbirliği ve gelişmiş robotik tanı sistemleri ile sağlığınızın hizmetindeyiz.",
+    statPatients: 'Başarılı Tanı',
+    statTests: 'Analiz Türleri',
+    statAccuracy: 'Doğruluk Oranı',
+    statExperience: 'Yıllık Deneyim',
+    pcrResult: 'Hızlı PCR Testi',
+    negative: 'NEGATİF',
+    confirmed: 'Onaylandı 14:45',
+    dnaReport: 'DNA Raporu',
+    ready: 'İncelemeye Hazır',
+    aboutTitle: 'KANI-LAB Hakkında',
+    aboutSub: 'Uluslararası standartlarda tıbbi uzmanlık',
+    aboutText1: "KANILAB, Surhanderya bölgesindeki en ileri test standartlarını modern tanı sistemleriyle birleştiren premium bir klinik laboratuvardır. Tirmiz'deki merkez laboratuvarımız, Roche, Sysmex ve Abbott gibi dünya liderlerinin en son robotik analizörleri ile donatılmıştır.",
+    aboutText2: "Uluslararası ISO 15189 standartlarına uygun olarak çalışıyoruz. Surhanderya bölgesinin tüm ilçelerinde şubelerimiz bulunmakta olup Tirmiz'deki önde gelen hastanelerle aktif olarak işbirliği yapmaktayız. Her numune tamamen güvenlidir, barkodlanır ve iki aşamalı doktor kontrolü altında incelenir.",
+    tech1: 'Otomatik analizler',
+    tech2: 'Robotik barkod takibi',
+    tech3: 'Tamamen steril ve ağrısız örnek alımı',
+    tech4: 'ISO 15189 uluslararası sertifikası',
+    serviceTitle: 'Tanı Programları',
+    serviceSub: 'Sağlığınız için premium laboratuvar analizleri seti',
+    searchPlaceholder: 'Analiz ara (ör. kan, hormon, PCR...)',
+    categoryAll: 'Tümü',
+    categoryPackages: 'Tanı paketleri',
+    categoryHematology: 'Hematoloji',
+    categoryBiochem: 'Biyokimya',
+    categoryHormones: 'Hormonlar ve Tümör Belirteçleri',
+    categoryInfections: 'Enfeksiyon araştırmaları',
+    categoryCoagulogram: 'Koagülogram',
+    categoryBloodGroups: 'Kan grubu',
+    categoryAllergy: 'Alerji panelleri',
+    categoryPcr: 'Polimeraz Zincir Reaksiyonu (PCR)',
+    categoryUrine: 'İdrar analizi',
+    categoryBacteriology: 'Bakteriyolojik araştırmalar',
+    categoryGeneralClinical: 'Genel klinik araştırmalar',
+    fastingRequired: 'Aç karnına verilir',
+    fastingNoNeeded: 'Diyet gerektirmez',
+    resultsIn: 'Sonuç süresi',
+    price: 'Fiyatı',
+    addToCart: 'Seç',
+    selected: 'Seçildi',
+    cartTotal: 'Toplam seçilen analiz',
+    cartEmpty: 'Hiçbir analiz seçilmedi. Listeden gerekli analizleri seçin.',
+    btnProceedBooking: 'Kişisel sıra al',
+    aiAssistantTitle: 'Akıllı Tanı Danışmanı',
+    aiAssistantSub: 'Klinik belirtilere (semptomlara) göre analiz önerme',
+    aiWelcome: 'Merhaba! Ben KANILAB tanı danışmanıyım. Kendinizde gözlemlediğiniz ana belirtileri (semptomları) seçin, robotik sistemimiz size en önemli analizlerin bir listesini oluştursun:',
+    symptomFatigue: 'Sürekli yorgunluk ve halsizlik',
+    symptomAllergy: 'Mevsimsel alerjiler ve döküntüler',
+    symptomBiohack: 'Fitness ve biohack (Sağlık izleme)',
+    symptomCheckup: 'Yıllık genel önleyici muayene',
+    aiReplyFatigue: 'Sürekli yorgunluk ve halsizlik genellikle D/B12 Vitamini eksikliği, tiroid bezi sorunları (TSH) veya gizli anemi ile ilişkilidir. Aşağıdaki analizleri yaptırmanızı tavsiye ederim:',
+    aiReplyAllergy: 'Mevsimsel burun tıkanıklığı, döküntüler ve göz sulanması için alerjik reaksiyonu tetikleyen antijenlerin belirlenmesi gerekir. Sizin için uygun panel aşağıdadır:',
+    aiReplyBiohack: 'Fiziksel dayanıklılığınızı, hormonal dengenizi ve genel metabolizmanızı optimize etmek için aşağıdaki premium analiz kompleksi tavsiye edilir:',
+    aiReplyCheckup: 'Sağlıklı bir yaşam sürmek ve hastalıkları erken tespit etmek için yılda bir kez aşağıdaki analizleri yaptırmak tıp dünyasında altın standarttır:',
+    addSuggested: 'Önerilen analizleri seç',
+    processTitle: 'Analiz Verme Süreci',
+    processSub: 'Bizde her adım dijitalleşmiş ve güvenlidir',
+    step1Title: 'Dijital kayıt',
+    step1Desc: 'Sitemizde veya Telegram botumuz aracılığıyla sıranızı ve analizlerinizi önceden belirleyin.',
+    step2Title: 'Steril ve ağrısız örneklem',
+    step2Desc: 'Premium tıbbi ofisimizde tek kullanımlık vakum sistemleri kullanılarak hızlı örnek alımı.',
+    step3Title: 'Otomatik analiz',
+    step3Desc: "Örnek, robotik taşıma sistemi ile analizöre gönderilir, hata olasılığı %0'dır.",
+    step4Title: 'Dijital rapor',
+    step4Desc: 'Sonuçlar hazır olur olmaz SMS ve Telegram aracılığıyla şifreli PDF raporu gönderilir.',
+    docTitle: 'Ekibimiz',
+    docSub: 'Kani-Lab Profesyonel Kadrosu',
+    galleryTitle: 'Bilimsel Laboratuvarımız',
+    gallerySub: 'Uluslararası ISO standartlarına uygun robotik kliniğimizden fotoğraflar',
+    faqTitle: 'Sıkça Sorulan Sorular',
+    faqSub: 'Analizler ve KANILAB hizmetleri hakkında tüm bilgiler',
+    contactTitle: 'Sizi Premium Merkezimizde bekliyoruz',
+    contactSub: "Bizimle iletişime geçin veya Tirmiz'deki ana laboratuvarımızı ziyaret edin",
+    contactFormTitle: 'Sorularınız mı var? Bir doktorla iletişime geçin',
+    formName: 'Tam adınız',
+    formPhone: 'Telefon numaranız',
+    formMsg: 'Mesajınız veya klinik belirtileriniz',
+    formSubmit: 'Talep Gönder',
+    formSuccess: 'Talebiniz başarıyla kabul edildi. Tıbbi danışmanımız 15 dakika içinde sizinle iletişime geçecektir.',
+    address: 'Surhanderya Bölgesi, Tirmiz şehri, Alisher Navoi Caddesi, 26A (Yer imi: Eski Göz Hastanesi binası içi)',
+    workingHours: 'Pzt - Cmt: 08:00 - 17:00 | Pazar: Kapalı',
+    footerCopyright: '© 2026 KANILAB CLINICAL CORP. TÜM HAKLARI SAKLIDIR.',
+    modalTitle: 'Dijital Sıra Rezervasyonu',
+    modalStep1: 'Analizler',
+    modalStep2: 'Bilgiler',
+    modalStep3: 'Tarih ve Saat',
+    modalStep4: 'Bilet',
+    selectedTestsLabel: 'Seçilen analizlerin listesi',
+    noTestsSelectedModal: 'Henüz analiz seçmediniz. Biletinize aşağıdaki analizleri ekleyebilirsiniz:',
+    inputName: 'Adınız ve Soyadınız (Pasaportta olduğu gibi)',
+    inputEmail: 'E-posta adresiniz (PDF sonuçları için)',
+    selectBranch: 'Klinik şubesini seçin',
+    branch1: 'Tirmiz Merkez Laboratuvarı (Alisher Navoi Caddesi)',
+    branch2: 'Denov İlçe Şubesi (Sharof Rashidov Caddesi)',
+    branch3: 'Sherobod İlçe Şubesi (Ipek Yolu Caddesi)',
+    selectDate: 'Ziyaret tarihini seçin',
+    selectTime: 'Uygun zaman dilimini seçin',
+    btnBack: 'Orqaga',
+    btnNext: 'Keyingisi',
+    btnConfirm: 'Sırayı onayla',
+    bookingProcessing: 'Size dijital bir bilet hazırlanıyor. Teşhis veritabanı güncelleniyor...',
+    ticketTitle: 'ELEKTRONİK KLİNİK PASAPORT',
+    ticketSub: 'KANILAB Premium Diagnostics',
+    ticketID: 'Bilet Numarası',
+    patient: 'Bemor',
+    date: 'Ziyaret Tarihi',
+    time: 'Saat',
+    location: 'Şube',
+    preparation: 'Analiz vermeye hazırlık',
+    prepText: 'Lütfen analiz vermeden 8-12 saat önce yemek yemeyin. Sadece temiz gazsız su içilebilir. Lütfen kimliğinizi yanınızda bulundurun.',
+    btnPrint: 'Bileti Kaydet / Yazdır',
+    btnDone: 'Yopish',
+    viewAll: 'Tüm analizler',
+    reviewsTitle: 'Müşterilerimizin Yorumları',
+    rating: 'Değerlendirme',
+    reviews: [
+      {
+        name: 'Dilnoza Umarova',
+        role: 'Bemor',
+        review: 'Kani-Lab dagi xizmat juda ham aʼlo darajada! Navbatlarsiz, hamma narsa elektron va tezkor. Tahlil natijalari 4 soatda Telegram orqali keldi. Juda qulay va zamonaviy.'
+      },
+      {
+        name: 'Sardor Rahimov',
+        role: 'Doimiy mijoz',
+        review: 'Klinikada tozalik va xavfsizlik yuqori darajada. Hamshiralar qoʻli juda yengil ekan, namuna olishda mutlaqo ogʻriq sezmadim. Professional jamoaga rahmat.'
+      },
+      {
+        name: 'Malika Karimova',
+        role: 'Bemor',
+        review: 'Semptomlar bo‘yicha tahlil tanlash xizmatidan foydalandim. Hammasi juda oson, aniq va tushunarli boʻldi. Har bir bemorga premium yondashuv sezilib turadi.'
+      }
+    ],
+    items: [
+      {
+        q: '1. Analiz sonuçlarımı nasıl ve nereden alabilirim?',
+        a: 'Sonuçlarınız hazır olduğunda, Telegram botumuz aracılığıyla otomatik bir mesaj alacaksınız. Sonuçlarınızı bu bot üzerinden veya laboratuvarımızı ziyaret ederek kağıt ortamında alabilirsiniz.'
+      },
+      {
+        q: '2. Analiz vermeden önce nelere dikkat edilmeli?',
+        a: 'Doğru sonuçlar için analizin türüne bağlı olarak (özellikle biyokimyasal analizler) aç karnına gelinmesi önerilir. Doktorumuz kayıt sırasında size analizin türüne göre kesin hazırlık talimatlarını verecektir.'
+      },
+      {
+        q: '3. KANILAB veri gizliliğini nasıl sağlar?',
+        a: 'Tüm müşteri verileri ve analiz sonuçları şifrelenmiş bir sistemde saklanır. Veri güvenliğini ve gizliliğini tamamen garanti eden uluslararası ISO 15189 standartlarına uymaktayız.'
+      },
+      {
+        q: '4. Neden laboratuvarınızı seçmeliyim?',
+        a: '"College of American Pathologists" (CAP) uluslararası kuruluşunun kalite kontrol programlarına katılıyoruz ve dünyanın en gelişmiş Roche, Sysmex ve Abbott laboratuvar sistemlerini kullanıyoruz. Numunelerimizin her biri iki aşamalı bir doktor kontrolü altında incelenmektedir.'
+      },
+      {
+        q: '5. Laboratuvarınızda ne tür analizler yapılıyor?',
+        a: 'Biz biokimyoviy, immunologik, gormonal, mikrobiologik va PCR tahlillarining keng spektrini taklif etamiz. Xizmatlarimiz haqica batafsil ma’lumotni saytimizning "Xizmatlar" (Services) bo‘limidan topishingiz mumkin.'
+      },
+      {
+        q: '6. Tahlil natijalari tezligi qanday?',
+        a: 'Biz tezkorlikka katta e’tibor qaratamiz: biokimyoviy tahlillar 2 soatgacha, gormonal va immunologik tahlillar esa 4 soatgacha muddatda tayyor bo‘ladi. Murakkabroq tahlillar (PCR yoki mikrobiologik) uchun aniq muddatlar tahlil turiga qarab 3 kundan 10 kungacha davom etishi mumkin.'
+      }
+    ]
+  },
+};
+
+const getMedicalIcon = (field: string) => {
+  switch (field) {
+    case 'packages': return <Sparkles className="w-5 h-5 text-cyan-500" />;
+    case 'biochemistry': return <Activity className="w-5 h-5 text-emerald-500" />;
+    case 'hematology': return <Activity className="w-5 h-5 text-rose-500" />;
+    case 'hormones': return <Award className="w-5 h-5 text-amber-500" />;
+    case 'coagulogram': return <Clock className="w-5 h-5 text-indigo-500" />;
+    case 'infections': return <ShieldCheck className="w-5 h-5 text-teal-500" />;
+    case 'blood_groups': return <Heart className="w-5 h-5 text-pink-500" />;
+    case 'pcr': return <Cpu className="w-5 h-5 text-purple-500" />;
+    case 'microbiology': return <Microscope className="w-5 h-5 text-cyan-600" />;
+    case 'allergy': return <Activity className="w-5 h-5 text-orange-500" />;
+    case 'immunology': return <ShieldCheck className="w-5 h-5 text-blue-500" />;
+    case 'genetics': return <Cpu className="w-5 h-5 text-fuchsia-500" />;
+    case 'urine': return <FileText className="w-5 h-5 text-yellow-500" />;
+    case 'stool': return <FileText className="w-5 h-5 text-amber-700" />;
+    case 'pregnancy': return <Heart className="w-5 h-5 text-pink-600" />;
+    case 'cardiology': return <Activity className="w-5 h-5 text-red-500" />;
+    case 'diabetes': return <Activity className="w-5 h-5 text-teal-600" />;
+    case 'kidney': return <FileText className="w-5 h-5 text-sky-500" />;
+    case 'liver': return <Activity className="w-5 h-5 text-emerald-600" />;
+    case 'lipid_profile': return <Activity className="w-5 h-5 text-violet-500" />;
+    case 'vitamin': return <Sparkles className="w-5 h-5 text-amber-400" />;
+    case 'tumor_markers': return <Award className="w-5 h-5 text-red-600" />;
+    default: return <Microscope className="w-5 h-5 text-slate-500" />;
+  }
+};
+
+interface TeamMember {
+  id: string;
+  name: string;
+  position: { uz: string; ru: string; tr: string };
+  department: 'management' | 'lab' | 'finance' | 'service' | 'admin';
+  experience: { uz: string; ru: string; tr: string };
+  specialties: { uz: string[]; ru: string[]; tr: string[] };
+  grad: { uz: string; ru: string; tr: string };
+  bio: { uz: string; ru: string; tr: string };
+}
+
+const TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'salih',
+    name: 'Salih Gelen',
+    position: { uz: 'Direktor', ru: 'Директор', tr: 'Direktör' },
+    department: 'management',
+    experience: { uz: '15 yillik tajriba', ru: '15 лет опыта', tr: '15 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Klinika boshqaruvi', 'Tibbiy menejment', 'Xalqaro aloqalar'],
+      ru: ['Управление клиникой', 'Медицинский менеджмент', 'Международные связи'],
+      tr: ['Klinik Yönetimi', 'Sağlık Yönetimi', 'Uluslararası İlişkiler']
+    },
+    grad: {
+      uz: 'Istanbul Universiteti',
+      ru: 'Стамбульский университет',
+      tr: 'İstanbul Üniversitesi'
+    },
+    bio: {
+      uz: 'Turkiya va O‘zbekiston o‘rtasidagi tibbiy hamkorlik bo‘yicha ko‘p yillik tajribaga ega yetakchi rahbar.',
+      ru: 'Руководитель с многолетним опытом развития медицинского партнерства между Турцией и Узбекистаном.',
+      tr: 'Türkiye ve Özbekistan arasındaki tıbbi iş birliğini geliştiren deneyimli yönetici.'
+    }
+  },
+  {
+    id: 'gayrat',
+    name: 'Dr. G‘ayrat Abdullayev',
+    position: { uz: 'Bosh shifokor', ru: 'Главный врач', tr: 'Başhekim' },
+    department: 'management',
+    experience: { uz: '18 yillik tajriba', ru: '18 лет опыта', tr: '18 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Klinik biokimyo', 'Laboratoriya menejmenti', 'Sifat nazorati (EQAS)'],
+      ru: ['Клиническая биохимия', 'Лабораторный менеджмент', 'Контроль качества (EQAS)'],
+      tr: ['Klinik Biyokimya', 'Laboratuvar Yönetimi', 'Kalite Kontrol (EQAS)']
+    },
+    grad: {
+      uz: 'Tashkent Tibbiyot Akademiyasi',
+      ru: 'Ташкентская медицинская академия',
+      tr: 'Taşkent Tıp Akademisi'
+    },
+    bio: {
+      uz: 'Koʻp yillik ilmiy va amaliy tajribaga ega shifokor, xalqaro ISO 15189 standartlarini joriy etish boʻyicha yetakchi mutaxassis.',
+      ru: 'Врач высшей категории с многолетним практическим опытом. Ведущий эксперт по внедрению стандартов ISO 15189.',
+      tr: 'Uzun yıllara dayanan bilimsel ve pratik deneyime sahip uzman. ISO 15189 standartları uygulama lideri.'
+    }
+  },
+  {
+    id: 'ayshin',
+    name: 'Dr. Ayşin Bışaroğlu',
+    position: { uz: 'Tahlilchi vrach', ru: 'Врач-аналитик', tr: 'Tahlilci Hekim' },
+    department: 'lab',
+    experience: { uz: '12 yillik tajriba', ru: '12 лет опыта', tr: '12 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Immunokimyo', 'Gematologik tahlillar', 'Gormonal tahlillar'],
+      ru: ['Иммунохимия', 'Гематологический анализ', 'Гормональные исследования'],
+      tr: ['İmmünokimya', 'Hematolojik Analizler', 'Hormon Analizleri']
+    },
+    grad: {
+      uz: 'Ege Universiteti Tibbiyot Fakulteti',
+      ru: 'Медицинский факультет Эгейского университета',
+      tr: 'Ege Üniversitesi Tıp Fakültesi'
+    },
+    bio: {
+      uz: 'Xalqaro darajadagi tibbiyot mutaxassisi, immunologik tadqiqotlar va molekulyar diagnostika boʻyicha ekspert.',
+      ru: 'Высококлассный специалист международного уровня в сфере иммунологии и современной ПЦР диагностики.',
+      tr: 'Uluslararası düzeyde tıp uzmanı, immünolojik araştırmalar ve moleküler teşhis uzmanı.'
+    }
+  },
+  {
+    id: 'ulugbek',
+    name: 'Xurramov Ulug‘bek',
+    position: { uz: 'Bosh buxgalter', ru: 'Главный бухгалтер', tr: 'Baş Muhasebeci' },
+    department: 'finance',
+    experience: { uz: '10 yillik tajriba', ru: '10 лет опыта', tr: '10 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Moliya auditi', 'Soliq hisobi', 'Laboratoriya moliya boshqaruvi'],
+      ru: ['Финансовый аудит', 'Налоговый учет', 'Финансовый менеджмент в медицине'],
+      tr: ['Finansal Denetim', 'Vergi Muhasebesi', 'Sağlık Finans Yönetimi']
+    },
+    grad: {
+      uz: 'Termiz Davlat Universiteti',
+      ru: 'Термезский государственный университет',
+      tr: 'Termez Devlet Üniversitesi'
+    },
+    bio: {
+      uz: 'Klinikaning barcha moliyaviy va buxgalteriya jarayonlarini nazorat qiluvchi professional buxgalter.',
+      ru: 'Профессиональный бухгалтер, контролирующий все финансовые потоки и налоговую отчетность клиники.',
+      tr: 'Klinik finans ve muhasebe süreçlerini yöneten profesyonel muhasebeci.'
+    }
+  },
+  {
+    id: 'latofat',
+    name: 'Shaymanova Latofat',
+    position: { uz: 'Kassa buxgalteri', ru: 'Бухгалтер-кассир', tr: 'Kasa Muhasebecisi' },
+    department: 'finance',
+    experience: { uz: '6 yillik tajriba', ru: '6 лет опыта', tr: '6 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Naqd pul operatsiyalari', 'Birlamchi hisob-kitob', 'Mijozlar to‘lovlari'],
+      ru: ['Кассовые операции', 'Первичная документация', 'Работа с платежами пациентов'],
+      tr: ['Kasa İşlemleri', 'Ön Muhasebe', 'Hasta Ödeme Takibi']
+    },
+    grad: {
+      uz: 'Termiz Bank Kolleji',
+      ru: 'Термезский банковский колледж',
+      tr: 'Termez Banka Koleji'
+    },
+    bio: {
+      uz: 'Birlamchi kassa to‘lovlari va mijozlar hisob-kitoblarini aniq amalga oshiruvchi mutaxassis.',
+      ru: 'Ответственный специалист по приему платежей, кассовым отчетам и работе с клиентами.',
+      tr: 'Kasa ödemelerini ve hasta hesaplarını titizlikle yürüten kasa sorumlusu.'
+    }
+  },
+  {
+    id: 'dilshoda',
+    name: 'Shokirova Dilshoda',
+    position: { uz: 'Bosh hamshira', ru: 'Главная медсестра', tr: 'Başhemşire' },
+    department: 'service',
+    experience: { uz: '14 yillik tajriba', ru: '14 лет опыта', tr: '14 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Hamshiralik ishi nazorati', 'Sterilizatsiya protokollari', 'Bemorlar xavfsizligi'],
+      ru: ['Управление медперсоналом', 'Стерилизационные протоколы', 'Стандарты ухода за пациентами'],
+      tr: ['Hemşirelik Hizmetleri Yönetimi', 'Sterilizasyon Protokolleri', 'Hasta Güvenliği Standardı']
+    },
+    grad: {
+      uz: 'Termiz Tibbiyot Kolleji',
+      ru: 'Термезский медицинский колледж',
+      tr: 'Termez Medikal Koleji'
+    },
+    bio: {
+      uz: 'Klinikada hamshiralik ishi va sanitariya-gigiyena standartlari mukammal saqlanishini ta’minlaydigan rahbar hamshira.',
+      ru: 'Организует работу среднего медперсонала, контролирует соблюдение стерильности и санитарных норм.',
+      tr: 'Hemşirelik bakımı standartlarının ve sterilizasyon kurallarının eksiksiz uygulanmasını sağlayan başhemşire.'
+    }
+  },
+  {
+    id: 'farangiz',
+    name: 'Alikulova Farangiz',
+    position: { uz: 'Marketing bo‘limi', ru: 'Отдел маркетинга', tr: 'Pazarlama Departmanı' },
+    department: 'admin',
+    experience: { uz: '5 yillik tajriba', ru: '5 лет опыта', tr: '5 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Raqamli marketing', 'Mijozlar bilan aloqalar', 'PR va Brending'],
+      ru: ['Цифровой маркетинг', 'Связи с общественностью', 'Развитие бренда клиники'],
+      tr: ['Dijital Pazarlama', 'Halkla İlişkiler', 'Marka Yönetimi']
+    },
+    grad: {
+      uz: 'Tashkent Axborot Texnologiyalari Universiteti',
+      ru: 'Ташкентский университет информационных технологий',
+      tr: 'Taşkent Bilgi Teknolojileri Üniversitesi'
+    },
+    bio: {
+      uz: 'Kani-Lab brendini ommalashtirish va mijozlarga xizmat ko‘rsatish sifatini oshirish strategiyalarini ishlab chiquvchi ekspert.',
+      ru: 'Разрабатывает маркетинговые стратегии клиники, продвигает бренд Kani-Lab в цифровом пространстве.',
+      tr: 'Kani-Lab markasını dijital mecralarda tanıtan ve hasta iletişim stratejilerini yöneten pazarlama lideri.'
+    }
+  },
+  {
+    id: 'yusufbek',
+    name: 'Davronov Yusufbek',
+    position: { uz: 'Omborxona boshqaruvchisi', ru: 'Заведующий складом', tr: 'Depo ve Lojistik Yöneticisi' },
+    department: 'admin',
+    experience: { uz: '8 yillik tajriba', ru: '8 лет опыта', tr: '8 Yıllık Deneyim' },
+    specialties: {
+      uz: ['Logistika boshqaruvi', 'Sovuq zanjir monitoringi', 'Inventarizatsiya'],
+      ru: ['Управление логистикой', 'Контроль холодовой цепи', 'Учет медицинских расходников'],
+      tr: ['Lojistik Yönetimi', 'Soğuk Zincir Kontrolü', 'Tıbbi Malzeme Envanteri']
+    },
+    grad: {
+      uz: 'Termiz Davlat Universiteti',
+      ru: 'Термезский государственный университет',
+      tr: 'Termez Devlet Üniversitesi'
+    },
+    bio: {
+      uz: 'Tahlillar uchun tibbiy sarflanadigan materiallar va reaktivlar omborini sovuq zanjir talablari asosida boshqaradigan mas’ul xodim.',
+      ru: 'Отвечает за хранение реагентов и расходных материалов в строгом соответствии с температурными стандартами.',
+      tr: 'Reaktifler ve tıbbi sarf malzemelerinin soğuk zincir kurallarına uygun olarak depolanmasını sağlayan yönetici.'
+    }
+  }
+];
+
+const LABORANTS = [
+  {
+    name: 'Eshpo‘latov Sunnatullo',
+    pos: { uz: 'Biokimyo laboranti', ru: 'Лаборант-биохимик', tr: 'Biyokimya Laborantı' },
+    exp: { uz: '6 yillik tajriba', ru: '6 лет опыта', tr: '6 Yıllık Deneyim' }
+  },
+  {
+    name: 'Davronov Asadbek',
+    pos: { uz: 'Biokimyo laboranti', ru: 'Лаборант-биохимик', tr: 'Biyokimya Laborantı' },
+    exp: { uz: '4 yillik tajriba', ru: '4 года опыта', tr: '4 Yıllık Deneyim' }
+  },
+  {
+    name: 'Qaxxorova Shaxzoda',
+    pos: { uz: 'PCR (PSR) laboranti', ru: 'Лаборант ПЦР', tr: 'PCR Laborantı' },
+    exp: { uz: '5 yillik tajriba', ru: '5 лет опыта', tr: '5 Yıllık Deneyim' }
+  },
+  {
+    name: 'Xurramova Sitora',
+    pos: { uz: 'Gematologiya laboranti', ru: 'Лаборант гематологии', tr: 'Hematoloji Laborantı' },
+    exp: { uz: '7 yillik tajriba', ru: '7 лет опыта', tr: '7 Yıllık Deneyim' }
+  },
+  {
+    name: 'Xushiyeva Sitora',
+    pos: { uz: 'Gematologiya laboranti', ru: 'Лаборант гематологии', tr: 'Hematoloji Laborantı' },
+    exp: { uz: '3 yillik tajriba', ru: '3 года опыта', tr: '3 Yıllık Deneyim' }
+  },
+  {
+    name: 'Amirqulova Zilola',
+    pos: { uz: 'Immunologiya laboranti', ru: 'Лаборант иммунологии', tr: 'İmmünoloji Laborantı' },
+    exp: { uz: '6 yillik tajriba', ru: '6 лет опыта', tr: '6 Yıllık Deneyim' }
+  },
+  {
+    name: 'Xurramova Zubayda',
+    pos: { uz: 'Immunologiya laboranti', ru: 'Лаборант иммунологии', tr: 'İmmünoloji Laborantı' },
+    exp: { uz: '5 yillik tajriba', ru: '5 лет опыта', tr: '5 Yıllık Deneyim' }
+  },
+  {
+    name: 'Turopova Yasmina',
+    pos: { uz: 'Klinik-laboratoriya laboranti', ru: 'Клинико-лабораторный лаборант', tr: 'Klinik Laboratuvar Teknisyeni' },
+    exp: { uz: '4 yillik tajriba', ru: '4 года опыта', tr: '4 Yıllık Deneyim' }
+  },
+  {
+    name: 'Fayzullayeva Nigora',
+    pos: { uz: 'Mikrobiologiya laborant vrachi', ru: 'Врач-лаборант микробиологии', tr: 'Mikrobiyoloji Uzman Doktoru' },
+    exp: { uz: '9 yillik tajriba', ru: '9 лет опыта', tr: '9 Yıllık Deneyim' }
+  },
+  {
+    name: 'Saykanova Feruza',
+    pos: { uz: 'Yordamchi laborant', ru: 'Помощник лаборанта', tr: 'Laboratuvar Asistanı' },
+    exp: { uz: '3 yillik tajriba', ru: '3 года опыта', tr: '3 Yıllık Deneyim' }
+  }
+];
+
+// ==========================================
+// CORE APP COMPONENT
+
+const BRANCHES: {
+  id: string;
+  name: { uz: string; ru: string; tr: string };
+  address: { uz: string; ru: string; tr: string };
+  phone: string;
+  hours: { uz: string; ru: string; tr: string };
+  mapsUrl: string;
+  lat?: number;
+  lng?: number;
+}[] = [
+  {
+    id: 'merkez',
+    name: { uz: 'Kani-Lab Merkez Laboratoriyasi', ru: 'Kani-Lab Центральная Лаборатория', tr: 'Kani-Lab Merkez Laboratuvarı' },
+    address: { uz: 'Termiz sh., Markaziy ko\'cha, 1-uy', ru: 'г. Термез, ул. Центральная, 1', tr: 'Termiz şehri, Merkez Caddesi, 1' },
+    phone: '+998781501234',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2240,67.2783',
+  },
+  {
+    id: 'termiz-shtb',
+    name: { uz: 'TERMIZ SHTB', ru: 'ТЕРМИЗ ШТАБ', tr: 'TERMİZ ŞTAB' },
+    address: { uz: 'Termiz shahri tibbiyot birlashmasi hududida', ru: 'На территории Термезского городского объединения', tr: 'Termiz Şehir Tıp Birleşimi alanında' },
+    phone: '+998781501235',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2180,67.2820',
+  },
+  {
+    id: 'respublika-shoshilinch',
+    name: { uz: '70-RSHTYIM / Surxondaryo filiali', ru: '70-РНЦЭМП / Сурхандарьинский филиал', tr: '70-Acil Tıp Merkezi / Surhanderya Şubesi' },
+    address: { uz: '70-Respublika shoshilinch tibbiy yordam ilmiy markazi, Surxondaryo filiali', ru: '70-Республиканский НЦ Экстренной Мед. Помощи, Сурхандарьинский филиал', tr: '70-Cumhuriyet Acil Tıp Bilim Merkezi, Surhanderya Şubesi' },
+    phone: '+998781501236',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2200,67.2750',
+  },
+  {
+    id: 'viloyat-stomatologiya',
+    name: { uz: 'Viloyat stomatologiya poliklinikasi', ru: 'Областная стоматологическая поликлиника', tr: 'Vilayet Diş Polikliniği' },
+    address: { uz: 'Surxondaryo viloyat stomatologiya poliklinikasi hududida', ru: 'На территории Сурхандарьинской областной стоматологической поликлиники', tr: 'Surhanderya Vilayet Diş Polikliniği alanında' },
+    phone: '+998781501237',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2260,67.2800',
+  },
+  {
+    id: 'dermatovenerologiya',
+    name: { uz: '19-RDVKIPATM', ru: '19-РНЦДВИК', tr: '19-Dermatoloji ve Kozmetoloji Merkezi' },
+    address: { uz: '19-Respublika dermatovenerologiya va kosmetologiya ilmiy amaliy tibbiyot markazi, Surxondaryo filiali', ru: '19-Республиканский Центр Дерматовенерологии и Косметологии, Сурхандарьинский филиал', tr: '19-Cumhuriyet Dermatoloji ve Kozmetoloji Bilimsel Tıp Merkezi' },
+    phone: '+998781501238',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2220,67.2810',
+  },
+  {
+    id: 'ftiziatriya',
+    name: { uz: 'Viloyat ftiziatriya va pulmonologiya shifoxonasi', ru: 'Областная больница фтизиатрии и пульмонологии', tr: 'Vilayet Ftiziyatri ve Pulmunoloji Hastanesi' },
+    address: { uz: 'Surxondaryo viloyat ftiziatriya va pulmonologiya shifoxonasi hududida', ru: 'На территории Сурхандарьинской областной больницы фтизиатрии', tr: 'Surhanderya Vilayet Ftiziyatri Hastanesi alanında' },
+    phone: '+998781501239',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2170,67.2760',
+  },
+  {
+    id: 'perinatal',
+    name: { uz: '21-Viloyat perinatal markazi', ru: '21-Областной Перинатальный Центр', tr: '21-Vilayet Perinatal Merkezi' },
+    address: { uz: '21-Surxondaryo viloyat perinatal markazi hududida', ru: 'На территории 21-Сурхандарьинского областного перинатального центра', tr: '21-Surhanderya Vilayet Perinatal Merkezi alanında' },
+    phone: '+998781501240',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2310,67.2790',
+  },
+  {
+    id: 'tug-ruqxona',
+    name: { uz: '15-Termiz shahar tug\'ruqxonasi', ru: '15-Термезский городской Родильный Дом', tr: '15-Termiz Şehir Doğumhanesi' },
+    address: { uz: '15-Termiz shahar tug\'ruqxonasi hududida', ru: 'На территории 15-Термезского городского родильного дома', tr: '15-Termiz Şehir Doğumevi alanında' },
+    phone: '+998781501241',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2290,67.2830',
+  },
+  {
+    id: 'yuqumli',
+    name: { uz: '14-Viloyat yuqumli kasalliklar shifoxonasi', ru: '14-Областная Инфекционная Больница', tr: '14-Vilayet Bulaşıcı Hastalıklar Hastanesi' },
+    address: { uz: '14-Surxondaryo viloyat yuqumli kasalliklar shifoxonasi hududida', ru: 'На территории 14-Сурхандарьинской областной инфекционной больницы', tr: '14-Surhanderya Vilayet Bulaşıcı Hastalıklar Hastanesi' },
+    phone: '+998781501242',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2140,67.2770',
+  },
+  {
+    id: 'teri-tanosil',
+    name: { uz: 'Teri-tanosil dispanseri', ru: 'Кожно-венерологический Диспансер', tr: 'Deri-Zührevi Dispanseri' },
+    address: { uz: 'Surxondaryo viloyat teri-tanosil dispanseri hududida', ru: 'На территории Сурхандарьинского кожно-венерологического диспансера', tr: 'Surhanderya Vilayet Deri Dispanseri alanında' },
+    phone: '+998781501243',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2250,67.2840',
+  },
+  {
+    id: 'uchqizil',
+    name: { uz: 'Uchqizil filiali', ru: 'Филиал Учкизил', tr: 'Üçkızıl Şubesi' },
+    address: { uz: 'Uchqizil qishlog\'i, Surxondaryo viloyati', ru: 'Кишлак Учкизил, Сурхандарьинская область', tr: 'Üçkızıl köyü, Surhanderya vilayeti' },
+    phone: '+998781501244',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.1900,67.2600',
+  },
+  {
+    id: 'jarqurgon',
+    name: { uz: '2502-Jarqo\'rg\'on TTB', ru: '2502-Джаркурганский ТМО', tr: '2502-Jarkurgan TTB' },
+    address: { uz: 'Jarqo\'rg\'on tumani tibbiyot birlashmasi hududida', ru: 'На территории Джаркурганского районного ТМО', tr: 'Jarkurgan İlçe Tıp Birleşimi alanında' },
+    phone: '+998781501245',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.5100,67.4200',
+  },
+  {
+    id: 'akfa',
+    name: { uz: 'AKFA MEDLINE filiali', ru: 'Филиал AKFA MEDLINE', tr: 'AKFA MEDLINE Şubesi' },
+    address: { uz: 'AKFA MEDLINE klinikasi, Termiz shahri', ru: 'Клиника AKFA MEDLINE, г. Термез', tr: 'AKFA MEDLINE Kliniği, Termiz şehri' },
+    phone: '+998781501246',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.2300,67.2850',
+  },
+  {
+    id: 'qumqurgon',
+    name: { uz: '11-2 Qumqo\'rg\'on tumani tibbiyot birlashmasi', ru: '11-2 Кумкурганский районный ТМО', tr: '11-2 Kumkurgan İlçe Tıp Birleşimi' },
+    address: { uz: 'Qumqo\'rg\'on tumani tibbiyot birlashmasi hududida', ru: 'На территории Кумкурганского районного ТМО', tr: 'Kumkurgan İlçe Tıp Birleşimi alanında' },
+    phone: '+998781501247',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://maps.google.com/?q=37.8500,67.5800',
+  },
+];
+
+// ==========================================
+
+export default function App() {
+  const [lang, setLang] = useState<'uz' | 'ru' | 'tr'>('uz');
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms'>('home');
+  const [selectedTeamDept, setSelectedTeamDept] = useState<string>('all');
+  const [isMobileTeamOpen, setIsMobileTeamOpen] = useState<boolean>(false);
+  const [selectedTeamMemberId, setSelectedTeamMemberId] = useState<string | null>(null);
+  const [hoveredMenuDept, setHoveredMenuDept] = useState<string>('management');
+  const [isMobileDeptOpen, setIsMobileDeptOpen] = useState<Record<string, boolean>>({});
+  const [isMobileAboutOpen, setIsMobileAboutOpen] = useState<boolean>(false);
+
+  // Qanday boriladi states
+  const [routeFrom, setRouteFrom] = useState('');
+  const [routeToBranchId, setRouteToBranchId] = useState('merkez');
+  const [travelMode, setTravelMode] = useState<'driving' | 'transit' | 'walking'>('driving');
+
+  // Synchronize hash routing
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#/team/')) {
+        const memberId = hash.replace('#/team/', '');
+        setActiveTab('doctors');
+        setSelectedTeamMemberId(memberId);
+      } else if (hash === '#/team') {
+        setActiveTab('doctors');
+        setSelectedTeamMemberId(null);
+        setSelectedTeamDept('all');
+      } else {
+        const tab = hash.replace('#', '');
+        if (['home', 'about', 'about-history', 'about-values', 'about-mission', 'services', 'doctors', 'faq', 'contact', 'certificates', 'branches', 'privacy', 'terms'].includes(tab)) {
+          setActiveTab(tab as any);
+          setSelectedTeamMemberId(null);
+        }
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Initial call
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Update SEO Document Title dynamically when viewing profile
+  useEffect(() => {
+    if (activeTab === 'doctors' && selectedTeamMemberId) {
+      // Find team member
+      const member = TEAM_MEMBERS.find(m => m.id === selectedTeamMemberId) || 
+                     LABORANTS.find(l => l.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === selectedTeamMemberId);
+      if (member) {
+        document.title = `${member.name} - Kani-Lab`;
+      }
+    } else {
+      document.title = 'Kani-Lab | Robotlashtirilgan Diagnostika Laboratoriyasi';
+    }
+  }, [activeTab, selectedTeamMemberId]);
+  
+  // Helper to fallback safely if a translation is missing (especially for Turkish)
+  const getLangText = (obj: any) => {
+    if (!obj) return '';
+    return obj[lang] || obj['uz'] || obj['ru'] || '';
+  };
+  
+  // Hero Typed.js State
+  const typedEl = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (activeTab === 'home' && typedEl.current) {
+      const typed = new Typed(typedEl.current, {
+        strings: lang === 'uz' ? [
+          "Xalqaro standartlar asosida aniq diagnostika.",
+          "Turkiya va Niderlandiya texnologiyalari.",
+          "Robotlashtirilgan laboratoriya tizimi.",
+          "100+ turdagi tezkor tahlillar.",
+          "Sizning salomatligingiz \u2013 bizning maqsadimiz."
+        ] : lang === 'ru' ? [
+          "Точная диагностика по международным стандартам.",
+          "Технологии Турции и Нидерландов.",
+          "Роботизированная лабораторная система.",
+          "Более 300 видов экспресс-анализов.",
+          "Ваше здоровье \u2013 наша цель."
+        ] : [
+          "Uluslararası standartlarda doğru teşhis.",
+          "Türkiye ve Hollanda teknolojileri.",
+          "Robotik laboratuvar sistemi.",
+          "100+ çeşit hızlı analiz.",
+          "Sağlığınız \u2013 hedefimiz."
+        ],
+        typeSpeed: 60,
+        backSpeed: 30,
+        backDelay: 2500,
+        startDelay: 1000,
+        loop: true,
+        showCursor: true,
+        cursorChar: '_',
+        smartBackspace: true
+      });
+
+      return () => {
+        typed.destroy();
+      };
+    }
+  }, [activeTab, lang]);
+
+  
+  // Reviews State
+  const [userReviews, setUserReviews] = useState<any[]>(() => {
+    try {
+      const saved = localStorage.getItem('kanilab_reviews');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [newReview, setNewReview] = useState({ name: '', role: '', review: '', rating: 5 });
+  
+  // State for search and filtering
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedMedicalField, setSelectedMedicalField] = useState<string>('all');
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>('all');
+  const [selectedFasting, setSelectedFasting] = useState<string>('all');
+  const [sortOption, setSortOption] = useState<string>('default');
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+  const [expandedAccordion, setExpandedAccordion] = useState<Record<string, boolean>>({});
+  
+  // Cart for selected tests
+  const [cart, setCart] = useState<string[]>([]);
+  
+  // AI assistant states
+  const [aiSymptom, setAiSymptom] = useState<string | null>(null);
+  
+  // Modal booking states
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [bookingStep, setBookingStep] = useState(1);
+  const [isSendingTelegram, setIsSendingTelegram] = useState(false);
+  const [patientName, setPatientName] = useState('');
+  const [patientPhone, setPatientPhone] = useState('');
+  const [patientPhoneCountry, setPatientPhoneCountry] = useState(PHONE_COUNTRIES[0]);
+  const [patientEmail, setPatientEmail] = useState('');
+  
+  // Custom Searchable Branch Dropdown States
+  const [selectedBranch, setSelectedBranch] = useState('Kani-Lab Merkez Laboratuvar'); // updated initial value
+  const [isBranchDropdownOpen, setIsBranchDropdownOpen] = useState(false);
+  const [branchSearchQuery, setBranchSearchQuery] = useState('');
+
+  const [selectedDate, setSelectedDate] = useState('2026-06-27');
+  const [selectedTime, setSelectedTime] = useState('08:00 - 08:30');
+
+  const BRANCH_CATEGORIES = [
+    {
+      category: "Asosiy Laboratoriya",
+      options: ["Kani-Lab Merkez Laboratuvar"]
+    },
+    {
+      category: "Respublika va Viloyat Markazlari",
+      options: [
+        "70-Respublika shoshilinch tibbiy yordam ilmiy markazi (Surxondaryo filiali)",
+        "19-Respublika dermatovenerologiya va kosmetologiya ilmiy amaliy tibbiyot markazi",
+        "Viloyat perinatal markazi (21)",
+        "Viloyat yuqumli kasalliklar shifoxonasi (14)",
+        "Viloyat stomatologiya poliklinikasi",
+        "Viloyat ftiziatriya va pulmonologiya shifoxonasi"
+      ]
+    },
+    {
+      category: "Shahar va Tuman Tibbiyot Birlashmalari",
+      options: [
+        "Termiz shahar tibbiyot birlashmasi (SHTB)",
+        "Termiz shahar tug‘ruqxonasi (15)",
+        "Qumqo‘rg‘on tumani tibbiyot birlashmasi (11-2)",
+        "Jarqo‘rg‘on tumani tibbiyot birlashmasi (2502)"
+      ]
+    },
+    {
+      category: "Boshqa muassasalar",
+      options: [
+        "AKFA MEDLINE",
+        "Teri tanosil dispanseri",
+        "Uchqizil hududiy tibbiy muassasasi"
+      ]
+    }
+  ];
+
+  const [isProcessingBooking, setIsProcessingBooking] = useState(false);
+  const [generatedTicketID, setGeneratedTicketID] = useState('');
+
+  // Check Ticket State
+  const [isCheckModalOpen, setIsCheckModalOpen] = useState(false);
+  const [checkInputId, setCheckInputId] = useState('');
+  const [foundTicket, setFoundTicket] = useState<any>(null);
+  const [checkError, setCheckError] = useState('');
+
+  // FAQ Accordion Active Index
+  const [faqActive, setFaqActive] = useState<number | null>(null);
+  
+  // Lightbox Gallery state
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [isCertLightboxOpen, setIsCertLightboxOpen] = useState(false);
+  const [isBuildingLightboxOpen, setIsBuildingLightboxOpen] = useState(false);
+
+  // Floating menu state
+  const [isFloatingMenuOpen, setIsFloatingMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Contact form state
+  const [contactName, setContactName] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactMsg, setContactMsg] = useState('');
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [contactFormErrors, setContactFormErrors] = useState({ name: '', phone: '' });
+
+  // Auto slider testimonial state
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [selectedAnalyzer, setSelectedAnalyzer] = useState<typeof ANALYZERS_DATA[0] | null>(null);
+
+  // Load language and dark mode from localStorage on mount
+  useEffect(() => {
+    const savedLang = localStorage.getItem('kanilab_lang');
+    if (savedLang === 'uz' || savedLang === 'ru' || savedLang === 'tr') {
+      setLang(savedLang);
+    }
+    const savedDark = localStorage.getItem('kanilab_dark');
+    if (savedDark === 'true') {
+      setDarkMode(true);
+    }
+  }, []);
+
+  // Sync dark class on document element for tailwind dark:... classes
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  // Sync state changes with localStorage
+  const handleLangChange = (newLang: 'uz' | 'ru' | 'tr') => {
+    setLang(newLang);
+    localStorage.setItem('kanilab_lang', newLang);
+  };
+
+  const handleBookingConfirm = () => {
+    setIsProcessingBooking(true);
+    // Simulate high-fidelity laboratory reservation process
+    setTimeout(() => {
+      const newId = `KL-${Math.floor(100000 + Math.random() * 900000)}`;
+      setGeneratedTicketID(newId);
+      setIsProcessingBooking(false);
+      setBookingStep(4);
+
+      // Save to localStorage for patient to check later
+      const newTicket = {
+        id: newId,
+        patientName,
+        patientPhone,
+        selectedDate,
+        selectedTime,
+        selectedBranch,
+        cart,
+        cartTotalAmount,
+        timestamp: new Date().toISOString()
+      };
+      try {
+        const existing = JSON.parse(localStorage.getItem('kanilab_tickets') || '[]');
+        existing.push(newTicket);
+        localStorage.setItem('kanilab_tickets', JSON.stringify(existing));
+      } catch(e) {}
+
+    }, 1500);
+  };
+
+  const handleCheckTicket = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCheckError('');
+    setFoundTicket(null);
+    const rawInput = checkInputId.trim();
+    if (!rawInput) return;
+    
+    const searchId = rawInput.toUpperCase().startsWith('KL-') ? rawInput.toUpperCase() : `KL-${rawInput}`;
+    
+    // Check locally first
+    let localMatch = null;
+    try {
+      const existing = JSON.parse(localStorage.getItem('kanilab_tickets') || '[]');
+      localMatch = existing.find((t: any) => t.id === searchId || t.id.replace(/\D/g, '') === rawInput);
+    } catch(e) {}
+
+    // Send verification query to Telegram bot
+    try {
+      const statusText = localMatch
+        ? `✅ TOPILDI — Chek raqami: ${searchId}\n👤 Bemor: ${localMatch.patientName}\n📞 Telefon: ${localMatch.patientPhone}\n📅 Sana: ${localMatch.selectedDate} ${localMatch.selectedTime}`
+        : `❌ TOPILMADI — Tekshirilgan raqam: ${searchId}`;
+      
+      await fetch(`https://api.telegram.org/bot8976412924:AAFcVbEeUgB2Ngymnol6cDDLybhlI1xLWzI/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: '5393810155',
+          text: `🔍 *CHEK TEKSHIRISH*\n━━━━━━━━━━━━\n${statusText}`,
+          parse_mode: 'Markdown'
+        })
+      });
+    } catch(e) { /* bot xatoligi UI ni to'xtatmasin */ }
+
+    // Show result in UI
+    if (localMatch) {
+      setFoundTicket(localMatch);
+    } else {
+      setCheckError(lang === 'uz' ? 'Bunday raqamli chek topilmadi' : lang === 'ru' ? 'Чек с таким номером не найден' : 'Bunday raqamli chek topilmadi');
+    }
+  };
+
+  const handleSendToTelegram = async () => {
+    setIsSendingTelegram(true);
+    try {
+      const ticketElement = document.getElementById('printable-ticket');
+      if (!ticketElement) {
+        console.error("Printable ticket element not found!");
+        setIsSendingTelegram(false);
+        return;
+      }
+
+      // Lower pixelRatio = smaller file size
+      const dataUrl = await toPng(ticketElement, { 
+        pixelRatio: 1.5,
+        style: { margin: '0' },
+        quality: 0.8,
+        cacheBust: true, // fix cache issues
+        skipFonts: false // ensure fonts render
+      });
+      
+      const img = new Image();
+      img.src = dataUrl;
+      await new Promise((resolve) => { img.onload = resolve; });
+
+      // Use A5-like portrait size in mm for compact output
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: [80, 200]  // receipt width 80mm
+      });
+
+      // --- Cover page: Name + Ticket ID overlay ---
+      pdf.setFillColor(0, 180, 216);
+      pdf.rect(0, 0, 80, 20, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(9);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('KANILAB — CHIPTA', 4, 7);
+      pdf.setFontSize(8);
+      pdf.text(`Bemor: ${patientName}`, 4, 13);
+      pdf.text(`Raqam: ${generatedTicketID}`, 4, 18);
+
+      // --- Ticket image below the header ---
+      const pageW = 80;
+      const imgH = (img.height / img.width) * pageW;
+      pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
+      
+      const pdfBlob = pdf.output('blob');
+
+      const formData = new FormData();
+      formData.append('chat_id', '5393810155');
+      const fileName = `KaniLab_${generatedTicketID}_${patientName.replace(/\s+/g, '_')}.pdf`;
+      formData.append('document', pdfBlob, fileName);
+      formData.append('caption',
+        `🏥 *YANGI BEMOR*\n` +
+        `━━━━━━━━━━━━━━━\n` +
+        `📋 Chek: \`${generatedTicketID}\`\n` +
+        `👤 Bemor: ${patientName}\n` +
+        `📞 Telefon: ${patientPhone}\n` +
+        `🏢 Filial: ${selectedBranch}\n` +
+        `📅 Sana: ${selectedDate} — ${selectedTime}\n` +
+        `🧪 Tahlillar: ${cart.length} ta\n` +
+        `💰 Jami: ${formatPrice(cartTotalAmount)}`,
+      );
+
+      const res = await fetch(`https://api.telegram.org/bot8976412924:AAFcVbEeUgB2Ngymnol6cDDLybhlI1xLWzI/sendDocument`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        alert(lang === 'uz' ? '✅ Chek muvaffaqiyatli markazga yuborildi!' : lang === 'ru' ? '✅ Чек успешно отправлен!' : '✅ Chek muvaffaqiyatli markazga yuborildi!');
+      } else {
+        alert(lang === 'uz' ? 'Yuborishda xatolik yuz berdi.' : lang === 'ru' ? 'Ошибка при отправке.' : 'Yuborishda xatolik yuz berdi.');
+      }
+    } catch (err: any) {
+      console.error('Telegram send error:', err);
+      alert((lang === 'uz' ? 'Xatolik: ' : 'Ошибка: ') + (err.message || String(err)));
+    } finally {
+      setIsSendingTelegram(false);
+    }
+  };
+
+  const handleThemeToggle = () => {
+    setDarkMode(!darkMode);
+    localStorage.setItem('kanilab_dark', String(!darkMode));
+  };
+
+  // Testimonials Auto-rotation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTestimonialIndex((prev) => (prev + 1) % 3);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Scroll to top on activeTab change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [activeTab]);
+
+  const t = TRANSLATIONS[lang];
+
+  const filterLang = {
+    uz: {
+      medicalField: 'Tibbiy soha',
+      priceRange: 'Narx oraligʻi',
+      fasting: 'Tayyorgarlik',
+      sort: 'Saralash',
+      viewMode: 'Koʻrinish',
+      allFields: 'Barcha sohalar',
+      allPrices: 'Barcha narxlar',
+      allFasting: 'Barcha turlari',
+      sortDefault: 'Odatiy (katalog tartibi)',
+      sortNameAsc: 'Nomi boʻyicha (A-Z)',
+      sortNameDesc: 'Nomi boʻyicha (Z-A)',
+      sortPriceAsc: 'Narxi (Arzonidan qimmatiga)',
+      sortPriceDesc: 'Narxi (Qimmatidan arzoniga)',
+      sortCategory: 'Kategoriya boʻyicha',
+      under100k: '100 000 UZS gacha',
+      between100k300k: '100 000 - 300 000 UZS',
+      between300k500k: '300 000 - 500 000 UZS',
+      over500k: '500 000 UZS dan yuqori',
+      fastingYes: 'Faqat och qoringa',
+      fastingNo: 'Maxsus tayyorgarliksiz',
+      suggestionsTitle: 'Qidiruv boʻyicha tezkor natijalar',
+      noResults: 'Hech qanday tahlil topilmadi. Iltimos, boshqa qidiruv soʻzini kiriting yoki filtrlarni tozalang.',
+      clearFilters: 'Filtrlarni tozalash',
+      packageContents: 'Paket tarkibiga kiruvchi tahlillar:',
+      showAll: 'Barchasini ochish',
+      collapseAll: 'Barchasini yopish',
+      department: 'Klinik boʻlim',
+      testCode: 'Kodi',
+      testName: 'Tahlil nomi',
+      timeLabel: 'Tayyor boʻlish muddati',
+      priceLabel: 'Narxi',
+      actionLabel: 'Tanlash',
+      bookingAlert: 'Tanlangan tahlillar uchun uydan turib namuna olish imkoniyati mavjud'
+    },
+    ru: {
+      medicalField: 'Направление медицины',
+      priceRange: 'Стоимость исследований',
+      fasting: 'Требования к диете',
+      sort: 'Сортировка списка',
+      viewMode: 'Отображение каталога',
+      allFields: 'Все направления',
+      allPrices: 'Любая цена',
+      allFasting: 'Все варианты',
+      sortDefault: 'По умолчанию (порядок каталога)',
+      sortNameAsc: 'По названию (А-Я)',
+      sortNameDesc: 'По названию (Я-А)',
+      sortPriceAsc: 'Цена (Сначала доступные)',
+      sortPriceDesc: 'Цена (Сначала премиум)',
+      sortCategory: 'Группировка по разделам',
+      under100k: 'До 100 000 UZS',
+      between100k300k: '100 000 - 300 000 UZS',
+      between300k500k: '300 000 - 500 000 UZS',
+      over500k: 'Более 500 000 UZS',
+      fastingYes: 'Строго натощак',
+      fastingNo: 'Без специальной подготовки',
+      suggestionsTitle: 'Быстрые совпадения',
+      noResults: 'Исследования не найдены. Попробуйте изменить параметры поиска или сбросить фильтры.',
+      clearFilters: 'Сбросить все фильтры',
+      packageContents: 'В состав пакета входит:',
+      showAll: 'Развернуть все разделы',
+      collapseAll: 'Свернуть все разделы',
+      department: 'Клиническое отделение',
+      testCode: 'Код',
+      testName: 'Название исследования',
+      timeLabel: 'Срок выполнения',
+      priceLabel: 'Стоимость',
+      actionLabel: 'Выбрать',
+      bookingAlert: 'Доступен выезд мобильной бригады для забора на дому'
+    },
+    tr: {
+      medicalField: 'Tıbbi Alan',
+      priceRange: 'Fiyat Aralığı',
+      fasting: 'Hazırlık',
+      sort: 'Sıralama',
+      viewMode: 'Görünüm',
+      allFields: 'Tüm Alanlar',
+      allPrices: 'Tüm Fiyatlar',
+      allFasting: 'Tüm Türler',
+      sortDefault: 'Varsayılan (katalog sırası)',
+      sortNameAsc: 'İsme göre (A-Z)',
+      sortNameDesc: 'İsme göre (Z-A)',
+      sortPriceAsc: 'Fiyat (Artan)',
+      sortPriceDesc: 'Fiyat (Azalan)',
+      sortCategory: 'Bölümlere Göre',
+      under100k: '100.000 UZS altı',
+      between100k300k: '100.000 - 300.000 UZS',
+      between300k500k: '300.000 - 500.000 UZS',
+      over500k: '500.000 UZS üzeri',
+      fastingYes: 'Aç karnına',
+      fastingNo: 'Diyet gerektirmez',
+      suggestionsTitle: 'Hızlı Arama Sonuçları',
+      noResults: 'Analiz bulunamadı. Lütfen başka bir kelime deneyin veya filtreleri temizleyin.',
+      clearFilters: 'Filtreleri Temizle',
+      packageContents: 'Paket içeriği:',
+      showAll: 'Tümünü Aç',
+      collapseAll: 'Tümünü Kapat',
+      department: 'Klinik Bölüm',
+      testCode: 'Kod',
+      testName: 'Analiz Adı',
+      timeLabel: 'Sonuç Süresi',
+      priceLabel: 'Fiyat',
+      actionLabel: 'Seç',
+      bookingAlert: 'Seçilen analizler için evden numune alma hizmeti mevcuttur'
+    }
+  }[lang === 'tr' ? 'tr' : lang === 'ru' ? 'ru' : 'uz'];
+
+  const getCategoryLabel = (catId: string) => {
+    switch (catId) {
+      case 'all': return t.categoryAll;
+      case 'packages': return t.categoryPackages;
+      case 'hematology': return t.categoryHematology;
+      case 'biochemistry': return t.categoryBiochem;
+      case 'hormones': return t.categoryHormones;
+      case 'infections': return t.categoryInfections;
+      case 'coagulogram': return t.categoryCoagulogram;
+      case 'blood_groups': return t.categoryBloodGroups;
+      case 'allergy': return t.categoryAllergy;
+      case 'pcr': return t.categoryPcr;
+      case 'urine': return t.categoryUrine;
+      case 'bacteriology': return t.categoryBacteriology;
+      case 'general_clinical': return t.categoryGeneralClinical;
+      default: return catId.charAt(0).toUpperCase() + catId.slice(1);
+    }
+  };
+
+  // Extract unique categories dynamically from the catalog
+  const uniqueCategories = useMemo(() => {
+    const cats = new Set(LABORATORY_TESTS.map(t => t.category));
+    return ['all', ...Array.from(cats)];
+  }, []);
+
+  // Initialize all categories as expanded on mount
+  useEffect(() => {
+    const initialExpanded: Record<string, boolean> = {};
+    uniqueCategories.forEach(cat => {
+      initialExpanded[cat] = true;
+    });
+    // Add default packages to be expanded too
+    LABORATORY_TESTS.filter(t => t.category === 'packages').forEach(pkg => {
+      initialExpanded[pkg.id] = true;
+    });
+    setExpandedAccordion(initialExpanded);
+  }, [uniqueCategories]);
+
+  // Dynamic filtered and sorted list of tests
+  const filteredTests = useMemo(() => {
+    let result = LABORATORY_TESTS.filter(test => {
+      // 1. Search filter
+      const query = searchQuery.trim().toLowerCase();
+      let matchesSearch = true;
+      if (query) {
+        const codeMatch = test.code ? test.code.toLowerCase().includes(query) : false;
+        const nameMatch = getLangText(test.name).toLowerCase().includes(query);
+        const descMatch = getLangText(test.desc).toLowerCase().includes(query);
+        matchesSearch = codeMatch || nameMatch || descMatch;
+      }
+
+      // 2. Main department category filter
+      let matchesCategory = true;
+      if (selectedCategory !== 'all') {
+        matchesCategory = test.category === selectedCategory;
+      }
+
+      // 3. Medical field (Sub-category) filter (classified dynamically)
+      let matchesField = true;
+      if (selectedMedicalField !== 'all') {
+        const fields = classifyTest(test);
+        matchesField = fields.includes(selectedMedicalField);
+      }
+
+      // 4. Price range filter
+      let matchesPrice = true;
+      if (selectedPriceRange !== 'all') {
+        if (selectedPriceRange === 'under_100k') {
+          matchesPrice = test.price < 100000;
+        } else if (selectedPriceRange === '100k_300k') {
+          matchesPrice = test.price >= 100000 && test.price < 300000;
+        } else if (selectedPriceRange === '300k_500k') {
+          matchesPrice = test.price >= 300000 && test.price < 500000;
+        } else if (selectedPriceRange === 'over_500k') {
+          matchesPrice = test.price >= 500000;
+        }
+      }
+
+      // 5. Fasting filter
+      let matchesFasting = true;
+      if (selectedFasting !== 'all') {
+        if (selectedFasting === 'fasting_yes') {
+          matchesFasting = test.fasting === true;
+        } else if (selectedFasting === 'fasting_no') {
+          matchesFasting = test.fasting === false;
+        }
+      }
+
+      return matchesSearch && matchesCategory && matchesField && matchesPrice && matchesFasting;
+    });
+
+    // Apply Sorting
+    if (sortOption === 'name_asc') {
+      result = [...result].sort((a, b) => getLangText(a.name).localeCompare(getLangText(b.name)));
+    } else if (sortOption === 'name_desc') {
+      result = [...result].sort((a, b) => getLangText(b.name).localeCompare(getLangText(a.name)));
+    } else if (sortOption === 'price_asc') {
+      result = [...result].sort((a, b) => a.price - b.price);
+    } else if (sortOption === 'price_desc') {
+      result = [...result].sort((a, b) => b.price - a.price);
+    } else if (sortOption === 'category_sort') {
+      result = [...result].sort((a, b) => a.category.localeCompare(b.category));
+    }
+
+    return result;
+  }, [searchQuery, selectedCategory, selectedMedicalField, selectedPriceRange, selectedFasting, sortOption, lang]);
+
+  // Group tests dynamically by category
+  const groupedTests = useMemo(() => {
+    const groups: Record<string, TestItem[]> = {};
+    filteredTests.forEach(test => {
+      const cat = test.category;
+      if (!groups[cat]) {
+        groups[cat] = [];
+      }
+      groups[cat].push(test);
+    });
+    return groups;
+  }, [filteredTests]);
+
+  // Search Suggestions list
+  const searchSuggestions = useMemo(() => {
+    if (!searchQuery.trim() || searchQuery.length < 2) return [];
+    const query = searchQuery.toLowerCase();
+    return LABORATORY_TESTS.filter(test => {
+      const codeMatch = test.code ? test.code.toLowerCase().includes(query) : false;
+      const nameMatch = getLangText(test.name).toLowerCase().includes(query);
+      const descMatch = getLangText(test.desc).toLowerCase().includes(query);
+      return codeMatch || nameMatch || descMatch;
+    }).slice(0, 6);
+  }, [searchQuery, lang]);
+
+  // Cart helper functions
+  const toggleCart = (testId: string) => {
+    setCart(prev => 
+      prev.includes(testId) ? prev.filter(id => id !== testId) : [...prev, testId]
+    );
+  };
+
+  const cartTotalAmount = useMemo(() => {
+    return cart.reduce((total, id) => {
+      const test = LABORATORY_TESTS.find(t => t.id === id);
+      return total + (test ? test.price : 0);
+    }, 0);
+  }, [cart]);
+
+  // AI Recommendation trigger
+  const handleAISymptomSelect = (symptomKey: 'fatigue' | 'allergy' | 'biohack' | 'checkup') => {
+    setAiSymptom(symptomKey);
+  };
+
+  const aiRecommendedTests = useMemo(() => {
+    if (!aiSymptom) return [];
+    if (aiSymptom === 'fatigue') return ['test_vit_d', 'test_tsh', 'test_cbc_25'];
+    if (aiSymptom === 'allergy') return ['test_crp', 'test_cbc_25'];
+    if (aiSymptom === 'biohack') return ['paket3', 'test_vit_d', 'test_hba1c'];
+    if (aiSymptom === 'checkup') return ['paket1', 'test_cbc_25', 'test_vit_d'];
+    return [];
+  }, [aiSymptom]);
+
+  const addRecommendedToCart = () => {
+    setCart(prev => {
+      const newCart = [...prev];
+      aiRecommendedTests.forEach(id => {
+        if (!newCart.includes(id)) {
+          newCart.push(id);
+        }
+      });
+      return newCart;
+    });
+  };
+
+  // Trigger booking from direct cart checkout
+  const startBookingWithCart = () => {
+    if (cart.length === 0) return;
+    setBookingStep(1);
+    setIsBookingOpen(true);
+  };
+
+  const startEmptyBooking = () => {
+    setActiveTab('services');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
+  };
+
+  // Form Submission
+  const handleConfirmBooking = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!patientName.trim() || !patientPhone.trim()) {
+      alert(lang === 'uz' ? 'Iltimos, ismingiz va telefon raqamingizni kiriting.' : lang === 'ru' ? 'Пожалуйста, введите имя и номер телефона.' : 'Iltimos, ismingiz va telefon raqamingizni kiriting.');
+      return;
+    }
+    
+    // Combine country dial code + digits into full phone number
+    const fullPhone = `${patientPhoneCountry.dialCode} ${patientPhone}`;
+    
+    setIsProcessingBooking(true);
+    
+    setTimeout(() => {
+      const randomID = 'KL-' + Math.floor(100000 + Math.random() * 900000);
+      setGeneratedTicketID(randomID);
+      setPatientPhone(fullPhone); // update state so ticket/telegram shows full phone
+      setIsProcessingBooking(false);
+      setBookingStep(4);
+
+      // Save ticket to localStorage
+      const newTicket = {
+        id: randomID,
+        patientName,
+        patientPhone: fullPhone,
+        selectedDate,
+        selectedTime,
+        selectedBranch,
+        cart,
+        cartTotalAmount,
+        timestamp: new Date().toISOString()
+      };
+      try {
+        const existing = JSON.parse(localStorage.getItem('kanilab_tickets') || '[]');
+        existing.push(newTicket);
+        localStorage.setItem('kanilab_tickets', JSON.stringify(existing));
+      } catch(e) {}
+    }, 2000);
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    let isValid = true;
+    const errors = { name: '', phone: '' };
+
+    if (!contactName.trim()) {
+      errors.name = lang === 'uz' ? 'Iltimos, ismingizni kiriting.' : lang === 'ru' ? 'Пожалуйста, введите ваше имя.' : 'Iltimos, ismingizni kiriting.';
+      isValid = false;
+    } else if (contactName.trim().length < 3) {
+      errors.name = lang === 'uz' ? 'Ism kamida 3 ta belgidan iborat boʻlishi kerak.' : lang === 'ru' ? 'Имя должно быть не менее 3 символов.' : 'Ism kamida 3 ta belgidan iborat boʻlishi kerak.';
+      isValid = false;
+    }
+
+    // Uzbek phone format: +998 followed by 9 digits
+    const cleanedPhone = contactPhone.replace(/\s+/g, '').replace(/[-()]/g, '');
+    const phoneRegex = /^\+?998\d{9}$/;
+    
+    if (!cleanedPhone) {
+      errors.phone = lang === 'uz' ? 'Iltimos, telefon raqamingizni kiriting.' : lang === 'ru' ? 'Пожалуйста, введите ваш номер телефона.' : 'Iltimos, telefon raqamingizni kiriting.';
+      isValid = false;
+    } else if (!phoneRegex.test(cleanedPhone)) {
+      errors.phone = lang === 'uz' ? 'Format notoʻgʻri. Masalan: +998 90 123-45-67' : lang === 'ru' ? 'Неверный формат. Пример: +998 90 123-45-67' : 'Format notoʻgʻri. Masalan: +998 90 123-45-67';
+      isValid = false;
+    }
+
+    setContactFormErrors(errors);
+
+    if (!isValid) return;
+
+    // Trigger success animation
+    setContactSubmitted(true);
+    setTimeout(() => {
+      setContactName('');
+      setContactPhone('');
+      setContactMsg('');
+      setContactFormErrors({ name: '', phone: '' });
+      setContactSubmitted(false);
+    }, 6000);
+  };
+
+  const formatPrice = (val: number) => {
+    return val.toLocaleString('uz-UZ') + ' UZS';
+  };
+
+  const allReviews = [...userReviews, ...t.reviews];
+
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReview.name || !newReview.review) return;
+    
+    const updatedReviews = [{ ...newReview, role: newReview.role || (lang === 'uz' ? 'Yangi mijoz' : lang === 'ru' ? 'Новый клиент' : 'Yeni Müşteri') }, ...userReviews];
+    setUserReviews(updatedReviews);
+    localStorage.setItem('kanilab_reviews', JSON.stringify(updatedReviews));
+    setNewReview({ name: '', role: '', review: '', rating: 5 });
+    setIsReviewModalOpen(false);
+    setTestimonialIndex(0);
+  };
+
+  return (
+    <div id="app-container" className={`min-h-screen w-full overflow-x-clip relative font-sans transition-colors duration-500 ${darkMode ? 'bg-[#090D1A] text-[#F8FAFC]' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
+      
+      {/* Decorative ambient glowing grids */}
+      <div className="absolute top-0 inset-x-0 h-[600px] overflow-hidden pointer-events-none z-0">
+        <div className={`absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] opacity-30 ${darkMode ? 'bg-cyan-500' : 'bg-cyan-300'}`}></div>
+        <div className={`absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full blur-[100px] opacity-25 ${darkMode ? 'bg-blue-600' : 'bg-blue-400'}`}></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+      </div>
+
+      {/* ==========================================
+          STICKY PREMIUM NAVBAR
+         ========================================== */}
+      <nav id="glass-navbar" className="sticky top-0 z-50 px-4 md:px-10 py-4 border-b transition-all duration-300 backdrop-blur-xl bg-opacity-70 border-white/10 bg-white/10 dark:bg-slate-950/20">
+        <div className="max-w-[1600px] w-full mx-auto flex items-center justify-between gap-4">
+          
+          {/* Left Side: Logo & Navigation */}
+          <div className="flex items-center gap-4 xl:gap-6">
+            {/* Logo */}
+            <div className="flex items-center gap-2 cursor-pointer select-none shrink-0 mr-2" onClick={() => setActiveTab('home')}>
+              <div className="w-16 h-16 flex items-center justify-center">
+                <KaniLabLogo className="w-16 h-16 hover:scale-105 transition-transform duration-300" />
+              </div>
+            </div>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-3 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            <button 
+              onClick={() => setActiveTab('home')} 
+              className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'home' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+            >
+              {t.navHome}
+            </button>
+            {/* Haqida Dropdown */}
+            <div className="relative group py-1">
+              <button
+                className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+              >
+                {t.navAbout}
+                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+              </button>
+
+              {/* About Dropdown Panel */}
+              <div className="absolute left-0 top-full mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
+                <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1">
+                  {lang === 'uz' ? 'Kani-Lab haqida' : lang === 'ru' ? 'О Kani-Lab' : 'Kani-Lab Hakkında'}
+                </div>
+                {[
+                  { tab: 'about', label: t.navAboutUs, icon: <Microscope className="w-3 h-3 text-[#00B4D8]" />, color: 'bg-[#00B4D8]/10' },
+                  { tab: 'about-history', label: t.navAboutHistory, icon: <FileText className="w-3 h-3 text-amber-500" />, color: 'bg-amber-50 dark:bg-amber-950/30' },
+                  { tab: 'about-values', label: t.navAboutValues, icon: <Award className="w-3 h-3 text-purple-500" />, color: 'bg-purple-50 dark:bg-purple-950/30' },
+                  { tab: 'about-mission', label: t.navAboutMission, icon: <Zap className="w-3 h-3 text-emerald-500" />, color: 'bg-emerald-50 dark:bg-emerald-950/30' },
+                ].map(item => (
+                  <button
+                    key={item.tab}
+                    onClick={() => { setActiveTab(item.tab as any); window.location.hash = item.tab; }}
+                    className={`w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl transition-all flex items-center gap-2.5 ${
+                      activeTab === item.tab
+                        ? 'bg-slate-50 dark:bg-slate-800 text-[#00B4D8]'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-[#00B4D8]'
+                    }`}
+                  >
+                    <div className={`w-6 h-6 rounded-lg ${item.color} flex items-center justify-center shrink-0`}>
+                      {item.icon}
+                    </div>
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button 
+              onClick={() => setActiveTab('services')} 
+              className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'services' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+            >
+              {t.navServices}
+            </button>
+            <div className="relative group py-1">
+              <button 
+                className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'doctors' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+              >
+                {t.navTeam}
+                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+              </button>
+              
+              {/* Mega Menu Two-Panel Container */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[32rem] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-3 flex divide-x divide-slate-100 dark:divide-slate-800">
+                
+                {/* Left Panel: Department List */}
+                <div className="w-1/2 pr-2 flex flex-col gap-1">
+                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 mb-1">
+                    {lang === 'uz' ? 'Bo‘limlar' : lang === 'ru' ? 'Отделы' : 'Bölümler'}
+                  </div>
+                  {[
+                    { id: 'management', label: t.deptManagement },
+                    { id: 'lab', label: t.deptLab },
+                    { id: 'finance', label: t.deptFinance },
+                    { id: 'service', label: t.deptService },
+                    { id: 'admin', label: t.deptAdmin }
+                  ].map(dept => (
+                    <button 
+                      key={dept.id}
+                      onMouseEnter={() => setHoveredMenuDept(dept.id)}
+                      onClick={() => {
+                        setActiveTab('doctors');
+                        setSelectedTeamDept(dept.id);
+                        setSelectedTeamMemberId(null);
+                        window.location.hash = '/team';
+                        setTimeout(() => {
+                          const el = document.getElementById('doctors');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-[11px] font-bold rounded-xl transition-all flex items-center justify-between ${
+                        hoveredMenuDept === dept.id
+                          ? 'bg-slate-50 dark:bg-slate-800/80 text-[#00B4D8]'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
+                      }`}
+                    >
+                      <span>{dept.label}</span>
+                      <ChevronRight className={`w-3.5 h-3.5 transition-transform ${hoveredMenuDept === dept.id ? 'translate-x-0.5' : ''}`} />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Right Panel: Staff Submenu list */}
+                <div className="w-1/2 pl-3 flex flex-col">
+                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2 py-1 mb-1">
+                    {lang === 'uz' ? 'Xodimlar' : lang === 'ru' ? 'Сотрудники' : 'Personel'}
+                  </div>
+                  
+                  <div className="flex flex-col gap-0.5 max-h-[20rem] overflow-y-auto pr-0.5">
+                    {TEAM_MEMBERS.filter(m => m.department === hoveredMenuDept).map(member => (
+                      <button
+                        key={member.id}
+                        onClick={() => {
+                          window.location.hash = `/team/${member.id}`;
+                        }}
+                        className="w-full text-left px-3 py-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] rounded-lg transition-all"
+                      >
+                        <span className="block font-bold text-slate-700 dark:text-slate-200">{member.name}</span>
+                        <span className="block text-[9px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{getLangText(member.position)}</span>
+                      </button>
+                    ))}
+
+                    {hoveredMenuDept === 'lab' && (
+                      <div className="flex flex-col gap-0.5 mt-1 border-t border-slate-100 dark:border-slate-800/60 pt-2">
+                        <div className="text-[9px] font-extrabold text-slate-400 uppercase px-2 mb-1">
+                          {lang === 'uz' ? 'Laborantlar' : lang === 'ru' ? 'Лаборанты' : 'Laborantlar'}
+                        </div>
+                        {LABORANTS.map((lab, idx) => {
+                          const labId = lab.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                window.location.hash = `/team/${labId}`;
+                              }}
+                              className="w-full text-left px-3 py-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] rounded-lg transition-all"
+                            >
+                              <span className="block font-bold text-slate-700 dark:text-slate-200">{lab.name}</span>
+                              <span className="block text-[9px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{getLangText(lab.pos)}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {hoveredMenuDept === 'service' && (
+                      <button
+                        onClick={() => {
+                          setActiveTab('contact');
+                          setTimeout(() => {
+                            const el = document.getElementById('contact');
+                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                          }, 100);
+                        }}
+                        className="w-full text-left px-3 py-2 text-[10px] font-bold text-[#0096C7] dark:text-[#48CAE4] hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 rounded-lg transition-all border border-dashed border-cyan-100 dark:border-cyan-900 mt-2 flex items-center justify-center gap-1 shrink-0"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>{lang === 'uz' ? 'Kadrlar zaxirasi' : lang === 'ru' ? 'Кадровый резерв' : 'Kariyer Fırsatı'}</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button 
+              onClick={() => setActiveTab('faq')} 
+              className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'faq' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+            >
+              {t.navFAQ}
+            </button>
+            <div className="relative group py-1">
+              <button
+                onClick={() => setActiveTab('contact')}
+                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'contact' || activeTab === 'branches' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+              >
+                {t.navContact}
+                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+              </button>
+
+              {/* Contact Dropdown */}
+              <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
+                <button
+                  onClick={() => { setActiveTab('contact'); window.location.hash = 'contact'; }}
+                  className="w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#00B4D8] transition-all flex items-center gap-2.5"
+                >
+                  <div className="w-6 h-6 rounded-lg bg-[#00B4D8]/10 flex items-center justify-center shrink-0">
+                    <Phone className="w-3 h-3 text-[#00B4D8]" />
+                  </div>
+                  <span>{t.navContactMain}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveTab('branches'); window.location.hash = 'branches'; }}
+                  className="w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#00B4D8] transition-all flex items-center gap-2.5"
+                >
+                  <div className="w-6 h-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center shrink-0">
+                    <MapPin className="w-3 h-3 text-emerald-500" />
+                  </div>
+                  <span>{t.navBranches}</span>
+                </button>
+              </div>
+            </div>
+            
+            {/* Elegant Phone Badge inside Desktop Nav */}
+            <div className="hidden xl:flex items-center gap-3 bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-800 dark:text-slate-200 shadow-sm shrink-0">
+              <Phone className="w-3.5 h-3.5 text-[#00B4D8] animate-pulse" />
+              <a href="tel:+998900751234" className="hover:text-[#00B4D8] transition-colors">+998 90 075 12 34</a>
+              <span className="text-slate-300 dark:text-slate-700">|</span>
+              <a href="tel:+998781501234" className="hover:text-[#00B4D8] transition-colors">+998 78 150 12 34</a>
+            </div>
+          </div>
+        </div>
+
+          {/* Controls: Language, Theme, & Book Button */}
+          <div className="flex items-center gap-2 xl:gap-4 shrink-0">
+            
+            {/* Language Switcher */}
+            <div className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
+              <button 
+                id="lang-uz"
+                onClick={() => handleLangChange('uz')} 
+                className={`px-3 py-1.5 rounded-full transition-all duration-300 ${lang === 'uz' ? 'bg-[#00B4D8] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'}`}
+              >
+                UZ
+              </button>
+              <button 
+                id="lang-ru"
+                onClick={() => handleLangChange('ru')} 
+                className={`px-3 py-1.5 rounded-full transition-all duration-300 ${lang === 'ru' ? 'bg-[#00B4D8] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'}`}
+              >
+                RU
+              </button>
+              <button 
+                id="lang-tr"
+                onClick={() => handleLangChange('tr')} 
+                className={`px-3 py-1.5 rounded-full transition-all duration-300 ${lang === 'tr' ? 'bg-[#00B4D8] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'}`}
+              >
+                TR
+              </button>
+            </div>
+
+            {/* Dark Mode toggle button */}
+            <button 
+              id="theme-toggle"
+              onClick={handleThemeToggle} 
+              aria-label="Toggle theme"
+              className="p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-300"
+            >
+              {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-800" />}
+            </button>
+
+            {/* Book Appointment CTAs */}
+            <button
+              onClick={() => setIsCheckModalOpen(true)}
+              className="hidden lg:flex px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs xl:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105 active:scale-95 transition-all items-center gap-2 whitespace-nowrap"
+            >
+              <Search className="w-4 h-4 shrink-0" />
+              <span className="hidden xl:inline">{lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}</span>
+              <span className="xl:hidden">{lang === 'uz' ? 'Chek' : lang === 'ru' ? 'Чек' : 'Fatura'}</span>
+            </button>
+            <button 
+              id="book-appointment-navbar"
+              onClick={startEmptyBooking}
+              className="hidden lg:flex px-5 py-2.5 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-full text-xs xl:text-sm font-bold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
+            >
+              {t.btnBook}
+            </button>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              id="mobile-menu-toggle"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300 hover:scale-105 active:scale-95 transition-all focus:outline-none"
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Dropdown Panel */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden mt-4 pt-4 border-t border-slate-200/40 dark:border-slate-800/40 flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="flex flex-col gap-2 font-semibold">
+              <button 
+                onClick={() => {
+                  setActiveTab('home');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors text-left ${activeTab === 'home' ? 'text-[#00B4D8] font-black bg-slate-100 dark:bg-slate-900' : 'text-slate-800 dark:text-slate-200'}`}
+              >
+                {t.navHome}
+              </button>
+              {/* Expandable About menu in mobile */}
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+                  className={`px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors text-left flex items-center justify-between ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] font-black bg-slate-100 dark:bg-slate-900' : 'text-slate-800 dark:text-slate-200'}`}
+                >
+                  <span>{t.navAbout}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-250 ${isMobileAboutOpen ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                </button>
+                {isMobileAboutOpen && (
+                  <div className="pl-4 pr-2 flex flex-col gap-1.5 mt-1.5 pb-2 border-l-2 border-slate-200 dark:border-slate-800 ml-6 animate-in slide-in-from-top-2 duration-200">
+                    {[
+                      { tab: 'about', label: t.navAboutUs },
+                      { tab: 'about-history', label: t.navAboutHistory },
+                      { tab: 'about-values', label: t.navAboutValues },
+                      { tab: 'about-mission', label: t.navAboutMission }
+                    ].map(item => (
+                      <button
+                        key={item.tab}
+                        onClick={() => {
+                          setActiveTab(item.tab as any);
+                          window.location.hash = item.tab;
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className={`text-left px-3 py-2 text-xs font-bold rounded-lg transition-colors ${
+                          activeTab === item.tab 
+                            ? 'text-[#00B4D8] bg-slate-50 dark:bg-slate-800' 
+                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button 
+                onClick={() => {
+                  setActiveTab('services');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors text-left ${activeTab === 'services' ? 'text-[#00B4D8] font-black bg-slate-100 dark:bg-slate-900' : 'text-slate-800 dark:text-slate-200'}`}
+              >
+                {t.navServices}
+              </button>
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setIsMobileTeamOpen(!isMobileTeamOpen)}
+                  className={`px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors text-left flex items-center justify-between ${activeTab === 'doctors' ? 'text-[#00B4D8] font-black bg-slate-100 dark:bg-slate-900' : 'text-slate-800 dark:text-slate-200'}`}
+                >
+                  <span>{t.navTeam}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-250 ${isMobileTeamOpen ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                </button>
+                {isMobileTeamOpen && (
+                  <div className="pl-4 pr-2 flex flex-col gap-1.5 mt-1.5 pb-2 border-l-2 border-slate-200 dark:border-slate-800 ml-6 animate-in slide-in-from-top-2 duration-200">
+                    <button
+                      onClick={() => {
+                        setActiveTab('doctors');
+                        setSelectedTeamDept('all');
+                        setSelectedTeamMemberId(null);
+                        window.location.hash = '/team';
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`px-4 py-1.5 text-xs text-left rounded-lg transition-all ${
+                        selectedTeamDept === 'all' && !selectedTeamMemberId && activeTab === 'doctors'
+                          ? 'text-[#00B4D8] font-bold bg-slate-50 dark:bg-slate-900' 
+                          : 'text-slate-600 dark:text-slate-400 hover:text-[#00B4D8]'
+                      }`}
+                    >
+                      {lang === 'uz' ? 'Barcha bo‘limlar' : lang === 'ru' ? 'Все отделы' : 'Tüm Bölümler'}
+                    </button>
+                    {[
+                      { id: 'management', label: t.deptManagement },
+                      { id: 'lab', label: t.deptLab },
+                      { id: 'finance', label: t.deptFinance },
+                      { id: 'service', label: t.deptService },
+                      { id: 'admin', label: t.deptAdmin }
+                    ].map(dept => {
+                      const isDeptExpanded = isMobileDeptOpen[dept.id] || false;
+                      return (
+                        <div key={dept.id} className="flex flex-col">
+                          <button
+                            onClick={() => {
+                              setIsMobileDeptOpen(prev => ({ ...prev, [dept.id]: !isDeptExpanded }));
+                            }}
+                            className="px-4 py-1.5 text-xs text-left text-slate-700 dark:text-slate-300 hover:text-[#00B4D8] flex items-center justify-between"
+                          >
+                            <span>{dept.label}</span>
+                            <ChevronDown className={`w-3 h-3 transition-transform ${isDeptExpanded ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                          </button>
+                          {isDeptExpanded && (
+                            <div className="pl-4 flex flex-col gap-1.5 mt-1 pb-1 ml-4 border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-top-1 duration-150">
+                              <button
+                                onClick={() => {
+                                  setActiveTab('doctors');
+                                  setSelectedTeamDept(dept.id);
+                                  setSelectedTeamMemberId(null);
+                                  window.location.hash = '/team';
+                                  setIsMobileMenuOpen(false);
+                                }}
+                                className="text-[10px] text-left text-slate-400 hover:text-[#00B4D8] font-bold py-1"
+                              >
+                                {lang === 'uz' ? 'Bo‘lim ro‘yxati' : lang === 'ru' ? 'Список отдела' : 'Bölüm Listesi'}
+                              </button>
+                              {TEAM_MEMBERS.filter(m => m.department === dept.id).map(member => (
+                                <button
+                                  key={member.id}
+                                  onClick={() => {
+                                    window.location.hash = `/team/${member.id}`;
+                                    setIsMobileMenuOpen(false);
+                                  }}
+                                  className="text-[11px] text-left text-slate-500 hover:text-[#00B4D8] py-1 truncate"
+                                >
+                                  {member.name}
+                                </button>
+                              ))}
+                              {dept.id === 'lab' && LABORANTS.map((lab, idx) => {
+                                const labId = lab.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                                return (
+                                  <button
+                                    key={idx}
+                                    onClick={() => {
+                                      window.location.hash = `/team/${labId}`;
+                                      setIsMobileMenuOpen(false);
+                                    }}
+                                    className="text-[11px] text-left text-slate-500 hover:text-[#00B4D8] py-1 truncate"
+                                  >
+                                    {lab.name}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              <button 
+                onClick={() => {
+                  setActiveTab('faq');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors text-left ${activeTab === 'faq' ? 'text-[#00B4D8] font-black bg-slate-100 dark:bg-slate-900' : 'text-slate-800 dark:text-slate-200'}`}
+              >
+                {t.navFAQ}
+              </button>
+              <button 
+                onClick={() => {
+                  setActiveTab('contact');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors text-left ${activeTab === 'contact' ? 'text-[#00B4D8] font-black bg-slate-100 dark:bg-slate-900' : 'text-slate-800 dark:text-slate-200'}`}
+              >
+                {t.navContact}
+              </button>
+            </div>
+
+            {/* Mobile Contact Info Details inside the menu */}
+            <div className="p-4 bg-slate-100 dark:bg-slate-900/60 rounded-2xl flex flex-col gap-2.5 border border-slate-200/20 dark:border-slate-800/20">
+              <div className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                {lang === 'uz' ? 'MULOQOT TARMOQLARI' : lang === 'ru' ? 'КОНТАКТНЫЕ НОМЕРА' : 'İletişim Ağları'}
+              </div>
+              <a href="tel:+998900751234" className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 hover:text-[#00B4D8] transition-colors">
+                <Phone className="w-3.5 h-3.5 text-[#00B4D8]" />
+                <span>+998 90 075 12 34</span>
+              </a>
+              <a href="tel:+998781501234" className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 hover:text-[#00B4D8] transition-colors">
+                <Phone className="w-3.5 h-3.5 text-[#00B4D8]" />
+                <span>+998 78 150 12 34</span>
+              </a>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  startEmptyBooking();
+                }}
+                className="w-full py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-2xl text-xs font-black hover:shadow-lg active:scale-98 transition-all flex items-center justify-center gap-1.5"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>{t.btnBook}</span>
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsCheckModalOpen(true);
+                }}
+                className="w-full py-3 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white rounded-2xl text-xs font-black active:scale-95 transition-transform flex items-center justify-center gap-1.5"
+              >
+                <Search className="w-4 h-4" />
+                <span>{lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}</span>
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* ==========================================
+          HERO SECTION (Fullscreen Layout with floating cards & animated 3D SVG DNA)
+         ========================================== */}
+      {activeTab === 'home' && (
+        <section id="hero" className="relative w-full z-10 overflow-hidden flex items-center justify-center min-h-[85vh] md:min-h-screen bg-slate-900">
+        
+        {/* Background Image with Dark Overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <img 
+            src={markazOldImg} 
+            alt="KANILAB Markaz" 
+            className="w-full h-full object-cover object-center opacity-80"
+          />
+          {/* Dark blue/black overlay gradient similar to the screenshot */}
+          <div className="absolute inset-0 bg-slate-900/70 dark:bg-[#090D1A]/80" />
+        </div>
+
+        
+
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center gap-6 mt-[-50px]">
+          
+          {/* Centered Hero Content Block */}
+          <div className="flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full w-fit mb-4">
+            <Sparkles className="w-4 h-4 text-[#00B4D8]" />
+            <span className="text-xs font-bold text-white tracking-widest uppercase">{t.badgeGen}</span>
+          </div>
+          
+          <div className="hero-typing-container min-h-[120px] flex items-center justify-center w-full">
+            <h1 
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white text-center drop-shadow-2xl" 
+              style={{ fontFamily: 'Montserrat, sans-serif', textShadow: '0px 4px 10px rgba(0,0,0,0.5)' }}
+            >
+              <span ref={typedEl}></span>
+            </h1>
+          </div>
+          
+          <p className="text-base sm:text-lg text-slate-200 max-w-3xl leading-relaxed font-medium mx-auto text-center drop-shadow-md">
+            {t.heroSub}
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
+            <button 
+              onClick={startEmptyBooking}
+              className="px-10 py-4 bg-white text-slate-900 rounded-full text-base font-black shadow-xl hover:bg-slate-100 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"
+            >
+              {lang === 'uz' ? 'Onlayn navbat olish' : lang === 'ru' ? 'Онлайн бронирование' : 'Çevrimiçi Sıra Alın'}
+            </button>
+            <button 
+              onClick={() => setActiveTab('services')}
+              className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full text-base font-black shadow-xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"
+            >
+              {lang === 'uz' ? 'Tahlillar va narxlar' : lang === 'ru' ? 'Анализы и цены' : 'Analizler ve Fiyatlar'}
+            </button>
+          </div>
+
+        </div>
+
+        
+
+      </section>
+      )}
+
+      {/* ==========================================
+          ABOUT SECTION (Corporate Excellence & Premium Clinical Bento Grid)
+         ========================================== */}
+      {activeTab === 'about' && (
+        <section id="about" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
+        
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center gap-2 mb-16">
+          <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.aboutTitle}</span>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
+            {t.aboutSub}
+          </h2>
+          <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
+        </div>
+
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* Card 1: Main Introduction & High-tech lab visualizer (7 cols) */}
+          {/* Card 1: Main Introduction & High-tech lab visualizer (Expanded to 12 cols) */}
+          <div className="lg:col-span-12 flex flex-col gap-6 bg-white dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/50 p-6 md:p-10 rounded-[32px] shadow-sm relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00B4D8]/5 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#00B4D8]/10 text-[#00B4D8] flex items-center justify-center">
+                <Microscope className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lang === 'uz' ? 'LABORATORIYA TARMOGʻI' : lang === 'ru' ? 'СЕТЬ ЛАБОРАТОРИЙ' : 'LABORATUVAR AĞI'}</span>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight mt-1">KANI-LAB Clinical Lab</h3>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+              {/* Left Column: Extensive Text */}
+              <div className="flex flex-col gap-5">
+                <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-justify">
+                  {t.aboutText1}
+                </p>
+
+                <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-justify">
+                  {t.aboutText2}
+                </p>
+
+                {/* Swiss Precision benchmark strip */}
+                <div className="mt-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center font-black text-xs shrink-0 shadow-sm">
+                      🇨🇭
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider">{lang === 'uz' ? 'Shveysariya Aniqligi' : lang === 'ru' ? 'Швейцарская Точность' : 'İsviçre Hassasiyeti'}</h4>
+                      <p className="text-[10px] text-slate-400 mt-0.5 font-bold">{lang === 'uz' ? '99.9% Analitik nazorat kafolati' : lang === 'ru' ? '99.9% Гарантия точности' : '%99.9 Analitik Kontrol Garantisi'}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Sparkles key={s} className="w-4 h-4 text-[#00B4D8] animate-pulse" style={{ animationDelay: `${s * 200}ms` }} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Grid features and stats */}
+              <div className="flex flex-col gap-4 justify-center">
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { 
+                      icon: <Activity className="w-5 h-5" />, 
+                      title: lang === 'uz' ? 'To\'liq avtomatizatsiya' : lang === 'ru' ? 'Полная автоматизация' : 'Tam Otomasyon', 
+                      desc: lang === 'uz' ? 'Inson omilisiz tekshiruv' : lang === 'ru' ? 'Тестирование без ошибок' : 'İnsan faktörü olmadan test' 
+                    },
+                    { 
+                      icon: <ShieldCheck className="w-5 h-5" />, 
+                      title: lang === 'uz' ? 'Sifat nazorati' : lang === 'ru' ? 'Контроль качества' : 'Kalite Kontrolü', 
+                      desc: lang === 'uz' ? 'CAP va ISO 15189' : lang === 'ru' ? 'Стандарты CAP и ISO' : 'CAP ve ISO 15189' 
+                    },
+                    { 
+                      icon: <Zap className="w-5 h-5" />, 
+                      title: lang === 'uz' ? 'Tezkor natijalar' : lang === 'ru' ? 'Быстрые результаты' : 'Hızlı Sonuçlar', 
+                      desc: lang === 'uz' ? '2-4 soat ichida tayyor' : lang === 'ru' ? 'Готовность за 2-4 часа' : '2-4 saat içinde hazır' 
+                    },
+                    { 
+                      icon: <Database className="w-5 h-5" />, 
+                      title: lang === 'uz' ? 'Katta qamrov' : lang === 'ru' ? 'Широкий охват' : 'Geniş Kapsam', 
+                      desc: lang === 'uz' ? '1000+ turdagi tahlillar' : lang === 'ru' ? 'Более 1000 видов анализов' : '1000+ çeşit analiz' 
+                    }
+                  ].map((feat, i) => (
+                    <div key={i} className="p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col gap-3 hover:shadow-md transition-shadow">
+                      <div className="w-10 h-10 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
+                        {feat.icon}
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-slate-800 dark:text-slate-200">{feat.title}</div>
+                        <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">{feat.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="p-6 mt-2 bg-gradient-to-r from-slate-900 to-[#0A192F] dark:from-slate-950 dark:to-slate-900 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
+                  <div>
+                    <div className="text-3xl font-black text-white">500,000+</div>
+                    <div className="text-xs font-bold text-cyan-400 uppercase tracking-widest mt-1">
+                      {lang === 'uz' ? 'Yillik tahlillar soni' : lang === 'ru' ? 'Анализов в год' : 'Yıllık Analiz Sayısı'}
+                    </div>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <Check className="w-6 h-6 text-emerald-400 stroke-[3]" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* ======================================================================================
+              LABORATORY INSTRUMENTS SECTION (12 columns full-width beautifully styled visual grid)
+             ====================================================================================== */}
+          <div className="lg:col-span-12 flex flex-col gap-8 bg-slate-50 dark:bg-slate-900/10 border border-slate-200/50 dark:border-slate-800/50 p-6 md:p-8 rounded-[32px] shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/60 dark:border-slate-800/40 pb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center shrink-0">
+                  <Cpu className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lang === 'uz' ? 'YUKSAK TEHNOLOGIYALAR' : lang === 'ru' ? 'ВЫСОКИЕ ТЕХНОЛОГИИ' : 'YÜKSEK TEKNOLOJİLER'}</span>
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight mt-0.5">{lang === 'uz' ? 'Zamonaviy Robotlashtirilgan Analizatorlarimiz' : lang === 'ru' ? 'Наше Роботизированное Оборудование' : 'Modern Robotik Analizörlerimiz'}</h3>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold max-w-md">
+                {lang === 'uz' ? 'Laboratoriyamiz tahlillar aniqligini ta’minlash maqsadida Shveysariya, Yaponiya va AQShning eng so‘nggi diagnostika texnologiyalari bilan jihozlaganmiz.' : lang === 'ru' ? 'Наша лаборатория оснащена современными диагностическими комплексами из Швейцарии, Японии и США для максимальной точности анализов.' : 'Laboratuvarımız, analiz doğruluğunu sağlamak amacıyla İsviçre, Japonya ve ABD\'den gelen en son tanı teknolojileriyle donatılmıştır.'}
+              </p>
+            </div>
+
+            {/* ── Carousel Track ─────────────────────────────── */}
+            <div className="relative w-full overflow-hidden py-6">
+              {/* Left fade */}
+              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 dark:from-slate-900/10 to-transparent z-10 pointer-events-none" />
+              {/* Right fade */}
+              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 dark:from-slate-900/10 to-transparent z-10 pointer-events-none" />
+
+              {/* Scrolling strip — duplicated for seamless infinite loop */}
+              <div className="flex gap-5 animate-marquee-slow hover:[animation-play-state:paused] w-max">
+                {[...ANALYZERS_DATA, ...ANALYZERS_DATA].map((analyzer, idx) => (
+                  <div
+                    key={`${analyzer.id}-${idx}`}
+                    onClick={() => setSelectedAnalyzer(analyzer)}
+                    className="w-[260px] shrink-0 bg-white dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col group cursor-pointer"
+                  >
+                    <div className="relative aspect-video overflow-hidden bg-slate-100 dark:bg-slate-950">
+                      <img
+                        src={analyzer.image}
+                        alt={analyzer.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className={`absolute top-3 left-3 text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md shadow-sm ${analyzer.badgeColor}`}>
+                        {analyzer.badge}
+                      </div>
+                    </div>
+                    <div className="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="text-sm font-black text-slate-950 dark:text-white leading-snug">{analyzer.name}</h4>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed font-semibold line-clamp-2">
+                          {getLangText(analyzer.shortDesc)}
+                        </p>
+                      </div>
+                      <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[10px] font-black text-cyan-500 uppercase tracking-wider">
+                        <span>{getLangText(analyzer.category)}</span>
+                        <span>{analyzer.model}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: turnaround times clock list (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-5 bg-white dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/50 p-6 rounded-[32px] shadow-sm relative overflow-hidden group">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+                <Clock className="w-4.5 h-4.5" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lang === 'uz' ? 'TEZKOR VA LAB-SPEED' : lang === 'ru' ? 'СКОРОСТЬ ВЫПОЛНЕНИЯ' : 'HIZLI & LAB-SPEED'}</span>
+                <h3 className="text-lg font-extrabold text-slate-900 dark:text-white leading-tight mt-0.5">{lang === 'uz' ? 'Xizmat ko‘rsatish tezligi' : lang === 'ru' ? 'Сроки выдачи результатов' : 'Sonuç Teslim Süresi'}</h3>
+              </div>
+            </div>
+
+            <div className="space-y-3 mt-1.5">
+              {[
+                { label: lang === 'uz' ? 'Biokimyoviy tahlillar' : lang === 'ru' ? 'Биохимические анализы' : 'Biyokimyasal Analizler', time: lang === 'uz' ? '2 soatgacha' : lang === 'ru' ? 'до 2 часов' : '2 saate kadar', color: 'text-emerald-500 bg-emerald-500/5 border-emerald-500/10' },
+                { label: lang === 'uz' ? 'Immunologik va gormonal' : lang === 'ru' ? 'Иммунологические и гормоны' : 'İmmünolojik ve Hormonal', time: lang === 'uz' ? '4 soatgacha' : lang === 'ru' ? 'до 4 часов' : '4 saate kadar', color: 'text-[#00B4D8] bg-[#00B4D8]/5 border-[#00B4D8]/10' },
+                { label: lang === 'uz' ? 'Mikrobiologik tahlillar' : lang === 'ru' ? 'Микробиологические тесты' : 'Mikrobiyolojik Analizler', time: lang === 'uz' ? '3 — 5 kun' : lang === 'ru' ? 'от 3 до 5 дней' : '3 — 5 gün', color: 'text-amber-500 bg-amber-500/5 border-amber-500/10' },
+                { label: lang === 'uz' ? 'PCR (PSR) analizlari' : lang === 'ru' ? 'ПЦР-анализы' : 'PCR (PZR) Analizleri', time: lang === 'uz' ? '10 kun ichida' : lang === 'ru' ? 'в течение 10 дней' : '10 gün içinde', color: 'text-indigo-500 bg-indigo-500/5 border-indigo-500/10' },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/20 border border-slate-100 dark:border-slate-800/40 transition-colors hover:bg-slate-100 dark:hover:bg-slate-950/50">
+                  <span className="text-xs font-black text-slate-700 dark:text-slate-300">{item.label}</span>
+                  <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border ${item.color}`}>
+                    {item.time}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold leading-relaxed">
+              * {lang === 'uz' ? 'Natijalarni real vaqt rejimida onlayn portal yoki telegram orqali yuklab olishingiz mumkin.' : lang === 'ru' ? 'Результаты можно скачать в личном кабинете на сайте или через телеграм-бот.' : 'Sonuçları gerçek zamanlı olarak çevrimiçi portalımız veya Telegram üzerinden indirebilirsiniz.'}
+            </p>
+          </div>
+
+          {/* Card 5: Scientific Collaborations & Partners (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-between bg-white dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/50 p-6 md:p-8 rounded-[32px] shadow-sm relative overflow-hidden group">
+            <div className="space-y-2 text-left">
+              <span className="text-[9px] font-black text-[#00B4D8] uppercase tracking-widest">{lang === 'uz' ? 'ILMIY TARAQQIYOT' : lang === 'ru' ? 'НАУЧНОЕ РАЗВИТИЕ' : 'BİLİMSEL GELİŞİM'}</span>
+              <h3 className="text-lg font-extrabold text-slate-900 dark:text-white leading-tight">{lang === 'uz' ? 'Ilmiy-amaliy hamkorlik' : lang === 'ru' ? 'Научно-практическое сотрудничество' : 'Bilimsel ve Pratik İşbirliği'}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">
+                {lang === 'uz' ? 'Biz Termiz davlat universiteti (TerDU) va Toshkent tibbiyot akademiyasi Termiz filiali (TTA TF) bilan yaqin ilmiy hamkorlik olib boramiz. Bu hamkorlik zamonaviy tibbiy yutuqlarni amaliyotga jadal tatbiq etish imkonini beradi.' : lang === 'ru' ? 'Мы ведем тесное сотрудничество с Термезским государственным университетом и Термезским филиалом Ташкентской медицинской академии для оперативного внедрения научных достижений.' : 'Tirmiz Devlet Üniversitesi (TerDU) ve Taşkent Tıp Akademisi Tirmiz Şubesi (TTA TF) ile yakın bilimsel işbirliği yürütmekteyiz. Bu ortaklık, modern tıbbi başarıları uygulamaya hızla entegre etmemizi sağlıyor.'}
+              </p>
+            </div>
+
+            {/* University Campuses with Real Generated Images */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              
+              {/* Partner 1: TerDU */}
+              <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col group/partner">
+                <div className="relative h-44 overflow-hidden bg-slate-200 dark:bg-slate-900">
+                  <img 
+                    src={termizUnivImg} 
+                    alt="Termiz State University Campus" 
+                    className="w-full h-full object-cover group-hover/partner:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                  <span className="absolute bottom-2 left-3 text-[9px] font-black text-[#48CAE4] uppercase tracking-widest">TerDU Partner</span>
+                </div>
+                <div className="p-3">
+                  <p className="text-xs font-black text-slate-800 dark:text-slate-100 truncate">
+                    {lang === 'uz' ? 'Termiz Davlat Universiteti' : lang === 'ru' ? 'Термезский Гос. Университет' : 'Tirmiz Devlet Üniversitesi'}
+                  </p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-0.5">
+                    {lang === 'uz' ? 'Ilmiy tadqiqot & hamkor' : lang === 'ru' ? 'Научно-исследовательский партнер' : 'Araştırma & Geliştirme Ortağı'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Partner 2: TTA TF */}
+              <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col group/partner">
+                <div className="relative h-44 overflow-hidden bg-slate-200 dark:bg-slate-900">
+                  <img 
+                    src={tashkentMedicalImg} 
+                    alt="Tashkent Medical Academy Termiz Branch" 
+                    className="w-full h-full object-cover group-hover/partner:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                  <span className="absolute bottom-2 left-3 text-[9px] font-black text-[#48CAE4] uppercase tracking-widest">TTA TF Partner</span>
+                </div>
+                <div className="p-3">
+                  <p className="text-xs font-black text-slate-800 dark:text-slate-100 truncate">
+                    {lang === 'uz' ? 'Toshkent Tibbiyot Akademiyasi' : lang === 'ru' ? 'Ташкентская Мед. Академия' : 'Taşkent Tıp Akademisi'}
+                  </p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-0.5">
+                    {lang === 'uz' ? 'Termiz filiali klinik hamkor' : lang === 'ru' ? 'Термезский филиал клинический партнер' : 'Tirmiz Şubesi Klinik Ortağı'}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
+      {/* ==========================================
+          ABOUT HISTORY SECTION (Bizning tariximiz)
+         ========================================== */}
+      {activeTab === 'about-history' && (
+        <section id="about-history" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
+          <div className="flex flex-col items-center text-center gap-2 mb-16">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">
+              {lang === 'uz' ? 'Bizning tariximiz' : lang === 'ru' ? 'Наша история' : 'Tarihimiz'}
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
+              {lang === 'uz' ? 'Yillar davomida ishonchli rivojlanish yo‘li' : lang === 'ru' ? 'Путь надежного развития на протяжении лет' : 'Yıllar Boyunca Güvenli Gelişim Yolu'}
+            </h2>
+            <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
+          </div>
+
+          <div className="max-w-4xl mx-auto relative pl-6 sm:pl-10 border-l border-slate-200 dark:border-slate-800 space-y-12">
+            {[
+              {
+                year: '2019',
+                title: lang === 'uz' ? 'Kani-Lab asos solinishi' : lang === 'ru' ? 'Основание Kani-Lab' : 'Kani-Lab Kuruluşu',
+                desc: lang === 'uz' ? 'Surxondaryo viloyatining Termiz shahrida zamonaviy klinik tahlil xizmatlarini taqdim etish maqsadida Kani-Lab laboratoriyasiga asos solindi.' : lang === 'ru' ? 'Основание лаборатории Kani-Lab с целью предоставления современных услуг клинического анализа в Термезе.' : 'Tirmiz şehrinde modern klinik analiz hizmetleri sunmak amacıyla Kani-Lab kuruldu.'
+              },
+              {
+                year: '2021',
+                title: lang === 'uz' ? 'Tehnologik yangilanish va robotlashtirish' : lang === 'ru' ? 'Технологическое обновление' : 'Teknolojik Yenilenme',
+                desc: lang === 'uz' ? 'Shveysariya va Yaponiyaning yetakchi diagnostika tizimlari (Roche, Sysmex) joriy etildi. Robotlashtirilgan namuna olish tizimlari sinovdan o\'tkazildi.' : lang === 'ru' ? 'Внедрение передовых диагностических систем из Швейцарии и Японии (Roche, Sysmex). Тестирование роботов.' : 'İsviçre ve Japonya lider teşhis sistemleri (Roche, Sysmex) entegre edildi.'
+              },
+              {
+                year: '2023',
+                title: lang === 'uz' ? 'Hududiy kengayish' : lang === 'ru' ? 'Региональное расширение' : 'Bölgesel Büyüme',
+                desc: lang === 'uz' ? 'Surxondaryo viloyatining barcha tumanlarida yangi filiallar ochildi. TTA Termiz filiali va TerDU bilan ilmiy hamkorlik shartnomalari imzolandi.' : lang === 'ru' ? 'Открытие филиалов во всех районах Сурхандарьи. Подписание научных соглашений с вузами.' : 'Surhanderya genelinde yeni şubeler açıldı. TerDU ve TTA Tirmiz şubesi ile bilimsel ortaklıklar kuruldu.'
+              },
+              {
+                year: '2025-2026',
+                title: lang === 'uz' ? 'Xalqaro sertifikatlash (ISO 15189)' : lang === 'ru' ? 'Международная сертификация' : 'Uluslararası Sertifikasyon',
+                desc: lang === 'uz' ? 'Sifatni boshqarish tizimi ISO 15189 xalqaro standarti talablariga moslashtirildi. To‘liq raqamlashtirilgan yagona ma’lumotlar bazasi tashkil etildi.' : lang === 'ru' ? 'Соответствие стандарту ISO 15189. Создание единой полностью цифровой базы данных.' : 'ISO 15189 uluslararası kalite standartlarına uyum sağlandı. Tamamen dijital veri altyapısı kuruldu.'
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="relative group">
+                <div className="absolute -left-[35px] sm:-left-[51px] top-1.5 w-6 h-6 rounded-full bg-white dark:bg-slate-950 border-4 border-[#00B4D8] group-hover:scale-110 transition-transform"></div>
+                <div className="bg-white dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/50 p-6 rounded-2xl shadow-xs hover:shadow-lg transition-all duration-300">
+                  <span className="inline-block text-xs font-black text-white bg-[#00B4D8] px-3 py-1 rounded-full mb-3 shadow-md shadow-cyan-500/20">
+                    {item.year}
+                  </span>
+                  <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">{item.title}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
+          ABOUT VALUES SECTION (Bizning qadriyatlarimiz)
+         ========================================== */}
+      {activeTab === 'about-values' && (
+        <section id="about-values" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
+          <div className="flex flex-col items-center text-center gap-2 mb-16">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">
+              {lang === 'uz' ? 'Bizning qadriyatlarimiz' : lang === 'ru' ? 'Наши ценности' : 'Değerlerimiz'}
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
+              {lang === 'uz' ? 'Sifat va ishonch poydevori' : lang === 'ru' ? 'Фундамент качества и доверия' : 'Kalite ve Güvenin Temeli'}
+            </h2>
+            <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: '🛡️',
+                title: lang === 'uz' ? 'Ishonchlilik' : lang === 'ru' ? 'Надежность' : 'Güvenilirlik',
+                desc: lang === 'uz' ? 'Bizning tahlillar aniqligi xalqaro nazorat standartlari va zamonaviy uskunalar bilan 99.9% darajada kafolatlanadi.' : lang === 'ru' ? 'Точность наших анализов гарантируется на 99,9% благодаря оборудованию и контролю качества.' : 'Analiz doğruluğumuz uluslararası kontrol standartları ve modern cihazlarla %99.9 oranında garantilenir.'
+              },
+              {
+                icon: '⚡',
+                title: lang === 'uz' ? 'Tezkorlik' : lang === 'ru' ? 'Оперативность' : 'Hız',
+                desc: lang === 'uz' ? 'Bemorlar va hamkor shifokorlar vaqtini qadrlaymiz — tahlillar eng qisqa muddatlarda tayyor bo‘ladi va yuboriladi.' : lang === 'ru' ? 'Мы ценим время пациентов и врачей — анализы выполняются в кратчайшие сроки.' : 'Hasta ve doktorlarımızın zamanına değer veriyoruz — analizler en hızlı sürede sonuçlandırılır.'
+              },
+              {
+                icon: '🤝',
+                title: lang === 'uz' ? 'Hamjihatlik' : lang === 'ru' ? 'Сотрудничество' : 'Birliktelik',
+                desc: lang === 'uz' ? 'Yirik ilmiy va tibbiy muassasalar bilan doimiy tajriba almashish va hamkorlik orqali sohani rivojlantiramiz.' : lang === 'ru' ? 'Мы развиваем сферу через постоянный обмен опытом и сотрудничество с мед. учреждениями.' : 'Bölgesel ve ulusal tıp kuruluşları ile ortak çalışmalar yürüterek bilime katkı sağlıyoruz.'
+              },
+              {
+                icon: '🌱',
+                title: lang === 'uz' ? 'Rivojlanish' : lang === 'ru' ? 'Развитие' : 'Gelişim',
+                desc: lang === 'uz' ? 'Laboratoriya xodimlarining doimiy malaka oshirishi va so‘nggi texnologiyalarni joriy etish orqali to‘xtovsiz o‘sishdamiz.' : lang === 'ru' ? 'Постоянное повышение квалификации персонала и внедрение технологий.' : 'Personel eğitimi ve sürekli teknoloji yatırımları ile kendimizi daima geliştiriyoruz.'
+              }
+            ].map((value, idx) => (
+              <div key={idx} className="bg-white dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/50 p-8 rounded-3xl text-center shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <span className="text-4xl mb-4 block">{value.icon}</span>
+                <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">{value.title}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">{value.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
+          ABOUT MISSION SECTION (Bizning maqsad va vazifalarimiz)
+         ========================================== */}
+      {activeTab === 'about-mission' && (
+        <section id="about-mission" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
+          <div className="flex flex-col items-center text-center gap-2 mb-16">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">
+              {lang === 'uz' ? 'Bizning maqsad va vazifalarimiz' : lang === 'ru' ? 'Наши цели и задачи' : 'Misyon & Vizyon'}
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
+              {lang === 'uz' ? 'Kelajakka yo‘naltirilgan maqsadlar' : lang === 'ru' ? 'Цели, ориентированные на будущее' : 'Geleceğe Yönelik Hedefler'}
+            </h2>
+            <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6 text-left">
+              <div className="p-6 bg-[#00B4D8]/5 border border-[#00B4D8]/20 rounded-3xl">
+                <h3 className="text-xl font-extrabold text-[#0096C7] mb-2">
+                  {lang === 'uz' ? 'Bizning maqsadimiz (Missiya)' : lang === 'ru' ? 'Наша миссия' : 'Misyonumuz'}
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                  {lang === 'uz' ? 'Aholiga eng yuqori sifatli tahlil xizmatlarini taqdim etish va kasalliklarni dastlabki bosqichlarda aniq tashxis qo‘yish orqali insonlar salomatligi va hayotini saqlashga xizmat qilish.' : lang === 'ru' ? 'Предоставление качественных услуг анализа для ранней диагностики заболеваний ради сохранения здоровья.' : 'Topluma en üst kalitede analiz hizmetleri sunarak hastalıkları erken teşhis etmek ve yaşam kalitesini korumak.'}
+                </p>
+              </div>
+
+              <div className="p-6 bg-emerald-500/5 border border-emerald-500/20 rounded-3xl">
+                <h3 className="text-xl font-extrabold text-emerald-600 mb-2">
+                  {lang === 'uz' ? 'Kelajak rejamiz (Vizyon)' : lang === 'ru' ? 'Наше видение' : 'Vizyonumuz'}
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                  {lang === 'uz' ? 'Surxondaryo viloyati va respublika miqyosida raqamli va robotlashtirilgan laboratoriya tizimlarini yoyish orqali sohaga eng ilg‘or xalqaro standartlarni integratsiya qilish.' : lang === 'ru' ? 'Интеграция передовых стандартов путем внедрения робототехники в регионах.' : 'Surhanderya ve genel ülkede dijital ve robotik laboratuvar sistemlerini yayarak uluslararası standartları entegre etmek.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[32px] space-y-6 text-left shadow-xs">
+              <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
+                {lang === 'uz' ? 'Asosiy vazifalarimiz:' : lang === 'ru' ? 'Наши ключевые задачи:' : 'Temel Hedeflerimiz:'}
+              </h3>
+              {[
+                { title: lang === 'uz' ? 'Sifatni doimiy nazorat qilish' : lang === 'ru' ? 'Постоянный контроль качества' : 'Sürekli Kalite Kontrolü', text: lang === 'uz' ? 'ISO 15189 xalqaro standartlarini barcha laboratoriya jarayonlarida to‘liq tatbiq etish.' : lang === 'ru' ? 'Внедрение стандартов ISO 15189 во все процессы.' : 'ISO 15189 standartlarını tüm süreçlerde aktif uygulamak.' },
+                { title: lang === 'uz' ? 'Raqamlashtirishni kengaytirish' : lang === 'ru' ? 'Расширение диджитализации' : 'Dijitalleşmeyi Genişletmek', text: lang === 'uz' ? 'Bemorlar tahlil natijalarini istalgan joydan turib bir necha soniyada olishlarini ta’minlash.' : lang === 'ru' ? 'Обеспечение получения результатов за секунды.' : 'Hastaların sonuçlarına saniyeler içinde ulaşmasını kolaylaştırmak.' },
+                { title: lang === 'uz' ? 'Yangi diagnostika turlarini joriy etish' : lang === 'ru' ? 'Внедрение новых видов диагностики' : 'Yeni Teşhis Türleri Sunmak', text: lang === 'uz' ? 'Ilg‘or genetika va onkologik diagnostika tahlillarini Surxondaryoning o‘zida yo‘lga qo‘yish.' : lang === 'ru' ? 'Организация передовой генетической диагностики непосредственно в Сурхандарье.' : 'Gelişmiş genetik ve onkolojik testleri doğrudan Surhanderya\'da sunmak.' }
+              ].map((task, idx) => (
+                <div key={idx} className="flex gap-4 items-start">
+                  <div className="w-8 h-8 rounded-full bg-cyan-100 dark:bg-cyan-900/60 text-[#0096C7] dark:text-[#48CAE4] flex items-center justify-center font-black shrink-0 text-sm mt-0.5">
+                    {idx + 1}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-slate-800 dark:text-slate-100">{task.title}</h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed font-semibold">{task.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+
+      {/* ==========================================
+          SERVICES SECTION (Search, Filter and Dynamic Shopping Cart)
+         ========================================== */}
+      {activeTab === 'services' && (
+        <section id="services" className="px-3 md:px-8 py-6 md:py-12 bg-slate-100/50 dark:bg-slate-950/20 min-h-screen">
+        <div className="max-w-7xl w-full mx-auto flex flex-col gap-4 md:gap-6">
+          
+
+          {/* Compact Header + Search Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 relative z-30">
+            <div className="flex-1">
+              <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight">
+                {lang === 'uz' ? 'Tahlillar katalogi' : lang === 'ru' ? 'Каталог анализов' : 'Analiz Kataloğu'}
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-1">
+                <AlertCircle className="w-3 h-3 text-[#00B4D8]" />
+                {filteredTests.length} {lang === 'uz' ? 'ta tahlil' : lang === 'ru' ? 'анализов' : 'analiz'}
+              </p>
+            </div>
+
+            {/* Search */}
+            <div className="relative w-full sm:w-80">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                id="search-tests"
+                type="text"
+                placeholder={t.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => { setSearchQuery(e.target.value); setShowSuggestions(true); }}
+                onFocus={() => setShowSuggestions(true)}
+                className="w-full pl-10 pr-9 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white shadow-sm"
+              />
+              {searchQuery && (
+                <button onClick={() => { setSearchQuery(''); setShowSuggestions(false); }} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+              {/* Suggestions */}
+              {showSuggestions && searchSuggestions.length > 0 && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowSuggestions(false)} />
+                  <div className="absolute left-0 right-0 mt-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl z-50 overflow-hidden max-h-64 overflow-y-auto">
+                    {searchSuggestions.map(test => (
+                      <div key={test.id} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center justify-between gap-2 cursor-pointer border-b border-slate-100 dark:border-slate-800/60 last:border-0"
+                        onClick={() => { setSearchQuery(getLangText(test.name)); setShowSuggestions(false); }}>
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold text-slate-800 dark:text-white truncate">{getLangText(test.name)}</div>
+                          <div className="text-[10px] text-slate-400 truncate">{getLangText(test.desc)}</div>
+                        </div>
+                        <span className="text-xs font-black text-[#0096C7] shrink-0">{formatPrice(test.price)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Category Tabs - horizontal scroll */}
+          <div className="flex gap-2 pb-2 scroll-x-premium">
+            {[
+              { id: 'all', label: t.categoryAll, icon: <Microscope className="w-3.5 h-3.5" /> },
+              { id: 'packages', label: t.categoryPackages, icon: <Sparkles className="w-3.5 h-3.5" /> },
+              { id: 'hematology', label: t.categoryHematology, icon: <Activity className="w-3.5 h-3.5" /> },
+              { id: 'biochemistry', label: t.categoryBiochem, icon: <Activity className="w-3.5 h-3.5" /> },
+              { id: 'hormones', label: t.categoryHormones, icon: <Award className="w-3.5 h-3.5" /> },
+              { id: 'infections', label: t.categoryInfections, icon: <ShieldCheck className="w-3.5 h-3.5" /> },
+              { id: 'coagulogram', label: t.categoryCoagulogram, icon: <Clock className="w-3.5 h-3.5" /> },
+              { id: 'blood_groups', label: t.categoryBloodGroups, icon: <Heart className="w-3.5 h-3.5" /> },
+              { id: 'pcr', label: t.categoryPcr, icon: <Cpu className="w-3.5 h-3.5" /> },
+              { id: 'urine', label: t.categoryUrine, icon: <FileText className="w-3.5 h-3.5" /> },
+              { id: 'allergy', label: t.categoryAllergy, icon: <Activity className="w-3.5 h-3.5" /> },
+              { id: 'bacteriology', label: t.categoryBacteriology, icon: <Microscope className="w-3.5 h-3.5" /> },
+              { id: 'general_clinical', label: t.categoryGeneralClinical, icon: <FileText className="w-3.5 h-3.5" /> }
+            ].map(cat => {
+              const count = LABORATORY_TESTS.filter(t => cat.id === 'all' || t.category === cat.id).length;
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button key={cat.id} onClick={() => { setSelectedCategory(cat.id); setSelectedMedicalField('all'); }}
+                  className={`px-3.5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+                    isActive ? 'bg-slate-900 dark:bg-[#00B4D8] text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-white border border-slate-200/60 dark:border-slate-800/50'
+                  }`}>
+                  {cat.icon}
+                  <span className="hidden sm:inline">{cat.label}</span>
+                  <span className="sm:hidden">{cat.label.split(' ')[0]}</span>
+                  <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>{count}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Compact Filter Bar */}
+          <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 shadow-sm flex flex-wrap items-center gap-2 relative z-20">
+            <div className="flex items-center gap-1.5 text-[10px] font-black text-slate-400 uppercase tracking-wider shrink-0">
+              <SlidersHorizontal className="w-3 h-3 text-[#00B4D8]" />
+              {lang === 'uz' ? 'Filtr' : lang === 'ru' ? 'Фильтр' : 'Filtre'}:
+            </div>
+            
+            <select value={selectedPriceRange} onChange={(e) => setSelectedPriceRange(e.target.value)}
+              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-[#00B4D8]">
+              <option value="all">{filterLang.allPrices}</option>
+              <option value="under_100k">&lt; 100,000 UZS</option>
+              <option value="100k_300k">100k – 300k UZS</option>
+              <option value="300k_500k">300k – 500k UZS</option>
+              <option value="over_500k">&gt; 500,000 UZS</option>
+            </select>
+
+            <select value={selectedFasting} onChange={(e) => setSelectedFasting(e.target.value)}
+              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-[#00B4D8]">
+              <option value="all">{filterLang.allFasting}</option>
+              <option value="fasting_yes">{filterLang.fastingYes}</option>
+              <option value="fasting_no">{filterLang.fastingNo}</option>
+            </select>
+
+            <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}
+              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-[#00B4D8]">
+              <option value="default">{filterLang.sortDefault}</option>
+              <option value="price_asc">{lang === 'uz' ? 'Narx ↑' : lang === 'ru' ? 'Цена ↑' : 'Fiyat ↑'}</option>
+              <option value="price_desc">{lang === 'uz' ? 'Narx ↓' : lang === 'ru' ? 'Цена ↓' : 'Fiyat ↓'}</option>
+              <option value="name_asc">A – Z</option>
+            </select>
+
+            {/* View toggle */}
+            <div className="ml-auto bg-slate-100 dark:bg-slate-800 p-1 rounded-lg flex gap-1">
+              <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded transition-colors ${viewMode === 'grid' ? 'bg-white dark:bg-slate-700 text-[#00B4D8] shadow-sm' : 'text-slate-400'}`}>
+                <Grid className="w-3.5 h-3.5" />
+              </button>
+              <button onClick={() => setViewMode('table')} className={`p-1.5 rounded transition-colors ${viewMode === 'table' ? 'bg-white dark:bg-slate-700 text-[#00B4D8] shadow-sm' : 'text-slate-400'}`}>
+                <List className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Clear filters */}
+            {(selectedPriceRange !== 'all' || selectedFasting !== 'all' || sortOption !== 'default' || selectedMedicalField !== 'all') && (
+              <button onClick={() => { setSelectedPriceRange('all'); setSelectedFasting('all'); setSortOption('default'); setSelectedMedicalField('all'); }}
+                className="flex items-center gap-1 text-[10px] font-bold text-red-500 hover:text-red-600 transition-colors px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/20">
+                <X className="w-3 h-3" />
+                {filterLang.clearFilters}
+              </button>
+            )}
+          </div>
+
+          {/* Main Layout: Tests + Cart */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5 items-start relative z-10">
+            
+            {/* Tests List - 8 cols */}
+            <div className="lg:col-span-8 flex flex-col gap-3">
+              
+              {filteredTests.length === 0 ? (
+                <div className="py-14 text-center bg-white dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl flex flex-col items-center gap-3">
+                  <Microscope className="w-10 h-10 text-slate-300 dark:text-slate-600" />
+                  <p className="text-sm font-bold text-slate-500">{filterLang.noResults}</p>
+                  <button onClick={() => { setSearchQuery(''); setSelectedCategory('all'); setSelectedMedicalField('all'); setSelectedPriceRange('all'); setSelectedFasting('all'); setSortOption('default'); }}
+                    className="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-xs font-bold">
+                    {filterLang.clearFilters}
+                  </button>
+                </div>
+              ) : (
+                Object.keys(groupedTests).map((catId) => {
+                  const testsInCat = groupedTests[catId];
+                  const isExpanded = expandedAccordion[catId] !== false;
+                  return (
+                    <div key={catId} className="bg-white dark:bg-slate-900/40 border border-slate-200/40 dark:border-slate-800/30 rounded-2xl overflow-hidden shadow-sm">
+                      {/* Category Header */}
+                      <div onClick={() => setExpandedAccordion(prev => ({ ...prev, [catId]: !isExpanded }))}
+                        className="px-4 py-3 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-slate-950/40 transition-colors">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-lg bg-cyan-100 dark:bg-cyan-950/60 flex items-center justify-center shrink-0">
+                            {getMedicalIcon(catId)}
+                          </div>
+                          <div>
+                            <div className="font-black text-slate-800 dark:text-white text-sm">{getCategoryLabel(catId)}</div>
+                            <div className="text-[10px] text-slate-400 font-bold">{testsInCat.length} {lang === 'uz' ? 'ta tahlil' : lang === 'ru' ? 'исследований' : 'analiz'}</div>
+                          </div>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                      </div>
+
+                      {/* Tests Content */}
+                      <div className={`transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-[9999px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                        {viewMode === 'grid' ? (
+                          <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {testsInCat.map((test) => {
+                              const isInCart = cart.includes(test.id);
+                              return (
+                                <div key={test.id} id={`test-card-${test.id}`}
+                                  className={`p-3 rounded-xl border bg-white dark:bg-slate-900 hover:shadow-md transition-all flex flex-col gap-2 ${
+                                    isInCart ? 'border-[#00B4D8] ring-1 ring-[#00B4D8]/15' : 'border-slate-100 dark:border-slate-800/60 hover:border-slate-300 dark:hover:border-slate-700'
+                                  }`}>
+                                  {/* Top row: code + fasting + time */}
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    {test.code && (
+                                      <span className="text-[9px] font-black bg-cyan-50 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 px-1.5 py-0.5 rounded shrink-0">
+                                        {test.code}
+                                      </span>
+                                    )}
+                                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                                      test.fasting ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-600' : 'bg-slate-50 dark:bg-slate-800 text-slate-400'
+                                    }`}>
+                                      {test.fasting ? filterLang.fastingYes : filterLang.fastingNo}
+                                    </span>
+                                    <span className="ml-auto text-[9px] text-slate-400 font-bold flex items-center gap-0.5 shrink-0">
+                                      <Clock className="w-2.5 h-2.5 text-[#00B4D8]" />
+                                      {test.time}
+                                    </span>
+                                  </div>
+
+                                  {/* Name */}
+                                  <div className={`font-bold text-slate-800 dark:text-white text-xs leading-snug line-clamp-2 ${test.category !== 'packages' ? 'flex-1' : ''}`}>
+                                    {getLangText(test.name)}
+                                  </div>
+
+                                  {test.category === 'packages' && test.desc && (
+                                    <div className="mt-1.5 p-2 bg-slate-50 dark:bg-slate-950/40 rounded-lg border border-slate-100/60 dark:border-slate-800/40 flex-1 flex flex-col justify-start">
+                                      <div className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
+                                        {lang === 'uz' ? 'Paket tarkibi:' : lang === 'ru' ? 'Состав пакета:' : 'Paket İçeriği:'}
+                                      </div>
+                                      <div className="flex flex-wrap gap-1">
+                                        {getLangText(test.desc).split(',').map((item, i) => (
+                                          <span key={i} className="text-[9px] font-bold text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200/40 dark:border-slate-800/60 px-1.5 py-0.5 rounded leading-none">
+                                            {item.trim()}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  {/* Bottom: price + button */}
+                                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/40">
+                                    <div className="text-sm font-black text-[#0096C7] dark:text-[#48CAE4]">
+                                      {formatPrice(test.price)}
+                                    </div>
+                                    <button onClick={() => toggleCart(test.id)}
+                                      className={`px-2.5 py-1.5 rounded-lg text-[10px] font-black flex items-center gap-1 transition-all active:scale-95 ${
+                                        isInCart ? 'bg-emerald-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-[#00B4D8] hover:text-white'
+                                      }`}>
+                                      {isInCart ? <Check className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+                                      {isInCart ? t.selected : t.addToCart}
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse text-xs">
+                              <thead>
+                                <tr className="border-b border-slate-100 dark:border-slate-800 text-slate-400 font-bold uppercase tracking-wider text-[9px] bg-slate-50 dark:bg-slate-950/30">
+                                  <th className="py-2.5 px-3 w-14">{filterLang.testCode}</th>
+                                  <th className="py-2.5 px-3">{filterLang.testName}</th>
+                                  <th className="py-2.5 px-3 hidden md:table-cell w-24">{filterLang.timeLabel}</th>
+                                  <th className="py-2.5 px-3 text-right w-28">{filterLang.priceLabel}</th>
+                                  <th className="py-2.5 px-3 text-center w-14"></th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-slate-50 dark:divide-slate-800/40">
+                                {testsInCat.map((test) => {
+                                  const isInCart = cart.includes(test.id);
+                                  return (
+                                    <tr key={test.id} className={`hover:bg-slate-50 dark:hover:bg-slate-950/30 transition-colors ${isInCart ? 'bg-cyan-50/30 dark:bg-cyan-950/10' : ''}`}>
+                                      <td className="py-2.5 px-3 font-black text-[#00B4D8] text-[9px]">{test.code || 'вЂ”'}</td>
+                                      <td className="py-2.5 px-3">
+                                        <div className="font-bold text-slate-800 dark:text-white text-xs leading-snug">{getLangText(test.name)}</div>
+                                        <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                                          {test.fasting && <span className="text-[9px] text-amber-500 font-bold shrink-0">{filterLang.fastingYes}</span>}
+                                          {test.category === 'packages' && test.desc && (
+                                            <span className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold">
+                                              ({lang === 'uz' ? 'Tarkibi' : lang === 'ru' ? 'Состав' : 'İçerik'}: {getLangText(test.desc)})
+                                            </span>
+                                          )}
+                                        </div>
+                                      </td>
+                                      <td className="py-2.5 px-3 text-slate-400 hidden md:table-cell text-[10px]">{test.time}</td>
+                                      <td className="py-2.5 px-3 text-right font-black text-slate-800 dark:text-white text-xs">{formatPrice(test.price)}</td>
+                                      <td className="py-2.5 px-3 text-center">
+                                        <button onClick={() => toggleCart(test.id)}
+                                          className={`p-1.5 rounded-lg border transition-all active:scale-95 ${
+                                            isInCart ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 hover:bg-[#00B4D8] hover:border-[#00B4D8] hover:text-white'
+                                          }`}>
+                                          {isInCart ? <Check className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Cart Sidebar - 4 cols */}
+            <div className="lg:col-span-4 sticky top-20 z-20">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-lg overflow-hidden">
+                {/* Cart Header */}
+                <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <ShoppingCart className="w-4 h-4 text-[#00B4D8]" />
+                    <span className="font-black text-sm text-slate-800 dark:text-white">{t.cartTotal}</span>
+                  </div>
+                  {cart.length > 0 && (
+                    <span className="text-xs font-bold px-2 py-0.5 bg-[#00B4D8] text-white rounded-full">{cart.length}</span>
+                  )}
+                </div>
+
+                <div className="p-3 flex flex-col gap-3">
+                  {/* Items */}
+                  {cart.length === 0 ? (
+                    <div className="py-5 text-center flex flex-col items-center gap-2">
+                      <FileText className="w-7 h-7 text-slate-300 dark:text-slate-600" />
+                      <p className="text-xs text-slate-400 leading-relaxed px-2">{t.cartEmpty}</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-1.5 max-h-44 overflow-y-auto pr-0.5">
+                      {cart.map((id) => {
+                        const item = LABORATORY_TESTS.find(test => test.id === id);
+                        if (!item) return null;
+                        return (
+                          <div key={id} className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/30 rounded-lg">
+                            <div className="min-w-0 flex-1">
+                              <div className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">{getLangText(item.name)}</div>
+                              <div className="text-[10px] text-[#0096C7] font-bold">{formatPrice(item.price)}</div>
+                            </div>
+                            <button onClick={() => toggleCart(id)} className="p-1 text-slate-300 hover:text-red-500 transition-colors shrink-0">
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Total */}
+                  {cart.length > 0 && (
+                    <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl flex items-center justify-between">
+                      <div>
+                        <div className="text-[10px] text-slate-400 font-bold">{lang === 'uz' ? 'Tahlillar' : lang === 'ru' ? 'РђРЅР°Р»РёР·РѕРІ' : 'Tahlillar'}: {cart.length}</div>
+                        <div className="text-sm font-black text-slate-900 dark:text-white mt-0.5">{formatPrice(cartTotalAmount)}</div>
+                      </div>
+                      <button onClick={() => setCart([])} className="text-[10px] text-red-400 hover:text-red-500 font-bold transition-colors">
+                        {lang === 'uz' ? 'Tozalash' : lang === 'ru' ? 'РћС‡РёСЃС‚РёС‚СЊ' : 'Tozalash'}
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Checkout Button */}
+                  <button id="checkout-cart-button" onClick={startBookingWithCart} disabled={cart.length === 0}
+                    className={`w-full py-3 rounded-xl text-sm font-black flex items-center justify-center gap-2 transition-all active:scale-95 ${
+                      cart.length > 0 ? 'bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white shadow-md hover:shadow-lg hover:opacity-95' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
+                    }`}>
+                    <Calendar className="w-4 h-4" />
+                    {t.btnProceedBooking}
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile sticky cart badge */}
+              {cart.length > 0 && (
+                <div className="lg:hidden fixed bottom-6 left-6 z-50">
+                  <button onClick={startBookingWithCart}
+                    className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-full shadow-xl shadow-cyan-500/30 font-black text-sm animate-pulse">
+                    <ShoppingCart className="w-4 h-4" />
+                    <span>{cart.length}</span>
+                    <span className="hidden sm:inline">— {formatPrice(cartTotalAmount)}</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      )}
+      {/* ==========================================
+          PROCESS TIMELINE SECTION (Patient Journey)
+         ========================================== */}
+      {activeTab === 'about' && (
+        <section id="process" className="px-6 md:px-12 py-20 bg-slate-100/30 dark:bg-slate-950/10 border-t border-slate-200/40 dark:border-slate-800/40">
+        <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto">
+          
+          <div className="flex flex-col items-center text-center gap-2 mb-16">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.processTitle}</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">{t.processSub}</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+            
+            {/* Connecting progress line on desktop screens */}
+            <div className="hidden lg:block absolute top-[44px] left-[15%] right-[15%] h-[2px] bg-gradient-to-r from-[#00B4D8] via-[#0096C7] to-slate-200 dark:to-slate-800 z-0"></div>
+
+            {[
+              { num: '01', title: t.step1Title, desc: t.step1Desc },
+              { num: '02', title: t.step2Title, desc: t.step2Desc },
+              { num: '03', title: t.step3Title, desc: t.step3Desc },
+              { num: '04', title: t.step4Title, desc: t.step4Desc }
+            ].map((step, idx) => (
+              <div key={idx} className="flex flex-col items-center text-center p-6 bg-white dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/40 rounded-[24px] shadow-sm hover:shadow-md transition-shadow relative z-10">
+                <div className="w-14 h-14 rounded-full bg-cyan-50 dark:bg-cyan-950 flex items-center justify-center text-[#00B4D8] font-black text-lg mb-4 shadow-sm">
+                  {step.num}
+                </div>
+                <h3 className="font-extrabold text-slate-800 dark:text-white leading-tight mb-2">{step.title}</h3>
+                <p className="text-xs text-slate-400 dark:text-slate-400 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+      )}
+
+      {/* ==========================================
+          JAMOAMIZ (OUR TEAM) SECTION
+         ========================================== */}
+      {activeTab === 'doctors' && (
+        <section id="doctors" className="px-6 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40">
+          <div>
+            
+            {/* PROFILE DETAIL VIEW */}
+            {selectedTeamMemberId !== null ? (() => {
+              // Retrieve team member (check TEAM_MEMBERS, then LABORANTS)
+              let member = TEAM_MEMBERS.find(m => m.id === selectedTeamMemberId);
+              if (!member) {
+                const lab = LABORANTS.find(l => l.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === selectedTeamMemberId);
+                if (lab) {
+                  member = {
+                    id: selectedTeamMemberId,
+                    name: lab.name,
+                    position: lab.pos,
+                    department: 'lab',
+                    experience: lab.exp,
+                    specialties: {
+                      uz: ['Laboratoriya diagnostikasi', 'Tahlillar sifat nazorati', 'Namuna tayyorlash'],
+                      ru: ['Лабораторная диагностика', 'Контроль качества анализов', 'Подготовка проб'],
+                      tr: ['Laboratuvar Teşhisi', 'Analiz Kalite Kontrolü', 'Numune Hazırlama']
+                    },
+                    grad: {
+                      uz: 'Tibbiyot kolleji diplomiga ega mutaxassis',
+                      ru: 'Специалист с дипломом медицинского колледжа',
+                      tr: 'Sağlık meslek yüksekokulu mezunu uzman'
+                    },
+                    bio: {
+                      uz: `${lab.name} Kani-Lab klinikasida ${lab.pos.uz} lavozimida faoliyat ko'rsatib kelayotgan tajribali professional mutaxassis. Tahlillarni aniq va tezkor o'tkazishda yuqori mas'uliyat va tajribaga ega.`,
+                      ru: `${lab.name} — опытный квалифицированный специалист, работающий в клинике Kani-Lab на должности ${lab.pos.ru}. Обладает высокими навыками проведения высокоточных лабораторных исследований.`,
+                      tr: `${lab.name}, Kani-Lab bünyesinde ${lab.pos.tr} olarak görev yapan deneyimli uzman personel. Analizlerin güvenilir ve hızlı şekilde sonuçlandırılmasında yüksek sorumluluk ve tecrübe sahibidir.`
+                    }
+                  };
+                }
+              }
+
+              if (!member) {
+                return (
+                  <div className="flex flex-col items-center justify-center text-center gap-4 py-20 animate-in fade-in duration-300">
+                    <AlertCircle className="w-12 h-12 text-red-500 animate-bounce" />
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-white">
+                      {lang === 'uz' ? 'Xodim topilmadi' : lang === 'ru' ? 'Сотрудник не найден' : 'Personel Bulunamadı'}
+                    </h3>
+                    <button 
+                      onClick={() => { window.location.hash = '/team'; }}
+                      className="px-5 py-2.5 bg-[#00B4D8] text-white rounded-xl font-bold text-xs shadow-md transition-all hover:bg-[#0096C7]"
+                    >
+                      {lang === 'uz' ? 'Jamoa sahifasiga qaytish' : lang === 'ru' ? 'Вернуться к команде' : 'Ekip Sayfasına Dön'}
+                    </button>
+                  </div>
+                );
+              }
+
+              const departmentLabel = 
+                member.department === 'management' ? t.deptManagement :
+                member.department === 'lab' ? t.deptLab :
+                member.department === 'finance' ? t.deptFinance :
+                member.department === 'service' ? t.deptService :
+                t.deptAdmin;
+
+              return (
+                <div className="max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-300">
+                  {/* Back Button */}
+                  <button 
+                    onClick={() => { window.location.hash = '/team'; }}
+                    className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] font-bold text-xs mb-8 transition-colors group focus:outline-none"
+                  >
+                    <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                    <span>{lang === 'uz' ? 'Jamoa sahifasiga qaytish' : lang === 'ru' ? 'Назад к списку' : 'Ekip Listesine Geri Dön'}</span>
+                  </button>
+
+                  {/* Isolated Profile Layout */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start bg-white dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-800/50 rounded-[32px] p-8 md:p-12 shadow-xl shadow-slate-100/10 dark:shadow-none">
+                    
+                    {/* Left/Central Column: Portrait Photo with custom healthcare backgrounds */}
+                    <div className="lg:col-span-5 w-full aspect-[4/5] bg-slate-50 dark:bg-slate-950/80 border border-slate-100 dark:border-slate-800 rounded-3xl flex items-center justify-center relative overflow-hidden group shadow-inner">
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#00B4D8]/10 via-transparent to-black/5 pointer-events-none"></div>
+                      
+                      <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105 ${
+                        member.department === 'management' ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-500' :
+                        member.department === 'lab' ? 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500' :
+                        member.department === 'finance' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500' :
+                        member.department === 'service' ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-500' :
+                        'bg-purple-50 dark:bg-purple-950/40 text-purple-500'
+                      }`}>
+                        <User className="w-16 h-16 md:w-20 md:h-20" />
+                      </div>
+
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-[#00B4D8]/15 text-[#0096C7] dark:text-[#48CAE4] rounded-full text-[10px] font-black uppercase tracking-wider">
+                        {getLangText(member.experience)}
+                      </div>
+                      
+                      <div className="absolute bottom-4 right-4 px-3 py-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl text-[10px] font-black text-slate-700 dark:text-slate-200 border border-slate-100 dark:border-slate-800">
+                        {getLangText(member.grad)}
+                      </div>
+                    </div>
+
+                    {/* Right Column: Detailed Info Block */}
+                    <div className="lg:col-span-7 flex flex-col">
+                      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 block">
+                        {departmentLabel}
+                      </span>
+                      
+                      <h3 className="text-3xl font-black text-slate-800 dark:text-white leading-tight mb-2">
+                        {member.name}
+                      </h3>
+                      
+                      <div className="text-xs font-extrabold text-[#00B4D8] uppercase tracking-widest mb-6">
+                        {getLangText(member.position)}
+                      </div>
+                      
+                      <div className="border-l-4 border-[#00B4D8] pl-4 mb-8">
+                        <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">
+                          {lang === 'uz' ? 'Biografiya' : lang === 'ru' ? 'Биография' : 'Biyografi'}
+                        </h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                          {getLangText(member.bio)}
+                        </p>
+                      </div>
+
+                      <div className="mb-8">
+                        <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">
+                          {lang === 'uz' ? 'Mutaxassislik yo‘nalishlari' : lang === 'ru' ? 'Направления специализации' : 'Uzmanlık Alanları'}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {getLangText(member.specialties).map((spec, i) => (
+                            <span 
+                              key={i} 
+                              className="px-3 py-1 bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-bold"
+                            >
+                              {spec}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="p-5 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div className="flex flex-col">
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                            {lang === 'uz' ? 'Aloqa (Klinika pochtasi)' : lang === 'ru' ? 'Контакты (Общий email)' : 'İletişim (Ortak e-posta)'}
+                          </span>
+                          <span className="text-xs font-bold text-slate-700 dark:text-slate-200 mt-1 flex items-center gap-1.5">
+                            <Mail className="w-3.5 h-3.5 text-[#00B4D8]" />
+                            info@kanilab.uz
+                          </span>
+                        </div>
+                        
+                        <button
+                          onClick={() => {
+                            setActiveTab('contact');
+                            setTimeout(() => {
+                              const el = document.getElementById('contact');
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }, 100);
+                          }}
+                          className="px-5 py-2.5 bg-[#00B4D8] hover:bg-[#0096C7] text-white rounded-xl text-xs font-black shadow-lg shadow-[#00B4D8]/20 transition-all focus:outline-none shrink-0"
+                        >
+                          {lang === 'uz' ? 'Savol berish / Uchrashuv belgilash' : lang === 'ru' ? 'Задать вопрос / Записаться' : 'Soru Sor / Randevu Al'}
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              );
+            })() : (
+              /* DIRECTORY VIEW REMOVED */
+              <div className="flex flex-col items-center justify-center py-32 gap-6 text-center animate-in fade-in duration-300">
+                <div className="w-20 h-20 rounded-full bg-[#00B4D8]/10 flex items-center justify-center mb-2">
+                  <svg className="w-10 h-10 text-[#00B4D8]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-white mb-2">
+                    {lang === 'uz' ? 'Xodimni tanlang' : lang === 'ru' ? 'Выберите сотрудника' : 'Personel Seçin'}
+                  </h3>
+                  <p className="text-sm text-slate-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed">
+                    {lang === 'uz' ? "Yuqoridagi menyudan bo'limni tanlang va xodim profiliga o'ting" : lang === 'ru' ? 'Выберите отдел в меню выше и перейдите к профилю сотрудника' : 'Yukarıdaki menüden bölüm seçin'}
+                  </p>
+                </div>
+              </div>
+            )}
+
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
+          GALLERY SECTION with luxury lightbox integration
+         ========================================== */}
+      {activeTab === 'about' && (
+        <section id="gallery" className="px-6 md:px-12 py-20 bg-slate-100/50 dark:bg-slate-950/20 border-t border-slate-200/40 dark:border-slate-800/40">
+        <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto">
+          
+          <div className="flex flex-col items-center text-center gap-2 mb-16">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.galleryTitle}</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">{t.gallerySub}</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {GALLERY_PHOTOS.map((photo, index) => (
+              <div 
+                key={photo.id}
+                onClick={() => setLightboxIndex(index)}
+                className="group relative h-72 rounded-[24px] overflow-hidden border border-slate-200 dark:border-slate-800 cursor-pointer shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 bg-gradient-to-tr from-slate-950 to-slate-800 flex flex-col justify-end p-6"
+              >
+                {/* Dynamic SVG medical workspace illustrations inside gallery */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                  {index === 0 && <Microscope className="w-32 h-32 text-white" />}
+                  {index === 1 && <Activity className="w-32 h-32 text-white" />}
+                  {index === 2 && <Cpu className="w-32 h-32 text-white" />}
+                </div>
+
+                <div className="absolute top-4 right-4 px-3 py-1 bg-white/10 border border-white/10 text-[9px] font-black text-[#48CAE4] rounded-full uppercase tracking-widest">
+                  {photo.tag}
+                </div>
+
+                <div className="relative z-10">
+                  <h3 className="text-lg font-extrabold text-white leading-tight">{getLangText(photo.title)}</h3>
+                  <p className="text-xs text-slate-400 mt-1 truncate">{getLangText(photo.desc)}</p>
+                  
+                  <div className="flex items-center gap-1 text-xs text-[#00B4D8] font-bold mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span>{lang === 'uz' ? 'Tekshirish' : lang === 'ru' ? 'Детали' : 'Tekshirish'}</span>
+                    <Eye className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+      )}
+
+      {/* ==========================================
+          GALLERY LIGHTBOX MODAL
+         ========================================== */}
+      {lightboxIndex !== null && (
+        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-6" onClick={() => setLightboxIndex(null)}>
+          <div className="max-w-2xl w-full bg-slate-900 border border-white/10 rounded-[32px] p-6 relative flex flex-col gap-6" onClick={e => e.stopPropagation()}>
+            <button onClick={() => setLightboxIndex(null)} className="absolute top-4 right-4 p-2 bg-white/5 border border-white/5 hover:bg-white/10 text-white rounded-full transition-colors">
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Lightbox Visual Area */}
+            <div className="aspect-video bg-slate-950 rounded-2xl flex items-center justify-center border border-white/5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(#00b4d812_1px,transparent_1px)] [background-size:16px_16px]"></div>
+              <div className="text-center p-8 flex flex-col items-center">
+                <Microscope className="w-16 h-16 text-[#00B4D8] mb-4 animate-pulse" />
+                <div className="px-4 py-1 bg-cyan-950 border border-cyan-800/40 text-[10px] font-black text-[#48CAE4] rounded-full uppercase tracking-widest mb-2">
+                  ISO 15189 Certified Hardware
+                </div>
+                <div className="text-slate-400 text-xs">Roche Diagnostics Switzerland • Abbott Scientific • Sysmex Japan</div>
+              </div>
+            </div>
+
+            {/* Lightbox text */}
+            <div>
+              <h3 className="text-xl font-extrabold text-white">{getLangText(GALLERY_PHOTOS[lightboxIndex].title)}</h3>
+              <p className="text-sm text-slate-300 mt-2 leading-relaxed">{getLangText(GALLERY_PHOTOS[lightboxIndex].desc)}</p>
+              <div className="flex gap-4 mt-4 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                <span>Calibration: Daily Auto</span>
+                <span>•</span>
+                <span>Standard: WHO International</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================
+          CERTIFICATE LIGHTBOX MODAL
+         ========================================== */}
+      {isCertLightboxOpen && (
+        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300" onClick={() => setIsCertLightboxOpen(false)}>
+          <div className="max-w-3xl w-full bg-slate-900/90 border border-white/10 rounded-[32px] p-4 relative flex flex-col gap-4" onClick={e => e.stopPropagation()}>
+            <button onClick={() => setIsCertLightboxOpen(false)} className="absolute top-4 right-4 p-2 bg-white/5 border border-white/5 hover:bg-white/10 text-white rounded-full transition-colors z-10">
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Certificate Image Viewer */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/5 bg-slate-950 max-h-[80vh] flex items-center justify-center">
+              <img 
+                src={sertifikatImg} 
+                alt="Quality Certificate CAP and ISO 15189" 
+                className="w-full max-h-[70vh] object-contain rounded-xl"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            
+            <div className="px-2 pb-2">
+              <h3 className="text-lg font-black text-white">
+                {lang === 'uz' ? 'Xalqaro CAP va ISO 15189 Sertifikati' : lang === 'ru' ? 'Международный сертификат CAP и ISO 15189' : 'Xalqaro CAP va ISO 15189 Sertifikati'}
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                {lang === 'uz' ? 'Ushbu sertifikat KANILAB laboratoriyasining tashqi sifat nazorati hamda xalqaro standartlarga to‘liq mosligini tasdiqlaydi.' : lang === 'ru' ? 'Этот сертификат подтверждает полное соответствие лаборатории KANILAB международным стандартам контроля качества.' : 'Ushbu sertifikat KANILAB laboratoriyasining tashqi sifat nazorati hamda xalqaro standartlarga to‘liq mosligini tasdiqlaydi.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================
+          BUILDING IMAGE LIGHTBOX MODAL
+          ========================================== */}
+      {isBuildingLightboxOpen && (
+        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300" onClick={() => setIsBuildingLightboxOpen(false)}>
+          <div className="max-w-4xl w-full bg-slate-900/90 border border-white/10 rounded-[32px] p-4 relative flex flex-col gap-4" onClick={e => e.stopPropagation()}>
+            <button onClick={() => setIsBuildingLightboxOpen(false)} className="absolute top-4 right-4 p-2 bg-white/5 border border-white/5 hover:bg-white/10 text-white rounded-full transition-colors z-10">
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Building Image Viewer */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/5 bg-slate-950 max-h-[80vh] flex items-center justify-center">
+              <img 
+                src={markazOldImg} 
+                alt="KANILAB Bosh Markazi" 
+                className="w-full max-h-[70vh] object-contain rounded-xl"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            
+            <div className="px-2 pb-2">
+              <h3 className="text-lg font-black text-white">
+                {lang === 'uz' ? 'KANILAB Bosh Laboratoriyasi' : lang === 'ru' ? 'Главный корпус KANILAB' : 'KANILAB Merkez Laboratuvarı'}
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                {lang === 'uz' ? 'Landmark: Sobiq Koʻz kasalxonasi binosi ichida (Eski Koʻz Kasalxonasi).' : lang === 'ru' ? 'Ориентир: внутри здания бывшей Глазной больницы (Eski Ko\'z Kasalxonasi).' : 'Landmark: Eski Göz Hastanesi binası içi.'}
+                <br />
+                {lang === 'uz' ? 'Termiz shahridagi eng ilg‘or va zamonaviy tahlillar markazining bosh binosi.' : lang === 'ru' ? 'Главный корпус самого современного и передового диагностического центра в Термезе.' : 'Tirmiz şehrindeki en gelişmiş ve modern analiz merkezinin ana binası.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================
+          TESTIMONIALS SLIDER SECTION
+         ========================================== */}
+      {activeTab === 'home' && (
+        <section id="testimonials" className="px-6 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.reviewsTitle}</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              {lang === 'uz' ? 'Bemorlarimiz biz haqimizda nima deydi?' : lang === 'ru' ? 'Что говорят пациенты о KANILAB' : 'Hastalarımız hakkımızda ne diyor?'}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm font-medium">
+              {lang === 'uz' ? 'Biz diagnostika jarayonlarida o‘z salomatligini bizga ishonib topshirgan bemorlarning fikrlarini to‘playmiz va har doim natijalarimiz uchun javob beramiz.' : lang === 'ru' ? 'Мы собираем отзывы пациентов, которые доверяют нам свою диагностику. Мы гарантируем точность результатов.' : 'Teşhis süreçlerinde sağlığını bize emanet eden hastalarımızın görüşlerini topluyor ve sonuçlarımızın her zaman arkasında duruyoruz.'}
+            </p>
+            
+            <button 
+              onClick={() => setIsReviewModalOpen(true)}
+              className="mt-4 w-max px-6 py-3 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-white dark:to-slate-200 text-white dark:text-slate-900 rounded-xl font-bold hover:shadow-lg transition-all active:scale-95 flex items-center gap-2"
+            >
+              <Star className="w-4 h-4" />
+              {lang === 'uz' ? 'Fikr qoldirish' : lang === 'ru' ? 'Оставить отзыв' : 'Yorum Bırak'}
+            </button>
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="p-8 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] shadow-xl relative overflow-hidden min-h-[220px] flex flex-col justify-between">
+              
+              {/* Testimonial Active Block */}
+              <div>
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(allReviews[testimonialIndex]?.rating || 5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 stroke-amber-400" />
+                  ))}
+                </div>
+
+                <p className="text-base font-medium text-slate-700 dark:text-slate-200 italic leading-relaxed">
+                  "{allReviews[testimonialIndex]?.review}"
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/40 pt-4 mt-6">
+                <div>
+                  <div className="font-extrabold text-slate-900 dark:text-white">{allReviews[testimonialIndex]?.name}</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{allReviews[testimonialIndex]?.role}</div>
+                </div>
+                
+                {/* Dots navigations */}
+                <div className="flex gap-2 flex-wrap max-w-[150px] justify-end">
+                  {allReviews.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setTestimonialIndex(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 ${testimonialIndex === idx ? 'w-6 bg-[#00B4D8]' : 'w-2 bg-slate-200 dark:bg-slate-800'}`}
+                      aria-label={`Slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* ==========================================
+            REVIEW MODAL
+           ========================================== */}
+        {isReviewModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div 
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" 
+              onClick={() => setIsReviewModalOpen(false)}
+            ></div>
+            
+            <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl shadow-2xl relative z-10 p-6 md:p-8 animate-in fade-in zoom-in-95 duration-200">
+              <button 
+                onClick={() => setIsReviewModalOpen(false)}
+                className="absolute top-4 right-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 rounded-full p-2 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
+                {lang === 'uz' ? 'Fikr qoldirish' : lang === 'ru' ? 'Оставить отзыв' : 'Yorum Bırak'}
+              </h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+                {lang === 'uz' ? 'Xizmatlarimiz haqida o\'z fikringizni yozib qoldiring.' : lang === 'ru' ? 'Напишите свой отзыв о наших услугах.' : 'Xizmatlarimiz haqida o\'z fikringizni yozib qoldiring.'}
+              </p>
+
+              <form onSubmit={handleReviewSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
+                    {lang === 'uz' ? 'Ism va familiya' : lang === 'ru' ? 'Имя и фамилия' : 'İsim ve Soyisim'}
+                  </label>
+                  <input 
+                    type="text" 
+                    required
+                    value={newReview.name}
+                    onChange={e => setNewReview({...newReview, name: e.target.value})}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    placeholder={lang === 'uz' ? 'Ismingizni kiriting' : lang === 'ru' ? 'Введите ваше имя' : 'İsminizi girin'}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
+                    {lang === 'uz' ? 'Mijoz turi' : lang === 'ru' ? 'Тип клиента' : 'Müşteri türü'}
+                  </label>
+                  <select
+                    value={newReview.role}
+                    onChange={e => setNewReview({...newReview, role: e.target.value})}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500 appearance-none"
+                  >
+                    <option value="">{lang === 'uz' ? 'Tanlang...' : lang === 'ru' ? 'Выберите...' : 'Seçin...'}</option>
+                    <option value={lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Hasta'}>{lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Hasta'}</option>
+                    <option value={lang === 'uz' ? 'Shifokor' : lang === 'ru' ? 'Врач' : 'Doktor'}>{lang === 'uz' ? 'Shifokor' : lang === 'ru' ? 'Врач' : 'Doktor'}</option>
+                    <option value={lang === 'uz' ? 'Hamkor' : lang === 'ru' ? 'Партнер' : 'Ortak'}>{lang === 'uz' ? 'Hamkor' : lang === 'ru' ? 'Партнер' : 'Ortak'}</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
+                    {lang === 'uz' ? 'Baho bering' : lang === 'ru' ? 'Оцените' : 'Değerlendirin'}
+                  </label>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star 
+                        key={star}
+                        onClick={() => setNewReview({...newReview, rating: star})}
+                        className={`w-8 h-8 cursor-pointer transition-all hover:scale-110 ${newReview.rating >= star ? 'text-amber-400 fill-amber-400' : 'text-slate-200 dark:text-slate-700'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
+                    {lang === 'uz' ? 'Fikringiz' : lang === 'ru' ? 'Ваш отзыв' : 'Görüşünüz'}
+                  </label>
+                  <textarea 
+                    required
+                    rows={4}
+                    value={newReview.review}
+                    onChange={e => setNewReview({...newReview, review: e.target.value})}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
+                    placeholder={lang === 'uz' ? 'Taassurotlaringiz bilan o\'rtoqlashing...' : lang === 'ru' ? 'Поделитесь своими впечатлениями...' : 'Taassurotlaringiz bilan o\'rtoqlashing...'}
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button 
+                    type="submit"
+                    className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl font-bold shadow-lg shadow-cyan-500/20 active:scale-98 transition-all"
+                  >
+                    {lang === 'uz' ? 'Yuborish' : lang === 'ru' ? 'Отправить' : 'Gönder'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </section>
+      )}
+
+      {/* ==========================================
+          FAQ ACCORDION SECTION
+         ========================================== */}
+      {activeTab === 'faq' && (
+        <section id="faq" className="px-6 md:px-12 py-20 bg-slate-100/30 dark:bg-slate-950/10 border-t border-slate-200/40 dark:border-slate-800/40">
+        <div className="max-w-4xl mx-auto flex flex-col gap-10">
+          
+          <div className="flex flex-col items-center text-center gap-2">
+            <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.faqTitle}</span>
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">{t.faqSub}</h2>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {t.items.map((item, index) => {
+              const isOpen = faqActive === index;
+              return (
+                <div 
+                  key={index} 
+                  className="bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 rounded-[20px] overflow-hidden shadow-sm transition-all duration-300"
+                >
+                  <button
+                    onClick={() => setFaqActive(isOpen ? null : index)}
+                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  >
+                    <span className="font-extrabold text-slate-800 dark:text-white text-sm md:text-base">{item.q}</span>
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                  </button>
+
+                  <div className={`transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-56 opacity-100 border-t border-slate-100 dark:border-slate-800/20' : 'max-h-0 opacity-0'}`}>
+                    <p className="p-6 text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/50 dark:bg-slate-950/20">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+      )}
+
+      {/* ==========================================
+          BRANCHES SECTION
+         ========================================== */}
+      {activeTab === 'branches' && (
+        <section id="branches" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
+          <div className="max-w-7xl w-full mx-auto">
+
+            {/* Header */}
+            <div className="flex flex-col items-center text-center gap-2 mb-14">
+              <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                {lang === 'uz' ? 'KANI-LAB TARMOG\'' : lang === 'ru' ? 'СЕТЬ KANI-LAB' : 'KANİ-LAB AĞI'}
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
+                {lang === 'uz' ? 'Bizning filiallar' : lang === 'ru' ? 'Наши филиалы' : 'Şubelerimiz'}
+              </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
+                {lang === 'uz' ? `Termiz shahrida va Surxondaryo viloyatida ${BRANCHES.length} ta filial orqali xizmat ko\'rsatamiz` : lang === 'ru' ? `Оказываем услуги через ${BRANCHES.length} филиалов в г. Термез и Сурхандарьинской области` : `Termiz ve Surhanderya bölgesinde ${BRANCHES.length} şube ile hizmet veriyoruz`}
+              </p>
+            </div>
+
+            {/* Branches Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {BRANCHES.map((branch, idx) => (
+                <div
+                  key={branch.id}
+                  className="group flex flex-col bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+                >
+                  {/* Accent strip */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] rounded-t-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Branch Number badge */}
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[#00B4D8]/10 text-[#0096C7] font-black text-sm shrink-0">
+                      {idx + 1}
+                    </span>
+                    <span className="px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-wider rounded-full border border-emerald-100 dark:border-emerald-900/50">
+                      {lang === 'uz' ? 'FAOL' : lang === 'ru' ? 'АКТИВНЫЙ' : 'AKTİF'}
+                    </span>
+                  </div>
+
+                  {/* Name */}
+                  <h3 className="text-sm font-extrabold text-slate-800 dark:text-white leading-snug mb-4 group-hover:text-[#00B4D8] transition-colors">
+                    {branch.name[lang] || branch.name.uz}
+                  </h3>
+
+                  {/* Info rows */}
+                  <div className="flex flex-col gap-2.5 flex-1">
+                    {/* Address */}
+                    <div className="flex items-start gap-2.5">
+                      <div className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 mt-0.5">
+                        <MapPin className="w-3 h-3 text-[#00B4D8]" />
+                      </div>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                        {branch.address[lang] || branch.address.uz}
+                      </span>
+                    </div>
+
+                    {/* Hours */}
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                        <Clock className="w-3 h-3 text-amber-500" />
+                      </div>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                        {branch.hours[lang] || branch.hours.uz}
+                      </span>
+                    </div>
+
+                    {/* Phone */}
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                        <Phone className="w-3 h-3 text-emerald-500" />
+                      </div>
+                      <a
+                        href={`tel:${branch.phone}`}
+                        className="text-xs font-bold text-[#0096C7] hover:text-[#00B4D8] transition-colors"
+                      >
+                        {branch.phone.replace('+998', '+998 ').replace(/(.{7})(.{3})(.{2})(.{2})$/, '$1 $2 $3 $4')}
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Maps Button */}
+                  <a
+                    href={branch.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 w-full py-2.5 rounded-xl bg-[#00B4D8]/8 hover:bg-[#00B4D8] border border-[#00B4D8]/20 hover:border-[#00B4D8] text-[#0096C7] hover:text-white text-xs font-black flex items-center justify-center gap-2 transition-all duration-200 group/btn"
+                  >
+                    <MapPin className="w-3.5 h-3.5 group-hover/btn:animate-bounce" />
+                    {lang === 'uz' ? 'Xaritada ko\'rish' : lang === 'ru' ? 'Показать на карте' : 'Haritada Göster'}
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-14 p-8 bg-gradient-to-r from-[#00B4D8]/8 to-[#0096C7]/5 border border-[#00B4D8]/15 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+              <div>
+                <h4 className="text-xl font-extrabold text-slate-800 dark:text-white mb-1">
+                  {lang === 'uz' ? 'Qaysi filial sizga yaqin?' : lang === 'ru' ? 'Какой филиал ближайший к вам?' : 'Hangi şube size daha yakın?'}
+                </h4>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  {lang === 'uz' ? 'Uydan namuna olish xizmati ham mavjud' : lang === 'ru' ? 'Доступна услуга взятия анализов на дому' : 'Evde örnek alma hizmeti de mevcuttur'}
+                </p>
+              </div>
+              <button
+                onClick={() => { setActiveTab('contact'); window.location.hash = 'contact'; }}
+                className="px-7 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white font-black text-sm rounded-2xl shadow-lg shadow-[#00B4D8]/25 hover:opacity-90 transition-all shrink-0"
+              >
+                {lang === 'uz' ? 'Bog\'lanish' : lang === 'ru' ? 'Связаться' : 'İletişim'}
+              </button>
+            </div>
+
+          </div>
+        </section>
+      )}
+
+            {/* ==========================================
+          CONTACT SECTION (Map and Form)
+         ========================================== */}
+      {activeTab === 'contact' && (
+        <section id="contact" className="px-6 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          {/* Contact Details & Interactive vector map */}
+          <div className="lg:col-span-6 flex flex-col gap-6">
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.contactTitle}</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">{t.contactSub}</h2>
+            </div>
+
+            {/* Address cards */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-900/30 border border-slate-200/40 dark:border-slate-800/40 rounded-2xl">
+                <MapPin className="w-5 h-5 text-[#00B4D8] mt-1 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Flagman Center</div>
+                  <p className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1">{t.address}</p>
+                  <p className="text-xs text-slate-400 mt-1.5 font-semibold">
+                    {lang === 'uz' ? 'Landmark: Sobiq Koʻz kasalxonasi binosi ichida (Eski Koʻz Kasalxonasi).' : lang === 'ru' ? "Ориентир: внутри здания бывшей Глазной больницы (Eski Ko'z Kasalxonasi)." : 'Landmark: Sobiq Koʻz kasalxonasi binosi ichida (Eski Koʻz Kasalxonasi).'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-900/30 border border-slate-200/40 dark:border-slate-800/40 rounded-2xl">
+                <Phone className="w-5 h-5 text-[#00B4D8] mt-1 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Call Center & Support</div>
+                  <div className="flex flex-col gap-2 mt-2">
+                    <a href="tel:+998900751234" className="text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-[#00B4D8] transition-colors flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span>+998 90 075 12 34</span>
+                      <span className="text-[9px] px-1.5 py-0.5 bg-cyan-100 dark:bg-cyan-950 text-cyan-500 rounded font-black">Mobile</span>
+                    </a>
+                    <a href="tel:+998781501234" className="text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-[#00B4D8] transition-colors flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                      <span>+998 78 150 12 34</span>
+                      <span className="text-[9px] px-1.5 py-0.5 bg-indigo-100 dark:bg-indigo-950 text-indigo-500 rounded font-black">Landline</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 p-4 bg-slate-100/50 dark:bg-slate-900/30 border border-slate-200/40 dark:border-slate-800/40 rounded-2xl">
+                <Clock className="w-5 h-5 text-[#00B4D8] mt-1 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Working Hours</div>
+                  <p className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1">{t.workingHours}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          {/* Luxury Contact Inquiries Form */}
+          <div className="lg:col-span-6">
+            <div className="p-6 md:p-8 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] shadow-xl flex flex-col gap-6">
+              <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">{t.contactFormTitle}</h3>
+              
+              {contactSubmitted ? (
+                <div className="p-8 bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-500/20 rounded-[28px] flex flex-col items-center text-center gap-4 relative overflow-hidden shadow-inner">
+                  {/* Elegant Success Checkmark Animation and particle rings */}
+                  <div className="relative">
+                    <span className="absolute -inset-4 rounded-full bg-emerald-500/10 animate-ping"></span>
+                    <span className="absolute -inset-8 rounded-full bg-emerald-500/5 animate-pulse"></span>
+                    <div className="w-16 h-16 rounded-full bg-emerald-500 dark:bg-emerald-600 flex items-center justify-center text-white shadow-xl relative z-10 border-4 border-white dark:border-slate-900">
+                      <Check className="w-8 h-8 stroke-[3]" />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5 relative z-10">
+                    <h4 className="text-lg font-black text-slate-800 dark:text-white">
+                      {lang === 'uz' ? 'Ariza qabul qilindi!' : lang === 'ru' ? 'Заявка принята!' : 'Ariza qabul qilindi!'}
+                    </h4>
+                    <p className="text-xs text-slate-500 dark:text-emerald-400 font-semibold leading-relaxed max-w-sm">
+                      {t.formSuccess}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleContactSubmit} className="space-y-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.formName}</label>
+                    <input 
+                      id="contact-name"
+                      type="text" 
+                      placeholder="e.g. Akbarov Nodir"
+                      value={contactName}
+                      onChange={(e) => {
+                        setContactName(e.target.value);
+                        if (contactFormErrors.name) setContactFormErrors(p => ({ ...p, name: '' }));
+                      }}
+                      className={`px-4 py-3 bg-slate-50 dark:bg-slate-950 border rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white transition-all ${contactFormErrors.name ? 'border-red-500 ring-2 ring-red-500/15' : 'border-slate-200 dark:border-slate-800'}`}
+                    />
+                    {contactFormErrors.name && (
+                      <span className="text-[10px] text-red-500 font-extrabold flex items-center gap-1 mt-1">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        {contactFormErrors.name}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.formPhone}</label>
+                    <input 
+                      id="contact-phone"
+                      type="text" 
+                      placeholder="+998 90 123-45-67"
+                      value={contactPhone}
+                      onChange={(e) => {
+                        setContactPhone(e.target.value);
+                        if (contactFormErrors.phone) setContactFormErrors(p => ({ ...p, phone: '' }));
+                      }}
+                      className={`px-4 py-3 bg-slate-50 dark:bg-slate-950 border rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white transition-all ${contactFormErrors.phone ? 'border-red-500 ring-2 ring-red-500/15' : 'border-slate-200 dark:border-slate-800'}`}
+                    />
+                    {contactFormErrors.phone && (
+                      <span className="text-[10px] text-red-500 font-extrabold flex items-center gap-1 mt-1">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        {contactFormErrors.phone}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.formMsg}</label>
+                    <textarea 
+                      id="contact-message"
+                      rows={3}
+                      placeholder="..."
+                      value={contactMsg}
+                      onChange={(e) => setContactMsg(e.target.value)}
+                      className="px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
+                    />
+                  </div>
+
+                  <button 
+                    id="submit-contact-form"
+                    type="submit" 
+                    className="w-full py-4 bg-[#0F172A] dark:bg-white text-white dark:text-[#0F172A] rounded-2xl text-sm font-extrabold shadow-md hover:scale-101 active:scale-99 transition-all flex items-center justify-center gap-2"
+                  >
+                    <Send className="w-4 h-4" />
+                    {t.formSubmit}
+                  </button>
+                </form>
+              )}
+
+            </div>
+          </div>
+
+        </div>
+        {/* ==========================================
+            "QANDAY BORILADI?" (ROUTE PLANNER) MODULE
+           ========================================== */}
+        <div className="mt-16 bg-white dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] p-6 md:p-8 shadow-sm">
+          <div className="flex flex-col lg:flex-row gap-8">
+            
+            {/* Left Form: Route details */}
+            <div className="lg:w-5/12 flex flex-col gap-6 justify-between text-left">
+              <div>
+                <span className="text-[10px] font-black text-[#00B4D8] uppercase tracking-widest flex items-center gap-1.5 mb-1.5">
+                  <Zap className="w-3.5 h-3.5" />
+                  {lang === 'uz' ? 'Marshrut rejalashtiruvchi' : lang === 'ru' ? 'Планировщик маршрута' : 'Rota Planlayıcı'}
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
+                  {lang === 'uz' ? 'Qanday boriladi?' : lang === 'ru' ? 'Как добраться?' : 'Nasıl Gidilir?'}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                  {lang === 'uz' ? "Hozirgi turgan joyingizdan istalgan filialimizgacha bo'lgan eng qulay va tezkor yo'nalishni aniqlang." : lang === 'ru' ? 'Определите наиболее удобный и быстрый маршрут от вашего текущего местоположения до любого из наших филиалов.' : 'Bulunduğunuz konumdan herhangi bir şubemize giden en kolay ve hızlı rotayı belirleyin.'}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                {/* Qayerdan Input */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                    {lang === 'uz' ? 'Qayerdan?' : lang === 'ru' ? 'Откуда?' : 'Nereden?'}
+                  </label>
+                  <div className="relative">
+                    <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      value={routeFrom}
+                      onChange={(e) => setRouteFrom(e.target.value)}
+                      placeholder={lang === 'uz' ? 'Hozirgi manzilingiz yoki shahar' : lang === 'ru' ? 'Ваше текущее местоположение или город' : 'Mevcut konumunuz veya şehir'}
+                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                {/* Qayerga Dropdown */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                    {lang === 'uz' ? 'Qayerga?' : lang === 'ru' ? 'Куда?' : 'Nereye?'}
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={routeToBranchId}
+                      onChange={(e) => setRouteToBranchId(e.target.value)}
+                      className="w-full pl-4 pr-10 py-2.5 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white appearance-none cursor-pointer"
+                    >
+                      {BRANCHES.map((b) => (
+                        <option key={b.id} value={b.id} className="bg-white dark:bg-slate-950 text-slate-800 dark:text-white">
+                          {b.name[lang] || b.name.uz}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Qanaqasiga (Travel Mode) Radio buttons */}
+                <div className="flex flex-col gap-2">
+                  <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                    {lang === 'uz' ? 'Qanaqasiga?' : lang === 'ru' ? 'Как именно?' : 'Nasıl?'}
+                  </span>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { mode: 'driving', label: lang === 'uz' ? 'Avtomobil' : lang === 'ru' ? 'Авто' : 'Araç', icon: '🚗' },
+                      { mode: 'transit', label: lang === 'uz' ? 'Transport' : lang === 'ru' ? 'Автобус' : 'Toplu Taşıma', icon: '🚌' },
+                      { mode: 'walking', label: lang === 'uz' ? 'Piyoda' : lang === 'ru' ? 'Пешком' : 'Yürüyerek', icon: '🚶' }
+                    ].map((tMode) => (
+                      <label
+                        key={tMode.mode}
+                        className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center cursor-pointer transition-all duration-200 ${
+                          travelMode === tMode.mode
+                            ? 'border-[#00B4D8] bg-[#00B4D8]/5 text-[#0096C7] font-black'
+                            : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/40 text-slate-500 dark:text-slate-400'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="travelMode"
+                          value={tMode.mode}
+                          checked={travelMode === tMode.mode}
+                          onChange={() => setTravelMode(tMode.mode as any)}
+                          className="sr-only"
+                        />
+                        <span className="text-base mb-1">{tMode.icon}</span>
+                        <span className="text-[10px] font-bold leading-tight">{tMode.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit button */}
+              <button
+                onClick={() => {
+                  const selectedBranch = BRANCHES.find(b => b.id === routeToBranchId) || BRANCHES[0];
+                  const destination = encodeURIComponent(selectedBranch.name.uz + ', Termiz');
+                  const origin = routeFrom ? encodeURIComponent(routeFrom) : 'My+Location';
+                  let googleMapsTravelMode = 'driving';
+                  if (travelMode === 'transit') googleMapsTravelMode = 'transit';
+                  if (travelMode === 'walking') googleMapsTravelMode = 'walking';
+                  
+                  const directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=${googleMapsTravelMode}`;
+                  window.open(directionsUrl, '_blank');
+                }}
+                className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-[#00B4D8]/20 hover:opacity-90 transition-all flex items-center justify-center gap-2 group/btn"
+              >
+                <span>{lang === 'uz' ? "O'rganing" : lang === 'ru' ? 'Проложить маршрут' : 'Rotayı Keşfedin'}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* Right Map Preview placeholder wrapper */}
+            <div className="lg:w-7/12 aspect-video lg:aspect-auto min-h-[300px] rounded-3xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800/60 relative group/map">
+              <iframe
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                  (BRANCHES.find(b => b.id === routeToBranchId) || BRANCHES[0]).name.uz + ', Termiz'
+                )}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+                className="w-full h-full border-0 grayscale dark:invert-[0.9] dark:hue-rotate-180 opacity-90 group-hover/map:grayscale-0 transition-all duration-300"
+                allowFullScreen
+                loading="lazy"
+              />
+              <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
+                <span>{lang === 'uz' ? 'Jonli xarita' : lang === 'ru' ? 'Живая карта' : 'Canlı Harita'}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      )}
+      {/* ==========================================
+          CERTIFICATES SECTION (IN-PAGE)
+         ========================================== */}
+      {activeTab === 'certificates' && (
+        <section className="pt-24 pb-20 px-6 md:px-12 bg-slate-50 dark:bg-[#090D1A]">
+          <div className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-24">
+            
+            {/* Header */}
+            <div className="text-center">
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
+                {lang === 'uz' ? 'Bizning Sertifikatlar' : lang === 'ru' ? 'Наши сертификаты' : 'Sertifikalarımız'}
+              </h2>
+              <p className="text-sm md:text-base text-slate-500 max-w-2xl mx-auto font-medium">
+                {lang === 'uz' ? 'Xalqaro sifat kafolati va litsenziyalar' : lang === 'ru' ? 'Международная гарантия качества и лицензии' : 'Uluslararası kalite güvencesi ve lisanslar'}
+              </p>
+            </div>
+
+            {/* List without cards */}
+            <div className="flex flex-col gap-24">
+              {[
+                  {
+                    id: 1,
+                    title: lang === 'uz' ? 'CAP Sertifikati (2020)' : lang === 'ru' ? 'Сертификат CAP (2020)' : 'CAP Sertifikası (2020)',
+                    year: '2020',
+                    desc: lang === 'uz' ? 'Ushbu sertifikat Kani-Med laboratoriyasi 2020-yilda College of American Pathologists (CAP) tomonidan o\'tkazilgan tashqi sifat nazorati (External Quality Assurance) tekshiruvlarida muvaffaqiyatli qatnashganligini tasdiqlaydi. Tadqiqotlar shuni ko\'rsatadiki, CAP sertifikatiga ega laboratoriyalar boshqalarga qaraganda ancha aniq natijalar beradi. Bu bizning bemorlar salomatligiga bo\'lgan o\'ta mas\'uliyatimizni belgilaydi. Biz faqat xalqaro standartlarga mos uskunalar va reaktivlardan foydalanamiz.' : lang === 'ru' ? 'Этот сертификат подтверждает, что в 2020 году лаборатория Kani-Med успешно прошла внешнюю оценку качества от CAP. Исследования показывают, что лаборатории с сертификатом CAP предоставляют гораздо более точные результаты. Это определяет нашу огромную ответственность за здоровье пациентов. Мы используем только оборудование и реагенты, соответствующие международным стандартам.' : 'Bu sertifika, Kani-Med laboratuvarının 2020 yılında College of American Pathologists (CAP) tarafından yürütülen dış kalite kontrol (Dış Kalite Güvencesi) testlerine başarıyla katıldığını teyit eder. Araştırmalar, CAP sertifikalı laboratuvarların diğerlerine kıyasla çok daha doğru sonuçlar verdiğini göstermektedir. Bu durum, hastalarımızın sağlığına verdiğimiz yüksek sorumluluğu tanımlar. Yalnızca uluslararası standartlara uygun ekipman ve reaktifleri kullanmaktayız.',
+                    img: cert1Img
+                  },
+                  {
+                    id: 2,
+                    title: lang === 'uz' ? 'CAP Sertifikati (2021)' : lang === 'ru' ? 'Сертификат CAP (2021)' : 'CAP Sertifikası (2021)',
+                    year: '2021',
+                    desc: lang === 'uz' ? '2021-yilgi mavsumda tahlillarimiz sifati xalqaro standartlarga to\'liq javob berishi tasdiqlandi. Laboratoriyamiz doimiy ravishda yuqori sifat nazoratini saqlab kelmoqda va har bir bemor uchun aniq natijalar kafolatlanadi. Biz yana bir bor diagnostika sifati bo\'yicha etakchi ekanligimizni isbotladik. CAP sifat kafolati nafaqat bizning uskuna va xodimlarimizni, balki butun diagnostika jarayonimizni qat\'iy tekshiruvdan o\'tkazdi. Bu ishonchli tashxis va to\'g\'ri davolanishning asosi hisoblanadi.' : lang === 'ru' ? 'В сезоне 2021 года качество наших анализов было подтверждено на соответствие международным стандартам. Гарантия качества CAP строго проверила не только наше оборудование и персонал, но и весь диагностический процесс. Это основа для надежного диагноза и правильного лечения.' : '2021-yilgi mavsumda tahlillarimiz sifati xalqaro standartlarga to\'liq javob berishi tasdiqlandi. Laboratoriyamiz doimiy ravishda yuqori sifat nazoratini saqlab kelmoqda va har bir bemor uchun aniq natijalar kafolatlanadi. Biz yana bir bor diagnostika sifati bo\'yicha etakchi ekanligimizni isbotladik. CAP sifat kafolati nafaqat bizning uskuna va xodimlarimizni, balki butun diagnostika jarayonimizni qat\'iy tekshiruvdan o\'tkazdi. Bu ishonchli tashxis va to\'g\'ri davolanishning asosi hisoblanadi.',
+                    img: cert2Img
+                  },
+                  {
+                    id: 3,
+                    title: lang === 'uz' ? 'CAP Sertifikati (2022)' : lang === 'ru' ? 'Сертификат CAP (2022)' : 'CAP Sertifikası (2022)',
+                    year: '2022',
+                    desc: lang === 'uz' ? 'Ushbu xujjat 2022-yilda texnik va tibbiy mutaxassislarimizning malakasi xalqaro darajada ekanligini hamda laboratoriya jihozlarimizning benuqson ishlashini kafolatlaydi. Ketma-ket yillar davomida CAP xalqaro miqyosida o\'tkaziladigan malaka tekshiruvlarida 100% ijobiy ko\'rsatkichlarga erishib kelmoqdamiz. Bemorlarimiz tahlil natijalarini to\'g\'ridan-to\'g\'ri chet eldagi shifoxonalarga ham yuborishlari mumkin, chunki bizning sertifikat butun dunyoda tan olinadi.' : lang === 'ru' ? 'Этот документ гарантирует, что в 2022 году квалификация наших специалистов находилась на международном уровне. Наши пациенты могут отправлять результаты анализов напрямую в зарубежные клиники, так как наш сертификат признан во всем мире.' : 'Ushbu xujjat 2022-yilda texnik va tibbiy mutaxassislarimizning malakasi xalqaro darajada ekanligini hamda laboratoriya jihozlarimizning benuqson ishlashini kafolatlaydi. Ketma-ket yillar davomida CAP xalqaro miqyosida o\'tkaziladigan malaka tekshiruvlarida 100% ijobiy ko\'rsatkichlarga erishib kelmoqdamiz. Bemorlarimiz tahlil natijalarini to\'g\'ridan-to\'g\'ri chet eldagi shifoxonalarga ham yuborishlari mumkin, chunki bizning sertifikat butun dunyoda tan olinadi.',
+                    img: cert3Img
+                  }
+              ].map((cert, index) => (
+                <div key={cert.id} className={`flex flex-col ${index % 2 === 0 ? 'xl:flex-row' : 'xl:flex-row-reverse'} items-center gap-10 xl:gap-24`}>
+                  {/* Image (No Cards) */}
+                  <div className="w-full xl:w-[50%] shrink-0 flex items-center justify-center">
+                    <img src={cert.img} alt={cert.title} className="w-full max-w-2xl h-auto object-contain transform hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  
+                  {/* Text */}
+                  <div className="w-full xl:w-[50%] flex flex-col justify-center text-left">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00B4D8]/10 text-[#00B4D8] text-sm font-bold uppercase tracking-widest w-fit mb-5">
+                      <Award className="w-5 h-5" />
+                      {cert.year} {lang === 'uz' ? 'Yil' : lang === 'ru' ? 'Год' : 'Yıl'}
+                    </div>
+                    <h4 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight tracking-tight">
+                      {cert.title}
+                    </h4>
+                    <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                      {cert.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      {/* ==========================================
+          PRIVACY POLICY SECTION
+         ========================================== */}
+      {activeTab === 'privacy' && (
+        <section className="pt-24 pb-20 px-6 md:px-12 bg-slate-50 dark:bg-[#090D1A] min-h-screen">
+          <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] p-8 md:p-12 shadow-xl text-left">
+            <div className="flex items-center gap-3.5 mb-8 border-b border-slate-100 dark:border-slate-800 pb-6">
+              <div className="w-12 h-12 rounded-2xl bg-[#00B4D8]/10 flex items-center justify-center text-[#00B4D8] text-2xl">
+                🛡️
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-none">
+                  {lang === 'uz' ? 'MAXFIYLIK SIYOSATI' : lang === 'ru' ? 'ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ' : 'GİZLİLİK POLİTİKASI'}
+                </h1>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2">
+                  {lang === 'uz' ? 'Kani-Lab laboratoriyasi ma’lumotlar maxfiyligi siyosati' : lang === 'ru' ? 'Политика конфиденциальности данных лаборатории Kani-Lab' : 'Kani-Lab Laboratuvarı Veri Gizliliği Politikası'}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-8 text-slate-600 dark:text-slate-300 font-medium leading-[1.65] text-sm md:text-base">
+              {[
+                {
+                  title: lang === 'uz' ? 'Kirish va qamrov' : lang === 'ru' ? 'Введение и сфера применения' : 'Giriş ve Kapsam',
+                  desc: lang === 'uz' ? `Ushbu Maxfiylik siyosati Kani-Lab tomonidan mijozlarning shaxsiy va tibbiy ma'lumotlarini qanday yig‘ish, qayta ishlash, saqlash va himoya qilish tartiblarini belgilaydi.` : lang === 'ru' ? 'Настоящая Политика конфиденциальности определяет процедуры сбора, обработки, хранения и защиты Kani-Lab личных и медицинских данных клиентов.' : 'Bu Gizlilik Politikası, Kani-Lab tarafından müşterilerin kişisel ve tıbbi verilerinin toplanması, işlenmesi, saklanması ve korunması prosedürlerini belirler.'
+                },
+                {
+                  title: lang === 'uz' ? 'Ma’lumotlarni yig‘ish' : lang === 'ru' ? 'Сбор данных' : 'Veri Toplama',
+                  desc: lang === 'uz' ? `Biz faqat xizmat ko‘rsatish uchun zarur bo‘lgan ma'lumotlarni, jumladan ism-sharif, aloqa raqamlari, elektron pochta manzili hamda tahlil natijalarini to‘g‘ri shakllantirish uchun zarur bo‘lgan tibbiy anamnez ma'lumotlarini to‘playmiz.` : lang === 'ru' ? 'Мы собираем только информацию, необходимую для оказания услуг, включая имя, контактные номера, адрес электронной почты и медицинский анамнез, необходимый для правильного формирования результатов анализа.' : 'Ad-soyad, iletişim numaraları, e-posta adresi ve analiz sonuçlarının doğru şekilde oluşturulması için gerekli olan tıbbi geçmiş bilgileri dahil olmak üzere yalnızca hizmet sunumu için gerekli bilgileri topluyoruz.'
+                },
+                {
+                  title: lang === 'uz' ? 'Tibbiy sir va konfidensiallik' : lang === 'ru' ? 'Медицинская тайна и конфиденциальность' : 'Tıbbi Sır ve Gizlilik',
+                  desc: lang === 'uz' ? `Bemorning barcha tahlil natijalari va ular bilan bog‘liq tibbiy ma'lumotlar qat'iy "Tibbiy sir" maqomiga ega. Ushbu ma'lumotlar uchinchi shaxslarga, davlat organlariga yoki boshqa muassasalarga faqat qonunchilikda belgilangan hollar bundan mustasno, hech qanday holatda oshkor etilmaydi.` : lang === 'ru' ? 'Все результаты анализов пациента и связанные с ними медицинские данные имеют статус строгой "Медицинской тайны". Эта информация ни при каких обстоятельствах не разглашается третьим лицам или государственным органам, за исключением случаев, предусмотренных законом.' : 'Hastanın tüm analiz sonuçları ve bunlarla ilgili tıbbi verileri katı bir şekilde "Tıbbi Sır" statüsündedir. Bu bilgiler, yasal zorunluluklar hariç, hiçbir koşulda üçüncü şahıslara veya devlet kurumlarına açıklanmaz.'
+                },
+                {
+                  title: lang === 'uz' ? `Ma'lumotlar xavfsizligi` : lang === 'ru' ? 'Безопасность данных' : 'Veri Güvenliği',
+                  desc: lang === 'uz' ? `Kani-Lab mijozlarning shaxsiy ma'lumotlarini ruxsatsiz kirish, o‘zgartirish, yo‘q qilish yoki oshkor etishdan himoya qilish uchun ilg‘or shifrlash texnologiyalari va xavfsiz server infratuzilmasidan foydalanadi.` : lang === 'ru' ? 'Kani-Lab использует передовые технологии шифрования и безопасную инфраструктуру серверов для защиты личных данных клиентов от несанкционированного доступа, изменения, уничтожения или разглашения.' : 'Kani-Lab, müşterilerin kişisel verilerini yetkisiz erişim, değiştirme, imha veya ifşa edilmekten korumak için gelişmiş şifreleme teknolojileri ve güvenli sunucu altyapısı kullanır.'
+                },
+                {
+                  title: lang === 'uz' ? 'Mijoz huquqlari' : lang === 'ru' ? 'Права клиентов' : 'Müşteri Hakları',
+                  desc: lang === 'uz' ? `Har bir mijoz o‘zining shaxsiy ma'lumotlaridan foydalanish shartlari bilan tanishish, ma'lumotlarga o‘zgartirish kiritish yoki ularni o‘chirishni so‘rash huquqiga ega.` : lang === 'ru' ? 'Каждый клиент имеет право ознакомиться с условиями использования своих персональных данных, запросить внесение изменений или их удаление.' : 'Her müşteri, kişisel verilerinin kullanım koşullarını inceleme, verilerde değişiklik yapılmasını veya silinmesini talep etme hakkına sahiptir.'
+                }
+              ].map((section, idx) => (
+                <div key={idx} className="space-y-2">
+                  <h3 className="text-lg font-black text-slate-800 dark:text-white flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-lg bg-[#00B4D8]/10 text-[#0096C7] flex items-center justify-center text-xs font-black shrink-0">
+                      {idx + 1}
+                    </span>
+                    {section.title}
+                  </h3>
+                  <p className="pl-8 text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
+                    {section.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
+          TERMS OF USE SECTION
+         ========================================== */}
+      {activeTab === 'terms' && (
+        <section className="pt-24 pb-20 px-6 md:px-12 bg-slate-50 dark:bg-[#090D1A] min-h-screen">
+          <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] p-8 md:p-12 shadow-xl text-left">
+            <div className="flex items-center gap-3.5 mb-8 border-b border-slate-100 dark:border-slate-800 pb-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 text-2xl">
+                ⚖️
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-none">
+                  {lang === 'uz' ? 'FOYDALANISH SHARTLARI' : lang === 'ru' ? 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ' : 'KULLANIM KOŞULLARI'}
+                </h1>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2">
+                  {lang === 'uz' ? 'Kani-Lab veb-platformasidan foydalanish bo‘yicha shartlar va qoidalar' : lang === 'ru' ? 'Условия и правила использования веб-платформы Kani-Lab' : 'Kani-Lab Web Platformunun Kullanım Şartları ve Koşulları'}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-8 text-slate-600 dark:text-slate-300 font-medium leading-[1.65] text-sm md:text-base">
+              {[
+                {
+                  title: lang === 'uz' ? 'Kelishuv shartlari' : lang === 'ru' ? 'Соглашение об условиях' : 'Anlaşma Şartları',
+                  desc: lang === 'uz' ? 'Ushbu veb-saytga kirish va undan foydalanish orqali siz quyidagi shartlar va qoidalarga so‘zsiz rozi bo‘lasiz. Agar siz ushbu shartlarga rozi bo‘lmasangiz, saytdan foydalanishni to‘xtatishingiz kerak.' : lang === 'ru' ? 'Доступ к этому веб-сайту и его использование означают ваше безоговорочное согласие со следующими правилами и условиями. Если вы не согласны с ними, пожалуйста, прекратите использование сайта.' : 'Bu web sitesine erişerek ve kullanarak, aşağıdaki şart ve koşulları kayıtsız şartsız kabul etmiş olursunuz. Bu şartları kabul etmiyorsanız, siteyi kullanmayı bırakmalısınız.'
+                },
+                {
+                  title: lang === 'uz' ? 'Axborot xarakteri' : lang === 'ru' ? 'Информационный характер' : 'Bilgilendirme Amaçlı İçerik',
+                  desc: lang === 'uz' ? `Veb-saytda taqdim etilgan tibbiy ma'lumotlar, maqolalar va tahlil tushuntirishlari faqat ma'lumot berish maqsadida joylashtirilgan. Ular professional tibbiy tashxis qo‘yish, davolash rejalarini belgilash yoki shifokor maslahatining o‘rnini bosmaydi. Har qanday tibbiy qaror qabul qilishdan oldin mutaxassis bilan maslahatlashish tavsiya etiladi.` : lang === 'ru' ? 'Предоставленная на сайте информация носит исключительно ознакомительный характер. Она не заменяет профессиональную консультацию врача, диагностику или планы лечения.' : 'Sitede sunulan tıbbi bilgiler, makaleler ve analiz açıklamaları yalnızca bilgilendirme amaçlıdır. Profesyonel tıbbi teşhis, tedavi veya doktor tavsiyesinin yerini alamaz.'
+                },
+                {
+                  title: lang === 'uz' ? 'Xizmatlar va buyurtmalar' : lang === 'ru' ? 'Услуги и заказы' : 'Hizmetler ve Siparişler',
+                  desc: lang === 'uz' ? `Laboratoriya xizmatlariga onlayn buyurtma berish jarayonida taqdim etilgan ma'lumotlarning to‘g‘riligi uchun foydalanuvchi shaxsan javobgardir. Noto‘g‘ri ma'lumotlar kiritilishi natijasida yuzaga kelishi mumkin bo‘lgan xatolar uchun Kani-Lab mas'uliyatni o‘z zimmasiga olmaydi.` : lang === 'ru' ? 'Пользователь несет личную ответственность за достоверность данных, предоставленных при онлайн-заказе услуг. Kani-Lab не несет ответственности за ошибки, возникшие в результате ввода неверных данных.' : 'Laboratuvar hizmetlerine çevrimiçi sipariş verilmesi sürecinde sağlanan bilgilerin doğruluğundan kullanıcı şahsen sorumludur. Yanlış bilgi girişi sonucu doğabilecek hatalardan Kani-Lab sorumlu tutulamaz.'
+                },
+                {
+                  title: lang === 'uz' ? 'Intellektual mulk' : lang === 'ru' ? 'Интеллектуальная собственность' : 'Fikri Mülkiyet',
+                  desc: lang === 'uz' ? `Ushbu saytdagi barcha kontent, jumladan, brend logotiplari, dizayn elementlari, grafik tasvirlar, dasturiy kodlar va matnlar Kani-Lab kompaniyasining mulki hisoblanadi. Ulardan mualliflik ruxsatisiz nusxa ko‘chirish, tarqatish yoki tijorat maqsadlarida foydalanish qat'iyan taqiqlanadi.` : lang === 'ru' ? 'Весь контент сайта является собственностью Kani-Lab. Копирование, распространение или использование в коммерческих целях без разрешения строго запрещено.' : `Sitedeki tüm içerikler Kani-Lab'ın mülkiyetindedir. Telif izni olmaksızın kopyalanması, dağıtılması veya ticari amaçlarla kullanılması kesinlikle yasaktır.`
+                },
+                {
+                  title: lang === 'uz' ? 'Javobgarlikni cheklash' : lang === 'ru' ? 'Ограничение ответственности' : 'Sorumluluk Sınırlaması',
+                  desc: lang === 'uz' ? `Kani-Lab veb-saytning uzluksiz ishlashini ta'minlashga harakat qiladi, biroq texnik nosozliklar, uchinchi tomon xizmatlari yoki internet tarmog‘idagi uzilishlar tufayli yuzaga kelgan vaqtinchalik uzilishlar uchun javobgar emas.` : lang === 'ru' ? 'Kani-Lab стремится обеспечить бесперебойную работу сайта, но не несет ответственности за временные перебои из-за технических сбоев или проблем с провайдерами.' : 'Kani-Lab, web sitesinin kesintisiz çalışmasını sağlamaya çalışır, ancak teknik arızalar veya internet kesintilerinden kaynaklanan geçici aksaklıklardan sorumlu değildir.'
+                }
+              ].map((section, idx) => (
+                <div key={idx} className="space-y-2">
+                  <h3 className="text-lg font-black text-slate-800 dark:text-white flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center text-xs font-black shrink-0">
+                      {idx + 1}
+                    </span>
+                    {section.title}
+                  </h3>
+                  <p className="pl-8 text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
+                    {section.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
+          FOOTER SECTION
+         ========================================== */}
+      <footer className="px-6 md:px-12 py-16 bg-white dark:bg-[#060810] border-t border-slate-200/60 dark:border-slate-900/60 transition-all">
+        <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-slate-100 dark:border-slate-900 pb-12">
+          
+          {/* Column 1: Brand & Socials */}
+          <div className="flex flex-col gap-5 text-left">
+            <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-all" onClick={() => setActiveTab('home')}>
+              <KaniLabLogo className="w-9 h-9" />
+              <div className="flex flex-col">
+                <span className="text-lg font-black tracking-tighter text-slate-900 dark:text-white leading-none">KANILAB</span>
+                <span className="text-[8px] font-bold tracking-widest text-[#00B4D8] uppercase leading-none mt-1">Clinical Lab</span>
+              </div>
+            </div>
+            
+            <p className="text-xs text-slate-400 dark:text-slate-400 leading-relaxed font-semibold max-w-sm">
+              {lang === 'uz' ? 'KANI-LAB - eng ilgʻor robotlashtirilgan analizatorlar va yuqori darajadagi tibbiy ekspertlar jamoasi bilan Surxondaryodagi birinchi raqamli premium klinik laboratoriya tarmogʻi.' : lang === 'ru' ? 'KANILAB — первая клиническая лаборатория премиум-класса в Сурхандарье с передовым роботизированным оборудованием и командой экспертов.' : 'KANILAB, gelişmiş robotik analizörleri ve üst düzey tıbbi uzman ekibiyle Surhanderya\'daki bir numaralı premium klinik laboratuvar ağıdır.'}
+            </p>
+
+            {/* Premium Glassmorphic Social Media Icons */}
+            <div className="flex items-center gap-3.5 mt-2">
+              {[
+                { 
+                  name: 'Telegram', 
+                  url: 'https://t.me/KANILABUZ', 
+                  icon: (
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M21.968 3.717a1.2 1.2 0 0 0-1.303-.192l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.578.192l-8.533 7.701-.33 4.955a1 1 0 0 0 .974-.485l2.337-2.27 4.861 3.592c.896.494 1.54.239 1.763-.83l3.189-15.025c.162-.654-.08-1.168-.518-1.365z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: 'Instagram', 
+                  url: 'https://www.instagram.com/kanilab.laboratory', 
+                  icon: (
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  )
+                },
+                { 
+                  name: 'Facebook', 
+                  url: '#', 
+                  icon: (
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9.101 23.6h4.8V11.2h3.2l.4-3.6h-3.6V5.3c0-1 .3-1.7 1.7-1.7h1.9V.4C17.101.3 15.601.2 14.001.2c-3.3 0-5.6 2-5.6 5.8v2.6H5.301v3.6h3.1v11.4z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: 'YouTube', 
+                  url: '#', 
+                  icon: (
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                  )
+                }
+              ].map((social) => (
+                <a 
+                  key={social.name}
+                  href={social.url} 
+                  target={social.url !== '#' ? '_blank' : undefined} 
+                  referrerPolicy={social.url !== '#' ? 'no-referrer' : undefined}
+                  title={social.name}
+                  className="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:bg-[#00B4D8] hover:text-white dark:hover:bg-[#00B4D8] dark:hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Head Office & Working Hours */}
+          <div className="flex flex-col gap-4 text-left">
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{lang === 'uz' ? 'Bosh Ofis & Ish Tartibi' : lang === 'ru' ? 'Главный офис и Часы работы' : 'Merkez Ofis ve Çalışma Düzeni'}</h4>
+            
+            <div className="space-y-3.5 text-xs text-slate-600 dark:text-slate-400 font-semibold">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-[#00B4D8] shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-slate-800 dark:text-slate-200 font-extrabold">{lang === 'uz' ? 'Termiz Shahri' : lang === 'ru' ? 'Город Термез' : 'Tirmiz Şehri'}</p>
+                  <p className="mt-1 leading-relaxed text-[11px]">{t.address}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <Clock className="w-4 h-4 text-[#00B4D8] shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-slate-800 dark:text-slate-200 font-extrabold">{lang === 'uz' ? 'Ish Vaqti' : lang === 'ru' ? 'Часы приема' : 'Çalışma Saatleri'}</p>
+                  <p className="mt-1 text-[11px]">{t.workingHours}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Contact & Rapid Links */}
+          <div className="flex flex-col gap-4 text-left">
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{lang === 'uz' ? 'Tezkor Bogʻlanish' : lang === 'ru' ? 'Быстрая Связь' : 'Hızlı İletişim'}</h4>
+            
+            <div className="space-y-3">
+              <a href="tel:+998900751234" className="flex items-center gap-3 text-xs font-extrabold text-slate-700 dark:text-slate-300 hover:text-[#00B4D8] transition-colors group">
+                <div className="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center group-hover:bg-[#00B4D8] group-hover:text-white transition-colors shrink-0">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider leading-none mb-1">Mobile Concierge</span>
+                  <span className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors">+998 90 075 12 34</span>
+                </div>
+              </a>
+
+              <a href="tel:+998781501234" className="flex items-center gap-3 text-xs font-extrabold text-slate-700 dark:text-slate-300 hover:text-[#00B4D8] transition-colors group">
+                <div className="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center group-hover:bg-[#00B4D8] group-hover:text-white transition-colors shrink-0">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider leading-none mb-1">Landline Support</span>
+                  <span className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors">+998 78 150 12 34</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-6 pt-8 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
+          <div className="flex flex-wrap gap-6 justify-center">
+            <a href="#privacy" onClick={(e) => { e.preventDefault(); setActiveTab('privacy'); window.location.hash = 'privacy'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Maxfiylik Siyosati' : lang === 'ru' ? 'Конфиденциальность' : 'Gizlilik Politikası'}</a>
+            <a href="#terms" onClick={(e) => { e.preventDefault(); setActiveTab('terms'); window.location.hash = 'terms'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Foydalanish shartlari' : lang === 'ru' ? 'Условия' : 'Kullanım Koşulları'}</a>
+            <button onClick={(e) => { e.preventDefault(); setActiveTab('certificates'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-[#00B4D8] transition-colors font-bold uppercase tracking-wider text-[11px]">{lang === 'uz' ? 'Sertifikatlarimiz' : lang === 'ru' ? 'Сертификаты' : 'Sertifikalarımız'}</button>
+          </div>
+
+          <div className="text-slate-400 text-center font-extrabold">
+            {t.footerCopyright}
+          </div>
+        </div>
+      </footer>
+
+      {/* ==========================================
+          MULTISTEP BOOKING WIZARD MODAL
+         ========================================== */}
+      {isBookingOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md overflow-y-auto" onClick={() => setIsBookingOpen(false)}>
+          
+          <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] w-full max-w-2xl overflow-hidden shadow-2xl relative" onClick={e => e.stopPropagation()}>
+            
+            {/* Close Button */}
+            <button 
+              id="close-booking-modal"
+              onClick={() => setIsBookingOpen(false)} 
+              className="absolute top-4 right-4 p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors"
+              aria-label="Close booking modal"
+            >
+              <X className="w-5 h-5 text-slate-700 dark:text-white" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="p-6 bg-slate-100/50 dark:bg-slate-950/40 border-b border-slate-200/40 dark:border-slate-800/40">
+              <h3 className="text-xl font-black text-slate-800 dark:text-white">{t.modalTitle}</h3>
+              
+              {/* Stepper Wizard Progress Indicators */}
+              <div className="flex items-center gap-3 mt-4">
+                {[
+                  { step: 1, label: t.modalStep1 },
+                  { step: 2, label: t.modalStep2 },
+                  { step: 3, label: t.modalStep3 },
+                  { step: 4, label: t.modalStep4 }
+                ].map(s => (
+                  <div key={s.step} className="flex-1 flex flex-col gap-1">
+                    <div className={`h-1.5 rounded-full transition-colors duration-300 ${bookingStep >= s.step ? 'bg-[#00B4D8]' : 'bg-slate-200 dark:bg-slate-800'}`}></div>
+                    <span className={`text-[10px] font-black uppercase tracking-wider ${bookingStep === s.step ? 'text-[#00B4D8]' : 'text-slate-400'}`}>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Booking Wizard form wrapper */}
+            <form onSubmit={handleConfirmBooking} className="p-6">
+              
+              {/* STEP 1: TEST BREAKDOWN AND MANIPULATIONS */}
+              {bookingStep === 1 && (
+                <div className="space-y-4">
+                  <span className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">{t.selectedTestsLabel}</span>
+                  
+                  {cart.length === 0 ? (
+                    <div className="py-6 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl text-center flex flex-col items-center gap-2">
+                      <FileText className="w-8 h-8 text-slate-300" />
+                      <p className="text-xs text-slate-400">{t.noTestsSelectedModal}</p>
+                      
+                      {/* Show immediate list to append */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full px-4 mt-2">
+                        {LABORATORY_TESTS.slice(0, 4).map(item => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => toggleCart(item.id)}
+                            className="text-left p-3 bg-slate-50 dark:bg-slate-950 hover:bg-cyan-500/5 border border-slate-100 dark:border-slate-800 rounded-xl text-xs font-bold truncate flex justify-between items-center"
+                          >
+                            <span>{getLangText(item.name)}</span>
+                            <span className="text-[10px] text-cyan-500 shrink-0">+{formatPrice(item.price)}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                      {cart.map(id => {
+                        const test = LABORATORY_TESTS.find(t => t.id === id);
+                        if (!test) return null;
+                        return (
+                          <div key={id} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/40 rounded-xl">
+                            <div className="flex items-center gap-2 max-w-[80%]">
+                              <CheckCircle2 className="w-4 h-4 text-[#00B4D8] shrink-0" />
+                              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">{getLangText(test.name)}</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <span className="text-xs font-black text-slate-900 dark:text-white">{formatPrice(test.price)}</span>
+                              <button 
+                                type="button" 
+                                onClick={() => toggleCart(id)} 
+                                className="text-slate-400 hover:text-red-500"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+
+
+
+                  {/* Pricing Overview */}
+                  <div className="p-4 bg-slate-100/60 dark:bg-slate-950 rounded-2xl flex items-center justify-between text-sm">
+                    <span className="font-extrabold text-slate-700 dark:text-slate-300">{lang === 'uz' ? 'Jami summa' : lang === 'ru' ? 'Итоговая сумма' : 'Jami summa'}:</span>
+                    <span className="text-xl font-black text-[#0096C7] dark:text-[#48CAE4]">{formatPrice(cartTotalAmount)}</span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex justify-end gap-3 mt-6">
+                    <button 
+                      id="next-step-1"
+                      type="button" 
+                      onClick={() => setBookingStep(2)} 
+                      disabled={cart.length === 0}
+                      className="px-6 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white text-xs font-black rounded-xl hover:scale-102 active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {t.btnNext}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 2: PATIENT INFORMATION */}
+              {bookingStep === 2 && (
+                <div className="space-y-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.inputName}</label>
+                    <div className="relative">
+                      <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
+                      <input 
+                        id="booking-patient-name"
+                        type="text" 
+                        required
+                        placeholder="e.g. Alimov Sherzod"
+                        value={patientName}
+                        onChange={(e) => setPatientName(e.target.value)}
+                        className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.formPhone}</label>
+                    <div className="flex items-center bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#00B4D8] transition-all">
+                      
+                      {/* Country Flag + Dial Code Dropdown */}
+                      <div className="relative flex items-center gap-1.5 px-3 py-3 bg-slate-100 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 cursor-pointer shrink-0 select-none">
+                        <select
+                          value={patientPhoneCountry.code}
+                          onChange={(e) => {
+                            const selected = PHONE_COUNTRIES.find(c => c.code === e.target.value) || PHONE_COUNTRIES[0];
+                            setPatientPhoneCountry(selected);
+                            setPatientPhone('');
+                          }}
+                          className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
+                        >
+                          {PHONE_COUNTRIES.map((c) => (
+                            <option key={c.code} value={c.code}>
+                              {c.flag} {c.dialCode} — {c.name}
+                            </option>
+                          ))}
+                        </select>
+                        <span className="text-base leading-none">{patientPhoneCountry.flag}</span>
+                        <span className="text-xs font-black text-slate-700 dark:text-slate-200">{patientPhoneCountry.dialCode}</span>
+                        <ChevronDown className="w-3 h-3 text-slate-400" />
+                      </div>
+
+                      {/* Number Input */}
+                      <input
+                        id="booking-patient-phone"
+                        type="tel"
+                        required
+                        placeholder={patientPhoneCountry.placeholder}
+                        value={patientPhone}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '');
+                          if (val.length <= patientPhoneCountry.length) setPatientPhone(val);
+                        }}
+                        className="flex-1 pl-3 pr-4 py-3 bg-transparent text-sm font-medium focus:outline-none text-slate-800 dark:text-white"
+                      />
+
+                      {/* Length indicator */}
+                      <span className="pr-3 text-[10px] font-bold text-slate-300 dark:text-slate-600 shrink-0">
+                        {patientPhone.length}/{patientPhoneCountry.length}
+                      </span>
+                    </div>
+                  </div>
+
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.inputEmail}</label>
+                    <div className="relative">
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
+                      <input 
+                        id="booking-patient-email"
+                        type="email" 
+                        placeholder="patient@kanilab.uz"
+                        value={patientEmail}
+                        onChange={(e) => setPatientEmail(e.target.value)}
+                        className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Custom Searchable Categorized Dropdown for Branches */}
+                  <div className="flex flex-col gap-1.5 relative">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.selectBranch}</label>
+                    
+                    {/* Dropdown Trigger Button */}
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setIsBranchDropdownOpen(!isBranchDropdownOpen)}
+                        className="w-full pl-11 pr-10 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-semibold text-left focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white flex items-center justify-between shadow-sm cursor-pointer"
+                      >
+                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
+                        <span className="truncate">{selectedBranch || (lang === 'uz' ? 'Muassasani tanlang...' : lang === 'ru' ? 'Выберите учреждение...' : 'Select branch...')}</span>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isBranchDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                    </div>
+
+                    {/* Dropdown Menu */}
+                    {isBranchDropdownOpen && (
+                      <>
+                        {/* Overlay to close on click outside */}
+                        <div 
+                          className="fixed inset-0 z-40 cursor-default" 
+                          onClick={() => {
+                            setIsBranchDropdownOpen(false);
+                            setBranchSearchQuery('');
+                          }}
+                        />
+                        
+                        <div className="absolute bottom-[calc(100%+4px)] left-0 right-0 z-50 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-150 flex flex-col max-h-64">
+                          {/* Search Input Box */}
+                          <div className="p-2 border-b border-slate-100 dark:border-slate-800/60 sticky top-0 bg-white dark:bg-slate-900 z-10">
+                            <div className="relative flex items-center bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg">
+                              <Search className="absolute left-2.5 w-4 h-4 text-slate-400" />
+                              <input
+                                type="text"
+                                value={branchSearchQuery}
+                                onChange={(e) => setBranchSearchQuery(e.target.value)}
+                                placeholder={lang === 'uz' ? 'Qidirish...' : lang === 'ru' ? 'Поиск...' : 'Search...'}
+                                className="w-full pl-9 pr-3 py-2 bg-transparent text-xs font-semibold focus:outline-none text-slate-800 dark:text-white"
+                                autoFocus
+                              />
+                              {branchSearchQuery && (
+                                <button 
+                                  type="button"
+                                  onClick={() => setBranchSearchQuery('')}
+                                  className="absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold"
+                                >
+                                  {lang === 'uz' ? 'Tozalash' : 'Очистить'}
+                                </button>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Options List */}
+                          <div className="overflow-y-auto flex-1 py-1 max-h-56 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700">
+                            {(() => {
+                              const filtered = BRANCH_CATEGORIES.map(cat => ({
+                                ...cat,
+                                options: cat.options.filter(opt => 
+                                  opt.toLowerCase().includes(branchSearchQuery.toLowerCase())
+                                )
+                              })).filter(cat => cat.options.length > 0);
+
+                              if (filtered.length === 0) {
+                                return (
+                                  <div className="p-4 text-center text-xs text-slate-400 font-medium">
+                                    {lang === 'uz' ? 'Hech narsa topilmadi' : lang === 'ru' ? 'Ничего не найдено' : 'No results found'}
+                                  </div>
+                                );
+                              }
+
+                              return filtered.map((cat, catIdx) => (
+                                <div key={catIdx} className="mb-2 last:mb-0">
+                                  <div className="px-3.5 py-1 text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest bg-slate-50/50 dark:bg-slate-950/20 border-y border-slate-100/30 dark:border-slate-800/10">
+                                    {cat.category}
+                                  </div>
+                                  <div className="px-1 mt-1 space-y-0.5">
+                                    {cat.options.map((opt, optIdx) => (
+                                      <button
+                                        key={optIdx}
+                                        type="button"
+                                        onClick={() => {
+                                          setSelectedBranch(opt);
+                                          setIsBranchDropdownOpen(false);
+                                          setBranchSearchQuery('');
+                                        }}
+                                        className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-colors flex items-center justify-between ${
+                                          selectedBranch === opt 
+                                            ? 'bg-[#00B4D8]/10 text-[#0096C7] dark:text-[#48CAE4]' 
+                                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                                        }`}
+                                      >
+                                        <span className="truncate">{opt}</span>
+                                        {selectedBranch === opt && <Check className="w-3.5 h-3.5 shrink-0 text-[#0096C7] dark:text-[#48CAE4] ml-2" />}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              ));
+                            })()}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="flex justify-between gap-3 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/40">
+                    <button 
+                      type="button" 
+                      onClick={() => setBookingStep(1)} 
+                      className="px-5 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white text-xs font-black rounded-xl"
+                    >
+                      {t.btnBack}
+                    </button>
+                    <button 
+                      id="next-step-2"
+                      type="button" 
+                      onClick={() => setBookingStep(3)} 
+                      disabled={!patientName || !patientPhone}
+                      className="px-6 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white text-xs font-black rounded-xl hover:scale-102 transition-all disabled:opacity-50"
+                    >
+                      {t.btnNext}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 3: SCHEDULER */}
+              {bookingStep === 3 && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.selectDate}</label>
+                      <input 
+                        id="booking-date"
+                        type="date" 
+                        required
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        className="px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.selectTime}</label>
+                      <select
+                        id="booking-time"
+                        value={selectedTime}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                        className="px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
+                      >
+                        <option value="07:00 - 07:30">07:00 - 07:30</option>
+                        <option value="07:30 - 08:00">07:30 - 08:00</option>
+                        <option value="08:00 - 08:30">08:00 - 08:30</option>
+                        <option value="08:30 - 09:00">08:30 - 09:00</option>
+                        <option value="09:00 - 10:00">09:00 - 10:00</option>
+                        <option value="10:00 - 11:00">10:00 - 11:00</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Preparation instructions */}
+                  <div className="p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200/40 rounded-2xl flex gap-3">
+                    <ShieldCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-black text-amber-800 dark:text-amber-300 uppercase tracking-wider">{t.preparation}</div>
+                      <p className="text-[11px] text-amber-700 dark:text-amber-400 mt-1 leading-normal">{t.prepText}</p>
+                    </div>
+                  </div>
+
+                  {/* Dynamic loader if submitting */}
+                  {isProcessingBooking ? (
+                    <div className="py-6 flex flex-col items-center gap-3">
+                      <RefreshCw className="w-8 h-8 text-[#00B4D8] animate-spin" />
+                      <p className="text-xs text-[#00B4D8] font-bold">{t.bookingProcessing}</p>
+                    </div>
+                  ) : (
+                    <div className="flex justify-between gap-3 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/40">
+                      <button 
+                        type="button" 
+                        onClick={() => setBookingStep(2)} 
+                        className="px-5 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white text-xs font-black rounded-xl"
+                      >
+                        {t.btnBack}
+                      </button>
+                      <button 
+                        id="confirm-booking-form"
+                        type="submit" 
+                        className="px-6 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white text-xs font-black rounded-xl hover:scale-102 transition-all flex items-center gap-1.5"
+                      >
+                        <Check className="w-4 h-4" />
+                        {t.btnConfirm}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+              {/* STEP 4: Additional info and actions */}
+              {bookingStep === 4 && (
+                <div className="space-y-4">
+                  {/* Thermal Paper Receipt Design */}
+                  <div className="flex justify-center bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div id="printable-ticket" style={{
+                      width: '300px',
+                      background: '#ffffff',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                      fontFamily: "'Courier New', Courier, monospace",
+                      color: '#1e293b'
+                    }}>
+
+                      {/* === HEADER GRADIENT === */}
+                      <div style={{
+                        backgroundColor: '#0096C7',
+                        background: 'linear-gradient(135deg, #0096C7 0%, #00B4D8 60%, #48CAE4 100%)',
+                        padding: '20px 16px 16px',
+                        textAlign: 'center',
+                        position: 'relative'
+                      }}>
+                        {/* Logo */}
+                        <div style={{ 
+                          background: 'white', 
+                          width: '56px', height: '56px', 
+                          borderRadius: '50%', 
+                          margin: '0 auto 8px', 
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
+                        }}>
+                          <img src={kaniLabLogoImg} alt="KaniLab" crossOrigin="anonymous" style={{
+                            width: 36, height: 36, objectFit: 'contain',
+                            display: 'block'
+                          }} />
+                        </div>
+                        <div style={{ color: '#fff', fontSize: '18px', fontWeight: 900, letterSpacing: '4px' }}>KANILAB</div>
+                        <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', marginTop: '3px' }}>
+                          {lang === 'uz' ? 'PREMIUM DIAGNOSTIKA MARKAZI' : lang === 'ru' ? 'ПРЕМИУМ ДИАГНОСТИКА' : 'PREMIUM DIAGNOSTIKA'}
+                        </div>
+                        {/* Decorative bottom wave */}
+                        <div style={{
+                          position: 'absolute', bottom: -1, left: 0, right: 0, height: '12px',
+                          background: '#fff', borderRadius: '50% 50% 0 0 / 100% 100% 0 0'
+                        }} />
+                      </div>
+
+                      {/* === PATIENT BANNER === */}
+                      <div style={{ padding: '14px 16px 8px', borderBottom: '1px dashed #cbd5e1' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <div style={{ fontSize: '8px', color: '#94a3b8', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
+                              {lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Bemor'}
+                            </div>
+                            <div style={{ fontSize: '13px', fontWeight: 900, color: '#0f172a', marginTop: '2px' }}>{patientName}</div>
+                            <div style={{ fontSize: '10px', color: '#64748b', marginTop: '1px' }}>{patientPhone}</div>
+                          </div>
+                          <div style={{ textAlign: 'right' }}>
+                            <div style={{ fontSize: '8px', color: '#94a3b8', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
+                              {lang === 'uz' ? 'Chek' : lang === 'ru' ? 'Чек' : 'Chek'}
+                            </div>
+                            <div style={{ fontSize: '12px', fontWeight: 900, color: '#0096C7', marginTop: '2px', letterSpacing: '1px' }}>{generatedTicketID}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* === DETAILS ROWS === */}
+                      <div style={{ padding: '8px 16px', borderBottom: '1px dashed #cbd5e1' }}>
+                        {[
+                          { label: lang === 'uz' ? 'Sana' : lang === 'ru' ? 'Дата' : 'Sana', value: selectedDate },
+                          { label: lang === 'uz' ? 'Vaqt' : lang === 'ru' ? 'Время' : 'Vaqt', value: selectedTime },
+                          { label: lang === 'uz' ? 'Filial' : lang === 'ru' ? 'Филиал' : 'Şube', value: selectedBranch },
+                        ].map((row, i) => (
+                          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontSize: '11px' }}>
+                            <span style={{ color: '#94a3b8', fontWeight: 600 }}>{row.label}</span>
+                            <span style={{ fontWeight: 800, color: '#334155' }}>{row.value}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* === SERVICES LIST === */}
+                      <div style={{ padding: '10px 16px', borderBottom: '1px dashed #cbd5e1' }}>
+                        <div style={{ fontSize: '8px', fontWeight: 900, color: '#94a3b8', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '8px' }}>
+                          {lang === 'uz' ? 'Xizmatlar' : lang === 'ru' ? 'Услуги' : 'Xizmatlar'} — {cart.length} {lang === 'uz' ? 'ta' : lang === 'ru' ? 'шт.' : 'ta'}
+                        </div>
+                        {cart.map((id, index) => {
+                          const test = LABORATORY_TESTS.find(item => item.id === id);
+                          if (!test) return null;
+                          return (
+                            <div key={id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', marginBottom: '5px', fontSize: '10px' }}>
+                              <span style={{ color: '#475569', lineHeight: 1.3 }}>
+                                <span style={{ color: '#cbd5e1', marginRight: '4px' }}>{index + 1}.</span>{getLangText(test.name)}
+                              </span>
+                              <span style={{ fontWeight: 900, color: '#0f172a', whiteSpace: 'nowrap' }}>{formatPrice(test.price)}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* === TOTAL === */}
+                      <div style={{ padding: '10px 16px 8px', borderBottom: '1px dashed #cbd5e1' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#1e293b', letterSpacing: '1px' }}>
+                            {lang === 'uz' ? 'JAMI SUMMA' : lang === 'ru' ? 'ИТОГО' : 'JAMI'}
+                          </span>
+                          <span style={{ fontSize: '16px', fontWeight: 900, color: '#0096C7' }}>{formatPrice(cartTotalAmount)}</span>
+                        </div>
+                      </div>
+
+                      {/* === BARCODE === */}
+                      <div style={{ padding: '12px 16px', textAlign: 'center' }}>
+                        <div style={{ display: 'flex', gap: '2px', height: '40px', justifyContent: 'center', alignItems: 'center', marginBottom: '6px' }}>
+                          {[2,1,3,1,2,4,1,3,2,1,4,2,1,3,1,2,3,1,2,4,1,2].map((w, i) => (
+                            <div key={i} style={{ width: `${w * 2}px`, height: i % 3 === 0 ? '40px' : '32px', background: '#0f172a', borderRadius: '1px', flexShrink: 0 }} />
+                          ))}
+                        </div>
+                        <div style={{ fontSize: '9px', letterSpacing: '3px', color: '#64748b', fontWeight: 700 }}>{generatedTicketID}</div>
+                      </div>
+
+                      {/* === FOOTER === */}
+                      <div style={{ background: '#f8fafc', padding: '10px 16px', textAlign: 'center', borderTop: '1px solid #e2e8f0' }}>
+                        <div style={{ fontSize: '9px', color: '#94a3b8', fontWeight: 600, lineHeight: 1.5 }}>
+                          📞 +998 78 150 12 34 | kanilab.uz
+                        </div>
+                        <div style={{ fontSize: '8px', color: '#cbd5e1', marginTop: '4px', fontWeight: 600, letterSpacing: '1px' }}>
+                          {lang === 'uz' ? "Sog'lig'ingiz — bizning maqsadimiz" : lang === 'ru' ? 'Ваше здоровье — наша цель' : "Sog'lig'ingiz — bizning maqsadimiz"}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  {/* preparation guidelines */}
+                  <div className="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200/40 rounded-2xl flex gap-3">
+                    <FileText className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">{t.preparation}</div>
+                      <p className="text-[11px] text-slate-400 leading-normal mt-1">{t.prepText}</p>
+                    </div>
+                  </div>
+
+                  {/* Prominent Help Desk / Support phone numbers */}
+                  <div className="p-4 bg-[#00B4D8]/5 border border-[#00B4D8]/15 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                    <div className="flex items-center gap-2.5">
+                      <Phone className="w-4 h-4 text-[#00B4D8] animate-pulse" />
+                      <div>
+                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{lang === 'uz' ? 'Yordam va qoʻllab-quvvatlash' : lang === 'ru' ? 'Поддержка и справки' : 'Yordam va qoʻllab-quvvatlash'}</div>
+                        <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mt-0.5">
+                          {lang === 'uz' ? 'Muammo yuzaga kelsa, biz bilan bogʻlaning' : lang === 'ru' ? 'При возникновении вопросов звоните' : 'Muammo yuzaga kelsa, biz bilan bogʻlaning'}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 text-xs font-black text-[#0096C7] dark:text-[#48CAE4]">
+                      <a href="tel:+998900751234" className="hover:underline">+998 90 075 12 34</a>
+                      <span className="text-slate-300">|</span>
+                      <a href="tel:+998781501234" className="hover:underline">+998 78 150 12 34</a>
+                    </div>
+                  </div>
+
+                  {/* Printable and close actions */}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      type="button"
+                      onClick={() => window.print()}
+                      className="flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 hover:bg-slate-200 transition-colors"
+                    >
+                      <Printer className="w-4 h-4" />
+                      {t.btnPrint}
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={handleSendToTelegram}
+                      disabled={isSendingTelegram}
+                      className="flex-1 py-3.5 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 hover:scale-102 transition-all disabled:opacity-50"
+                    >
+                      {isSendingTelegram ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                      {lang === 'uz' ? 'Markazga yuborish' : lang === 'ru' ? 'Отправить в центр' : 'Merkeze gönder'}
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsBookingOpen(false);
+                        setCart([]);
+                      }}
+                      className="flex-1 py-3.5 bg-[#0F172A] dark:bg-white text-white dark:text-[#0F172A] rounded-xl text-xs font-black hover:scale-101 transition-all"
+                    >
+                      {t.btnDone}
+                    </button>
+                  </div>
+
+                </div>
+              )}
+
+
+            </form>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* ==========================================
+          FLOATING ULTRA-PREMIUM CONCIERGE SUITE
+         ========================================== */}
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 font-sans">
+        
+        {/* Expanded Concierge Menu Card */}
+        {isFloatingMenuOpen && (
+          <div className="w-72 bg-white/80 dark:bg-slate-950/85 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/80 rounded-3xl p-5 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-5 duration-300">
+            
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-900 pb-2.5">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#00B4D8] animate-pulse" />
+                <span className="text-xs font-black text-slate-800 dark:text-white uppercase tracking-wider">KANI-LAB Chat & Call</span>
+              </div>
+              <button 
+                id="close-floating-suite"
+                onClick={() => setIsFloatingMenuOpen(false)}
+                className="p-1 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg transition-colors text-slate-400 hover:text-slate-700 dark:hover:text-white"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Quick action buttons list */}
+            <div className="flex flex-col gap-2">
+              
+              {/* Call Mobile */}
+              <a 
+                href="tel:+998900751234"
+                className="flex items-center gap-3 p-2.5 bg-slate-50 dark:bg-slate-900 hover:bg-[#00B4D8]/10 dark:hover:bg-[#00B4D8]/10 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors text-left group"
+              >
+                <div className="w-8 h-8 rounded-xl bg-[#00B4D8]/10 text-[#00B4D8] flex items-center justify-center shrink-0 group-hover:bg-[#00B4D8] group-hover:text-white transition-colors">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Mobile Concierge</div>
+                  <div className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors">+998 90 075 12 34</div>
+                </div>
+              </a>
+
+              {/* Call Landline */}
+              <a 
+                href="tel:+998781501234"
+                className="flex items-center gap-3 p-2.5 bg-slate-50 dark:bg-slate-900 hover:bg-[#00B4D8]/10 dark:hover:bg-[#00B4D8]/10 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors text-left group"
+              >
+                <div className="w-8 h-8 rounded-xl bg-[#00B4D8]/10 text-[#00B4D8] flex items-center justify-center shrink-0 group-hover:bg-[#00B4D8] group-hover:text-white transition-colors">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Landline Office</div>
+                  <div className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors">+998 78 150 12 34</div>
+                </div>
+              </a>
+
+              {/* Telegram */}
+              <a 
+                href="https://t.me/Kani_lab_uz" 
+                target="_blank" 
+                referrerPolicy="no-referrer"
+                className="flex items-center gap-3 p-2.5 bg-[#0088cc]/5 hover:bg-[#0088cc]/15 rounded-2xl border border-[#0088cc]/10 transition-colors text-left group"
+              >
+                <div className="w-8 h-8 rounded-xl bg-[#0088cc] text-white flex items-center justify-center shrink-0 shadow-sm shadow-[#0088cc]/20">
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M21.968 3.717a1.2 1.2 0 0 0-1.303-.192l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.578.192l-8.533 7.701-.33 4.955a1 1 0 0 0 .974-.485l2.337-2.27 4.861 3.592c.896.494 1.54.239 1.763-.83l3.189-15.025c.162-.654-.08-1.168-.518-1.365z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-[9px] font-black text-[#0088cc] uppercase tracking-widest leading-none mb-1">Telegram — Xabar yuborish</div>
+                  <div className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#0088cc] transition-colors">@Kani_lab_uz</div>
+                </div>
+              </a>
+
+              {/* Instagram */}
+              <a 
+                href="https://www.instagram.com/kanilab.laboratory" 
+                target="_blank" 
+                referrerPolicy="no-referrer"
+                className="flex items-center gap-3 p-2.5 bg-[#E1306C]/5 hover:bg-[#E1306C]/15 rounded-2xl border border-[#E1306C]/10 transition-colors text-left group"
+              >
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center shrink-0 shadow-sm shadow-[#E1306C]/20">
+                  <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-[9px] font-black text-[#E1306C] uppercase tracking-widest leading-none mb-1">Instagram Feed</div>
+                  <div className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#E1306C] transition-colors">@kanilab.laboratory</div>
+                </div>
+              </a>
+
+              {/* Sticky booking action */}
+              <button 
+                id="floating-book-now"
+                onClick={() => {
+                  setIsFloatingMenuOpen(false);
+                  startEmptyBooking();
+                }}
+                className="w-full mt-1.5 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-2xl text-xs font-black hover:shadow-lg hover:shadow-cyan-500/20 active:scale-98 transition-all flex items-center justify-center gap-1.5"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>{lang === 'uz' ? 'Hozir band qilish' : lang === 'ru' ? 'Забронировать сейчас' : 'Hozir band qilish'}</span>
+              </button>
+
+            </div>
+          </div>
+        )}
+
+        {/* Pulsing Launcher Button */}
+        <button 
+          id="toggle-floating-concierge"
+          onClick={() => setIsFloatingMenuOpen(!isFloatingMenuOpen)}
+          className={`w-14 h-14 rounded-full flex items-center justify-center text-white shadow-2xl relative transition-all duration-300 ${isFloatingMenuOpen ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 rotate-90 scale-95' : 'bg-gradient-to-r from-[#00B4D8] to-[#0096C7] hover:scale-110 active:scale-95'}`}
+          aria-label="Toggle concierge concierge"
+        >
+          {isFloatingMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <>
+              <span className="absolute inset-0 rounded-full bg-cyan-500/30 animate-ping"></span>
+              <Phone className="w-5 h-5 relative z-10" />
+            </>
+          )}
+        </button>
+
+      </div>
+
+      {/* ==========================================
+          ANALYZER DETAILS MODAL
+         ========================================== */}
+      {selectedAnalyzer && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" 
+            onClick={() => setSelectedAnalyzer(null)}
+          ></div>
+          
+          <div className="bg-white dark:bg-slate-900 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl relative z-10 flex flex-col md:flex-row overflow-hidden border border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-300">
+            {/* Close Button */}
+            <button 
+              onClick={() => setSelectedAnalyzer(null)}
+              className="absolute top-4 right-4 z-20 bg-slate-900/50 hover:bg-slate-900/80 text-white rounded-full p-2 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Left Image Section */}
+            <div className="md:w-5/12 relative bg-slate-100 dark:bg-slate-950 flex-shrink-0">
+              <img 
+                src={selectedAnalyzer.image} 
+                alt={selectedAnalyzer.name} 
+                className="w-full h-64 md:h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-end p-6 md:p-8">
+                <div className={`inline-flex self-start text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-md shadow-sm mb-3 ${selectedAnalyzer.badgeColor}`}>
+                  {selectedAnalyzer.badge}
+                </div>
+                <h3 className="text-2xl md:text-3xl font-black text-white leading-tight">
+                  {selectedAnalyzer.name}
+                </h3>
+                <p className="text-slate-300 font-medium mt-2">
+                  {lang === 'uz' ? selectedAnalyzer.category.uz : selectedAnalyzer.category.ru}
+                </p>
+              </div>
+            </div>
+
+            {/* Right Content Section */}
+            <div className="p-6 md:p-8 flex-1 flex flex-col overflow-y-auto">
+              
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <Activity className="w-4 h-4" />
+                  {lang === 'uz' ? 'Qisqacha tavsif' : lang === 'ru' ? 'Краткое описание' : 'Qisqacha tavsif'}
+                </h4>
+                <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                  {lang === 'uz' ? selectedAnalyzer.shortDesc.uz : selectedAnalyzer.shortDesc.ru}
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="text-sm font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <Microscope className="w-4 h-4" />
+                  {lang === 'uz' ? 'Ilmiy va texnik ma\'lumotlar' : lang === 'ru' ? 'Научные и технические данные' : 'Bilimsel ve Teknik Veriler'}
+                </h4>
+                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-100 dark:border-slate-800">
+                  <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed text-justify mb-5">
+                    {getLangText(selectedAnalyzer.scientificDetails)}
+                  </p>
+                  
+                  {/* Specs Grid */}
+                  {selectedAnalyzer.specs && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                      {selectedAnalyzer.specs.map((spec, idx) => (
+                        <div key={idx} className="bg-white dark:bg-slate-900 rounded-xl p-3 shadow-sm border border-slate-100 dark:border-slate-800">
+                          <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            {getLangText(spec.label)}
+                          </span>
+                          <span className="block text-sm font-bold text-slate-800 dark:text-slate-200">
+                            {spec.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DIGITAL RECEIPT CHECK MODAL */}
+      {isCheckModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-md" onClick={() => setIsCheckModalOpen(false)}></div>
+          <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl shadow-2xl relative z-10 overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800">
+              <h2 className="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
+                <Search className="w-5 h-5 text-[#00B4D8]" />
+                {lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}
+              </h2>
+              <button 
+                onClick={() => setIsCheckModalOpen(false)}
+                className="p-2 bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white rounded-full transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6">
+              <form onSubmit={handleCheckTicket} className="flex gap-2 mb-6">
+                <div className="flex-1 flex items-center bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#00B4D8]">
+                  <span className="pl-4 pr-1 text-sm font-bold text-slate-400 select-none">KL-</span>
+                  <input
+                    type="text"
+                    value={checkInputId}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, ''); // faqat raqamlarni qoldirish
+                      setCheckInputId(val);
+                    }}
+                    placeholder="XXXXXX"
+                    maxLength={6}
+                    className="w-full pr-4 py-3 bg-transparent text-sm font-semibold focus:outline-none text-slate-800 dark:text-white"
+                  />
+                </div>
+                <button type="submit" className="px-6 py-3 bg-[#00B4D8] hover:bg-[#0096C7] text-white font-bold rounded-xl transition-colors">
+                  {lang === 'uz' ? 'Izlash' : lang === 'ru' ? 'Поиск' : 'Izlash'}
+                </button>
+              </form>
+
+              {checkError && (
+                <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl text-sm font-semibold flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5" />
+                  {checkError}
+                </div>
+              )}
+
+              {foundTicket && (
+                <div className="p-5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-2xl">
+                  <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 mb-4">
+                    <CheckCircle2 className="w-5 h-5" />
+                    <span className="font-bold">{lang === 'uz' ? 'Chipta topildi' : lang === 'ru' ? 'Чек найден' : 'Bilet bulundu'}</span>
+                  </div>
+                  <div className="space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
+
+                    {/* Asosiy ma'lumotlar */}
+                    <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
+                      <span className="text-slate-500">{lang === 'uz' ? 'Chipta' : lang === 'ru' ? 'Чек' : 'Chipta'}:</span>
+                      <strong className="text-slate-900 dark:text-white">{foundTicket.id}</strong>
+                    </div>
+                    <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
+                      <span className="text-slate-500">{lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Hasta'}:</span>
+                      <strong className="text-slate-900 dark:text-white">{foundTicket.patientName}</strong>
+                    </div>
+                    <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
+                      <span className="text-slate-500">{lang === 'uz' ? 'Sana' : lang === 'ru' ? 'Дата' : 'Sana'}:</span>
+                      <strong className="text-slate-900 dark:text-white">{foundTicket.selectedDate} {foundTicket.selectedTime}</strong>
+                    </div>
+                    {foundTicket.selectedBranch && (
+                      <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
+                        <span className="text-slate-500">{lang === 'uz' ? 'Filial' : lang === 'ru' ? 'Филиал' : 'Şube'}:</span>
+                        <span className="text-right text-xs font-semibold text-slate-700 dark:text-slate-300">
+                          {foundTicket.selectedBranch === 'branch1' ? 'Markaziy (Alisher Navoiy)' : foundTicket.selectedBranch === 'branch2' ? 'Sharqiy (Olmazor)' : foundTicket.selectedBranch === 'branch3' ? 'Janubiy (Termiz)' : foundTicket.selectedBranch}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Tahlillar ro'yxati */}
+                    {foundTicket.cart && foundTicket.cart.length > 0 && (
+                      <div className="border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
+                        <div className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2">
+                          {lang === 'uz' ? 'Tahlillar' : lang === 'ru' ? 'Анализы' : 'Tahlillar'} ({foundTicket.cart.length})
+                        </div>
+                        <div className="space-y-1.5 max-h-40 overflow-y-auto">
+                          {foundTicket.cart.map((id: string, idx: number) => {
+                            const test = LABORATORY_TESTS.find(t => t.id === id);
+                            if (!test) return null;
+                            return (
+                              <div key={id} className="flex justify-between items-start gap-2 text-xs">
+                                <span className="text-slate-600 dark:text-slate-400 leading-tight">
+                                  <span className="text-slate-400 mr-1">{idx + 1}.</span>{getLangText(test.name)}
+                                </span>
+                                <span className="font-bold text-slate-800 dark:text-slate-200 shrink-0">{formatPrice(test.price)}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Jami */}
+                    <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
+                      <span className="text-slate-500 font-bold">{lang === 'uz' ? 'Jami summa' : lang === 'ru' ? 'Итого' : 'Jami summa'}:</span>
+                      <strong className="text-[#00B4D8] text-base">{formatPrice(foundTicket.cartTotalAmount)}</strong>
+                    </div>
+
+                    {/* Holat */}
+                    <div className="flex justify-between pt-1">
+                      <span className="text-slate-500">{lang === 'uz' ? 'Holati' : lang === 'ru' ? 'Статус' : 'Holati'}:</span>
+                      <span className="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-800/50 text-emerald-700 dark:text-emerald-300 rounded text-xs font-bold uppercase">
+                        {lang === 'uz' ? 'Tasdiqlangan' : lang === 'ru' ? 'Подтвержден' : 'Onaylandı'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}
