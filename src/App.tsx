@@ -1468,7 +1468,7 @@ export default function App() {
         document.title = `${member.name} - Kani-Lab`;
       }
     } else {
-      document.title = 'Kani-Lab | Robotlashtirilgan Diagnostika Laboratoriyasi';
+      document.title = 'Kani-Lab | Diagnostika Laboratoriyasi';
     }
   }, [activeTab, selectedTeamMemberId]);
   
