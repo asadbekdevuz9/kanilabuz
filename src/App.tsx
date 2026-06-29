@@ -2765,6 +2765,34 @@ export default function App() {
         )}
       </nav>
 
+      {/* Mobile Navigation Full-Screen Overlay - OUTSIDE nav to avoid backdrop-filter fixed positioning bug */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-[200] bg-white dark:bg-slate-950 flex flex-col overflow-hidden" style={{top:0,left:0,right:0,bottom:0,position:'fixed'}}>
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-4 border-b border-slate-200/40 dark:border-slate-800/40 shrink-0 bg-white dark:bg-slate-950">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}>
+              <KaniLabLogo className="w-10 h-10" />
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1">
+                <button onClick={() => handleLangChange('uz')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'uz' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>UZ</button>
+                <button onClick={() => handleLangChange('ru')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'ru' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>RU</button>
+                <button onClick={() => handleLangChange('tr')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'tr' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>TR</button>
+              </div>
+              <button onClick={() => handleThemeToggle()} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
+                {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+              </button>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          {/* Scrollable nav content */}
+          <div className="flex flex-col gap-4 px-4 py-4 overflow-y-auto flex-1">
+          </div>
+        </div>
+      )}
+
       {/* ==========================================
           HERO SECTION (Fullscreen Layout with floating cards & animated 3D SVG DNA)
          ========================================== */}
@@ -4985,7 +5013,7 @@ export default function App() {
               <h3 className="text-xl font-black text-slate-800 dark:text-white">{t.modalTitle}</h3>
               
               {/* Stepper Wizard Progress Indicators */}
-              <div className="flex items-center gap-3 mt-4">
+              <div className="flex items-center justify-between gap-1 mt-4">
                 {[
                   { step: 1, label: t.modalStep1 },
                   { step: 2, label: t.modalStep2 },
@@ -4994,13 +5022,14 @@ export default function App() {
                 ].map(s => (
                   <div key={s.step} className="flex-1 flex flex-col gap-1">
                     <div className={`h-1.5 rounded-full transition-colors duration-300 ${bookingStep >= s.step ? 'bg-[#00B4D8]' : 'bg-slate-200 dark:bg-slate-800'}`}></div>
-                    <span className={`text-[10px] font-black uppercase tracking-wider ${bookingStep === s.step ? 'text-[#00B4D8]' : 'text-slate-400'}`}>{s.label}</span>
+                    <span className={`text-[9px] font-black uppercase tracking-wide truncate ${bookingStep === s.step ? 'text-[#00B4D8]' : 'text-slate-400'}`}>{s.label}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Booking Wizard form wrapper */}
+            <div className="overflow-y-auto max-h-[60vh] sm:max-h-[70vh]">
             <form onSubmit={handleConfirmBooking} className="p-6">
               
               {/* STEP 1: TEST BREAKDOWN AND MANIPULATIONS */}
@@ -5313,12 +5342,24 @@ export default function App() {
                         onChange={(e) => setSelectedTime(e.target.value)}
                         className="px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
                       >
-                        <option value="07:00 - 07:30">07:00 - 07:30</option>
-                        <option value="07:30 - 08:00">07:30 - 08:00</option>
                         <option value="08:00 - 08:30">08:00 - 08:30</option>
                         <option value="08:30 - 09:00">08:30 - 09:00</option>
-                        <option value="09:00 - 10:00">09:00 - 10:00</option>
-                        <option value="10:00 - 11:00">10:00 - 11:00</option>
+                        <option value="09:00 - 09:30">09:00 - 09:30</option>
+                        <option value="09:30 - 10:00">09:30 - 10:00</option>
+                        <option value="10:00 - 10:30">10:00 - 10:30</option>
+                        <option value="10:30 - 11:00">10:30 - 11:00</option>
+                        <option value="11:00 - 11:30">11:00 - 11:30</option>
+                        <option value="11:30 - 12:00">11:30 - 12:00</option>
+                        <option value="12:00 - 12:30">12:00 - 12:30</option>
+                        <option value="12:30 - 13:00">12:30 - 13:00</option>
+                        <option value="13:00 - 13:30">13:00 - 13:30</option>
+                        <option value="13:30 - 14:00">13:30 - 14:00</option>
+                        <option value="14:00 - 14:30">14:00 - 14:30</option>
+                        <option value="14:30 - 15:00">14:30 - 15:00</option>
+                        <option value="15:00 - 15:30">15:00 - 15:30</option>
+                        <option value="15:30 - 16:00">15:30 - 16:00</option>
+                        <option value="16:00 - 16:30">16:00 - 16:30</option>
+                        <option value="16:30 - 17:00">16:30 - 17:00</option>
                       </select>
                     </div>
                   </div>
@@ -5519,25 +5560,38 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Printable and close actions */}
+                  {/* Save PDF and close actions */}
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button
                       type="button"
-                      onClick={() => window.print()}
+                      onClick={async () => {
+                        try {
+                          const { toPng: _toPng } = await import('html-to-image');
+                          const { jsPDF: _jsPDF } = await import('jspdf');
+                          const ticketEl = document.getElementById('printable-ticket');
+                          if (!ticketEl) return;
+                          const dataUrl = await _toPng(ticketEl, { pixelRatio: 2, cacheBust: true });
+                          const img = new Image(); img.src = dataUrl;
+                          await new Promise(r => { img.onload = r; });
+                          const pdf = new _jsPDF({ orientation: 'portrait', unit: 'mm', format: [80, 200] });
+                          pdf.setFillColor(0, 180, 216);
+                          pdf.rect(0, 0, 80, 20, 'F');
+                          pdf.setTextColor(255, 255, 255);
+                          pdf.setFontSize(9); pdf.setFont('helvetica', 'bold');
+                          pdf.text('KANILAB — CHIPTA', 4, 7);
+                          pdf.setFontSize(8);
+                          pdf.text(`Bemor: ${patientName}`, 4, 13);
+                          pdf.text(`Raqam: ${generatedTicketID}`, 4, 18);
+                          const pageW = 80;
+                          const imgH = (img.height / img.width) * pageW;
+                          pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
+                          pdf.save(`KaniLab_${generatedTicketID}_${patientName.replace(/\s+/g, '_')}.pdf`);
+                        } catch(e) { console.error(e); }
+                      }}
                       className="flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 hover:bg-slate-200 transition-colors"
                     >
-                      <Printer className="w-4 h-4" />
-                      {t.btnPrint}
-                    </button>
-                    
-                    <button
-                      type="button"
-                      onClick={handleSendToTelegram}
-                      disabled={isSendingTelegram}
-                      className="flex-1 py-3.5 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 hover:scale-102 transition-all disabled:opacity-50"
-                    >
-                      {isSendingTelegram ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                      {lang === 'uz' ? 'Markazga yuborish' : lang === 'ru' ? 'Отправить в центр' : 'Merkeze gönder'}
+                      <FileText className="w-4 h-4" />
+                      {lang === 'uz' ? 'PDF saqlab olish' : lang === 'ru' ? 'Сохранить PDF' : 'PDF olarak kaydet'}
                     </button>
                     
                     <button
@@ -5557,6 +5611,7 @@ export default function App() {
 
 
             </form>
+            </div>
 
           </div>
 
