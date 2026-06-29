@@ -44,6 +44,10 @@ import tanosil1Img from "./assets/images/Teri Tanosil/teri tanosil- 1.jpg";
 import tanosil2Img from "./assets/images/Teri Tanosil/teri tanosil- 2.jpg";
 import tanosil3Img from "./assets/images/Teri Tanosil/teri tanosil- 3.jpg";
 import tanosil4Img from "./assets/images/Teri Tanosil/teri tanosil- 4.jpg";
+import xotinQizlarAngorImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni angor.jpg";
+import xotinQizlarFilialdaImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni filialda.jpg";
+import xotinQizlarMarkazdaImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni Markazda.jpg";
+import xotinQizlarSherabodImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni sherabod.jpg";
 
 const sertifikatImg = cert3Img;
 
@@ -1946,6 +1950,66 @@ const GALLERY_ITEMS = [
       tr: 'Hastalardan numunelerin güvenli alınması, kaydı ve analize hazırlanması için tüm teknik ve hijyenik altyapı hazır durumdadır.'
     },
     image: tanosil4Img
+  },
+  {
+    id: 'gal-9',
+    category: 'womens-day',
+    title: {
+      uz: 'KANI-LAB Angor filiali jamoasi bayram shukuhi bilan',
+      ru: 'Коллектив филиала KANI-LAB в Ангоре в праздничной атмосфере',
+      tr: 'Angor\'daki KANI-LAB şubesi ekibi bayram havasında'
+    },
+    description: {
+      uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
+      ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+    },
+    image: xotinQizlarAngorImg
+  },
+  {
+    id: 'gal-10',
+    category: 'womens-day',
+    title: {
+      uz: 'Filiallarimizda bayram tabriklari va e\'tibor',
+      ru: 'Праздничные поздравления и внимание в наших филиалах',
+      tr: 'Şubelerimizde bayram tebrikleri ve gösterilen ilgi'
+    },
+    description: {
+      uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
+      ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+    },
+    image: xotinQizlarFilialdaImg
+  },
+  {
+    id: 'gal-11',
+    category: 'womens-day',
+    title: {
+      uz: 'KANI-LAB Markaziy laboratoriyasida bayram tadbiri',
+      ru: 'Праздничное мероприятие в Центральной лаборатории KANI-LAB',
+      tr: 'KANI-LAB Merkez Laboratuvarı\'nda bayram etkinliği'
+    },
+    description: {
+      uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
+      ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+    },
+    image: xotinQizlarMarkazdaImg
+  },
+  {
+    id: 'gal-12',
+    category: 'womens-day',
+    title: {
+      uz: 'Jamoamiz birgalikda: bayramona kayfiyat va xotira uchun surat',
+      ru: 'Наша команда вместе: праздничное настроение и фото на память',
+      tr: 'Ekibimiz bir arada: bayram havası ve hatıra fotoğrafı'
+    },
+    description: {
+      uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
+      ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+    },
+    image: xotinQizlarSherabodImg
   }
 ];
 
@@ -1955,7 +2019,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms' | 'news' | 'gallery'>('home');
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
-  const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<'all' | 'collaboration' | 'opening'>('all');
+  const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<'all' | 'collaboration' | 'opening' | 'womens-day'>('all');
   const [newsLightboxSrc, setNewsLightboxSrc] = useState<string | null>(null);
   const [selectedTeamDept, setSelectedTeamDept] = useState<string>('management');
   const [isMobileTeamOpen, setIsMobileTeamOpen] = useState<boolean>(false);
@@ -5282,6 +5346,17 @@ export default function App() {
                   }`}
                 >
                   {lang === 'uz' ? 'Qon olish shahobchasi (2022)' : lang === 'ru' ? 'Пункт забора крови (2022)' : 'Kan Alma Birimi (2022)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedGalleryCategory('womens-day')}
+                  className={`px-5 py-2.5 rounded-2xl text-xs font-black transition-all duration-300 ${
+                    selectedGalleryCategory === 'womens-day'
+                      ? 'bg-[#00B4D8] text-white shadow-md shadow-cyan-500/20 scale-[1.02]'
+                      : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                  }`}
+                >
+                  {lang === 'uz' ? '8-mart bayrami' : lang === 'ru' ? 'Праздник 8 марта' : '8 Mart Bayramı'}
                 </button>
               </div>
 
