@@ -1441,7 +1441,7 @@ export default function App() {
         setSelectedTeamMemberId(memberId);
       } else if (hash === '#/team') {
         setActiveTab('doctors');
-        setSelectedTeamMemberId(null);
+        setSelectedTeamMemberId('salih');
         setSelectedTeamDept('management');
       } else {
         const tab = hash.replace('#', '');
@@ -2446,8 +2446,12 @@ export default function App() {
                         onClick={() => {
                           setActiveTab('doctors');
                           setSelectedTeamDept(dept.id);
-                          setSelectedTeamMemberId(null);
-                          window.location.hash = '/team';
+                          const firstM = dept.id === 'management' ? 'salih' :
+                                         dept.id === 'lab' ? 'ayshin' :
+                                         dept.id === 'finance' ? 'ulugbek' :
+                                         dept.id === 'service' ? 'dilshoda' : 'farangiz';
+                          setSelectedTeamMemberId(firstM);
+                          window.location.hash = `/team/${firstM}`;
                           setTimeout(() => {
                             const el = document.getElementById('doctors');
                             if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -2939,7 +2943,12 @@ export default function App() {
               >{t.navServices}</button>
 
               <button 
-                onClick={() => { setActiveTab('doctors'); setIsMobileMenuOpen(false); }}
+                onClick={() => { 
+                  setActiveTab('doctors'); 
+                  setSelectedTeamMemberId('salih'); 
+                  setSelectedTeamDept('management');
+                  setIsMobileMenuOpen(false); 
+                }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'doctors' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{t.navTeam}</button>
 
