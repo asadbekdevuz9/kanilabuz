@@ -1753,6 +1753,28 @@ const TELEGRAM_BOT_TOKEN = "8976412924" + ":" + "AAFcVbEeUgB2Ngymnol6cDDLybhlI1x
 
 const NEWS_ITEMS = [
   {
+    id: 'news-video-3',
+    category: 'video',
+    date: '2026-06-29',
+    youtubeId: 'IrN0aMwhuhE',
+    title: {
+      uz: 'Kani-Lab laboratoriyasi haqida to‘liq video-taqdimot',
+      ru: 'Полная видеопрезентация о лаборатории Kani-Lab',
+      tr: 'Kani-Lab laboratuvarı hakkında detaylı video tanıtımı'
+    },
+    summary: {
+      uz: 'Kani-Lab laboratoriyasi faoliyati, zamonaviy robotlashtirilgan tahlil uskunalari va yuqori texnologik imkoniyatlarimiz aks etgan yangi video.',
+      ru: 'Новое видео о деятельности Kani-Lab, современном роботизированном оборудовании и высоких технологиях.',
+      tr: 'Kani-Lab laboratuvarı faaliyetleri, modern robotik analizörleri ve yüksek teknolojik imkanlarımızı gösteren yeni video.'
+    },
+    content: {
+      uz: 'Kani-Lab klinikasining yuqori texnologik sharoitlari va unda bajarilayotgan ilg‘or diagnostika jarayonlari tasvirlangan to‘liq video-lavha. Ushbu videoda laboratoriyamizda qo‘llaniladigan eng ilg‘or analizatorlar va jamoamizning kasbiy faoliyati ko‘rsatib o‘tilgan. Siz ushbu video orqali tahlillaringiz qanday sharoitda va qanchalik yuqori aniqlikda tekshirilishini o‘z ko‘zingiz bilan ko‘rishingiz mumkin.',
+      ru: 'Полный видеообзор, демонстрирующий высокотехнологичные условия клиники Kani-Lab и передовые процессы диагностики. В этом видео показаны лучшие анализаторы, используемые в нашей лаборатории, и профессиональная деятельность команды. Вы можете лично увидеть, в каких условиях и с какой точностью проводятся ваши анализы.',
+      tr: 'Kani-Lab kliniğinin yüksek teknolojik koşullarını ve burada gerçekleştirilen ileri düzey teşhis süreçlerini gösteren kapsamlı video tanıtımı. Bu videoda laboratuvarımızda kullanılan en gelişmiş analizörler ve ekibimizin profesyonel çalışmaları sergilenmektedir. Bu video sayesinde analizlerinizin hangi koşullarda ve ne kadar yüksek hassasiyetle incelendiğini kendi gözlerinizle görebilirsiniz.'
+    },
+    image: ''
+  },
+  {
     id: 'news-1',
     category: 'news',
     date: '2026-06-25',
@@ -1789,7 +1811,7 @@ const NEWS_ITEMS = [
     },
     content: {
       uz: 'Kani-Lab o‘z qamrovini kengaytirishda davom etmoqda. Endilikda Surxondaryo viloyatining Qiziriq, Sherobod, Angor, Uchqizil, Sho‘rchi, Qumqo‘rg‘on, Jarqo‘rg‘on va Boysun tumanlarida, shuningdek, yirik viloyat shifoxonalari hududlarida jami 15 ta filialimiz mijozlarga xizmat ko‘rsatmoqda. Har bir filialimiz markaziy laboratoriya bilan to‘g‘ridan-to‘g‘ri integratsiya qilingan bo‘lib, tahlillar namunalarini sovuq zanjir talablarida yetkazib berish va natijalarni onlayn taqdim etish tizimi yo‘lga qo‘yilgan.',
-      ru: 'Kani-Lab продолжает расширять свое присутствие. Теперь в районах Кызырык, Шерабад, Ангор, Учкизил, Шурчи, Кумкурган, Джаркурган и Байсун Сурхандарьинской области, а также на территории крупных областных больниц работают в общей сложности 15 наших филиалов. Каждый филиал напрямую интегрирован с центральной лабораторией, налажена система транспортировки образцов с соблюдением требований холодовой цепи и онлайн-выдачи результатов.',
+      ru: 'Kani-Lab o‘z qamrovini kengaytirishda davom etmoqda. Endilikda Surxondaryo viloyatining Qiziriq, Sherobod, Angor, Uchqizil, Sho‘rchi, Qumqo‘rg‘on, Jarqo‘rg‘on va Boysun tumanlarida, shuningdek, yirik viloyat shifoxonalari hududlarida jami 15 ta filialimiz mijozlarga xizmat ko‘rsatmoqda. Har bir filialimiz markaziy laboratoriya bilan to‘g‘ridan-to‘g‘ri integratsiya qilingan bo‘lib, tahlillar namunalarini sovuq zanjir talablarida yetkazib berish va natijalarni onlayn taqdim etish tizimi yo‘lga qo‘yilgan.',
       tr: 'Kani-Lab kapsama alanını genişletmeye devam ediyor. Artık Surhanderya bölgesinin Kızırık, Şerabad, Angor, Üçkızıl, Şurçi, Kumkurgan, Jarkurgan ve Boysun ilçelerinde ve büyük vilayet hastaneleri bünyesinde olmak üzere toplam 15 şubemiz hizmet vermektedir. Her şubemiz merkez laboratuvar ile doğrudan entegre olup, numunelerin soğuk zincir şartlarında taşınması ve sonuçların online teslim edilmesi sistemi kurulmuştur.'
     },
     image: markazOldImg
@@ -1811,9 +1833,53 @@ const NEWS_ITEMS = [
     content: {
       uz: 'Kani-Lab tibbiy diagnostika laboratoriyasi sifat menejmenti tizimining auditidan muvaffaqiyatli o‘tib, ISO 9001:2015 xalqaro standartiga muvofiqlik sertifikatini qo‘lga kiritdi. Bu sertifikat klinikamizda reaktivlar saqlanishidan tortib, test natijalarini rasmiylashtirishgacha bo‘lgan barcha jarayonlar jahon andozalari asosida nazorat qilinishini kafolatlaydi. Biz mijozlarimizga faqat eng yaxshi va eng ishonchli xizmatlarni taqdim etishga intilamiz.',
       ru: 'Медицинская лаборатория Kani-Lab успешно прошла аудит системы менеджмента качества и получила международный сертификат ISO 9001:2015. Этот сертификат гарантирует, что все процессы в нашей лаборатории — от хранения реагентов до выдачи результатов тестов — контролируются по мировым стандартам. Мы стремимся предоставлять только лучшие и самые надежные услуги.',
-      tr: 'Kani-Lab tıbbi teşhis laboratuvarı, kalite yönetim sistemi denetiminden başarıyla geçerek uluslararası ISO 9001:2015 standardına uygunluk belgesini almaya hak kazandı. Bu sertifika, laboratuvarımızda reaktiflerin depolanmasından test sonuçlarının raporlanmasına kadar tüm süreçlerin dünya standartlarında kontrol edildiğini garanti etmektedir.'
+      tr: 'Kani-Lab tibbiy teşhis laboratuvarı, kalite yönetim sistemi denetiminden başarıyla geçerek uluslararası ISO 9001:2015 standardına uygunluk belgesini almaya hak kazandı. Bu sertifika, laboratuvarımızda reaktiflerin depolanmasından test sonuçlarının raporlanmasına kadar tüm süreçlerin dünya standartlarında kontrol edildiğini garanti etmektedir.'
     },
     image: cert3Img
+  },
+  {
+    id: 'news-video-1',
+    category: 'video',
+    date: '2022-06-29',
+    youtubeId: 'ip-ujIjFOzo',
+    title: {
+      uz: 'Termiz shahridagi Perinatal markazida Kani-Lab filiali ochildi',
+      ru: 'Открытие филиала Kani-Lab в Перинатальном центре города Термез',
+      tr: 'Termiz Perinatal Merkezinde Kani-Lab şubesi açıldı'
+    },
+    summary: {
+      uz: 'Termiz shahridagi viloyat perinatal markazida shoshilinch hamda yuqori aniqlikdagi tahlillar uchun mo‘ljallangan Kani-Lab qo‘shma laboratoriyasi faoliyat boshladi.',
+      ru: 'В областном перинатальном центре города Термез начала работу совместная лаборатория Kani-Lab для проведения экстренных и высокоточных анализов.',
+      tr: 'Termiz şehrindeki vilayet perinatal merkezinde acil ve yüksek hassasiyetli testler için Kani-Lab ortak laboratuvarı faaliyete başladı.'
+    },
+    content: {
+      uz: 'Surxondaryo viloyat perinatal markazida Kani-Lab laboratoriya tarmog‘ining yangi qo‘shma filiali ochilish marosimidan lavhalar. Ushbu filial tug‘uruq yoshidagi ayollar va chaqaloqlar uchun o‘ta muhim bo‘lgan shoshilinch hamda yuqori aniqlikdagi tahlillarni qisqa muddatlarda topshirish imkonini yaratdi. Ushbu hamkorlik loyihasi viloyatimizda onalik va bolalikni muhofaza qilish, tezkor tibbiy yordam sifatini yangi bosqichga ko‘tarishda muhim qadam bo‘ldi.',
+      ru: 'Кадры с церемонии открытия нового совместного филиала лабораторной сети Kani-Lab в Сурхандарьинском областном перинатальном центре. Этот филиал создал возможность для женщин детородного возраста и новорожденных сдавать критически важные экстренные и высокоточные анализы в кратчайшие сроки. Данный совместный проект стал важным шагом в охране материнства и детства в регионе.',
+      tr: 'Surhanderya vilayeti perinatal merkezinde Kani-Lab laboratuvar ağının yeni ortak şubesinin açılış töreninden görüntüler. Bu şube, doğum yaşındaki kadınlar ve yeni doğan bebekler için hayati önem taşıyan acil ve yüksek hassasiyetli testlerin çok kısa sürede yapılmasını sağladı. Bu işbirliği projesi, bölgede anne ve çocuk sağlığının korunmasında önemli bir adım oldu.'
+    },
+    image: ''
+  },
+  {
+    id: 'news-video-2',
+    category: 'video',
+    date: '2021-06-29',
+    youtubeId: '1AVLR1p5FUs',
+    title: {
+      uz: 'Kani-Lab Markaziy Laboratoriyasi faoliyati haqida maxsus videolavha',
+      ru: 'Специальный видеорепортаж о деятельности центральной лаборатории Kani-Lab',
+      tr: 'Kani-Lab Merkez Laboratuvarı faaliyetleri hakkında özel video klip'
+    },
+    summary: {
+      uz: 'Kani-Lab premium laboratoriya tarmog‘ining markaziy laboratoriyasida tahlillarni bajarish jarayoni va tibbiy jihozlar haqida video-arxiv.',
+      ru: 'Архивная видеохроника о процессах выполнения анализов и медицинском оборудовании в центральной лаборатории Kani-Lab.',
+      tr: 'Kani-Lab premium laboratuvar ağının merkez laboratuvarındaki test süreçleri ve tıbbi ekipmanlar hakkında arşiv videosu.'
+    },
+    content: {
+      uz: 'Kani-Lab premium laboratoriya tarmog‘i ilk tashkil etilgan yillardagi faoliyat ko‘rsatkichlari, tahlillarni xalqaro andozalarga muvofiq bajarish standartlari va laboratoriyaning Surxondaryo viloyatida yuqori sifatli tibbiy xizmatlarni taqdim etish borasidagi ilk muvaffaqiyatli qadamlari tasvirlangan video-arxiv. Bu lavha laboratoriyamizning shonli rivojlanish yo‘lini va yuqori sifatga bo‘lgan sodiqligimizni yaqqol ko‘rsatib beradi.',
+      ru: 'Архивный видеоматериал, демонстрирующий показатели работы премиальной сети Kani-Lab в первые годы ее основания, стандарты выполнения анализов в соответствии с международными требованиями и первые успешные шаги лаборатории по предоставлению высококачественных медицинских услуг в Сурхандарьинской области.',
+      tr: 'Kani-Lab premium laboratuvar ağının kurulduğu ilk yıllardaki faaliyet performansı, analizlerin uluslararası standartlara uygun olarak gerçekleştirilme süreçleri ve laboratuvarın Surhanderya bölgesinde yüksek kaliteli tıbbi hizmetler sunmadaki ilk başarılı adımlarını gösteren arşiv videosu.'
+    },
+    image: ''
   }
 ];
 
@@ -5010,69 +5076,85 @@ export default function App() {
       {/* ==========================================
           YANGILIKLAR SECTION
          ========================================== */}
-      {activeTab === 'news' && (
-        <section id="news" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
-          <div className="max-w-7xl w-full mx-auto animate-in fade-in duration-300">
-            {/* Header */}
-            <div className="flex flex-col items-center text-center gap-2 mb-12">
-              <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                {lang === 'uz' ? 'YANGILIKLAR' : lang === 'ru' ? 'НОВОСТИ' : 'HABERLER'}
-              </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                {lang === 'uz' ? 'Kani-Lab yangiliklari' : lang === 'ru' ? 'Новости Kani-Lab' : 'Kani-Lab Haberleri'}
-              </h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                {lang === 'uz' ? 'Laboratoriyamizdagi eng so‘nggi yangiliklar va muhim yutuqlarimiz' : lang === 'ru' ? 'Последние новости и ключевые достижения нашей лаборатории' : 'Laboratuvarımızdan en son haberler ve önemli başarılarımız'}
-              </p>
-            </div>
+      {activeTab === 'news' && (() => {
+        const sortedNews = [...NEWS_ITEMS].sort((a, b) => b.date.localeCompare(a.date));
+        return (
+          <section id="news" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
+            <div className="max-w-7xl w-full mx-auto animate-in fade-in duration-300">
+              {/* Header */}
+              <div className="flex flex-col items-center text-center gap-2 mb-12">
+                <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
+                  {lang === 'uz' ? 'YANGILIKLAR' : lang === 'ru' ? 'НОВОСТИ' : 'HABERLER'}
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
+                  {lang === 'uz' ? 'Kani-Lab yangiliklari va videolari' : lang === 'ru' ? 'Новости и видеоматериалы Kani-Lab' : 'Kani-Lab Haberleri ve Videoları'}
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
+                  {lang === 'uz' ? 'Laboratoriyamizdagi eng so‘nggi yangiliklar, yutuqlarimiz va rasmiy videolavhalar' : lang === 'ru' ? 'Последние новости, достижения и официальные видеорепортажи о нашей работе' : 'Laboratuvarımızdan en son haberler, başarılarımız ve resmi videolarımız'}
+                </p>
+              </div>
 
-            {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {NEWS_ITEMS.map(item => (
-                <div 
-                  key={item.id} 
-                  className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
-                >
-                  <div className="h-56 overflow-hidden relative">
-                    <img 
-                      loading="lazy"
-                      src={item.image} 
-                      alt={getLangText(item.title)} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-cyan-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
-                      {item.category === 'news' ? (lang === 'uz' ? 'Yangilik' : lang === 'ru' ? 'Новость' : 'Haber') : (lang === 'uz' ? 'Yutuq' : lang === 'ru' ? 'Достижение' : 'Başarı')}
-                    </div>
-                  </div>
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="text-[10px] text-slate-400 font-bold mb-2 flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5" />
-                        {item.date}
-                      </div>
-                      <h3 className="text-base font-extrabold text-slate-900 dark:text-white line-clamp-2 leading-snug mb-3">
-                        {getLangText(item.title)}
-                      </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-6">
-                        {getLangText(item.summary)}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
+              {/* Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {sortedNews.map(item => {
+                  const imageSrc = item.youtubeId ? "https://img.youtube.com/vi/" + item.youtubeId + "/hqdefault.jpg" : item.image;
+                  return (
+                    <div 
+                      key={item.id} 
+                      className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
                       onClick={() => setSelectedNewsId(item.id)}
-                      className="w-full py-3 bg-slate-50 dark:bg-slate-800/50 hover:bg-[#00B4D8]/10 text-[#0096C7] dark:text-[#48CAE4] hover:text-[#0087A3] text-xs font-black rounded-xl transition-colors flex items-center justify-center gap-1.5"
                     >
-                      {lang === 'uz' ? 'Batafsil o‘qish' : lang === 'ru' ? 'Подробнее' : 'Detaylı Oku'}
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                      <div className="h-56 overflow-hidden relative">
+                        <img 
+                          loading="lazy"
+                          src={imageSrc} 
+                          alt={getLangText(item.title)} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        {item.youtubeId && (
+                          <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center group-hover:bg-slate-950/40 transition-all duration-300">
+                            <div className="w-14 h-14 bg-white/90 dark:bg-slate-900/90 text-[#00B4D8] rounded-full flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-transform duration-300 border border-cyan-400/20">
+                              <svg className="w-5 h-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            </div>
+                          </div>
+                        )}
+                        <div className="absolute top-4 left-4 px-3 py-1 bg-cyan-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
+                          {item.category === 'video' ? (lang === 'uz' ? 'Video' : lang === 'ru' ? 'Видео' : 'Video') : item.category === 'news' ? (lang === 'uz' ? 'Yangilik' : lang === 'ru' ? 'Новость' : 'Haber') : (lang === 'uz' ? 'Yutuq' : lang === 'ru' ? 'Достижение' : 'Başarı')}
+                        </div>
+                      </div>
+                      <div className="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                          <div className="text-[10px] text-slate-400 font-bold mb-2 flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5" />
+                            {item.date}
+                          </div>
+                          <h3 className="text-base font-extrabold text-slate-900 dark:text-white line-clamp-2 leading-snug mb-3">
+                            {getLangText(item.title)}
+                          </h3>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-6">
+                            {getLangText(item.summary)}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); setSelectedNewsId(item.id); }}
+                          className="w-full py-3 bg-slate-50 dark:bg-slate-800/50 hover:bg-[#00B4D8]/10 text-[#0096C7] dark:text-[#48CAE4] hover:text-[#0087A3] text-xs font-black rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                        >
+                          {item.category === 'video' ? (lang === 'uz' ? 'Videoni tomosha qilish' : lang === 'ru' ? 'Смотреть видео' : 'Videoyu İzle') : (lang === 'uz' ? 'Batafsil o‘qish' : lang === 'ru' ? 'Подробнее' : 'Detaylı Oku')}
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })()}
 
       {/* ==========================================
           FOTOGALERIYA SECTION
@@ -5142,16 +5224,26 @@ export default function App() {
         return (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md animate-in fade-in duration-300">
             <div className="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-slate-200/40 dark:border-slate-800/80 max-h-[90vh] flex flex-col">
-              <div className="h-64 relative shrink-0">
-                <img 
-                  src={item.image} 
-                  alt={getLangText(item.title)} 
-                  className="w-full h-full object-cover"
-                />
+              <div className="h-80 md:h-[360px] relative shrink-0 bg-black">
+                {item.youtubeId ? (
+                  <iframe 
+                    className="w-full h-full border-none"
+                    src={"https://www.youtube.com/embed/" + item.youtubeId + "?autoplay=1"}
+                    title={getLangText(item.title)}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <img 
+                    src={item.image} 
+                    alt={getLangText(item.title)} 
+                    className="w-full h-full object-cover"
+                  />
+                )}
                 <button
                   type="button"
                   onClick={() => setSelectedNewsId(null)}
-                  className="absolute top-4 right-4 p-2 bg-slate-900/60 hover:bg-slate-900/90 text-white rounded-full transition-colors backdrop-blur-sm"
+                  className="absolute top-4 right-4 z-10 p-2 bg-slate-900/60 hover:bg-slate-900/90 text-white rounded-full transition-colors backdrop-blur-sm"
                 >
                   <X className="w-5 h-5" />
                 </button>
