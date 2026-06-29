@@ -1229,49 +1229,229 @@ const TEAM_MEMBERS: TeamMember[] = [
       ru: 'Отвечает за хранение реагентов и расходных материалов в строгом соответствии с температурными стандартами.',
       tr: 'Reaktifler ve tıbbi sarf malzemelerinin soğuk zincir kurallarına uygun olarak depolanmasını sağlayan yönetici.'
     }
+  },
+  {
+    id: "eshpo-latov-sunnatullo",
+    name: "Eshpo‘latov Sunnatullo",
+    position: {
+      uz: "Biokimyo shifokor laboranti",
+      ru: "Врач-лаборант биохимии",
+      tr: "Biyokimya Laborant Hekimi"
+    },
+    department: "lab",
+    experience: {
+      uz: "6 yillik tajriba",
+      ru: "6 лет опыта",
+      tr: "6 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Laboratoriya diagnostikasi", "Tahlillar sifat nazorati", "Biokimyoviy tahlillar"],
+      ru: ["Лабораторная диагностика", "Контроль качества анализов", "Биохимические исследования"],
+      tr: ["Laboratuvar Teşhisi", "Analiz Kalite Kontrolü", "Biyokimyasal Analizler"]
+    },
+    grad: {
+      uz: "Dorivor o‘simliklar texnologiyasi magistri",
+      ru: "Магистр технологий лекарственных растений",
+      tr: "Tıbbi Bitkiler Teknolojisi Yüksek Lisans"
+    },
+    bio: {
+      uz: "Kani-Lab laboratoriyasining yetakchi biokimyo mutaxassisi Eshpoʻlatov Sunnatullo, klinik laboratoriya diagnostikasi sohasida boy nazariy bilim va amaliy ko‘nikmalarga ega professionaldir. Ilmiy izlanishlari dorivor o‘simliklarni qayta ishlash texnologiyalari va klinik laboratoriya tahlillarining aniqligini oshirishga qaratilgan.",
+      ru: "Ведущий специалист по биохимии лаборатории Kani-Lab Эшпулатов Суннатулло — профессионал с богатыми теоретическими знаниями и практическими навыками в области клинической лабораторной диагностики. Его научные исследования направлены на повышение точности анализов.",
+      tr: "Kani-Lab laboratuvarının lider biyokimya uzmanı Eshpoʻlatov Sunnatullo, klinik laboratuvar teşhisi alanında zengin teorik bilgi ve pratik becerilere sahip bir profesyoneldir. Bilimsel araştırmaları analizlerin doğruluğunu artırmaya odaklanmıştır."
+    },
+    photo: sunnatulloImg
+  },
+  {
+    id: "xurramova-sitora",
+    name: "Xurramova Sitora",
+    position: {
+      uz: "Klinik laboratoriya shifokor laboranti",
+      ru: "Врач-лаборант клинической лаборатории",
+      tr: "Klinik Laboratuvar Uzmanı"
+    },
+    department: "lab",
+    experience: {
+      uz: "7 yillik tajriba",
+      ru: "7 лет опыта",
+      tr: "7 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Klinik laboratoriya diagnostikasi", "Diagnostik tahlil", "Gematologik tahlillar"],
+      ru: ["Клиническая лабораторная диагностика", "Диагностический анализ", "Гематологические исследования"],
+      tr: ["Klinik Laboratuvar Teşhisi", "Tanımlayıcı Analiz", "Hematolojik Analizler"]
+    },
+    grad: {
+      uz: "Termiz Davlat Universiteti, Termiz Tibbiyot Kolleji",
+      ru: "Термезский государственный университет, Термезский медицинский колледж",
+      tr: "Termez Devlet Üniversitesi, Termez Medikal Koleji"
+    },
+    bio: {
+      uz: "Kani-Lab laboratoriyasining malakali mutaxassisi Xurramova Sitora, klinik laboratoriya diagnostikasi sohasida chuqur bilim va boy tajribaga ega shifokordir. U tibbiyot kolleji va oliy ta’limda olgan fundamental bilimlarini Shifokorlar malakasini oshirish markazidagi intensiv kurslar bilan mustahkamlagan.",
+      ru: "Квалифицированный специалист лаборатории Kani-Lab Хуррамова Ситора — врач с глубокими знаниями и богатым опытом в области клинической лабораторной диагностики. Она закрепила свои фундаментальные знания на интенсивных курсах повышения квалификации врачей.",
+      tr: "Kani-Lab laboratuvarının nitelikli uzmanı Xurramova Sitora, klinik laboratuvar teşhisi alanında derin bilgi ve zengin deneyime sahip bir hekimdir. Tıp koleji ve lisans eğitimindeki temel bilgilerini, Hekim Geliştirme Merkezi yoğun eğitimleriyle pekiştirmiştir."
+    },
+    photo: sitoraImg
+  },
+  {
+    id: "qaxxorova-shaxzoda",
+    name: "Qaxxorova Shaxzoda Abdusalimovna",
+    position: {
+      uz: "Klinik laboratoriya shifokor laboranti",
+      ru: "Врач-лаборант клинической лаборатории",
+      tr: "Klinik Laboratuvar Uzmanı"
+    },
+    department: "lab",
+    experience: {
+      uz: "9 yillik tajriba",
+      ru: "9 лет опыта",
+      tr: "9 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Klinik-biokimyoviy diagnostika", "Laboratoriya tahlillari", "Diagnostika sifat nazorati"],
+      ru: ["Клинико-биохимическая диагностика", "Лабораторные анализы", "Контроль качества диагностики"],
+      tr: ["Klinik ve Biyokimyasal Teşhis", "Laboratuvar Analizleri", "Teşhis Kalite Kontrolü"]
+    },
+    grad: {
+      uz: "Termiz Davlat Universiteti, Toshkent Davlat Shifokorlar Malakasini Oshirish Instituti",
+      ru: "Термезский государственный университет, Ташкентский государственный институт усовершенствования врачей",
+      tr: "Termez Devlet Üniversitesi, Taşkent Devlet Hekim Geliştirme Enstitüsü"
+    },
+    bio: {
+      uz: "Qaxxorova Shaxzoda Abdusalimovna – Kani-Lab laboratoriyasining 9 yillik boy ish stajiga ega tajribali laboratoriya shifokori. Toshkent davlat shifokorlar malakasini oshirish institutidagi ixtisoslashuvi unga klinik-biokimyoviy tahlillarni yuqori aniqlik bilan amalga oshirish imkonini beradi.",
+      ru: "Каххорова Шахзода Абдусалимовна — опытный лабораторный врач с 9-летним стажем работы в лаборатории Kani-Lab. Специализация в Ташкентском институте усовершенствования врачей позволяет ей с высокой точностью проводить клинико-биохимические исследования.",
+      tr: "Qaxxorova Shaxzoda Abdusalimovna - Kani-Lab laboratuvarında 9 yıllık zengin iş deneyimine sahip uzman laboratuvar hekimidir. Taşkent Devlet Hekim Geliştirme Enstitüsü uzmanlığı, klinik ve biyokimyasal analizleri yüksek doğrulukla yapmasını sağlamaktadır."
+    },
+    photo: shaxzodaImg
+  },
+  {
+    id: "davronov-asadbek",
+    name: "Davronov Asadbek",
+    position: {
+      uz: "Biokimyo shifokor laboranti",
+      ru: "Врач-лаборант биохимии",
+      tr: "Biyokimya Laborantı"
+    },
+    department: "lab",
+    experience: {
+      uz: "4 yillik tajriba",
+      ru: "4 года опыта",
+      tr: "4 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Biokimyoviy tahlillar", "Laboratoriya diagnostikasi", "Namuna tayyorlash va sifat nazorati"],
+      ru: ["Биохимические анализы", "Лабораторная диагностика", "Подготовка проб и контроль качества"],
+      tr: ["Biyokimyasal Analizler", "Laboratuvar Teşhisi", "Numune Hazırlama ve Kalite Kontrolü"]
+    },
+    grad: {
+      uz: "Termiz Tibbiyot Kolleji",
+      ru: "Термезский медицинский колледж",
+      tr: "Termez Medikal Koleji"
+    },
+    bio: {
+      uz: "Davronov Asadbek – Kani-Lab laboratoriyasining tajribali biokimyo shifokor laboranti. 2021-yildan buyon laboratoriya diagnostikasi sohasida faoliyat yuritib kelayotgan Asadbek, o‘z ishida yuqori aniqlik va tezkorlikni asosiy tamoyil deb biladi.",
+      ru: "Давронов Асадбек — опытный врач-лаборант биохимии лаборатории Kani-Lab. Работает в сфере лабораторной диагностики с 2021 года, ставя главным приоритетом высокую точность и оперативность проведения исследований.",
+      tr: "Davronov Asadbek - Kani-Lab laboratuvarının deneyimli biyokimya laborantıdır. 2021 yılından bu yana laboratuvar teşhisi alanında çalışan Asadbek, işinde yüksek hassasiyet and hızı ana ilke edinmiştir."
+    },
+    photo: asadbekImg
+  },
+  {
+    id: "amirqulova-zilola",
+    name: "Amirqulova Zilola",
+    position: {
+      uz: "Immunologik tekshiruvlar shifokor laboranti",
+      ru: "Врач-лаборант иммунологических исследований",
+      tr: "İmmünoloji Laborantı"
+    },
+    department: "lab",
+    experience: {
+      uz: "6 yillik tajriba",
+      ru: "6 лет опыта",
+      tr: "6 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Immunologik tekshiruvlar", "Laboratoriya diagnostikasi", "Diagnostika sifat nazorati"],
+      ru: ["Иммунологические исследования", "Лабораторная диагностика", "Контроль качества диагностики"],
+      tr: ["İmmünolojik Araştırmalar", "Laboratuvar Teşhisi", "Teşhis Kalite Kontrolü"]
+    },
+    grad: {
+      uz: "Termiz Tibbiyot Kolleji",
+      ru: "Термезский медицинский колледж",
+      tr: "Termez Medikal Koleji"
+    },
+    bio: {
+      uz: "Amirqulova Zilola – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zilola, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi.",
+      ru: "Амиркулова Зилола — квалифицированный специалист лаборатории Kani-Lab в области иммунологической диагностики. Работает с 2020 года, демонстрируя высокую точность и профессионализм при проведении анализов.",
+      tr: "Amirqulova Zilola - Kani-Lab laboratuvarının immünoloji teşhis alanındaki nitelikli uzmanıdır. 2020 yılından bu yana görev yapan Zilola, immünolojik analizlerde yüksek hassasiyet ve profesyonellik göstermektedir."
+    }
+  },
+  {
+    id: "xurramova-zubayda",
+    name: "Xurramova Zubayda",
+    position: {
+      uz: "Immunologik tekshiruvlar shifokor laboranti",
+      ru: "Врач-лаборант иммунологических исследований",
+      tr: "İmmünoloji Laborantı"
+    },
+    department: "lab",
+    experience: {
+      uz: "5 yillik tajriba",
+      ru: "5 лет опыта",
+      tr: "5 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Immunologik tekshiruvlar", "Laboratoriya diagnostikasi", "Diagnostika sifat nazorati"],
+      ru: ["Иммунологические исследования", "Лабораторная диагностика", "Контроль качества диагностики"],
+      tr: ["İmmünolojik Araştırmalar", "Laboratuvar Teşhisi", "Teşhis Kalite Kontrolü"]
+    },
+    grad: {
+      uz: "Termiz Tibbiyot Kolleji",
+      ru: "Термезский медицинский колледж",
+      tr: "Termez Medikal Koleji"
+    },
+    bio: {
+      uz: "Xurramova Zubayda – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zubayda, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi.",
+      ru: "Хуррамова Зубайда — квалифицированный специалист лаборатории Kani-Lab по иммунологическому направлению. Работает с 2020 года, обеспечивая строгое качество и точность выполнения лабораторных анализов.",
+      tr: "Xurramova Zubayda - Kani-Lab laboratuvarının immünoloji teşhis alanındaki nitelikli uzmanıdır. 2020 yılından bu yana görev yapan Zubayda, immünolojik araştırmalarda yüksek doğruluk ve uzmanlık sergilemektedir."
+    }
+  },
+  {
+    id: "turopova-yasmina",
+    name: "Turopova Yasmina",
+    position: {
+      uz: "Klinik-laboratoriya laboranti",
+      ru: "Клинико-лабораторный лаборант",
+      tr: "Klinik Laboratuvar Teknisyeni"
+    },
+    department: "lab",
+    experience: {
+      uz: "4 yillik tajriba",
+      ru: "4 года опыта",
+      tr: "4 Yıllık Deneyim"
+    },
+    specialties: {
+      uz: ["Laboratoriya diagnostikasi", "Klinik tahlillar", "Namuna tayyorlash"],
+      ru: ["Лабораторная диагностика", "Клинические исследования", "Подготовка проб"],
+      tr: ["Laboratuvar Teşhisi", "Klinik Analizler", "Numune Hazırlama"]
+    },
+    grad: {
+      uz: "Termiz Tibbiyot Kolleji",
+      ru: "Термезский медицинский колледж",
+      tr: "Termez Medikal Koleji"
+    },
+    bio: {
+      uz: "Turopova Yasmina – Kani-Lab laboratoriyasining professional klinik-laboratoriya laboranti. U tahlillarni yuqori aniqlikda bajarish, zamonaviy jihozlar bilan ishlashda tajribali mutaxassisdir.",
+      ru: "Туропова Ясмина — профессиональный клинико-лабораторный лаборант лаборатории Kani-Lab. Она обладает большим опытом работы с современным диагностическим оборудованием.",
+      tr: "Turopova Yasmina - Kani-Lab laboratuvarının profesyonel klinik laboratuvar teknisyenidir. Analizleri yüksek doğrulukla tamamlama ve modern cihazlarla çalışma konusunda deneyimlidir."
+    },
+    photo: yasminaImg
   }
 ];
 
 const LABORANTS = [
   {
-    name: 'Eshpo‘latov Sunnatullo',
-    pos: { uz: 'Biokimyo laboranti', ru: 'Лаборант-биохимик', tr: 'Biyokimya Laborantı' },
-    exp: { uz: '6 yillik tajriba', ru: '6 лет опыта', tr: '6 Yıllık Deneyim' }
-  },
-  {
-    name: 'Davronov Asadbek',
-    pos: { uz: 'Biokimyo laboranti', ru: 'Лаборант-биохимик', tr: 'Biyokimya Laborantı' },
-    exp: { uz: '4 yillik tajriba', ru: '4 года опыта', tr: '4 Yıllık Deneyim' }
-  },
-  {
-    name: 'Qaxxorova Shaxzoda',
-    pos: { uz: 'PCR (PSR) laboranti', ru: 'Лаборант ПЦР', tr: 'PCR Laborantı' },
-    exp: { uz: '5 yillik tajriba', ru: '5 лет опыта', tr: '5 Yıllık Deneyim' }
-  },
-  {
-    name: 'Xurramova Sitora',
-    pos: { uz: 'Gematologiya laboranti', ru: 'Лаборант гематологии', tr: 'Hematoloji Laborantı' },
-    exp: { uz: '7 yillik tajriba', ru: '7 лет опыта', tr: '7 Yıllık Deneyim' }
-  },
-  {
     name: 'Xushiyeva Sitora',
     pos: { uz: 'Gematologiya laboranti', ru: 'Лаборант гематологии', tr: 'Hematoloji Laborantı' },
     exp: { uz: '3 yillik tajriba', ru: '3 года опыта', tr: '3 Yıllık Deneyim' }
-  },
-  {
-    name: 'Amirqulova Zilola',
-    pos: { uz: 'Immunologiya laboranti', ru: 'Лаборант иммунологии', tr: 'İmmünoloji Laborantı' },
-    exp: { uz: '6 yillik tajriba', ru: '6 лет опыта', tr: '6 Yıllık Deneyim' }
-  },
-  {
-    name: 'Xurramova Zubayda',
-    pos: { uz: 'Immunologiya laboranti', ru: 'Лаборант иммунологии', tr: 'İmmünoloji Laborantı' },
-    exp: { uz: '5 yillik tajriba', ru: '5 лет опыта', tr: '5 Yıllık Deneyim' }
-  },
-  {
-    name: 'Turopova Yasmina',
-    pos: { uz: 'Klinik-laboratoriya laboranti', ru: 'Клинико-лабораторный лаборант', tr: 'Klinik Laboratuvar Teknisyeni' },
-    exp: { uz: '4 yillik tajriba', ru: '4 года опыта', tr: '4 Yıllık Deneyim' }
   },
   {
     name: 'Fayzullayeva Nigora',
