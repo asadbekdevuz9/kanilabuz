@@ -4233,14 +4233,18 @@ export default function App() {
                     <div className="lg:col-span-5 w-full aspect-[4/5] bg-slate-50 dark:bg-slate-950/80 border border-slate-100 dark:border-slate-800 rounded-3xl flex items-center justify-center relative overflow-hidden group shadow-inner">
                       <div className="absolute inset-0 bg-gradient-to-b from-[#00B4D8]/10 via-transparent to-black/5 pointer-events-none"></div>
                       
-                      <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105 ${
+                      <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105 overflow-hidden ${
                         member.department === 'management' ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-500' :
                         member.department === 'lab' ? 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500' :
                         member.department === 'finance' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500' :
                         member.department === 'service' ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-500' :
                         'bg-purple-50 dark:bg-purple-950/40 text-purple-500'
                       }`}>
-                        <User className="w-16 h-16 md:w-20 md:h-20" />
+                        {member.photo ? (
+                          <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <User className="w-16 h-16 md:w-20 md:h-20" />
+                        )}
                       </div>
 
                       <div className="absolute top-4 left-4 px-3 py-1 bg-[#00B4D8]/15 text-[#0096C7] dark:text-[#48CAE4] rounded-full text-[10px] font-black uppercase tracking-wider">
