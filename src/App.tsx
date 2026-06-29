@@ -2091,19 +2091,19 @@ export default function App() {
           "Xalqaro standartlar asosida aniq diagnostika.",
           "Turkiya va Niderlandiya texnologiyalari.",
           "Robotlashtirilgan laboratoriya tizimi.",
-          "100+ turdagi tezkor tahlillar.",
+          "180+ turdagi tezkor tahlillar.",
           "Sizning salomatligingiz \u2013 bizning maqsadimiz."
         ] : lang === 'ru' ? [
           "Точная диагностика по международным стандартам.",
           "Технологии Турции и Нидерландов.",
           "Роботизированная лабораторная система.",
-          "Более 300 видов экспресс-анализов.",
+          "Более 180 видов экспресс-анализов.",
           "Ваше здоровье \u2013 наша цель."
         ] : [
           "Uluslararası standartlarda doğru teşhis.",
           "Türkiye ve Hollanda teknolojileri.",
           "Robotik laboratuvar sistemi.",
-          "100+ çeşit hızlı analiz.",
+          "180+ çeşit hızlı analiz.",
           "Sağlığınız \u2013 hedefimiz."
         ],
         typeSpeed: 60,
