@@ -1251,19 +1251,19 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: "6 Yıllık Deneyim"
     },
     specialties: {
-      uz: ["Laboratoriya diagnostikasi", "Tahlillar sifat nazorati", "Biokimyoviy tahlillar"],
-      ru: ["Лабораторная диагностика", "Контроль качества анализов", "Биохимические исследования"],
-      tr: ["Laboratuvar Teşhisi", "Analiz Kalite Kontrolü", "Biyokimyasal Analizler"]
+      uz: ["Laboratoriya diagnostikasi", "Tahlillar sifat nazorati"],
+      ru: ["Лабораторная диагностика", "Контроль качества анализов"],
+      tr: ["Laboratuvar Teşhisi", "Analiz Kalite Kontrolü"]
     },
     grad: {
-      uz: "Dorivor o‘simliklar texnologiyasi magistri",
-      ru: "Магистр технологий лекарственных растений",
-      tr: "Tıbbi Bitkiler Teknolojisi Yüksek Lisans"
+      uz: "• Magistratura: Dorivor oʻsimliklarni yetishtirish va qayta ishlash texnologiyasi\n• Bakalavriat: Biologiya (turlar boʻyicha), Klinik laboratoriya\n• Kollej: Davolash ishi feldsheri",
+      ru: "• Магистратура: Технология выращивания и переработки лекарственных растений\n• Бакалавриат: Biologiya (po napravleniyam), Klinik laboratoriya\n• Колледж: Фельдшер лечебного дела",
+      tr: "• Yüksek Lisans: Tıbbi Bitki Yetiştiriciliği ve İşleme Teknolojisi\n• Lisans: Biyoloji (Alanlara göre), Klinik Laboratuvar\n• Kolej: Tıbbi Tedavi Hemşireliği"
     },
     bio: {
-      uz: "Kani-Lab laboratoriyasining yetakchi biokimyo mutaxassisi Eshpoʻlatov Sunnatullo, klinik laboratoriya diagnostikasi sohasida boy nazariy bilim va amaliy ko‘nikmalarga ega professionaldir. Ilmiy izlanishlari dorivor o‘simliklarni qayta ishlash texnologiyalari va klinik laboratoriya tahlillarining aniqligini oshirishga qaratilgan.",
-      ru: "Ведущий специалист по биохимии лаборатории Kani-Lab Эшпулатов Суннатулло — профессионал с богатыми теоретическими знаниями и практическими навыками в области клинической лабораторной диагностики. Его научные исследования направлены на повышение точности анализов.",
-      tr: "Kani-Lab laboratuvarının lider biyokimya uzmanı Eshpoʻlatov Sunnatullo, klinik laboratuvar teşhisi alanında zengin teorik bilgi ve pratik becerilere sahip bir profesyoneldir. Bilimsel araştırmaları analizlerin doğruluğunu artırmaya odaklanmıştır."
+      uz: "Kani-Lab laboratoriyasining yetakchi biokimyo mutaxassisi Eshpoʻlatov Sunnatullo, klinik laboratoriya diagnostikasi sohasida boy nazariy bilim va amaliy ko‘nikmalarga ega professionaldir. U o‘z faoliyatida tibbiyot kolleji va oliy ta’lim bosqichlarida olgan fundamental bilimlarini laboratoriya amaliyoti bilan samarali uyg‘unlashtirib kelmoqda. Ilmiy izlanishlari dorivor o‘simliklarni qayta ishlash texnologiyalari va klinik laboratoriya tahlillarining aniqligini oshirishga qaratilgan bo‘lib, bu o‘z navbatida mijozlarga taqdim etilayotgan xizmatlar sifatini xalqaro standartlarga moslashtirishga yordam beradi. Sunnatullo har bir tahlil jarayonida yuqori aniqlik, tezkorlik va professional mas’uliyat tamoyillariga amal qiladi.",
+      ru: "Эшпулатов Суннатулло, ведущий специалист по биохимии лаборатории Kani-Lab, является профессионалом с глубокими теоретическими знаниями и практическими навыками в области клинической лабораторной диагностики. В своей работе он эффективно сочетает фундаментальные знания, полученные в медицинском колледже и вузе, с лабораторной практикой. Его научные исследования направлены на технологии переработки лекарственных растений и повышение точности клинических лабораторных анализов.",
+      tr: "Kani-Lab laboratuvarının lider biyokimya uzmanı Eshpoʻlatov Sunnatullo, klinik laboratuvar teşhisi alanında zengin teorik bilgi ve pratik becerilere sahip bir profesyoneldir. Tıp koleji ve yükseköğretim aşamalarında edindiği temel bilgileri laboratuvar pratiğiyle etkili bir şekilde birleştirmektedir. Bilimsel araştırmaları, tıbbi bitki işleme teknolojileri va klinik laboratuvar analizlerinin doğruluğunu artırmaya odaklanmıştır."
     },
     photo: sunnatulloImg
   },
@@ -1282,19 +1282,19 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: "7 Yıllık Deneyim"
     },
     specialties: {
-      uz: ["Klinik laboratoriya diagnostikasi", "Diagnostik tahlil", "Gematologik tahlillar"],
-      ru: ["Клиническая лабораторная диагностика", "Диагностический анализ", "Гематологические исследования"],
-      tr: ["Klinik Laboratuvar Teşhisi", "Tanımlayıcı Analiz", "Hematolojik Analizler"]
+      uz: ["Klinik laboratoriya diagnostikasi", "Diagnostik tahlil"],
+      ru: ["Клиническая лабораторная диагностика", "Диагностический анализ"],
+      tr: ["Klinik Laboratuvar Teşhisi", "Tanımlayıcı Analiz"]
     },
     grad: {
-      uz: "Termiz Davlat Universiteti, Termiz Tibbiyot Kolleji",
-      ru: "Термезский государственный университет, Термезский медицинский колледж",
-      tr: "Termez Devlet Üniversitesi, Termez Medikal Koleji"
+      uz: "• Malaka oshirish: Shifokorlar malakasini oshirish markazi, “Klinik laboratoriya diagnostikasi” mutaxassisligi (864 kredit).\n• Bakalavriat: Termiz davlat universiteti (2018–2022).\n• Kollej: Termiz tibbiyot kolleji (2014–2017).",
+      ru: "• Повышение квалификации: Центр повышения квалификации врачей, специальность «Клиническая лабораторная диагностика» (864 кредита).\n• Бакалавриат: Термезский государственный университет (2018–2022).\n• Колледж: Термезский медицинский колледж (2014–2017).",
+      tr: "• Uzmanlık Eğitimi: Hekim Geliştirme Merkezi, “Klinik Laboratuvar Teşhisi” branşı (864 kredi).\n• Lisans: Termez Devlet Üniversitesi (2018–2022).\n• Kolej: Termez Medikal Koleji (2014–2017)."
     },
     bio: {
-      uz: "Kani-Lab laboratoriyasining malakali mutaxassisi Xurramova Sitora, klinik laboratoriya diagnostikasi sohasida chuqur bilim va boy tajribaga ega shifokordir. U tibbiyot kolleji va oliy ta’limda olgan fundamental bilimlarini Shifokorlar malakasini oshirish markazidagi intensiv kurslar bilan mustahkamlagan.",
-      ru: "Квалифицированный специалист лаборатории Kani-Lab Хуррамова Ситора — врач с глубокими знаниями и богатым опытом в области клинической лабораторной диагностики. Она закрепила свои фундаментальные знания на интенсивных курсах повышения квалификации врачей.",
-      tr: "Kani-Lab laboratuvarının nitelikli uzmanı Xurramova Sitora, klinik laboratuvar teşhisi alanında derin bilgi ve zengin deneyime sahip bir hekimdir. Tıp koleji ve lisans eğitimindeki temel bilgilerini, Hekim Geliştirme Merkezi yoğun eğitimleriyle pekiştirmiştir."
+      uz: "Kani-Lab laboratoriyasining malakali mutaxassisi Xurramova Sitora, klinik laboratoriya diagnostikasi sohasida chuqur bilim va boy tajribaga ega shifokordir. U tibbiyot kolleji va oliy ta’limda olgan fundamental bilimlarini, Shifokorlar malakasini oshirish markazidagi intensiv kurslar bilan yanada mustahkamlagan. Sitora laboratoriya tahlillarini xalqaro standartlar asosida o‘tkazish, diagnostika jarayonlarini aniq va sifatli boshqarish bo‘yicha yuqori malakaga ega. U o‘z ishida kasbiy axloq, mas’uliyat va doimiy ilmiy rivojlanishni ustuvor deb biladi.",
+      ru: "Хуррамова Ситора, квалифицированный специалист лаборатории Kani-Lab, — врач с глубокими знаниями и богатым опытом в области клинической лабораторной диагностики. Она закрепила свои фундаментальные знания, полученные в медицинском колледже и вузе, интенсивными курсами в Центре повышения квалификации врачей.",
+      tr: "Kani-Lab laboratuvarının deneyimli uzmanı Xurramova Sitora, klinik laboratuvar teşhisi alanında derin bilgi ve zengin deneyime sahip bir hekimdir. Tıp koleji ve yükseköğretimde aldığı temel bilgileri, Hekim Geliştirme Merkezi bünyesindeki yoğun kurslarla daha da pekiştirmiştir."
     },
     photo: sitoraImg
   },
@@ -1318,14 +1318,14 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ["Klinik ve Biyokimyasal Teşhis", "Laboratuvar Analizleri", "Teşhis Kalite Kontrolü"]
     },
     grad: {
-      uz: "Termiz Davlat Universiteti, Toshkent Davlat Shifokorlar Malakasini Oshirish Instituti",
-      ru: "Термезский государственный университет, Ташкентский государственный институт усовершенствования врачей",
-      tr: "Termez Devlet Üniversitesi, Taşkent Devlet Hekim Geliştirme Enstitüsü"
+      uz: "• Ixtisoslashuv: Toshkent davlat shifokorlar malakasini oshirish instituti, “Klinik-biokimyoviy laboratoriya diagnostikasi shifokori” mutaxassisligi (2017–2018).\n• Bakalavriat: Termiz davlat universiteti (2012–2016).",
+      ru: "• Специализация: Ташкентский государственный институт усовершенствования врачей, специальность «Врач клинико-биохимической лабораторной диагностики» (2017–2018).\n• Бакалавриат: Термезский государственный университет (2012–2016).",
+      tr: "• Uzmanlık: Taşkent Devlet Hekim Geliştirme Enstitüsü, “Klinik ve Biyokimyasal Laboratuvar Teşhisi Hekimi” branşı (2017–2018).\n• Lisans: Termez Devlet Üniversitesi (2012–2016)."
     },
     bio: {
-      uz: "Qaxxorova Shaxzoda Abdusalimovna – Kani-Lab laboratoriyasining 9 yillik boy ish stajiga ega tajribali laboratoriya shifokori. Toshkent davlat shifokorlar malakasini oshirish institutidagi ixtisoslashuvi unga klinik-biokimyoviy tahlillarni yuqori aniqlik bilan amalga oshirish imkonini beradi.",
-      ru: "Каххорова Шахзода Абдусалимовна — опытный лабораторный врач с 9-летним стажем работы в лаборатории Kani-Lab. Специализация в Ташкентском институте усовершенствования врачей позволяет ей с высокой точностью проводить клинико-биохимические исследования.",
-      tr: "Qaxxorova Shaxzoda Abdusalimovna - Kani-Lab laboratuvarında 9 yıllık zengin iş deneyimine sahip uzman laboratuvar hekimidir. Taşkent Devlet Hekim Geliştirme Enstitüsü uzmanlığı, klinik ve biyokimyasal analizleri yüksek doğrulukla yapmasını sağlamaktadır."
+      uz: "Qaxxorova Shaxzoda Abdusalimovna – Kani-Lab laboratoriyasining 9 yillik boy ish stajiga ega tajribali laboratoriya shifokori. U o‘z faoliyatida tibbiyot va laboratoriya diagnostikasi sohasidagi fundamental bilimlarini amaliyot bilan muvaffaqiyatli uyg‘unlashtirib kelmoqda. Toshkent davlat shifokorlar malakasini oshirish institutidagi ixtisoslashuvi unga klinik-biokimyoviy tahlillarni yuqori aniqlik bilan amalga oshirish imkonini beradi. Shaxzoda Abdusalimovna diagnostika jarayonlarida xalqaro standartlarga rioya qilish, tahlil natijalarini to‘g‘ri talqin qilish va laboratoriya xizmatlari sifatini ta’minlashda yuqori professionallikni namoyon etadi.",
+      ru: "Каххорова Шахзода Абдусалимовна — опытный лабораторный врач с 9-летним стажем работы в лаборатории Kani-Lab. В своей деятельности она успешно сочетает фундаментальные знания в области медицины и лабораторной диагностики с практикой. Специализация в Ташкентском государственном институте усовершенствования врачей позволяет ей выполнять клинико-биохимические исследования с высокой точностью.",
+      tr: "Qaxxorova Shaxzoda Abdusalimovna - Kani-Lab laboratuvarında 9 yıllık zengin iş deneyimine sahip uzman hekimdir. Tıp ve laboratuvar teşhisi alanındaki temel bilgilerini pratikle başarıyla birleştirmektedir. Taşkent Devlet Hekim Geliştirme Enstitüsü uzmanlığı, klinik ve biyokimyasal analizleri yüksek hassasiyetle yapmasını sağlamaktadır."
     },
     photo: shaxzodaImg
   },
@@ -1349,14 +1349,14 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ["Biyokimyasal Analizler", "Laboratuvar Teşhisi", "Numune Hazırlama ve Kalite Kontrolü"]
     },
     grad: {
-      uz: "Termiz Tibbiyot Kolleji",
-      ru: "Термезский медицинский колледж",
-      tr: "Termez Medikal Koleji"
+      uz: "• Kollej: Termiz tibbiyot kolleji (2017–2020).",
+      ru: "• Колледж: Термезский медицинский колледж (2017–2020).",
+      tr: "• Kolej: Termez Medikal Koleji (2017–2020)."
     },
     bio: {
-      uz: "Davronov Asadbek – Kani-Lab laboratoriyasining tajribali biokimyo shifokor laboranti. 2021-yildan buyon laboratoriya diagnostikasi sohasida faoliyat yuritib kelayotgan Asadbek, o‘z ishida yuqori aniqlik va tezkorlikni asosiy tamoyil deb biladi.",
-      ru: "Давронов Асадбек — опытный врач-лаборант биохимии лаборатории Kani-Lab. Работает в сфере лабораторной диагностики с 2021 года, ставя главным приоритетом высокую точность и оперативность проведения исследований.",
-      tr: "Davronov Asadbek - Kani-Lab laboratuvarının deneyimli biyokimya laborantıdır. 2021 yılından bu yana laboratuvar teşhisi alanında çalışan Asadbek, işinde yüksek hassasiyet and hızı ana ilke edinmiştir."
+      uz: "Davronov Asadbek – Kani-Lab laboratoriyasining tajribali biokimyo shifokor laboranti. 2021-yildan buyon laboratoriya diagnostikasi sohasida faoliyat yuritib kelayotgan Asadbek, o‘z ishida yuqori aniqlik va tezkorlikni tamoyil sifatida belgilagan. Tibbiyot kollejida olgan fundamental bilimlarini amaliyot bilan muvaffaqiyatli boyitib, zamonaviy laboratoriya jihozlari bilan ishlashda katta tajriba to‘plagan. U tahlillarni sifatli bajarish, namunalarni to‘g‘ri qayta ishlash va diagnostika jarayonlarida xalqaro standartlarga amal qilish borasida mas’uliyatli mutaxassis hisoblanadi.",
+      ru: "Давронов Асадбек — опытный врач-лаборант биохимии лаборатории Kani-Lab. Работает в сфере лабораторной диагностики с 2021 года, ставя главным приоритетом высокую точность и оперативность. Успешно обогатив фундаментальные знания практикой, он накопил большой опыт работы с современным лабораторным оборудованием.",
+      tr: "Davronov Asadbek - Kani-Lab laboratuvarının deneyimli biyokimya laborant hekimidir. 2021 yılından bu yana laboratuvar teşhisi alanında faaliyet gösteren Asadbek, yüksek hassasiyet ve hızı çalışma ilkesi edinmiştir. Tıp koleji temel bilgilerini pratikle pekiştirerek modern analiz cihazlarıyla çalışma konusunda tecrübe edinmiştir."
     },
     photo: asadbekImg
   },
@@ -1380,14 +1380,14 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ["İmmünolojik Araştırmalar", "Laboratuvar Teşhisi", "Teşhis Kalite Kontrolü"]
     },
     grad: {
-      uz: "Termiz Tibbiyot Kolleji",
-      ru: "Термезский медицинский колледж",
-      tr: "Termez Medikal Koleji"
+      uz: "• Kollej: Termiz tibbiyot kolleji (2017–2020).",
+      ru: "• Колледж: Термезский медицинский колледж (2017–2020).",
+      tr: "• Kolej: Termez Medikal Koleji (2017–2020)."
     },
     bio: {
-      uz: "Amirqulova Zilola – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zilola, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi.",
-      ru: "Амиркулова Зилола — квалифицированный специалист лаборатории Kani-Lab в области иммунологической диагностики. Работает с 2020 года, демонстрируя высокую точность и профессионализм при проведении анализов.",
-      tr: "Amirqulova Zilola - Kani-Lab laboratuvarının immünoloji teşhis alanındaki nitelikli uzmanıdır. 2020 yılından bu yana görev yapan Zilola, immünolojik analizlerde yüksek hassasiyet ve profesyonellik göstermektedir."
+      uz: "Amirqulova Zilola – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zilola, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi. Tibbiyot kollejida olgan fundamental tibbiy bilimlarini amaliyotda samarali qo‘llagan holda, laboratoriya tahlillari sifatini ta’minlash va diagnostika jarayonlarini optimallashtirishda o‘z hissasini qo‘shib kelmoqda. Uning kasbiy faoliyati bemorlar salomatligini aniqlashda laboratoriya tahlillarining o‘rni nechog‘lik muhimligini anglagan holda, mas’uliyat va e’tibor bilan yondashishga asoslangan.",
+      ru: "Амиркулова Зилола — квалифицированный специалист лаборатории Kani-Lab по направлению иммунологической диагностики. Работает с 2020 года, демонстрируя высокий уровень профессионализма при иммунологических исследованиях. Эффективно применяет медицинские знания в практике.",
+      tr: "Amirqulova Zilola - Kani-Lab laboratuvarının immünolojik teşhis alanındaki uzman personellerindendir. 2020 yılından bu yana immünolojik testlerde doğruluk ve profesyonellik göstermektedir. Tıp kolejinde edindiği bilgileri sahada başarıyla uygulamaktadır."
     }
   },
   {
@@ -1410,9 +1410,9 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ["İmmünolojik Araştırmalar", "Laboratuvar Teşhisi", "Teşhis Kalite Kontrolü"]
     },
     grad: {
-      uz: "Termiz Tibbiyot Kolleji",
-      ru: "Термезский медицинский колледж",
-      tr: "Termez Medikal Koleji"
+      uz: "• Kollej: Termiz tibbiyot kolleji (2017–2020).",
+      ru: "• Колледж: Термезский медицинский колледж (2017–2020).",
+      tr: "• Kolej: Termez Medikal Koleji (2017–2020)."
     },
     bio: {
       uz: "Xurramova Zubayda – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zubayda, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi.",
@@ -4233,26 +4233,26 @@ export default function App() {
                     <div className="lg:col-span-5 w-full aspect-[4/5] bg-slate-50 dark:bg-slate-950/80 border border-slate-100 dark:border-slate-800 rounded-3xl flex items-center justify-center relative overflow-hidden group shadow-inner">
                       <div className="absolute inset-0 bg-gradient-to-b from-[#00B4D8]/10 via-transparent to-black/5 pointer-events-none"></div>
                       
-                      <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105 overflow-hidden ${
-                        member.department === 'management' ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-500' :
-                        member.department === 'lab' ? 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500' :
-                        member.department === 'finance' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500' :
-                        member.department === 'service' ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-500' :
-                        'bg-purple-50 dark:bg-purple-950/40 text-purple-500'
-                      }`}>
-                        {member.photo ? (
-                          <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
-                        ) : (
+                      {member.photo ? (
+                        <img src={member.photo} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      ) : (
+                        <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105 ${
+                          member.department === 'management' ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-500' :
+                          member.department === 'lab' ? 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-500' :
+                          member.department === 'finance' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500' :
+                          member.department === 'service' ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-500' :
+                          'bg-purple-50 dark:bg-purple-950/40 text-purple-500'
+                        }`}>
                           <User className="w-16 h-16 md:w-20 md:h-20" />
-                        )}
-                      </div>
+                        </div>
+                      )}
 
                       <div className="absolute top-4 left-4 px-3 py-1 bg-[#00B4D8]/15 text-[#0096C7] dark:text-[#48CAE4] rounded-full text-[10px] font-black uppercase tracking-wider">
                         {getLangText(member.experience)}
                       </div>
                       
-                      <div className="absolute bottom-4 right-4 px-3 py-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl text-[10px] font-black text-slate-700 dark:text-slate-200 border border-slate-100 dark:border-slate-800">
-                        {getLangText(member.grad)}
+                      <div className="absolute bottom-4 right-4 px-3 py-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl text-[10px] font-black text-slate-700 dark:text-slate-200 border border-slate-100 dark:border-slate-800 max-w-[240px] truncate">
+                        {getLangText(member.grad).split('\n')[0].replace('•', '').trim()}
                       </div>
                     </div>
 
@@ -4292,6 +4292,16 @@ export default function App() {
                               {spec}
                             </span>
                           ))}
+                        </div>
+                      </div>
+
+                      {/* Education section in the right panel */}
+                      <div className="border-t border-slate-100 dark:border-slate-800/80 pt-6 mt-6 mb-8">
+                        <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2.5">
+                          {lang === 'uz' ? 'Ta‘lim va malaka' : lang === 'ru' ? 'Образование и квалификация' : 'Eğitim ve Kalifikasyon'}
+                        </h4>
+                        <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium whitespace-pre-line">
+                          {getLangText(member.grad)}
                         </div>
                       </div>
 
