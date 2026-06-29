@@ -1768,74 +1768,11 @@ const NEWS_ITEMS = [
       tr: 'Kani-Lab laboratuvarı faaliyetleri, modern robotik analizörleri ve yüksek teknolojik imkanlarımızı gösteren yeni video.'
     },
     content: {
-      uz: 'Kani-Lab klinikasining yuqori texnologik sharoitlari va unda bajarilayotgan ilg‘or diagnostika jarayonlari tasvirlangan to‘liq video-lavha. Ushbu videoda laboratoriyamizda qo‘llaniladigan eng ilg‘or analizatorlar va jamoamizning kasbiy faoliyati ko‘rsatib o‘tilgan. Siz ushbu video orqali tahlillaringiz qanday sharoitda va qanchalik yuqori aniqlikda tekshirilishini o‘z ko‘zingiz bilan ko‘rishingiz mumkin.',
+      uz: 'Kani-Lab klinikasining yuqori texnologik sharoitlari va unda bajarilayotgan ilg‘or diagnostika jarayonlari tasvirlangan to‘liq video-lavha. Ushbu videoda laboratoriyamizda qo‘llaniladigan eng ilg‘or analizatorlar va jamoamizning kasbiy faoliyati ko‘rsatib o‘tilgan. Siz ushbu video orqali tahlillaringiz qanday sharoitda va qanchelik yuqori aniqlikda tekshirilishini o‘z ko‘zingiz bilan ko‘rishingiz mumkin.',
       ru: 'Полный видеообзор, демонстрирующий высокотехнологичные условия клиники Kani-Lab и передовые процессы диагностики. В этом видео показаны лучшие анализаторы, используемые в нашей лаборатории, и профессиональная деятельность команды. Вы можете лично увидеть, в каких условиях и с какой точностью проводятся ваши анализы.',
       tr: 'Kani-Lab kliniğinin yüksek teknolojik koşullarını ve burada gerçekleştirilen ileri düzey teşhis süreçlerini gösteren kapsamlı video tanıtımı. Bu videoda laboratuvarımızda kullanılan en gelişmiş analizörler ve ekibimizin profesyonel çalışmaları sergilenmektedir. Bu video sayesinde analizlerinizin hangi koşullarda ve ne kadar yüksek hassasiyetle incelendiğini kendi gözlerinizle görebilirsiniz.'
     },
     image: ''
-  },
-  {
-    id: 'news-1',
-    category: 'news',
-    date: '2026-06-25',
-    title: {
-      uz: 'Kani-Lab markaziy laboratoriyasida yangi Mindray analizatori o‘rnatildi',
-      ru: 'В центральной лаборатории Kani-Lab установлен новый анализатор Mindray',
-      tr: 'Kani-Lab merkez laboratuvarında yeni Mindray analizörü kuruldu'
-    },
-    summary: {
-      uz: 'Klinik laboratoriyamiz o‘z imkoniyatlarini kengaytirib, yuqori aniqlikdagi Mindray BS-2000M biokimyoviy analizatorini ishga tushirdi.',
-      ru: 'Наша клиническая лаборатория расширила свои возможности, запустив высокоточный биохимический анализатор Mindray BS-2000M.',
-      tr: 'Klinik laboratuvarımız, yüksek hassasiyetli Mindray BS-2000M biyokimya analizörünü devreye sokarak olanaklarını genişletti.'
-    },
-    content: {
-      uz: 'Aholiga taqdim etilayotgan xizmatlar sifatini oshirish va tahlillarning o‘ta aniqligini ta’minlash maqsadida Kani-Lab markaziy laboratoriyasida Mindray BS-2000M yuqori samarali biokimyoviy analizatori o‘rnatildi. Bu uskuna soatiga 2000 tagacha test bajarish quvvatiga ega bo‘lib, klinikamizga tahlillarni yanada tezroq va xatosiz taqdim etish imkonini beradi. Barcha biokimyoviy tekshiruvlar endilikda to‘liq avtomatlashtirilgan rejimda amalga oshiriladi.',
-      ru: 'В целях повышения качества услуг и обеспечения максимальной точности анализов в центральной лаборатории Kani-Lab установлен высокопроизводительный биохимический анализатор Mindray BS-2000M. Данное оборудование способно выполнять до 2000 тестов в час, что позволяет нашей клинике предоставлять результаты анализов быстрее и точнее. Все биохимические исследования теперь проводятся в полностью автоматическом режиме.',
-      tr: 'Sunulan hizmetlerin kalitesini artırmak ve analizlerin mutlak doğruluğunu sağlamak amacıyla Kani-Lab merkez laboratuvarında yüksek performanslı biyokimya analizörü Mindray BS-2000M kuruldu. Bu cihaz saatte 2000 teste kadar analiz yapma kapasitesine sahip olup, kliniğimizin sonuçları daha hızlı ve hatasız sunmasını sağlamaktadır. Tüm biyokimyasal testler artık tamamen otomatik modda gerçekleştirilmektedir.'
-    },
-    image: mindrayBS2000Img
-  },
-  {
-    id: 'news-2',
-    category: 'news',
-    date: '2026-06-20',
-    title: {
-      uz: 'Surxondaryo viloyati bo‘ylab filiallar tarmog‘imiz 15 taga yetdi',
-      ru: 'Наша сеть филиалов в Сурхандарьинской области достигла 15',
-      tr: "Surhanderya bölgesindeki şube ağımız 15'e ulaştı"
-    },
-    summary: {
-      uz: 'Aholiga yanada yaqinroq bo‘lish maqsadida Surxondaryoning tumanlarida yangi tibbiy diagnostika filiallarimiz faoliyatini boshladi.',
-      ru: 'Для удобства населения в районах Сурхандарьи начали работу наши новые филиалы медицинской диагностики.',
-      tr: "Halka daha yakın olmak amacıyla Surhanderya'nın ilçelerinde yeni tıbbi teşhis şubelerimiz faaliyete başladı."
-    },
-    content: {
-      uz: 'Kani-Lab o‘z qamrovini kengaytirishda davom etmoqda. Endilikda Surxondaryo viloyatining Qiziriq, Sherobod, Angor, Uchqizil, Sho‘rchi, Qumqo‘rg‘on, Jarqo‘rg‘on va Boysun tumanlarida, shuningdek, yirik viloyat shifoxonalari hududlarida jami 15 ta filialimiz mijozlarga xizmat ko‘rsatmoqda. Har bir filialimiz markaziy laboratoriya bilan to‘g‘ridan-to‘g‘ri integratsiya qilingan bo‘lib, tahlillar namunalarini sovuq zanjir talablarida yetkazib berish va natijalarni onlayn taqdim etish tizimi yo‘lga qo‘yilgan.',
-      ru: 'Kani-Lab o‘z qamrovini kengaytirishda davom etmoqda. Endilikda Surxondaryo viloyatining Qiziriq, Sherobod, Angor, Uchqizil, Sho‘rchi, Qumqo‘rg‘on, Jarqo‘rg‘on va Boysun tumanlarida, shuningdek, yirik viloyat shifoxonalari hududlarida jami 15 ta filialimiz mijozlarga xizmat ko‘rsatmoqda. Har bir filialimiz markaziy laboratoriya bilan to‘g‘ridan-to‘g‘ri integratsiya qilingan bo‘lib, tahlillar namunalarini sovuq zanjir talablarida yetkazib berish va natijalarni onlayn taqdim etish tizimi yo‘lga qo‘yilgan.',
-      tr: 'Kani-Lab kapsama alanını genişletmeye devam ediyor. Artık Surhanderya bölgesinin Kızırık, Şerabad, Angor, Üçkızıl, Şurçi, Kumkurgan, Jarkurgan ve Boysun ilçelerinde ve büyük vilayet hastaneleri bünyesinde olmak üzere toplam 15 şubemiz hizmet vermektedir. Her şubemiz merkez laboratuvar ile doğrudan entegre olup, numunelerin soğuk zincir şartlarında taşınması ve sonuçların online teslim edilmesi sistemi kurulmuştur.'
-    },
-    image: markazOldImg
-  },
-  {
-    id: 'news-3',
-    category: 'achievement',
-    date: '2026-06-15',
-    title: {
-      uz: 'Kani-Lab laboratoriyasi xalqaro ISO 9001:2015 sifat sertifikatini oldi',
-      ru: 'Лаборатория Kani-Lab получила международный сертификат качества ISO 9001:2015',
-      tr: 'Kani-Lab laboratuvarı uluslararası ISO 9001:2015 kalite belgesini aldı'
-    },
-    summary: {
-      uz: 'Laboratoriyamiz sifat nazorati tizimi va mijozlarga xizmat ko‘rsatish standartlari xalqaro darajaga muvofiqligi tasdiqlandi.',
-      ru: 'Система контроля качества и стандарты обслуживания нашей лаборатории официально признаны соответствующими международным стандартам.',
-      tr: 'Laboratuvarımızın kalite kontrol sistemi ve hizmet standartlarının uluslararası düzeyde olduğu tescil edildi.'
-    },
-    content: {
-      uz: 'Kani-Lab tibbiy diagnostika laboratoriyasi sifat menejmenti tizimining auditidan muvaffaqiyatli o‘tib, ISO 9001:2015 xalqaro standartiga muvofiqlik sertifikatini qo‘lga kiritdi. Bu sertifikat klinikamizda reaktivlar saqlanishidan tortib, test natijalarini rasmiylashtirishgacha bo‘lgan barcha jarayonlar jahon andozalari asosida nazorat qilinishini kafolatlaydi. Biz mijozlarimizga faqat eng yaxshi va eng ishonchli xizmatlarni taqdim etishga intilamiz.',
-      ru: 'Медицинская лаборатория Kani-Lab успешно прошла аудит системы менеджмента качества и получила международный сертификат ISO 9001:2015. Этот сертификат гарантирует, что все процессы в нашей лаборатории — от хранения реагентов до выдачи результатов тестов — контролируются по мировым стандартам. Мы стремимся предоставлять только лучшие и самые надежные услуги.',
-      tr: 'Kani-Lab tibbiy teşhis laboratuvarı, kalite yönetim sistemi denetiminden başarıyla geçerek uluslararası ISO 9001:2015 standardına uygunluk belgesini almaya hak kazandı. Bu sertifika, laboratuvarımızda reaktiflerin depolanmasından test sonuçlarının raporlanmasına kadar tüm süreçlerin dünya standartlarında kontrol edildiğini garanti etmektedir.'
-    },
-    image: cert3Img
   },
   {
     id: 'news-video-1',
