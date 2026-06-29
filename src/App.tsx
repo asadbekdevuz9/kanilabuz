@@ -13,8 +13,6 @@ import {
 // ==========================================
 
 import { TestItem, LABORATORY_TESTS } from './testsData';
-import { toPng } from 'html-to-image';
-import { jsPDF } from 'jspdf';
 import Typed from 'typed.js';
 
 import kaniLabLogoImg from './assets/images/logo.png';
@@ -2099,6 +2097,9 @@ export default function App() {
   const handleSendToTelegram = async () => {
     setIsSendingTelegram(true);
     try {
+      const { toPng: _toPng } = await import('html-to-image');
+      const { jsPDF: _jsPDF } = await import('jspdf');
+
       const ticketElement = document.getElementById('printable-ticket');
       if (!ticketElement) {
         console.error("Printable ticket element not found!");
@@ -2107,7 +2108,7 @@ export default function App() {
       }
 
       // Lower pixelRatio = smaller file size
-      const dataUrl = await toPng(ticketElement, { 
+      const dataUrl = await _toPng(ticketElement, { 
         pixelRatio: 1.5,
         style: { margin: '0' },
         quality: 0.8,
@@ -2120,7 +2121,7 @@ export default function App() {
       await new Promise((resolve) => { img.onload = resolve; });
 
       // Use A5-like portrait size in mm for compact output
-      const pdf = new jsPDF({
+      const pdf = new _jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: [80, 200]  // receipt width 80mm
@@ -2204,10 +2205,13 @@ export default function App() {
         await new Promise(resolve => setTimeout(resolve, 800));
         
         try {
+          const { toPng: _toPng } = await import('html-to-image');
+          const { jsPDF: _jsPDF } = await import('jspdf');
+
           const ticketElement = document.getElementById('printable-ticket');
           if (!ticketElement) return;
 
-          const dataUrl = await toPng(ticketElement, { 
+          const dataUrl = await _toPng(ticketElement, { 
             pixelRatio: 1.5,
             style: { margin: '0' },
             quality: 0.8,
@@ -2219,7 +2223,7 @@ export default function App() {
           img.src = dataUrl;
           await new Promise((resolve) => { img.onload = resolve; });
 
-          const pdf = new jsPDF({
+          const pdf = new _jsPDF({
             orientation: 'portrait',
             unit: 'mm',
             format: [80, 200]
@@ -3374,7 +3378,7 @@ export default function App() {
         {/* Background Image with Dark Overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
           <img 
-            src={markazOldImg} 
+            loading="lazy" src={markazOldImg} 
             alt="KANILAB Markaz" 
             className="w-full h-full object-cover object-center opacity-80"
           />
@@ -3659,7 +3663,7 @@ export default function App() {
               <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col group/partner">
                 <div className="relative h-44 overflow-hidden bg-slate-200 dark:bg-slate-900">
                   <img 
-                    src={termizUnivImg} 
+                    loading="lazy" src={termizUnivImg} 
                     alt="Termiz State University Campus" 
                     className="w-full h-full object-cover group-hover/partner:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
@@ -3681,7 +3685,7 @@ export default function App() {
               <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col group/partner">
                 <div className="relative h-44 overflow-hidden bg-slate-200 dark:bg-slate-900">
                   <img 
-                    src={tashkentMedicalImg} 
+                    loading="lazy" src={tashkentMedicalImg} 
                     alt="Tashkent Medical Academy Termiz Branch" 
                     className="w-full h-full object-cover group-hover/partner:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
@@ -4365,7 +4369,7 @@ export default function App() {
                       <div className="absolute inset-0 bg-gradient-to-b from-[#00B4D8]/10 via-transparent to-black/5 pointer-events-none"></div>
                       
                       {member.photo ? (
-                        <img src={member.photo} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <img loading="lazy" src={member.photo} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                       ) : (
                         <div className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105 ${
                           member.department === 'management' ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-500' :
