@@ -4013,10 +4013,10 @@ export default function App() {
                       {lang === 'uz' ? 'Xodim topilmadi' : lang === 'ru' ? 'Сотрудник не найден' : 'Personel Bulunamadı'}
                     </h3>
                     <button 
-                      onClick={() => { window.location.hash = '/team'; }}
+                      onClick={() => { setActiveTab('home'); window.location.hash = 'home'; }}
                       className="px-5 py-2.5 bg-[#00B4D8] text-white rounded-xl font-bold text-xs shadow-md transition-all hover:bg-[#0096C7]"
                     >
-                      {lang === 'uz' ? 'Jamoa sahifasiga qaytish' : lang === 'ru' ? 'Вернуться к команде' : 'Ekip Sayfasına Dön'}
+                      {lang === 'uz' ? 'Bosh sahifaga qaytish' : lang === 'ru' ? 'На главную' : 'Ana Sayfaya Dön'}
                     </button>
                   </div>
                 );
@@ -4033,11 +4033,11 @@ export default function App() {
                 <div className="max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-300">
                   {/* Back Button */}
                   <button 
-                    onClick={() => { window.location.hash = '/team'; }}
+                    onClick={() => { setActiveTab('home'); window.location.hash = 'home'; }}
                     className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] font-bold text-xs mb-8 transition-colors group focus:outline-none"
                   >
                     <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                    <span>{lang === 'uz' ? 'Jamoa sahifasiga qaytish' : lang === 'ru' ? 'Назад к списку' : 'Ekip Listesine Geri Dön'}</span>
+                    <span>{lang === 'uz' ? 'Bosh sahifaga qaytish' : lang === 'ru' ? 'На главную' : 'Ana Sayfaya Dön'}</span>
                   </button>
 
                   {/* Isolated Profile Layout */}
