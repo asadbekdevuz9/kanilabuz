@@ -1493,6 +1493,8 @@ const LABORANTS = [
   }
 ];
 
+
+
 // ==========================================
 // CORE APP COMPONENT
 
@@ -1888,6 +1890,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms' | 'news' | 'gallery'>('home');
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
+  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
   const [newsLightboxSrc, setNewsLightboxSrc] = useState<string | null>(null);
   const [selectedTeamDept, setSelectedTeamDept] = useState<string>('management');
   const [isMobileTeamOpen, setIsMobileTeamOpen] = useState<boolean>(false);
@@ -5035,32 +5038,60 @@ export default function App() {
               {/* Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {sortedNews.map(item => {
+                  const isPlaying = playingVideoId === item.id;
                   const imageSrc = item.youtubeId ? "https://img.youtube.com/vi/" + item.youtubeId + "/hqdefault.jpg" : item.image;
                   return (
                     <div 
                       key={item.id} 
                       className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
-                      onClick={() => setSelectedNewsId(item.id)}
+                      onClick={() => {
+                        if (item.youtubeId) {
+                          setPlayingVideoId(isPlaying ? null : item.id);
+                        } else {
+                          setSelectedNewsId(item.id);
+                        }
+                      }}
                     >
-                      <div className="h-56 overflow-hidden relative">
-                        <img 
-                          loading="lazy"
-                          src={imageSrc} 
-                          alt={getLangText(item.title)} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        {item.youtubeId && (
-                          <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center group-hover:bg-slate-950/40 transition-all duration-300">
-                            <div className="w-14 h-14 bg-white/90 dark:bg-slate-900/90 text-[#00B4D8] rounded-full flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-transform duration-300 border border-cyan-400/20">
-                              <svg className="w-5 h-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z" />
-                              </svg>
-                            </div>
+                      <div className="aspect-video w-full relative overflow-hidden bg-black shrink-0">
+                        {isPlaying ? (
+                          <div className="w-full h-full">
+                            <iframe 
+                              className="w-full h-full border-none"
+                              src={"https://www.youtube.com/embed/" + item.youtubeId + "?autoplay=1"}
+                              title={getLangText(item.title)}
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            ></iframe>
+                            <button
+                              type="button"
+                              onClick={(e) => { e.stopPropagation(); setPlayingVideoId(null); }}
+                              className="absolute top-3 right-3 p-1.5 bg-slate-950/70 hover:bg-slate-950 text-white rounded-full transition-colors z-10"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
                           </div>
+                        ) : (
+                          <>
+                            <img 
+                              loading="lazy"
+                              src={imageSrc} 
+                              alt={getLangText(item.title)} 
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            {item.youtubeId && (
+                              <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center group-hover:bg-slate-950/40 transition-all duration-300">
+                                <div className="w-14 h-14 bg-white/90 dark:bg-slate-900/90 text-[#00B4D8] rounded-full flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-transform duration-300 border border-cyan-400/20">
+                                  <svg className="w-5 h-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                  </svg>
+                                </div>
+                              </div>
+                            )}
+                            <div className="absolute top-4 left-4 px-3 py-1 bg-cyan-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
+                              {item.category === 'video' ? (lang === 'uz' ? 'Video' : lang === 'ru' ? 'Видео' : 'Video') : item.category === 'news' ? (lang === 'uz' ? 'Yangilik' : lang === 'ru' ? 'Новость' : 'Haber') : (lang === 'uz' ? 'Yutuq' : lang === 'ru' ? 'Достижение' : 'Başarı')}
+                            </div>
+                          </>
                         )}
-                        <div className="absolute top-4 left-4 px-3 py-1 bg-cyan-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
-                          {item.category === 'video' ? (lang === 'uz' ? 'Video' : lang === 'ru' ? 'Видео' : 'Video') : item.category === 'news' ? (lang === 'uz' ? 'Yangilik' : lang === 'ru' ? 'Новость' : 'Haber') : (lang === 'uz' ? 'Yutuq' : lang === 'ru' ? 'Достижение' : 'Başarı')}
-                        </div>
                       </div>
                       <div className="p-6 flex-1 flex flex-col justify-between">
                         <div>
@@ -5077,11 +5108,41 @@ export default function App() {
                         </div>
                         <button
                           type="button"
-                          onClick={(e) => { e.stopPropagation(); setSelectedNewsId(item.id); }}
-                          className="w-full py-3 bg-slate-50 dark:bg-slate-800/50 hover:bg-[#00B4D8]/10 text-[#0096C7] dark:text-[#48CAE4] hover:text-[#0087A3] text-xs font-black rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (item.youtubeId) {
+                              setPlayingVideoId(isPlaying ? null : item.id);
+                            } else {
+                              setSelectedNewsId(item.id);
+                            }
+                          }}
+                          className={`w-full py-3 text-xs font-black rounded-xl transition-colors flex items-center justify-center gap-1.5 ${
+                            isPlaying
+                              ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/20'
+                              : 'bg-slate-50 dark:bg-slate-800/50 hover:bg-[#00B4D8]/10 text-[#0096C7] dark:text-[#48CAE4] hover:text-[#0087A3]'
+                          }`}
                         >
-                          {item.category === 'video' ? (lang === 'uz' ? 'Videoni tomosha qilish' : lang === 'ru' ? 'Смотреть видео' : 'Videoyu İzle') : (lang === 'uz' ? 'Batafsil o‘qish' : lang === 'ru' ? 'Подробнее' : 'Detaylı Oku')}
-                          <ChevronRight className="w-4 h-4" />
+                          {item.youtubeId ? (
+                            isPlaying ? (
+                              <>
+                                <span className="relative flex h-2 w-2">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                                </span>
+                                {lang === 'uz' ? 'Hozir ijro etilmoqda' : lang === 'ru' ? 'Сейчас играет' : 'Şimdi oynatılıyor'}
+                              </>
+                            ) : (
+                              <>
+                                {lang === 'uz' ? 'Videoni tomosha qilish' : lang === 'ru' ? 'Смотреть видео' : 'Videoyu İzle'}
+                                <ChevronRight className="w-4 h-4" />
+                              </>
+                            )
+                          ) : (
+                            <>
+                              {lang === 'uz' ? 'Batafsil o‘qish' : lang === 'ru' ? 'Подробнее' : 'Detaylı Oku'}
+                              <ChevronRight className="w-4 h-4" />
+                            </>
+                          )}
                         </button>
                       </div>
                     </div>
