@@ -3812,7 +3812,7 @@ export default function App() {
                     { 
                       icon: <Database className="w-5 h-5" />, 
                       title: lang === 'uz' ? 'Katta qamrov' : lang === 'ru' ? 'Широкий охват' : 'Geniş Kapsam', 
-                      desc: lang === 'uz' ? '1000+ turdagi tahlillar' : lang === 'ru' ? 'Более 1000 видов анализов' : '1000+ çeşit analiz' 
+                      desc: lang === 'uz' ? '180+ turdagi tahlillar' : lang === 'ru' ? 'Более 180 видов анализов' : '180+ çeşit analiz' 
                     }
                   ].map((feat, i) => (
                     <div key={i} className="p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col gap-3 hover:shadow-md transition-shadow">
@@ -3829,7 +3829,7 @@ export default function App() {
 
                 <div className="p-6 mt-2 bg-gradient-to-r from-slate-900 to-[#0A192F] dark:from-slate-950 dark:to-slate-900 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                   <div>
-                    <div className="text-3xl font-black text-white">500,000+</div>
+                    <div className="text-3xl font-black text-white">50,000+</div>
                     <div className="text-xs font-bold text-cyan-400 uppercase tracking-widest mt-1">
                       {lang === 'uz' ? 'Yillik tahlillar soni' : lang === 'ru' ? 'Анализов в год' : 'Yıllık Analiz Sayısı'}
                     </div>
