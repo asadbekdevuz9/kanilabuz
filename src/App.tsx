@@ -1212,9 +1212,9 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ['Dijital Pazarlama', 'Müşteri İlişkileri', 'PR ve Markalaşma']
     },
     grad: {
-      uz: "• Ma’lumoti: Toshkent Axborot Texnologiyalari Universiteti.\n• Ish tajribasi: 1 yil \"Nurafshon Binokor\" tashkilotida moddiy buxgalter.",
-      ru: "• Образование: Ташкентский университет информационных технологий.\n• Опыт работы: 1 год бухгалтером материального учета в компании \"Нурафшон Бинокор\".",
-      tr: "• Eğitim: Taşkent Bilgi Teknolojileri Üniversitesi.\n• İş Deneyimi: \"Nurafşon Binokor\" firmasında 1 yıl maddi muhasebeci."
+      uz: "• Ma’lumoti: Termiz Iqtisodiyot va Servis Universiteti.\n• Ish tajribasi: 1 yil \"Nurafshon Binokor\" tashkilotida moddiy buxgalter.",
+      ru: "• Образование: Термезский университет экономики и сервиса.\n• Опыт работы: 1 год бухгалтером материального учета в компании \"Нурафшон Бинокор\".",
+      tr: "• Eğitim: Termez Ekonomi ve Servis Üniversitesi.\n• İş Deneyimi: \"Nurafşon Binokor\" firmasında 1 yıl maddi muhasebeci."
     },
     bio: {
       uz: "Alikulova Farangiz – Kani-Lab laboratoriyasining marketing yo‘nalishidagi g‘ayratli mutaxassisi. 2025-yildan buyon laboratoriyamiz jamoasida faoliyat yuritib, brendni ommalashtirish va mijozlarga xizmat ko‘rsatish sifatini oshirish strategiyalarini muvaffaqiyatli ishlab chiqmoqda. U avvalgi faoliyatida \"Nurafshon Binokor\" tashkilotida moddiy buxgalter sifatida ishlagan bo‘lib, moliyaviy hisob-kitoblar va resurslarni boshqarish bo‘yicha boy tajribaga ega. Farangiz o‘zining analitik yondashuvi hamda marketing strategiyalarini birlashtirgan holda Kani-Lab laboratoriyasining rivojlanishiga katta hissa qo‘shib kelmoqda.",
