@@ -36,6 +36,10 @@ import asadbekImg from "./assets/images/Davronov Asadbek.jpg";
 import yasminaImg from "./assets/images/Turopova Yasmina.jpg";
 import yusufbekImg from "./assets/images/Davronov Yusufbek.jpg";
 import farangizImg from "./assets/images/Alikulova Farangiz.jpg";
+import terdu1Img from "./assets/images/TerDU/TerDU-1.jpg";
+import terdu2Img from "./assets/images/TerDU/TerDU-2.jpg";
+import terdu3Img from "./assets/images/TerDU/TerDU-3.jpg";
+import terdu4Img from "./assets/images/TerDU/TerDU-4.jpg";
 
 const sertifikatImg = cert3Img;
 
@@ -1816,63 +1820,63 @@ const NEWS_ITEMS = [
 const GALLERY_ITEMS = [
   {
     id: 'gal-1',
-    category: 'laboratory',
+    category: 'collaboration',
     title: {
-      uz: 'Markaziy laboratoriya binosi',
-      ru: 'Здание центральной лаборатории',
-      tr: 'Merkez laboratuvar binası'
+      uz: 'Seminar va nazariy o‘quv mashg‘ulotlari',
+      ru: 'Семинары и теоретические занятия',
+      tr: 'Seminerler ve teorik eğitimler'
     },
-    image: markazOldImg
+    description: {
+      uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
+      ru: 'Кадры с теоретических и семинарских занятий для студентов-биологов Термезского государственного университета',
+      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen teorik seminerlerden bir kare'
+    },
+    image: terdu4Img
   },
   {
     id: 'gal-2',
-    category: 'equipment',
+    category: 'collaboration',
     title: {
-      uz: 'Roche Cobas 6000 tahlil tizimi',
-      ru: 'Аналитическая система Roche Cobas 6000',
-      tr: 'Roche Cobas 6000 analiz sistemi'
+      uz: 'Laboratoriya tahlillari bo‘yicha seminar',
+      ru: 'Семинар по лабораторным анализам',
+      tr: 'Laboratuvar analizleri üzerine seminer'
     },
-    image: rocheCobasImg
+    description: {
+      uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
+      ru: 'Кадры с практических занятий для студентов биологического направления Термезского государственного университета',
+      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen pratik derslerden bir kare'
+    },
+    image: terdu1Img
   },
   {
     id: 'gal-3',
-    category: 'equipment',
+    category: 'collaboration',
     title: {
-      uz: 'Bio-Rad PCR CFX Connect analizatori',
-      ru: 'ПЦР-анализатор Bio-Rad CFX Connect',
-      tr: 'Bio-Rad PCR CFX Connect analizörü'
+      uz: 'Amaliy laboratoriya mashg‘ulotlari',
+      ru: 'Практические лабораторные занятия',
+      tr: 'Pratik laboratuvar uygulamaları'
     },
-    image: bioradPcrImg
+    description: {
+      uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
+      ru: 'Студенты биологического факультета ТерГУ во время выполнения практических лабораторных работ',
+      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencilerinin laboratuvardaki pratik çalışma anları'
+    },
+    image: terdu3Img
   },
   {
     id: 'gal-4',
-    category: 'team',
+    category: 'collaboration',
     title: {
-      uz: 'Laborantlar ish jarayoni',
-      ru: 'Рабочий процесс лаборантов',
-      tr: 'Laborantların çalışma süreci'
+      uz: 'Tibbiy diagnostika bo‘yicha mahorat darslari',
+      ru: 'Мастер-классы по медицинской диагностике',
+      tr: 'Tıbbi teşhis üzerine atölye çalışmaları'
     },
-    image: yasminaImg
-  },
-  {
-    id: 'gal-5',
-    category: 'equipment',
-    title: {
-      uz: 'Mindray BS-2000M biokimyo analizatori',
-      ru: 'Биохимический анализатор Mindray BS-2000M',
-      tr: 'Mindray BS-2000M biyokimya analizörü'
+    description: {
+      uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
+      ru: 'Проведение мастер-классов по методам современной медицинской диагностики для будущих специалистов',
+      tr: 'Geleceğin uzmanlarına modern tıbbi teşhis yöntemleri üzerine uygulamalı eğitim verilmesi'
     },
-    image: mindrayBS2000Img
-  },
-  {
-    id: 'gal-6',
-    category: 'team',
-    title: {
-      uz: 'Sifat nazorati va sertifikatlarimiz',
-      ru: 'Контроль качества и наши сертификаты',
-      tr: 'Kalite kontrol ve sertifikalarımız'
-    },
-    image: cert1Img
+    image: terdu2Img
   }
 ];
 
@@ -5079,14 +5083,14 @@ export default function App() {
             {/* Header */}
             <div className="flex flex-col items-center text-center gap-2 mb-12">
               <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
-                <Image className="w-4 h-4" />
-                {lang === 'uz' ? 'FOTOGALERIYA' : lang === 'ru' ? 'ФОТОГАЛЕРЕЯ' : 'FOTO GALERİ'}
+                <Sparkles className="w-4 h-4" />
+                {lang === 'uz' ? 'ILMIY-AMALIY HAMKORLIK' : lang === 'ru' ? 'НАУЧНО-ПРАКТИЧЕСКОЕ СОТРУДНИЧЕСТВО' : 'BİLİMSEL VE PRATİK İŞBİRLİĞİ'}
               </span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                {lang === 'uz' ? 'Ish jarayonimizdan fotolavhalar' : lang === 'ru' ? 'Фотохроника рабочего процесса' : 'Çalışma sürecimizden kareler'}
+                {lang === 'uz' ? 'Ilmiy-amaliy hamkorlik jarayonlari' : lang === 'ru' ? 'Научно-практическое сотрудничество' : 'Bilimsel ve Pratik İşbirliği Süreçleri'}
               </h2>
               <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                {lang === 'uz' ? 'Laboratoriyamizning shinam binolari, zamonaviy jihozlari va professional jamoamiz' : lang === 'ru' ? 'Наши лаборатории, современное оборудование и профессиональная команда в объективе' : 'Laboratuvarımız, modern cihazlarımız ve profesyonel ekibimiz kadrajda'}
+                {lang === 'uz' ? 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan mashg‘ulotlardan lavhalar' : lang === 'ru' ? 'Кадры с практических занятий для студентов биологического направления Термезского государственного университета' : 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen pratik derslerden kareler'}
               </p>
             </div>
 
@@ -5098,7 +5102,7 @@ export default function App() {
                   className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
                   onClick={() => setNewsLightboxSrc(item.image)}
                 >
-                  <div className="h-64 overflow-hidden relative">
+                  <div className="h-72 overflow-hidden relative">
                     <img 
                       loading="lazy"
                       src={item.image} 
@@ -5112,13 +5116,16 @@ export default function App() {
                       </div>
                     </div>
                     {/* Caption */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-950/80 to-transparent">
-                      <span className="text-[10px] text-cyan-300 font-bold uppercase tracking-wider block mb-1">
-                        {item.category === 'laboratory' ? (lang === 'uz' ? 'Laboratoriya' : 'Лаборатория') : item.category === 'equipment' ? (lang === 'uz' ? 'Uskuna' : 'Оборудование') : (lang === 'uz' ? 'Jamoa' : 'Команда')}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-transparent flex flex-col justify-end pt-20">
+                      <span className="text-[9px] text-cyan-400 font-black uppercase tracking-widest block mb-1.5">
+                        {lang === 'uz' ? 'TerDU hamkorligi' : lang === 'ru' ? 'Сотрудничество с ТерГУ' : 'TerDU İşbirliği'}
                       </span>
-                      <h4 className="text-sm font-bold text-white line-clamp-1 leading-snug">
+                      <h4 className="text-sm font-black text-white leading-tight">
                         {getLangText(item.title)}
                       </h4>
+                      <p className="text-[11px] text-slate-300/90 mt-1 line-clamp-2 leading-relaxed font-semibold">
+                        {getLangText(item.description)}
+                      </p>
                     </div>
                   </div>
                 </div>
