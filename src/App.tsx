@@ -2788,7 +2788,89 @@ export default function App() {
             </div>
           </div>
           {/* Scrollable nav content */}
-          <div className="flex flex-col gap-4 px-4 py-4 overflow-y-auto flex-1">
+          <div className="flex flex-col gap-4 px-4 py-6 overflow-y-auto flex-1">
+
+            {/* Nav Links */}
+            <div className="flex flex-col gap-1 font-semibold">
+              <button 
+                onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'home' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{t.navHome}</button>
+
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+                  className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold flex items-center justify-between ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+                >
+                  <span>{t.navAbout}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMobileAboutOpen ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                </button>
+                {isMobileAboutOpen && (
+                  <div className="pl-4 flex flex-col gap-1 mt-1 ml-4 border-l-2 border-cyan-200 dark:border-cyan-900">
+                    {[
+                      { tab: 'about', label: t.navAboutUs },
+                      { tab: 'about-history', label: t.navAboutHistory },
+                      { tab: 'about-values', label: t.navAboutValues },
+                      { tab: 'about-mission', label: t.navAboutMission }
+                    ].map(item => (
+                      <button key={item.tab}
+                        onClick={() => { setActiveTab(item.tab as any); setIsMobileMenuOpen(false); }}
+                        className={`text-left px-3 py-2 text-sm rounded-lg ${activeTab === item.tab ? 'text-[#00B4D8] font-bold' : 'text-slate-600 dark:text-slate-400 hover:text-[#00B4D8]'}`}
+                      >{item.label}</button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button 
+                onClick={() => { setActiveTab('services'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'services' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{t.navServices}</button>
+
+              <button 
+                onClick={() => { setActiveTab('doctors'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'doctors' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{t.navTeam}</button>
+
+              <button 
+                onClick={() => { setActiveTab('faq'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'faq' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{t.navFAQ}</button>
+
+              <button 
+                onClick={() => { setActiveTab('contact'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'contact' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{t.navContact}</button>
+            </div>
+
+            <div className="h-px bg-slate-200 dark:bg-slate-800" />
+
+            <div className="p-4 bg-slate-100 dark:bg-slate-900 rounded-2xl flex flex-col gap-3">
+              <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                {lang === 'uz' ? 'MULOQOT TARMOQLARI' : lang === 'ru' ? 'КОНТАКТНЫЕ НОМЕРА' : 'İletişim'}
+              </div>
+              <a href="tel:+998900751234" className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 hover:text-[#00B4D8]">
+                <Phone className="w-4 h-4 text-[#00B4D8]" /><span>+998 90 075 12 34</span>
+              </a>
+              <a href="tel:+998781501234" className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 hover:text-[#00B4D8]">
+                <Phone className="w-4 h-4 text-[#00B4D8]" /><span>+998 78 150 12 34</span>
+              </a>
+            </div>
+
+            <div className="flex flex-col gap-3 pb-6">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); startEmptyBooking(); }} 
+                className="w-full py-4 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-2xl text-sm font-black flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
+              >
+                <Calendar className="w-5 h-5" /><span>{t.btnBook}</span>
+              </button>
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); setIsCheckModalOpen(true); }} 
+                className="w-full py-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white rounded-2xl text-sm font-black flex items-center justify-center gap-2"
+              >
+                <Search className="w-5 h-5" /><span>{lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturai̇ Kontrol Et'}</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
