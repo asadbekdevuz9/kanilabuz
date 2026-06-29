@@ -1896,9 +1896,9 @@ const GALLERY_ITEMS = [
       tr: 'Görkemli açılış töreni: KANI-LAB yeni fırsatlara doğru'
     },
     description: {
-      uz: 'KANI-LAB laboratoriyasining navbatdagi ixtisoslashgan dermatologiya va tanosil kasalliklari diagnostikasi bo‘limi ochilish marosimidan lavhalar.',
-      ru: 'Кадры с торжественной церемонии открытия нового специализированного отделения дерматологии и венерологии KANI-LAB.',
-      tr: 'KANI-LAB laboratuvarının yeni uzmanlaşmış dermatoloji ve zührevi hastalıklar teşhis bölümünün açılış töreninden görüntüler.'
+      uz: 'KANI-LAB laboratoriyasining Respublika ixtisoslashtirilgan dermatovenerologiya va kosmetologiya ilmiy-amaliy tibbiyot markazi Surxondaryo viloyat filialidagi qon olish shahobchasi tantanali ochilish marosimidan lavhalar.',
+      ru: 'Кадры с торжественной церемонии открытия пункта забора крови KANI-LAB в Сурхандарьинском областном филиале Республиканского специализированного научно-практического медицинского центра дерматовенерологии и косметологии.',
+      tr: 'Cumhuriyet Dermatoveneroloji ve Kozmetoloji Uzmanlık Bilimsel ve Pratik Tıp Merkezi Surhanderya bölge şubesinde KANI-LAB kan alma biriminin görkemli açılış töreninden görüntüler.'
     },
     image: tanosil1Img
   },
@@ -1911,9 +1911,9 @@ const GALLERY_ITEMS = [
       tr: 'Geleneksel kırmızı kurdele kesildi: yeni bölüm resmen faaliyete başladı'
     },
     description: {
-      uz: 'Tasmalar kesilib, yangi dermatologiya va tanosil diagnostika laboratoriyamiz rasman o‘z faoliyatini boshlagan lahzalar.',
-      ru: 'Момент разрезания ленты, символизирующий официальный запуск нашей новой дермато-венерологической лаборатории.',
-      tr: 'Kırmızı kurdele kesilerek yeni dermatoloji ve zührevi teşhis laboratuvarımızın resmen faaliyete başladığı o anlar.'
+      uz: 'Tasmalar kesilib, Respublika dermatovenerologiya va kosmetologiya markazi filialida yangi qon olish shahobchamiz faoliyati rasman boshlangan lahzalar.',
+      ru: 'Момент разрезания ленты, символизирующий официальный запуск нашего нового пункта забора крови в филиале Республиканского центра дерматовенерологии и косметологии.',
+      tr: 'Kurdele kesilerek Cumhuriyet Dermatoveneroloji ve Kozmetoloji Merkezi şubesinde yeni kan alma birimimizin resmen faaliyete başladığı anlar.'
     },
     image: tanosil2Img
   },
@@ -1926,9 +1926,9 @@ const GALLERY_ITEMS = [
       tr: 'İlk iş günleri: uzmanlarımız davetli misafirler ve meslektaşları ile birlikte'
     },
     description: {
-      uz: 'Yangi ochilgan bo‘limimizda mutaxassislarimiz tashrif buyurgan shifokorlar va mehmonlar bilan ish jarayonlari haqida suhbatda.',
-      ru: 'Наши специалисты беседуют с приглашенными врачами и гостями о рабочих процессах нового отделения.',
-      tr: 'Uzmanlarımızın, yeni açılan bölümümüzde davetli doktorlar ve misafirlerle çalışma süreçleri hakkında sohbeti.'
+      uz: 'Mutaxassislarimiz yangi ochilgan qon olish shahobchasida hamkor shifokorlar va mehmonlar bilan birinchi ish kunida.',
+      ru: 'Наши специалисты с врачами-партнерами и гостями в первый рабочий день в новом пункте забора крови.',
+      tr: 'Uzmanlarımızın, yeni açılan kan alma biriminde ortak doktorlar ve misafirler ile ilk iş gününden bir kare.'
     },
     image: tanosil3Img
   },
@@ -1936,14 +1936,14 @@ const GALLERY_ITEMS = [
     id: 'gal-8',
     category: 'opening',
     title: {
-      uz: 'Hujjatlashtirish jarayoni: sifatli xizmat ko‘rsatish uchun barcha texnik tayyorgarlik ta’minlangan',
-      ru: 'Процесс документирования: обеспечена техническая подготовка для качественного обслуживания',
-      tr: 'Belgelendirme süreci: kaliteli hizmet için tüm teknik hazırlıklar tamamlandı'
+      uz: 'Sifatli xizmat ko‘rsatish uchun barcha texnik tayyorgarlik ta’minlangan',
+      ru: 'Обеспечена техническая подготовка для качественного обслуживания',
+      tr: 'Kaliteli hizmet için tüm teknik hazırlıklar tamamlandı'
     },
     description: {
-      uz: 'Dermatologik tahlillar va ro‘yxatga olish jarayonlari uchun barcha texnik jihozlar va hujjatlar shay holatga keltirilgan.',
-      ru: 'Все техническое оборудование и документация подготовлены для проведения дерматологических анализов и регистрации.',
-      tr: 'Dermatolojik testler ve kayıt işlemleri için tüm teknik donanım ve belgeler hazır hale getirilmiştir.'
+      uz: 'Bemorlarni ro‘yxatga olish, tahlil namunalarini rasmiylashtirish va xavfsiz qon olish uchun barcha shart-sharoitlar shay holatga keltirilgan.',
+      ru: 'Обеспечены все технические условия для регистрации пациентов, оформления образцов анализов и безопасного забора крови.',
+      tr: 'Hastalardan numunelerin güvenli alınması, kaydı ve analize hazırlanması için tüm teknik ve hijyenik altyapı hazır durumdadır.'
     },
     image: tanosil4Img
   }
@@ -5281,7 +5281,7 @@ export default function App() {
                       : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  {lang === 'uz' ? 'Tantanali ochilish (2022)' : lang === 'ru' ? 'Торжественное открытие (2022)' : 'Görkemli Açılış (2022)'}
+                  {lang === 'uz' ? 'Qon olish shahobchasi (2022)' : lang === 'ru' ? 'Пункт забора крови (2022)' : 'Kan Alma Birimi (2022)'}
                 </button>
               </div>
 
@@ -5311,7 +5311,7 @@ export default function App() {
                         <span className="text-[9px] text-cyan-400 font-black uppercase tracking-widest block mb-1.5">
                           {item.category === 'collaboration' 
                             ? (lang === 'uz' ? 'TerDU hamkorligi' : lang === 'ru' ? 'Сотрудничество с ТерГУ' : 'TerDU İşbirliği')
-                            : (lang === 'uz' ? 'Tantanali ochilish' : lang === 'ru' ? 'Торжественное открытие' : 'Açılış Töreni')}
+                            : (lang === 'uz' ? 'Qon olish shahobchasi' : lang === 'ru' ? 'Пункт забора крови' : 'Kan Alma Birimi')}
                         </span>
                         <h4 className="text-sm font-black text-white leading-tight">
                           {getLangText(item.title)}
