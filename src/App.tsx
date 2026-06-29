@@ -5828,7 +5828,7 @@ export default function App() {
                 },
                 { 
                   name: 'Facebook', 
-                  url: '#', 
+                  url: 'https://www.facebook.com/kanilabuzb', 
                   icon: (
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M9.101 23.6h4.8V11.2h3.2l.4-3.6h-3.6V5.3c0-1 .3-1.7 1.7-1.7h1.9V.4C17.101.3 15.601.2 14.001.2c-3.3 0-5.6 2-5.6 5.8v2.6H5.301v3.6h3.1v11.4z"/>
@@ -5837,7 +5837,7 @@ export default function App() {
                 },
                 { 
                   name: 'YouTube', 
-                  url: '#', 
+                  url: 'http://www.youtube.com/@Kani-Lab_Offical', 
                   icon: (
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
