@@ -1441,7 +1441,7 @@ export default function App() {
         setSelectedTeamMemberId(memberId);
       } else if (hash === '#/team') {
         setActiveTab('doctors');
-        setSelectedTeamMemberId('salih');
+        setSelectedTeamMemberId(null);
         setSelectedTeamDept('management');
       } else {
         const tab = hash.replace('#', '');
@@ -2443,19 +2443,9 @@ export default function App() {
                       <button 
                         key={dept.id}
                         onMouseEnter={() => setHoveredMenuDept(dept.id)}
-                        onClick={() => {
-                          setActiveTab('doctors');
-                          setSelectedTeamDept(dept.id);
-                          const firstM = dept.id === 'management' ? 'salih' :
-                                         dept.id === 'lab' ? 'ayshin' :
-                                         dept.id === 'finance' ? 'ulugbek' :
-                                         dept.id === 'service' ? 'dilshoda' : 'farangiz';
-                          setSelectedTeamMemberId(firstM);
-                          window.location.hash = `/team/${firstM}`;
-                          setTimeout(() => {
-                            const el = document.getElementById('doctors');
-                            if (el) el.scrollIntoView({ behavior: 'smooth' });
-                          }, 100);
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setHoveredMenuDept(dept.id);
                         }}
                         className={`w-full text-left px-3 py-2 text-[11px] font-bold rounded-xl transition-all flex items-center justify-between ${
                           hoveredMenuDept === dept.id
@@ -2942,15 +2932,78 @@ export default function App() {
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'services' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{t.navServices}</button>
 
-              <button 
-                onClick={() => { 
-                  setActiveTab('doctors'); 
-                  setSelectedTeamMemberId('salih'); 
-                  setSelectedTeamDept('management');
-                  setIsMobileMenuOpen(false); 
-                }}
-                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'doctors' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
-              >{t.navTeam}</button>
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setIsMobileTeamOpen(!isMobileTeamOpen)}
+                  className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold flex items-center justify-between ${activeTab === 'doctors' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+                >
+                  <span>{t.navTeam}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMobileTeamOpen ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                </button>
+                {isMobileTeamOpen && (
+                  <div className="pl-4 flex flex-col gap-1.5 mt-1 ml-4 border-l-2 border-cyan-200 dark:border-cyan-900">
+                    {[
+                      { id: 'management', label: t.deptManagement },
+                      { id: 'lab', label: t.deptLab },
+                      { id: 'finance', label: t.deptFinance },
+                      { id: 'service', label: t.deptService },
+                      { id: 'admin', label: t.deptAdmin }
+                    ].map(dept => {
+                      const isDeptExpanded = isMobileDeptOpen[dept.id] || false;
+                      return (
+                        <div key={dept.id} className="flex flex-col">
+                          <button
+                            onClick={() => {
+                              setIsMobileDeptOpen(prev => ({ ...prev, [dept.id]: !isDeptExpanded }));
+                            }}
+                            className="px-3 py-2 text-xs text-left text-slate-700 dark:text-slate-300 hover:text-[#00B4D8] flex items-center justify-between font-bold"
+                          >
+                            <span>{dept.label}</span>
+                            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isDeptExpanded ? 'rotate-180 text-[#00B4D8]' : ''}`} />
+                          </button>
+                          {isDeptExpanded && (
+                            <div className="pl-3 flex flex-col gap-1 mt-1 ml-3 border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-top-1 duration-150">
+                              {TEAM_MEMBERS.filter(m => m.department === dept.id).map(member => (
+                                <button
+                                  key={member.id}
+                                  onClick={() => {
+                                    setActiveTab('doctors');
+                                    setSelectedTeamDept(dept.id);
+                                    setSelectedTeamMemberId(member.id);
+                                    window.location.hash = `/team/${member.id}`;
+                                    setIsMobileMenuOpen(false);
+                                  }}
+                                  className="text-left px-3 py-1.5 text-[11px] text-slate-500 hover:text-[#00B4D8] truncate font-semibold"
+                                >
+                                  {member.name}
+                                </button>
+                              ))}
+                              {dept.id === 'lab' && LABORANTS.map((lab, idx) => {
+                                const labId = lab.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                                return (
+                                  <button
+                                    key={idx}
+                                    onClick={() => {
+                                      setActiveTab('doctors');
+                                      setSelectedTeamDept('lab');
+                                      setSelectedTeamMemberId(labId);
+                                      window.location.hash = `/team/${labId}`;
+                                      setIsMobileMenuOpen(false);
+                                    }}
+                                    className="text-left px-3 py-1.5 text-[11px] text-slate-500 hover:text-[#00B4D8] truncate font-semibold"
+                                  >
+                                    {lab.name}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
 
               <button 
                 onClick={() => { setActiveTab('faq'); setIsMobileMenuOpen(false); }}
