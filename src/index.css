@@ -107,3 +107,10 @@ body {
 .scroll-x-premium::-webkit-scrollbar-thumb:hover {
   background-color: #0096C7 !important;
 }
+
+/* Global Image Copy & Download Protection Styles */
+img {
+  user-select: none !important;
+  pointer-events: none !important;
+  -webkit-user-drag: none !important;
+}

@@ -1632,6 +1632,43 @@ export default function App() {
     return () => { document.body.style.overflow = ''; };
   }, [isMobileMenuOpen]);
 
+  // Global security protections: Disable right-click, image dragging, and inspector hotkeys (F12, etc.)
+  useEffect(() => {
+    const handleContextMenu = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+        return;
+      }
+      e.preventDefault();
+    };
+
+    const handleDragStart = (e: DragEvent) => {
+      if ((e.target as HTMLElement).tagName === 'IMG') {
+        e.preventDefault();
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('dragstart', handleDragStart);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('dragstart', handleDragStart);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   // Contact form state
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
@@ -2329,7 +2366,7 @@ export default function App() {
             </div>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-3 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            <div className="hidden xl:flex items-center gap-2 xl:gap-3 2xl:gap-5 text-xs 2xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
               <button 
                 onClick={() => setActiveTab('home')} 
                 className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'home' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
@@ -2578,7 +2615,7 @@ export default function App() {
             {/* Book Appointment CTAs */}
             <button
               onClick={() => setIsCheckModalOpen(true)}
-              className="hidden lg:flex px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs xl:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105 active:scale-95 transition-all items-center gap-2 whitespace-nowrap"
+              className="hidden xl:flex px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs xl:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105 active:scale-95 transition-all items-center gap-2 whitespace-nowrap"
             >
               <Search className="w-4 h-4 shrink-0" />
               <span className="hidden xl:inline">{lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}</span>
@@ -2587,7 +2624,7 @@ export default function App() {
             <button 
               id="book-appointment-navbar"
               onClick={startEmptyBooking}
-              className="hidden lg:flex px-5 py-2.5 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-full text-xs xl:text-sm font-bold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
+              className="hidden xl:flex px-5 py-2.5 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-full text-xs xl:text-sm font-bold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
             >
               {t.btnBook}
             </button>
@@ -2596,7 +2633,7 @@ export default function App() {
             <button
               id="mobile-menu-toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300 hover:scale-105 active:scale-95 transition-all focus:outline-none"
+              className="xl:hidden p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300 hover:scale-105 active:scale-95 transition-all focus:outline-none"
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -2840,7 +2877,7 @@ export default function App() {
 
       {/* Mobile Navigation Full-Screen Overlay - OUTSIDE nav to avoid backdrop-filter fixed positioning bug */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[200] bg-white dark:bg-slate-950 flex flex-col overflow-hidden" style={{top:0,left:0,right:0,bottom:0,position:'fixed'}}>
+        <div className="xl:hidden fixed inset-0 z-[200] bg-white dark:bg-slate-950 flex flex-col overflow-hidden" style={{top:0,left:0,right:0,bottom:0,position:'fixed'}}>
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-4 border-b border-slate-200/40 dark:border-slate-800/40 shrink-0 bg-white dark:bg-slate-950">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}>
