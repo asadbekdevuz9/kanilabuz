@@ -1418,7 +1418,7 @@ export default function App() {
   const [lang, setLang] = useState<'uz' | 'ru' | 'tr'>('uz');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms'>('home');
-  const [selectedTeamDept, setSelectedTeamDept] = useState<string>('all');
+  const [selectedTeamDept, setSelectedTeamDept] = useState<string>('management');
   const [isMobileTeamOpen, setIsMobileTeamOpen] = useState<boolean>(false);
   const [selectedTeamMemberId, setSelectedTeamMemberId] = useState<string | null>(null);
   const [hoveredMenuDept, setHoveredMenuDept] = useState<string>('management');
@@ -1441,7 +1441,7 @@ export default function App() {
       } else if (hash === '#/team') {
         setActiveTab('doctors');
         setSelectedTeamMemberId(null);
-        setSelectedTeamDept('all');
+        setSelectedTeamDept('management');
       } else {
         const tab = hash.replace('#', '');
         if (['home', 'about', 'about-history', 'about-values', 'about-mission', 'services', 'doctors', 'faq', 'contact', 'certificates', 'branches', 'privacy', 'terms'].includes(tab)) {
@@ -1840,6 +1840,79 @@ export default function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [activeTab]);
+
+  // Auto-send ticket to Telegram when generated
+  useEffect(() => {
+    if (bookingStep === 4 && generatedTicketID) {
+      const autoSend = async () => {
+        // Wait a tiny bit for printable-ticket to render in DOM
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        try {
+          const ticketElement = document.getElementById('printable-ticket');
+          if (!ticketElement) return;
+
+          const dataUrl = await toPng(ticketElement, { 
+            pixelRatio: 1.5,
+            style: { margin: '0' },
+            quality: 0.8,
+            cacheBust: true,
+            skipFonts: false
+          });
+          
+          const img = new Image();
+          img.src = dataUrl;
+          await new Promise((resolve) => { img.onload = resolve; });
+
+          const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: [80, 200]
+          });
+
+          pdf.setFillColor(0, 180, 216);
+          pdf.rect(0, 0, 80, 20, 'F');
+          pdf.setTextColor(255, 255, 255);
+          pdf.setFontSize(9);
+          pdf.setFont('helvetica', 'bold');
+          pdf.text('KANILAB — CHIPTA', 4, 7);
+          pdf.setFontSize(8);
+          pdf.text(`Bemor: ${patientName}`, 4, 13);
+          pdf.text(`Raqam: ${generatedTicketID}`, 4, 18);
+
+          const pageW = 80;
+          const imgH = (img.height / img.width) * pageW;
+          pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
+          
+          const pdfBlob = pdf.output('blob');
+
+          const formData = new FormData();
+          formData.append('chat_id', '5393810155');
+          const fileName = `KaniLab_${generatedTicketID}_${patientName.replace(/\s+/g, '_')}.pdf`;
+          formData.append('document', pdfBlob, fileName);
+          formData.append('caption',
+            `🏥 *YANGI BEMOR*\n` +
+            `━━━━━━━━━━━━━━━\n` +
+            `📋 Chek: \`${generatedTicketID}\`\n` +
+            `👤 Bemor: ${patientName}\n` +
+            `📞 Telefon: ${patientPhone}\n` +
+            `🏢 Filial: ${selectedBranch}\n` +
+            `📅 Sana: ${selectedDate} — ${selectedTime}\n` +
+            `🧪 Tahlillar: ${cart.length} ta\n` +
+            `💰 Jami: ${formatPrice(cartTotalAmount)}`,
+          );
+
+          await fetch(`https://api.telegram.org/bot8976412924:AAFcVbEeUgB2Ngymnol6cDDLybhlI1xLWzI/sendDocument`, {
+            method: 'POST',
+            body: formData
+          });
+        } catch (err) {
+          console.error('Auto Telegram send error:', err);
+        }
+      };
+      autoSend();
+    }
+  }, [bookingStep, generatedTicketID]);
 
   const t = TRANSLATIONS[lang];
 
@@ -2255,214 +2328,214 @@ export default function App() {
               </div>
             </div>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-3 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
-            <button 
-              onClick={() => setActiveTab('home')} 
-              className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'home' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
-            >
-              {t.navHome}
-            </button>
-            {/* Haqida Dropdown */}
-            <div className="relative group py-1">
-              <button
-                className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
-              >
-                {t.navAbout}
-                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
-              </button>
-
-              {/* About Dropdown Panel */}
-              <div className="absolute left-0 top-full mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
-                <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1">
-                  {lang === 'uz' ? 'Kani-Lab haqida' : lang === 'ru' ? 'О Kani-Lab' : 'Kani-Lab Hakkında'}
-                </div>
-                {[
-                  { tab: 'about', label: t.navAboutUs, icon: <Microscope className="w-3 h-3 text-[#00B4D8]" />, color: 'bg-[#00B4D8]/10' },
-                  { tab: 'about-history', label: t.navAboutHistory, icon: <FileText className="w-3 h-3 text-amber-500" />, color: 'bg-amber-50 dark:bg-amber-950/30' },
-                  { tab: 'about-values', label: t.navAboutValues, icon: <Award className="w-3 h-3 text-purple-500" />, color: 'bg-purple-50 dark:bg-purple-950/30' },
-                  { tab: 'about-mission', label: t.navAboutMission, icon: <Zap className="w-3 h-3 text-emerald-500" />, color: 'bg-emerald-50 dark:bg-emerald-950/30' },
-                ].map(item => (
-                  <button
-                    key={item.tab}
-                    onClick={() => { setActiveTab(item.tab as any); window.location.hash = item.tab; }}
-                    className={`w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl transition-all flex items-center gap-2.5 ${
-                      activeTab === item.tab
-                        ? 'bg-slate-50 dark:bg-slate-800 text-[#00B4D8]'
-                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-[#00B4D8]'
-                    }`}
-                  >
-                    <div className={`w-6 h-6 rounded-lg ${item.color} flex items-center justify-center shrink-0`}>
-                      {item.icon}
-                    </div>
-                    <span>{item.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-            <button 
-              onClick={() => setActiveTab('services')} 
-              className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'services' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
-            >
-              {t.navServices}
-            </button>
-            <div className="relative group py-1">
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-3 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
               <button 
-                className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'doctors' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+                onClick={() => setActiveTab('home')} 
+                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'home' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
-                {t.navTeam}
-                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                {t.navHome}
               </button>
-              
-              {/* Mega Menu Two-Panel Container */}
-              <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[32rem] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-3 flex divide-x divide-slate-100 dark:divide-slate-800">
-                
-                {/* Left Panel: Department List */}
-                <div className="w-1/2 pr-2 flex flex-col gap-1">
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 mb-1">
-                    {lang === 'uz' ? 'Bo\u2019limlar' : lang === 'ru' ? '\u041e\u0442\u0434\u0435\u043b\u044b' : 'B\u00f6l\u00fcmler'}
+              {/* Haqida Dropdown */}
+              <div className="relative group py-1">
+                <button
+                  className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+                >
+                  {t.navAbout}
+                  <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                </button>
+
+                {/* About Dropdown Panel */}
+                <div className="absolute left-0 top-full mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
+                  <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1">
+                    {lang === 'uz' ? 'Kani-Lab haqida' : lang === 'ru' ? 'О Kani-Lab' : 'Kani-Lab Hakkında'}
                   </div>
                   {[
-                    { id: 'management', label: t.deptManagement },
-                    { id: 'lab', label: t.deptLab },
-                    { id: 'finance', label: t.deptFinance },
-                    { id: 'service', label: t.deptService },
-                    { id: 'admin', label: t.deptAdmin }
-                  ].map(dept => (
-                    <button 
-                      key={dept.id}
-                      onMouseEnter={() => setHoveredMenuDept(dept.id)}
-                      onClick={() => {
-                        setActiveTab('doctors');
-                        setSelectedTeamDept(dept.id);
-                        setSelectedTeamMemberId(null);
-                        window.location.hash = '/team';
-                        setTimeout(() => {
-                          const el = document.getElementById('doctors');
-                          if (el) el.scrollIntoView({ behavior: 'smooth' });
-                        }, 100);
-                      }}
-                      className={`w-full text-left px-3 py-2 text-[11px] font-bold rounded-xl transition-all flex items-center justify-between ${
-                        hoveredMenuDept === dept.id
-                          ? 'bg-slate-50 dark:bg-slate-800/80 text-[#00B4D8]'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
+                    { tab: 'about', label: t.navAboutUs, icon: <Microscope className="w-3 h-3 text-[#00B4D8]" />, color: 'bg-[#00B4D8]/10' },
+                    { tab: 'about-history', label: t.navAboutHistory, icon: <FileText className="w-3 h-3 text-amber-500" />, color: 'bg-amber-50 dark:bg-amber-950/30' },
+                    { tab: 'about-values', label: t.navAboutValues, icon: <Award className="w-3 h-3 text-purple-500" />, color: 'bg-purple-50 dark:bg-purple-950/30' },
+                    { tab: 'about-mission', label: t.navAboutMission, icon: <Zap className="w-3 h-3 text-emerald-500" />, color: 'bg-emerald-50 dark:bg-emerald-950/30' },
+                  ].map(item => (
+                    <button
+                      key={item.tab}
+                      onClick={() => { setActiveTab(item.tab as any); window.location.hash = item.tab; }}
+                      className={`w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl transition-all flex items-center gap-2.5 ${
+                        activeTab === item.tab
+                          ? 'bg-slate-50 dark:bg-slate-800 text-[#00B4D8]'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-[#00B4D8]'
                       }`}
                     >
-                      <span>{dept.label}</span>
-                      <ChevronRight className={`w-3.5 h-3.5 transition-transform ${hoveredMenuDept === dept.id ? 'translate-x-0.5' : ''}`} />
+                      <div className={`w-6 h-6 rounded-lg ${item.color} flex items-center justify-center shrink-0`}>
+                        {item.icon}
+                      </div>
+                      <span>{item.label}</span>
                     </button>
                   ))}
                 </div>
-
-                {/* Right Panel: Staff Submenu list */}
-                <div className="w-1/2 pl-3 flex flex-col">
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2 py-1 mb-1">
-                    {lang === 'uz' ? 'Xodimlar' : lang === 'ru' ? 'Сотрудники' : 'Personel'}
-                  </div>
+              </div>
+              <button 
+                onClick={() => setActiveTab('services')} 
+                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'services' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+              >
+                {t.navServices}
+              </button>
+              <div className="relative group py-1">
+                <button 
+                  className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'doctors' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+                >
+                  {t.navTeam}
+                  <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                </button>
+                
+                {/* Mega Menu Two-Panel Container */}
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[32rem] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-3 flex divide-x divide-slate-100 dark:divide-slate-800">
                   
-                  <div className="flex flex-col gap-0.5 max-h-[20rem] overflow-y-auto pr-0.5">
-                    {TEAM_MEMBERS.filter(m => m.department === hoveredMenuDept).map(member => (
-                      <button
-                        key={member.id}
+                  {/* Left Panel: Department List */}
+                  <div className="w-1/2 pr-2 flex flex-col gap-1">
+                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 mb-1">
+                      {lang === 'uz' ? 'Bo‘limlar' : lang === 'ru' ? 'Отделы' : 'Bölümler'}
+                    </div>
+                    {[
+                      { id: 'management', label: t.deptManagement },
+                      { id: 'lab', label: t.deptLab },
+                      { id: 'finance', label: t.deptFinance },
+                      { id: 'service', label: t.deptService },
+                      { id: 'admin', label: t.deptAdmin }
+                    ].map(dept => (
+                      <button 
+                        key={dept.id}
+                        onMouseEnter={() => setHoveredMenuDept(dept.id)}
                         onClick={() => {
-                          window.location.hash = `/team/${member.id}`;
-                        }}
-                        className="w-full text-left px-3 py-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] rounded-lg transition-all"
-                      >
-                        <span className="block font-bold text-slate-700 dark:text-slate-200">{member.name}</span>
-                        <span className="block text-[9px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{getLangText(member.position)}</span>
-                      </button>
-                    ))}
-
-                    {hoveredMenuDept === 'lab' && (
-                      <div className="flex flex-col gap-0.5 mt-1 border-t border-slate-100 dark:border-slate-800/60 pt-2">
-                        <div className="text-[9px] font-extrabold text-slate-400 uppercase px-2 mb-1">
-                          {lang === 'uz' ? 'Laborantlar' : lang === 'ru' ? 'Лаборанты' : 'Laborantlar'}
-                        </div>
-                        {LABORANTS.map((lab, idx) => {
-                          const labId = lab.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-                          return (
-                            <button
-                              key={idx}
-                              onClick={() => {
-                                window.location.hash = `/team/${labId}`;
-                              }}
-                              className="w-full text-left px-3 py-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] rounded-lg transition-all"
-                            >
-                              <span className="block font-bold text-slate-700 dark:text-slate-200">{lab.name}</span>
-                              <span className="block text-[9px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{getLangText(lab.pos)}</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {hoveredMenuDept === 'service' && (
-                      <button
-                        onClick={() => {
-                          setActiveTab('contact');
+                          setActiveTab('doctors');
+                          setSelectedTeamDept(dept.id);
+                          setSelectedTeamMemberId(null);
+                          window.location.hash = '/team';
                           setTimeout(() => {
-                            const el = document.getElementById('contact');
+                            const el = document.getElementById('doctors');
                             if (el) el.scrollIntoView({ behavior: 'smooth' });
                           }, 100);
                         }}
-                        className="w-full text-left px-3 py-2 text-[10px] font-bold text-[#0096C7] dark:text-[#48CAE4] hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 rounded-lg transition-all border border-dashed border-cyan-100 dark:border-cyan-900 mt-2 flex items-center justify-center gap-1 shrink-0"
+                        className={`w-full text-left px-3 py-2 text-[11px] font-bold rounded-xl transition-all flex items-center justify-between ${
+                          hoveredMenuDept === dept.id
+                            ? 'bg-slate-50 dark:bg-slate-800/80 text-[#00B4D8]'
+                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
+                        }`}
                       >
-                        <Plus className="w-3.5 h-3.5" />
-                        <span>{lang === 'uz' ? 'Kadrlar zaxirasi' : lang === 'ru' ? 'Кадровый резерв' : 'Kariyer Fırsatı'}</span>
+                        <span>{dept.label}</span>
+                        <ChevronRight className={`w-3.5 h-3.5 transition-transform ${hoveredMenuDept === dept.id ? 'translate-x-0.5' : ''}`} />
                       </button>
-                    )}
+                    ))}
+                  </div>
+
+                  {/* Right Panel: Staff Submenu list */}
+                  <div className="w-1/2 pl-3 flex flex-col">
+                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2 py-1 mb-1">
+                      {lang === 'uz' ? 'Xodimlar' : lang === 'ru' ? 'Сотрудники' : 'Personel'}
+                    </div>
+                    
+                    <div className="flex flex-col gap-0.5 max-h-[20rem] overflow-y-auto pr-0.5">
+                      {TEAM_MEMBERS.filter(m => m.department === hoveredMenuDept).map(member => (
+                        <button
+                          key={member.id}
+                          onClick={() => {
+                            window.location.hash = `/team/${member.id}`;
+                          }}
+                          className="w-full text-left px-3 py-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] rounded-lg transition-all"
+                        >
+                          <span className="block font-bold text-slate-700 dark:text-slate-200">{member.name}</span>
+                          <span className="block text-[9px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{getLangText(member.position)}</span>
+                        </button>
+                      ))}
+
+                      {hoveredMenuDept === 'lab' && (
+                        <div className="flex flex-col gap-0.5 mt-1 border-t border-slate-100 dark:border-slate-800/60 pt-2">
+                          <div className="text-[9px] font-extrabold text-slate-400 uppercase px-2 mb-1">
+                            {lang === 'uz' ? 'Laborantlar' : lang === 'ru' ? 'Лаборанты' : 'Laborantlar'}
+                          </div>
+                          {LABORANTS.map((lab, idx) => {
+                            const labId = lab.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                            return (
+                              <button
+                                key={idx}
+                                onClick={() => {
+                                  window.location.hash = `/team/${labId}`;
+                                }}
+                                className="w-full text-left px-3 py-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] rounded-lg transition-all"
+                              >
+                                <span className="block font-bold text-slate-700 dark:text-slate-200">{lab.name}</span>
+                                <span className="block text-[9px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{getLangText(lab.pos)}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {hoveredMenuDept === 'service' && (
+                        <button
+                          onClick={() => {
+                            setActiveTab('contact');
+                            setTimeout(() => {
+                              const el = document.getElementById('contact');
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }, 100);
+                          }}
+                          className="w-full text-left px-3 py-2 text-[10px] font-bold text-[#0096C7] dark:text-[#48CAE4] hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 rounded-lg transition-all border border-dashed border-cyan-100 dark:border-cyan-900 mt-2 flex items-center justify-center gap-1 shrink-0"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>{lang === 'uz' ? 'Kadrlar zaxirasi' : lang === 'ru' ? 'Кадровый резерв' : 'Kariyer Fırsatı'}</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <button 
-              onClick={() => setActiveTab('faq')} 
-              className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'faq' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
-            >
-              {t.navFAQ}
-            </button>
-            <div className="relative group py-1">
-              <button
-                onClick={() => setActiveTab('contact')}
-                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'contact' || activeTab === 'branches' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+              <button 
+                onClick={() => setActiveTab('faq')} 
+                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'faq' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
-                {t.navContact}
-                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                {t.navFAQ}
               </button>
+              <div className="relative group py-1">
+                <button
+                  onClick={() => setActiveTab('contact')}
+                  className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'contact' || activeTab === 'branches' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+                >
+                  {t.navContact}
+                  <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                </button>
 
-              {/* Contact Dropdown */}
-              <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
-                <button
-                  onClick={() => { setActiveTab('contact'); window.location.hash = 'contact'; }}
-                  className="w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#00B4D8] transition-all flex items-center gap-2.5"
-                >
-                  <div className="w-6 h-6 rounded-lg bg-[#00B4D8]/10 flex items-center justify-center shrink-0">
-                    <Phone className="w-3 h-3 text-[#00B4D8]" />
-                  </div>
-                  <span>{t.navContactMain}</span>
-                </button>
-                <button
-                  onClick={() => { setActiveTab('branches'); window.location.hash = 'branches'; }}
-                  className="w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#00B4D8] transition-all flex items-center gap-2.5"
-                >
-                  <div className="w-6 h-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center shrink-0">
-                    <MapPin className="w-3 h-3 text-emerald-500" />
-                  </div>
-                  <span>{t.navBranches}</span>
-                </button>
+                {/* Contact Dropdown */}
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
+                  <button
+                    onClick={() => { setActiveTab('contact'); window.location.hash = 'contact'; }}
+                    className="w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#00B4D8] transition-all flex items-center gap-2.5"
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-[#00B4D8]/10 flex items-center justify-center shrink-0">
+                      <Phone className="w-3 h-3 text-[#00B4D8]" />
+                    </div>
+                    <span>{t.navContactMain}</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab('branches'); window.location.hash = 'branches'; }}
+                    className="w-full text-left px-3 py-2.5 text-[11px] font-bold rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#00B4D8] transition-all flex items-center gap-2.5"
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center shrink-0">
+                      <MapPin className="w-3 h-3 text-emerald-500" />
+                    </div>
+                    <span>{t.navBranches}</span>
+                  </button>
+                </div>
+              </div>
+              
+              {/* Elegant Phone Badge inside Desktop Nav */}
+              <div className="hidden xl:flex items-center gap-3 bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-800 dark:text-slate-200 shadow-sm shrink-0">
+                <Phone className="w-3.5 h-3.5 text-[#00B4D8] animate-pulse" />
+                <a href="tel:+998900751234" className="hover:text-[#00B4D8] transition-colors">+998 90 075 12 34</a>
+                <span className="text-slate-300 dark:text-slate-700">|</span>
+                <a href="tel:+998781501234" className="hover:text-[#00B4D8] transition-colors">+998 78 150 12 34</a>
               </div>
             </div>
-            
-            {/* Elegant Phone Badge inside Desktop Nav */}
-            <div className="hidden xl:flex items-center gap-3 bg-slate-100 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-800 dark:text-slate-200 shadow-sm shrink-0">
-              <Phone className="w-3.5 h-3.5 text-[#00B4D8] animate-pulse" />
-              <a href="tel:+998900751234" className="hover:text-[#00B4D8] transition-colors">+998 90 075 12 34</a>
-              <span className="text-slate-300 dark:text-slate-700">|</span>
-              <a href="tel:+998781501234" className="hover:text-[#00B4D8] transition-colors">+998 78 150 12 34</a>
-            </div>
           </div>
-        </div>
 
           {/* Controls: Language, Theme, & Book Button */}
           <div className="flex items-center gap-2 xl:gap-4 shrink-0">
@@ -5078,7 +5151,12 @@ export default function App() {
       {isBookingOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md overflow-y-auto" onClick={() => setIsBookingOpen(false)}>
           
-          <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] w-full max-w-2xl overflow-hidden shadow-2xl relative" onClick={e => e.stopPropagation()}>
+          <div 
+            className={`bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] w-full max-w-2xl overflow-hidden shadow-2xl relative flex flex-col transition-all duration-300 ${
+              bookingStep === 4 ? 'h-[92vh] max-h-[92vh]' : 'max-h-[90vh]'
+            }`} 
+            onClick={e => e.stopPropagation()}
+          >
             
             {/* Close Button */}
             <button 
@@ -5091,7 +5169,7 @@ export default function App() {
             </button>
 
             {/* Modal Header */}
-            <div className="p-6 bg-slate-100/50 dark:bg-slate-950/40 border-b border-slate-200/40 dark:border-slate-800/40">
+            <div className="p-6 bg-slate-100/50 dark:bg-slate-950/40 border-b border-slate-200/40 dark:border-slate-800/40 shrink-0">
               <h3 className="text-xl font-black text-slate-800 dark:text-white">{t.modalTitle}</h3>
               
               {/* Stepper Wizard Progress Indicators */}
@@ -5111,8 +5189,8 @@ export default function App() {
             </div>
 
             {/* Booking Wizard form wrapper */}
-            <div className="overflow-y-auto max-h-[60vh] sm:max-h-[70vh]">
-            <form onSubmit={handleConfirmBooking} className="p-6">
+            <div className="overflow-y-auto flex-1">
+            <form onSubmit={handleConfirmBooking} className="p-6 flex flex-col min-h-full">
               
               {/* STEP 1: TEST BREAKDOWN AND MANIPULATIONS */}
               {bookingStep === 1 && (
