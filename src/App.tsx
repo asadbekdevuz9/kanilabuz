@@ -1485,117 +1485,245 @@ const BRANCHES: {
   lng?: number;
 }[] = [
   {
-    id: 'merkez',
-    name: { uz: 'Kani-Lab Merkez Laboratoriyasi', ru: 'Kani-Lab Центральная Лаборатория', tr: 'Kani-Lab Merkez Laboratuvarı' },
-    address: { uz: 'Termiz sh., Markaziy ko\'cha, 1-uy', ru: 'г. Термез, ул. Центральная, 1', tr: 'Termiz şehri, Merkez Caddesi, 1' },
-    phone: '+998781501234',
+    id: 'qiziriq-ttb',
+    name: {
+      uz: 'Qiziriq tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Кызырыкском районном медицинском объединении',
+      tr: 'Kızırık İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Qiziriq tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Кызырыкского районного медицинского объединения',
+      tr: 'Kızırık İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 88 350 24 42',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2240,67.2783',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU372pc'
   },
   {
-    id: 'termiz-shtb',
-    name: { uz: 'TERMIZ SHTB', ru: 'ТЕРМИЗ ШТАБ', tr: 'TERMİZ ŞTAB' },
-    address: { uz: 'Termiz shahri tibbiyot birlashmasi hududida', ru: 'На территории Термезского городского объединения', tr: 'Termiz Şehir Tıp Birleşimi alanında' },
-    phone: '+998781501235',
+    id: 'sherobod-ttb',
+    name: {
+      uz: 'Sherobod tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Шерабадском районном медицинском объединении',
+      tr: 'Şerabad İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Sherobod tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Шерабадского районного медицинского объединения',
+      tr: 'Şerabad İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 99 622 54 52',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2180,67.2820',
+    mapsUrl: 'https://yandex.uz/maps/-/CPTNNTig'
   },
   {
-    id: 'respublika-shoshilinch',
-    name: { uz: '70-RSHTYIM / Surxondaryo filiali', ru: '70-РНЦЭМП / Сурхандарьинский филиал', tr: '70-Acil Tıp Merkezi / Surhanderya Şubesi' },
-    address: { uz: '70-Respublika shoshilinch tibbiy yordam ilmiy markazi, Surxondaryo filiali', ru: '70-Республиканский НЦ Экстренной Мед. Помощи, Сурхандарьинский филиал', tr: '70-Cumhuriyet Acil Tıp Bilim Merkezi, Surhanderya Şubesi' },
-    phone: '+998781501236',
+    id: 'angor-ttb',
+    name: {
+      uz: 'Angor tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Ангорском районном медицинском объединении',
+      tr: 'Angor İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Angor tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Ангорского районного медицинского объединения',
+      tr: 'Angor İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 93 635 22 58',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2200,67.2750',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU37BLj'
   },
   {
-    id: 'viloyat-stomatologiya',
-    name: { uz: 'Viloyat stomatologiya poliklinikasi', ru: 'Областная стоматологическая поликлиника', tr: 'Vilayet Diş Polikliniği' },
-    address: { uz: 'Surxondaryo viloyat stomatologiya poliklinikasi hududida', ru: 'На территории Сурхандарьинской областной стоматологической поликлиники', tr: 'Surhanderya Vilayet Diş Polikliniği alanında' },
-    phone: '+998781501237',
+    id: 'uchqizil-ttb',
+    name: {
+      uz: 'Uchqizil tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Учкизилском районном медицинском объединении',
+      tr: 'Üçkızıl İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Uchqizil tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Учкизилского районного медицинского объединения',
+      tr: 'Üçkızıl İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 94 063 30 99',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2260,67.2800',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU3zD-i'
   },
   {
-    id: 'dermatovenerologiya',
-    name: { uz: '19-RDVKIPATM', ru: '19-РНЦДВИК', tr: '19-Dermatoloji ve Kozmetoloji Merkezi' },
-    address: { uz: '19-Respublika dermatovenerologiya va kosmetologiya ilmiy amaliy tibbiyot markazi, Surxondaryo filiali', ru: '19-Республиканский Центр Дерматовенерологии и Косметологии, Сурхандарьинский филиал', tr: '19-Cumhuriyet Dermatoloji ve Kozmetoloji Bilimsel Tıp Merkezi' },
-    phone: '+998781501238',
+    id: 'shurchi-ttb',
+    name: {
+      uz: 'Sho‘rchi tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Шурчинском районном медицинском объединении',
+      tr: 'Şurçi İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Sho‘rchi tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Шурчинского районного медицинского объединения',
+      tr: 'Şurçi İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 99 715 77 72',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2220,67.2810',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU3zJjj'
   },
   {
-    id: 'ftiziatriya',
-    name: { uz: 'Viloyat ftiziatriya va pulmonologiya shifoxonasi', ru: 'Областная больница фтизиатрии и пульмонологии', tr: 'Vilayet Ftiziyatri ve Pulmunoloji Hastanesi' },
-    address: { uz: 'Surxondaryo viloyat ftiziatriya va pulmonologiya shifoxonasi hududida', ru: 'На территории Сурхандарьинской областной больницы фтизиатрии', tr: 'Surhanderya Vilayet Ftiziyatri Hastanesi alanında' },
-    phone: '+998781501239',
+    id: 'qumqurgon-ttb',
+    name: {
+      uz: 'Qumqo‘rg‘on tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Кумкурганском районном медицинском объединении',
+      tr: 'Kumkurgan İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Qumqo‘rg‘on tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Кумкурганского районного медицинского объединения',
+      tr: 'Kumkurgan İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 93 091 16 93',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2170,67.2760',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU3vX3a'
   },
   {
-    id: 'perinatal',
-    name: { uz: '21-Viloyat perinatal markazi', ru: '21-Областной Перинатальный Центр', tr: '21-Vilayet Perinatal Merkezi' },
-    address: { uz: '21-Surxondaryo viloyat perinatal markazi hududida', ru: 'На территории 21-Сурхандарьинского областного перинатального центра', tr: '21-Surhanderya Vilayet Perinatal Merkezi alanında' },
-    phone: '+998781501240',
+    id: 'jarqurgon-ttb',
+    name: {
+      uz: 'Jarqo‘rg‘on tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Джаркурганском районном медицинском объединении',
+      tr: 'Jarkurgan İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Jarqo‘rg‘on tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Джаркурганского районного медицинского объединения',
+      tr: 'Jarkurgan İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 94 076 45 55 / +998 90 072 02 81',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2310,67.2790',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU3v4Kt'
   },
   {
-    id: 'tug-ruqxona',
-    name: { uz: '15-Termiz shahar tug\'ruqxonasi', ru: '15-Термезский городской Родильный Дом', tr: '15-Termiz Şehir Doğumhanesi' },
-    address: { uz: '15-Termiz shahar tug\'ruqxonasi hududida', ru: 'На территории 15-Термезского городского родильного дома', tr: '15-Termiz Şehir Doğumevi alanında' },
-    phone: '+998781501241',
+    id: 'boysun-ttb',
+    name: {
+      uz: 'Boysun tuman tibbiyot birlashmasi filiali',
+      ru: 'Филиал при Байсунском районном медицинском объединении',
+      tr: 'Boysun İlçe Tıp Birleşimi Şubesi'
+    },
+    address: {
+      uz: 'Boysun tumani tibbiyot birlashmasi hududida',
+      ru: 'На территории Байсунского районного медицинского объединения',
+      tr: 'Boysun İlçe Tıp Birleşimi alanında'
+    },
+    phone: '+998 91 580 52 22',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2290,67.2830',
+    mapsUrl: 'https://yandex.uz/maps/-/CTU3rCyk'
   },
   {
-    id: 'yuqumli',
-    name: { uz: '14-Viloyat yuqumli kasalliklar shifoxonasi', ru: '14-Областная Инфекционная Больница', tr: '14-Vilayet Bulaşıcı Hastalıklar Hastanesi' },
-    address: { uz: '14-Surxondaryo viloyat yuqumli kasalliklar shifoxonasi hududida', ru: 'На территории 14-Сурхандарьинской областной инфекционной больницы', tr: '14-Surhanderya Vilayet Bulaşıcı Hastalıklar Hastanesi' },
-    phone: '+998781501242',
+    id: 'onkologiya-filiali',
+    name: {
+      uz: 'Onkologiya va radiologiya tibbiyot markazi Surxondaryo filiali',
+      ru: 'Сурхандарьинский филиал онкологического и радиологического центра',
+      tr: 'Onkoloji ve Radyoloji Tıp Merkezi Surhanderya Şubesi'
+    },
+    address: {
+      uz: 'Respublika ixtisoslashtirilgan onkologiya va radiologiya ilmiy-amaliy tibbiyot markazi Surxondaryo viloyat filiali hududida',
+      ru: 'На территории Сурхандарьинского филиала онкологического и радиологического центра',
+      tr: 'Cumhuriyet Onkoloji ve Radyoloji Merkezi Surhanderya Şubesi alanında'
+    },
+    phone: '+998 99 093 90 70',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2140,67.2770',
+    mapsUrl: 'https://yandex.uz/maps/-/CTUprV4H'
   },
   {
-    id: 'teri-tanosil',
-    name: { uz: 'Teri-tanosil dispanseri', ru: 'Кожно-венерологический Диспансер', tr: 'Deri-Zührevi Dispanseri' },
-    address: { uz: 'Surxondaryo viloyat teri-tanosil dispanseri hududida', ru: 'На территории Сурхандарьинского кожно-венерологического диспансера', tr: 'Surhanderya Vilayet Deri Dispanseri alanında' },
-    phone: '+998781501243',
+    id: 'bolalar-tibbiyot',
+    name: {
+      uz: 'Viloyat ko‘p tarmoqli bolalar tibbiyot markazi filiali',
+      ru: 'Филиал при Детском многопрофильном медицинском центре',
+      tr: 'Çocuk Çok Yönlü Tıp Merkezi Şubesi'
+    },
+    address: {
+      uz: 'Surxondaryo viloyat ko‘p tarmoqli bolalar tibbiyot markazi hududida',
+      ru: 'На территории Сурхандарьинского областного детского многопрофильного медцентра',
+      tr: 'Surhanderya Çocuk Çok Yönlü Tıp Merkezi alanında'
+    },
+    phone: '+998 93 093 93 34',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2250,67.2840',
+    mapsUrl: 'https://yandex.uz/maps/-/CTUpjY3O'
   },
   {
-    id: 'uchqizil',
-    name: { uz: 'Uchqizil filiali', ru: 'Филиал Учкизил', tr: 'Üçkızıl Şubesi' },
-    address: { uz: 'Uchqizil qishlog\'i, Surxondaryo viloyati', ru: 'Кишлак Учкизил, Сурхандарьинская область', tr: 'Üçkızıl köyü, Surhanderya vilayeti' },
-    phone: '+998781501244',
+    id: 'shoshilinch-tibbiy',
+    name: {
+      uz: 'Respublika shoshilinch tibbiy yordam ilmiy markazi Surxondaryo filiali',
+      ru: 'Филиал Центра экстренной медицинской помощи, Сурхандарьинский филиал',
+      tr: 'Acil Tıp Bilim Merkezi Surhanderya Şubesi'
+    },
+    address: {
+      uz: 'Respublika shoshilinch tibbiy yordam ilmiy markazi Surxondaryo filiali hududida',
+      ru: 'На территории Сурхандарьинского филиала Республиканского научного центра экстренной медпомощи',
+      tr: 'Cumhuriyet Acil Tıp Merkezi Surhanderya Şubesi alanında'
+    },
+    phone: '+998 93 077 70 34',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.1900,67.2600',
+    mapsUrl: 'https://yandex.uz/maps/-/CTUpbLIB'
   },
   {
-    id: 'jarqurgon',
-    name: { uz: '2502-Jarqo\'rg\'on TTB', ru: '2502-Джаркурганский ТМО', tr: '2502-Jarkurgan TTB' },
-    address: { uz: 'Jarqo\'rg\'on tumani tibbiyot birlashmasi hududida', ru: 'На территории Джаркурганского районного ТМО', tr: 'Jarkurgan İlçe Tıp Birleşimi alanında' },
-    phone: '+998781501245',
+    id: 'kardiologiya-filiali',
+    name: {
+      uz: 'Kardiologiya ilmiy-amaliy tibbiyot markazi Surxondaryo filiali',
+      ru: 'Сурхандарьинский филиал Кардиологического центра',
+      tr: 'Kardiyoloji Tıp Merkezi Surhanderya Şubesi'
+    },
+    address: {
+      uz: 'Respublika ixtisoslashtirilgan kardiologiya markazi Surxondaryo viloyat filiali hududida',
+      ru: 'На территории Сурхандарьинского филиала Республиканского кардиологического центра',
+      tr: 'Cumhuriyet Kardiyoloji Merkezi Surhanderya Şubesi alanında'
+    },
+    phone: '+998 88 350 28 82',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.5100,67.4200',
+    mapsUrl: 'https://yandex.uz/maps/-/CTUpZTLl'
   },
   {
-    id: 'akfa',
-    name: { uz: 'AKFA MEDLINE filiali', ru: 'Филиал AKFA MEDLINE', tr: 'AKFA MEDLINE Şubesi' },
-    address: { uz: 'AKFA MEDLINE klinikasi, Termiz shahri', ru: 'Клиника AKFA MEDLINE, г. Термез', tr: 'AKFA MEDLINE Kliniği, Termiz şehri' },
-    phone: '+998781501246',
+    id: 'perinatal-markazi',
+    name: {
+      uz: 'Surxondaryo viloyati perinatal markazi filiali',
+      ru: 'Филиал при Областном перинатальном центре',
+      tr: 'Vilayet Perinatal Merkezi Şubesi'
+    },
+    address: {
+      uz: 'Surxondaryo viloyati perinatal markazi hududida',
+      ru: 'На территории Сурхандарьинского областного перинатального центра',
+      tr: 'Surhanderya Vilayet Perinatal Merkezi alanında'
+    },
+    phone: '+998 95 571 28 19',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.2300,67.2850',
+    mapsUrl: 'https://yandex.uz/maps/-/CTUpVH-d'
   },
   {
-    id: 'qumqurgon',
-    name: { uz: '11-2 Qumqo\'rg\'on tumani tibbiyot birlashmasi', ru: '11-2 Кумкурганский районный ТМО', tr: '11-2 Kumkurgan İlçe Tıp Birleşimi' },
-    address: { uz: 'Qumqo\'rg\'on tumani tibbiyot birlashmasi hududida', ru: 'На территории Кумкурганского районного ТМО', tr: 'Kumkurgan İlçe Tıp Birleşimi alanında' },
-    phone: '+998781501247',
+    id: 'qon-quyish',
+    name: {
+      uz: 'Surxondaryo viloyat qon quyish markazi filiali',
+      ru: 'Филиал при Областном центре переливания крови',
+      tr: 'Vilayet Kan Bağışı Merkezi Şubesi'
+    },
+    address: {
+      uz: 'Surxondaryo viloyat qon quyish markazi hududida',
+      ru: 'На территории Сурхандарьинского областного центра переливания крови',
+      tr: 'Surhanderya Vilayet Kan Bağışı Merkezi alanında'
+    },
+    phone: '+998 99 115 65 55',
     hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
-    mapsUrl: 'https://maps.google.com/?q=37.8500,67.5800',
+    mapsUrl: 'https://yandex.uz/maps/-/CTUpfD29'
   },
+  {
+    id: 'kop-tarmoqli-markaz',
+    name: {
+      uz: "Surxondaryo viloyat ko‘p tarmoqli tibbiyot markazi filiali",
+      ru: 'Филиал при Областном многопрофильном медицинском центре',
+      tr: 'Vilayet Çok Yönlü Tıp Merkezi Şubesi'
+    },
+    address: {
+      uz: "Surxondaryo viloyat ko‘p tarmoqli tibbiyot markazi hududida",
+      ru: 'На территории Сурхандарьинского областного многопрофильного медицинского центра',
+      tr: 'Surhanderya Vilayet Çok Yönlü Tıp Merkezi alanında'
+    },
+    phone: '+998 99 093 93 10',
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    mapsUrl: 'https://yandex.uz/maps/-/CTUpnR52'
+  }
 ];
 
 // Dynamic reconstruction to prevent GitHub Secret Scanning warning and scrapers detection
@@ -1614,7 +1742,7 @@ export default function App() {
 
   // Qanday boriladi states
   const [routeFrom, setRouteFrom] = useState('');
-  const [routeToBranchId, setRouteToBranchId] = useState('merkez');
+  const [routeToBranchId, setRouteToBranchId] = useState('qiziriq-ttb');
   const [travelMode, setTravelMode] = useState<'driving' | 'transit' | 'walking'>('driving');
 
   // Synchronize hash routing
@@ -1746,7 +1874,7 @@ export default function App() {
   const [patientEmail, setPatientEmail] = useState('');
   
   // Custom Searchable Branch Dropdown States
-  const [selectedBranch, setSelectedBranch] = useState('Kani-Lab Merkez Laboratuvar'); // updated initial value
+  const [selectedBranch, setSelectedBranch] = useState('Qiziriq tuman tibbiyot birlashmasi');
   const [isBranchDropdownOpen, setIsBranchDropdownOpen] = useState(false);
   const [branchSearchQuery, setBranchSearchQuery] = useState('');
 
@@ -1755,35 +1883,28 @@ export default function App() {
 
   const BRANCH_CATEGORIES = [
     {
-      category: "Asosiy Laboratoriya",
-      options: ["Kani-Lab Merkez Laboratuvar"]
+      category: "Tuman Tibbiyot Birlashmalari (TTB)",
+      options: [
+        "Qiziriq tuman tibbiyot birlashmasi",
+        "Sherobod tuman tibbiyot birlashmasi",
+        "Angor tuman tibbiyot birlashmasi",
+        "Uchqizil tuman tibbiyot birlashmasi",
+        "Sho‘rchi tuman tibbiyot birlashmasi",
+        "Qumqo‘rg‘on tuman tibbiyot birlashmasi",
+        "Jarqo‘rg‘on tuman tibbiyot birlashmasi",
+        "Boysun tuman tibbiyot birlashmasi"
+      ]
     },
     {
       category: "Respublika va Viloyat Markazlari",
       options: [
-        "70-Respublika shoshilinch tibbiy yordam ilmiy markazi (Surxondaryo filiali)",
-        "19-Respublika dermatovenerologiya va kosmetologiya ilmiy amaliy tibbiyot markazi",
-        "Viloyat perinatal markazi (21)",
-        "Viloyat yuqumli kasalliklar shifoxonasi (14)",
-        "Viloyat stomatologiya poliklinikasi",
-        "Viloyat ftiziatriya va pulmonologiya shifoxonasi"
-      ]
-    },
-    {
-      category: "Shahar va Tuman Tibbiyot Birlashmalari",
-      options: [
-        "Termiz shahar tibbiyot birlashmasi (SHTB)",
-        "Termiz shahar tug‘ruqxonasi (15)",
-        "Qumqo‘rg‘on tumani tibbiyot birlashmasi (11-2)",
-        "Jarqo‘rg‘on tumani tibbiyot birlashmasi (2502)"
-      ]
-    },
-    {
-      category: "Boshqa muassasalar",
-      options: [
-        "AKFA MEDLINE",
-        "Teri tanosil dispanseri",
-        "Uchqizil hududiy tibbiy muassasasi"
+        "Respublika ixtisoslashtirilgan onkologiya va radiologiya ilmiy-amaliy tibbiyot markazi Surxondaryo viloyat filiali",
+        "Surxondaryo viloyat ko‘p tarmoqli bolalar tibbiyot markazi",
+        "Respublika shoshilinch tibbiy yordam ilmiy markazi Surxondaryo filiali",
+        "Respublika ixtisoslashtirilgan kardiologiya ilmiy-amaliy tibbiyot markazi Surxondaryo viloyat filiali",
+        "Surxondaryo viloyati perinatal markazi",
+        "Surxondaryo viloyat qon quyish markazi",
+        "Surxondaryo viloyat ko'p tarmoqli tibbiyot markazi"
       ]
     }
   ];
