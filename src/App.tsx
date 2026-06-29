@@ -31,6 +31,11 @@ import cert1Img from './assets/images/sertifikat-1.jfif';
 import cert2Img from './assets/images/sertifikat-2.jfif';
 import cert3Img from './assets/images/sertifikat-3.jfif';
 import markazOldImg from './assets/images/markaz old.jpg';
+import sunnatulloImg from "./assets/images/Eshpo'latov Sunnatullo.jpg";
+import sitoraImg from "./assets/images/Xurramova Sitora.jpg";
+import shaxzodaImg from "./assets/images/Qaxxorova Shaxzoda.jpg";
+import asadbekImg from "./assets/images/Davronov Asadbek.jpg";
+import yasminaImg from "./assets/images/Turopova Yasmina.jpg";
 
 const sertifikatImg = cert3Img;
 
@@ -1051,6 +1056,7 @@ interface TeamMember {
   specialties: { uz: string[]; ru: string[]; tr: string[] };
   grad: { uz: string; ru: string; tr: string };
   bio: { uz: string; ru: string; tr: string };
+  photo?: string;
 }
 
 const TEAM_MEMBERS: TeamMember[] = [
