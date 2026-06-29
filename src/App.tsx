@@ -35,6 +35,7 @@ import shaxzodaImg from "./assets/images/Qaxxorova Shaxzoda.jpg";
 import asadbekImg from "./assets/images/Davronov Asadbek.jpg";
 import yasminaImg from "./assets/images/Turopova Yasmina.jpg";
 import yusufbekImg from "./assets/images/Davronov Yusufbek.jpg";
+import farangizImg from "./assets/images/Alikulova Farangiz.jpg";
 
 const sertifikatImg = cert3Img;
 
@@ -1194,24 +1195,33 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'farangiz',
     name: 'Alikulova Farangiz',
-    position: { uz: 'Marketing bo‘limi', ru: 'Отдел маркетинга', tr: 'Pazarlama Departmanı' },
+    position: { 
+      uz: 'Marketing bo‘limi', 
+      ru: 'Отдел маркетинга', 
+      tr: 'Pazarlama Departmanı' 
+    },
     department: 'admin',
-    experience: { uz: '5 yillik tajriba', ru: '5 лет опыта', tr: '5 Yıllık Deneyim' },
+    experience: { 
+      uz: 'G‘ayratli mutaxassis', 
+      ru: 'Энергичный специалист', 
+      tr: 'Dinamik Uzman' 
+    },
     specialties: {
       uz: ['Raqamli marketing', 'Mijozlar bilan aloqalar', 'PR va Brending'],
-      ru: ['Цифровой маркетинг', 'Связи с общественностью', 'Развитие бренда клиники'],
-      tr: ['Dijital Pazarlama', 'Halkla İlişkiler', 'Marka Yönetimi']
+      ru: ['Цифровой маркетинг', 'Связи с общественностью', 'PR и Брендинг'],
+      tr: ['Dijital Pazarlama', 'Müşteri İlişkileri', 'PR ve Markalaşma']
     },
     grad: {
-      uz: 'Tashkent Axborot Texnologiyalari Universiteti',
-      ru: 'Ташкентский университет информационных технологий',
-      tr: 'Taşkent Bilgi Teknolojileri Üniversitesi'
+      uz: "• Ma’lumoti: Toshkent Axborot Texnologiyalari Universiteti.\n• Ish tajribasi: 1 yil \"Nurafshon Binokor\" tashkilotida moddiy buxgalter.",
+      ru: "• Образование: Ташкентский университет информационных технологий.\n• Опыт работы: 1 год бухгалтером материального учета в компании \"Нурафшон Бинокор\".",
+      tr: "• Eğitim: Taşkent Bilgi Teknolojileri Üniversitesi.\n• İş Deneyimi: \"Nurafşon Binokor\" firmasında 1 yıl maddi muhasebeci."
     },
     bio: {
-      uz: 'Kani-Lab brendini ommalashtirish va mijozlarga xizmat ko‘rsatish sifatini oshirish strategiyalarini ishlab chiquvchi ekspert.',
-      ru: 'Разрабатывает маркетинговые стратегии клиники, продвигает бренд Kani-Lab в цифровом пространстве.',
-      tr: 'Kani-Lab markasını dijital mecralarda tanıtan ve hasta iletişim stratejilerini yöneten pazarlama lideri.'
-    }
+      uz: "Alikulova Farangiz – Kani-Lab laboratoriyasining marketing yo‘nalishidagi g‘ayratli mutaxassisi. 2025-yildan buyon laboratoriyamiz jamoasida faoliyat yuritib, brendni ommalashtirish va mijozlarga xizmat ko‘rsatish sifatini oshirish strategiyalarini muvaffaqiyatli ishlab chiqmoqda. U avvalgi faoliyatida \"Nurafshon Binokor\" tashkilotida moddiy buxgalter sifatida ishlagan bo‘lib, moliyaviy hisob-kitoblar va resurslarni boshqarish bo‘yicha boy tajribaga ega. Farangiz o‘zining analitik yondashuvi hamda marketing strategiyalarini birlashtirgan holda Kani-Lab laboratoriyasining rivojlanishiga katta hissa qo‘shib kelmoqda.",
+      ru: "Аликулова Фарангиз — энергичный специалист по маркетингу лаборатории Kani-Lab. Работает в нашей лаборатории с 2025 года, успешно разрабатывая стратегии по продвижению бренда и повышению качества обслуживания клиентов. Ранее работала материальным бухгалтером в организации \"Нурафшон Бинокор\", обладает богатым опытом финансовых расчетов и управления ресурсами. Объединяя свой аналитический подход и маркетинговые стратегии, Фарангиз вносит большой вклад в развитие лаборатории Kani-Lab.",
+      tr: "Alikulova Farangiz, Kani-Lab laboratuvarının pazarlama alanında dinamik bir uzmanıdır. 2025 yılından bu yana laboratuvarımızda görev yapmakta, marka bilinirliğini artırma ve hasta hizmet kalitesini geliştirme stratejilerini başarıyla tasarlamaktadır. Önceki işinde \"Nurafşon Binokor\" şirketinde maddi muhasebeci olarak çalışmış olup finansal hesaplamalar ve kaynak yönetimi konusunda zengin deneyime sahiptir. Farangiz, analitik yaklaşımını pazarlama stratejileriyle birleştirerek Kani-Lab laboratuvarının büyümesine büyük katkı sağlamaktadır."
+    },
+    photo: farangizImg
   },
   {
     id: 'yusufbek',
