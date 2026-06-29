@@ -40,6 +40,10 @@ import terdu1Img from "./assets/images/TerDU/TerDU-1.jpg";
 import terdu2Img from "./assets/images/TerDU/TerDU-2.jpg";
 import terdu3Img from "./assets/images/TerDU/TerDU-3.jpg";
 import terdu4Img from "./assets/images/TerDU/TerDU-4.jpg";
+import tanosil1Img from "./assets/images/Teri Tanosil/teri tanosil- 1.jpg";
+import tanosil2Img from "./assets/images/Teri Tanosil/teri tanosil- 2.jpg";
+import tanosil3Img from "./assets/images/Teri Tanosil/teri tanosil- 3.jpg";
+import tanosil4Img from "./assets/images/Teri Tanosil/teri tanosil- 4.jpg";
 
 const sertifikatImg = cert3Img;
 
@@ -1882,6 +1886,66 @@ const GALLERY_ITEMS = [
       tr: 'Geleceğin uzmanlarına modern tıbbi teşhis yöntemleri üzerine uygulamalı eğitim verilmesi'
     },
     image: terdu2Img
+  },
+  {
+    id: 'gal-5',
+    category: 'opening',
+    title: {
+      uz: 'Tantanali ochilish marosimi: KANI-LAB yangi imkoniyatlar sari',
+      ru: 'Торжественная церемония открытия: KANI-LAB на пути к новым возможностям',
+      tr: 'Görkemli açılış töreni: KANI-LAB yeni fırsatlara doğru'
+    },
+    description: {
+      uz: 'KANI-LAB laboratoriyasining navbatdagi ixtisoslashgan dermatologiya va tanosil kasalliklari diagnostikasi bo‘limi ochilish marosimidan lavhalar.',
+      ru: 'Кадры с торжественной церемонии открытия нового специализированного отделения дерматологии и венерологии KANI-LAB.',
+      tr: 'KANI-LAB laboratuvarının yeni uzmanlaşmış dermatoloji ve zührevi hastalıklar teşhis bölümünün açılış töreninden görüntüler.'
+    },
+    image: tanosil1Img
+  },
+  {
+    id: 'gal-6',
+    category: 'opening',
+    title: {
+      uz: 'An’anaviy qizil tasmalar kesildi: yangi bo‘lim faoliyati rasman boshlandi',
+      ru: 'Традиционная красная лента разрезана: новое отделение официально начало работу',
+      tr: 'Geleneksel kırmızı kurdele kesildi: yeni bölüm resmen faaliyete başladı'
+    },
+    description: {
+      uz: 'Tasmalar kesilib, yangi dermatologiya va tanosil diagnostika laboratoriyamiz rasman o‘z faoliyatini boshlagan lahzalar.',
+      ru: 'Момент разрезания ленты, символизирующий официальный запуск нашей новой дермато-венерологической лаборатории.',
+      tr: 'Kırmızı kurdele kesilerek yeni dermatoloji ve zührevi teşhis laboratuvarımızın resmen faaliyete başladığı o anlar.'
+    },
+    image: tanosil2Img
+  },
+  {
+    id: 'gal-7',
+    category: 'opening',
+    title: {
+      uz: 'Birinchi ish kunlari: mutaxassislarimiz tashrif buyurgan mehmonlar va hamkasblar bilan birga',
+      ru: 'Первые рабочие дни: наши специалисты с гостями и коллегами',
+      tr: 'İlk iş günleri: uzmanlarımız davetli misafirler ve meslektaşları ile birlikte'
+    },
+    description: {
+      uz: 'Yangi ochilgan bo‘limimizda mutaxassislarimiz tashrif buyurgan shifokorlar va mehmonlar bilan ish jarayonlari haqida suhbatda.',
+      ru: 'Наши специалисты беседуют с приглашенными врачами и гостями о рабочих процессах нового отделения.',
+      tr: 'Uzmanlarımızın, yeni açılan bölümümüzde davetli doktorlar ve misafirlerle çalışma süreçleri hakkında sohbeti.'
+    },
+    image: tanosil3Img
+  },
+  {
+    id: 'gal-8',
+    category: 'opening',
+    title: {
+      uz: 'Hujjatlashtirish jarayoni: sifatli xizmat ko‘rsatish uchun barcha texnik tayyorgarlik ta’minlangan',
+      ru: 'Процесс документирования: обеспечена техническая подготовка для качественного обслуживания',
+      tr: 'Belgelendirme süreci: kaliteli hizmet için tüm teknik hazırlıklar tamamlandı'
+    },
+    description: {
+      uz: 'Dermatologik tahlillar va ro‘yxatga olish jarayonlari uchun barcha texnik jihozlar va hujjatlar shay holatga keltirilgan.',
+      ru: 'Все техническое оборудование и документация подготовлены для проведения дерматологических анализов и регистрации.',
+      tr: 'Dermatolojik testler ve kayıt işlemleri için tüm teknik donanım ve belgeler hazır hale getirilmiştir.'
+    },
+    image: tanosil4Img
   }
 ];
 
@@ -1891,6 +1955,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms' | 'news' | 'gallery'>('home');
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
+  const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<'all' | 'collaboration' | 'opening'>('all');
   const [newsLightboxSrc, setNewsLightboxSrc] = useState<string | null>(null);
   const [selectedTeamDept, setSelectedTeamDept] = useState<string>('management');
   const [isMobileTeamOpen, setIsMobileTeamOpen] = useState<boolean>(false);
@@ -5157,63 +5222,112 @@ export default function App() {
       {/* ==========================================
           FOTOGALERIYA SECTION
          ========================================== */}
-      {activeTab === 'gallery' && (
-        <section id="gallery" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
-          <div className="max-w-7xl w-full mx-auto animate-in fade-in duration-300">
-            {/* Header */}
-            <div className="flex flex-col items-center text-center gap-2 mb-12">
-              <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                {lang === 'uz' ? 'ILMIY-AMALIY HAMKORLIK' : lang === 'ru' ? 'НАУЧНО-ПРАКТИЧЕСКОЕ СОТРУДНИЧЕСТВО' : 'BİLİMSEL VE PRATİK İŞBİRLİĞİ'}
-              </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                {lang === 'uz' ? 'Ilmiy-amaliy hamkorlik jarayonlari' : lang === 'ru' ? 'Научно-практическое сотрудничество' : 'Bilimsel ve Pratik İşbirliği Süreçleri'}
-              </h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                {lang === 'uz' ? 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan mashg‘ulotlardan lavhalar' : lang === 'ru' ? 'Кадры с практических занятий для студентов биологического направления Термезского государственного университета' : 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen pratik derslerden kareler'}
-              </p>
-            </div>
+      {activeTab === 'gallery' && (() => {
+        const filteredGallery = GALLERY_ITEMS.filter(item => {
+          if (selectedGalleryCategory === 'all') return true;
+          return item.category === selectedGalleryCategory;
+        });
+        return (
+          <section id="gallery" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
+            <div className="max-w-7xl w-full mx-auto animate-in fade-in duration-300">
+              {/* Header */}
+              <div className="flex flex-col items-center text-center gap-2 mb-10">
+                <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  {lang === 'uz' ? 'FOTOGALEREYA' : lang === 'ru' ? 'ФОТОГАЛЕРЕЯ' : 'FOTOĞALERİ'}
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
+                  {lang === 'uz' ? 'Kani-Lab fotogalereyasi' : lang === 'ru' ? 'Фотогалерея Kani-Lab' : 'Kani-Lab Fotoğraf Galerisi'}
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
+                  {lang === 'uz' 
+                    ? 'Laboratoriyamiz faoliyati, ilmiy-akademik hamkorliklarimiz va tantanali tadbirlarimizdan yorqin lahzalar' 
+                    : lang === 'ru' 
+                    ? 'Яркие моменты нашей работы, научно-практического сотрудничества и праздничных мероприятий' 
+                    : 'Faaliyetlerimiz, bilimsel-akademik işbirliklerimiz ve törensel etkinliklerimizden kareler'}
+                </p>
+              </div>
 
-            {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {GALLERY_ITEMS.map(item => (
-                <div 
-                  key={item.id} 
-                  className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
-                  onClick={() => setNewsLightboxSrc(item.image)}
+              {/* Category Filter Switcher Tabs */}
+              <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-12">
+                <button
+                  type="button"
+                  onClick={() => setSelectedGalleryCategory('all')}
+                  className={`px-5 py-2.5 rounded-2xl text-xs font-black transition-all duration-300 ${
+                    selectedGalleryCategory === 'all'
+                      ? 'bg-[#00B4D8] text-white shadow-md shadow-cyan-500/20 scale-[1.02]'
+                      : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                  }`}
                 >
-                  <div className="h-72 overflow-hidden relative">
-                    <img 
-                      loading="lazy"
-                      src={item.image} 
-                      alt={getLangText(item.title)} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <Search className="w-5 h-5" />
+                  {lang === 'uz' ? 'Barchasi' : lang === 'ru' ? 'Все' : 'Hepsi'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedGalleryCategory('collaboration')}
+                  className={`px-5 py-2.5 rounded-2xl text-xs font-black transition-all duration-300 ${
+                    selectedGalleryCategory === 'collaboration'
+                      ? 'bg-[#00B4D8] text-white shadow-md shadow-cyan-500/20 scale-[1.02]'
+                      : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                  }`}
+                >
+                  {lang === 'uz' ? 'Ilmiy hamkorlik (TerDU)' : lang === 'ru' ? 'Научное сотрудничество (ТерГУ)' : 'Bilimsel İşbirliği (TerDU)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedGalleryCategory('opening')}
+                  className={`px-5 py-2.5 rounded-2xl text-xs font-black transition-all duration-300 ${
+                    selectedGalleryCategory === 'opening'
+                      ? 'bg-[#00B4D8] text-white shadow-md shadow-cyan-500/20 scale-[1.02]'
+                      : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                  }`}
+                >
+                  {lang === 'uz' ? 'Tantanali ochilish (2022)' : lang === 'ru' ? 'Торжественное открытие (2022)' : 'Görkemli Açılış (2022)'}
+                </button>
+              </div>
+
+              {/* Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredGallery.map(item => (
+                  <div 
+                    key={item.id} 
+                    className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
+                    onClick={() => setNewsLightboxSrc(item.image)}
+                  >
+                    <div className="h-72 overflow-hidden relative">
+                      <img 
+                        loading="lazy"
+                        src={item.image} 
+                        alt={getLangText(item.title)} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                          <Search className="w-5 h-5" />
+                        </div>
+                      </div>
+                      {/* Caption */}
+                      <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-transparent flex flex-col justify-end pt-20">
+                        <span className="text-[9px] text-cyan-400 font-black uppercase tracking-widest block mb-1.5">
+                          {item.category === 'collaboration' 
+                            ? (lang === 'uz' ? 'TerDU hamkorligi' : lang === 'ru' ? 'Сотрудничество с ТерГУ' : 'TerDU İşbirliği')
+                            : (lang === 'uz' ? 'Tantanali ochilish' : lang === 'ru' ? 'Торжественное открытие' : 'Açılış Töreni')}
+                        </span>
+                        <h4 className="text-sm font-black text-white leading-tight">
+                          {getLangText(item.title)}
+                        </h4>
+                        <p className="text-[11px] text-slate-300/90 mt-1 line-clamp-2 leading-relaxed font-semibold">
+                          {getLangText(item.description)}
+                        </p>
                       </div>
                     </div>
-                    {/* Caption */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-transparent flex flex-col justify-end pt-20">
-                      <span className="text-[9px] text-cyan-400 font-black uppercase tracking-widest block mb-1.5">
-                        {lang === 'uz' ? 'TerDU hamkorligi' : lang === 'ru' ? 'Сотрудничество с ТерГУ' : 'TerDU İşbirliği'}
-                      </span>
-                      <h4 className="text-sm font-black text-white leading-tight">
-                        {getLangText(item.title)}
-                      </h4>
-                      <p className="text-[11px] text-slate-300/90 mt-1 line-clamp-2 leading-relaxed font-semibold">
-                        {getLangText(item.description)}
-                      </p>
-                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })()}
 
       {/* News Details Modal */}
       {selectedNewsId && (() => {
