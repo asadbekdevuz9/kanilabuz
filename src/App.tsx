@@ -1622,6 +1622,16 @@ export default function App() {
   const [isFloatingMenuOpen, setIsFloatingMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
   // Contact form state
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
@@ -2228,12 +2238,7 @@ export default function App() {
   return (
     <div id="app-container" className={`min-h-screen w-full overflow-x-clip relative font-sans transition-colors duration-500 ${darkMode ? 'bg-[#090D1A] text-[#F8FAFC]' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
       
-      {/* Decorative ambient glowing grids */}
-      <div className="absolute top-0 inset-x-0 h-[600px] overflow-hidden pointer-events-none z-0">
-        <div className={`absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] opacity-30 ${darkMode ? 'bg-cyan-500' : 'bg-cyan-300'}`}></div>
-        <div className={`absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full blur-[100px] opacity-25 ${darkMode ? 'bg-blue-600' : 'bg-blue-400'}`}></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-      </div>
+      {/* Decorative ambient glowing grids - removed per user request */}
 
       {/* ==========================================
           STICKY PREMIUM NAVBAR
@@ -2315,7 +2320,7 @@ export default function App() {
                 {/* Left Panel: Department List */}
                 <div className="w-1/2 pr-2 flex flex-col gap-1">
                   <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 mb-1">
-                    {lang === 'uz' ? 'Bo‘limlar' : lang === 'ru' ? 'Отделы' : 'Bölümler'}
+                    {lang === 'uz' ? 'Bo\u2019limlar' : lang === 'ru' ? '\u041e\u0442\u0434\u0435\u043b\u044b' : 'B\u00f6l\u00fcmler'}
                   </div>
                   {[
                     { id: 'management', label: t.deptManagement },
@@ -2526,9 +2531,29 @@ export default function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation Dropdown Panel */}
+        {/* Mobile Navigation Full-Screen Panel */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pt-4 border-t border-slate-200/40 dark:border-slate-800/40 flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="lg:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-[100] bg-white/95 dark:bg-slate-950/97 backdrop-blur-md flex flex-col overflow-y-auto">
+            {/* Mobile menu header */}
+            <div className="flex items-center justify-between px-4 py-4 border-b border-slate-200/40 dark:border-slate-800/40 sticky top-0 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md z-10">
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}>
+                <KaniLabLogo className="w-10 h-10" />
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1">
+                  <button onClick={() => handleLangChange('uz')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'uz' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>UZ</button>
+                  <button onClick={() => handleLangChange('ru')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'ru' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>RU</button>
+                  <button onClick={() => handleLangChange('tr')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'tr' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>TR</button>
+                </div>
+                <button onClick={() => handleThemeToggle()} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
+                  {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+                </button>
+                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 px-4 py-4 flex-1">
             <div className="flex flex-col gap-2 font-semibold">
               <button 
                 onClick={() => {
@@ -2734,6 +2759,7 @@ export default function App() {
                 <Search className="w-4 h-4" />
                 <span>{lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}</span>
               </button>
+            </div>
             </div>
           </div>
         )}
