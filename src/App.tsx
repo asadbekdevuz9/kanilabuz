@@ -1879,8 +1879,7 @@ const GALLERY_ITEMS = [
 export default function App() {
   const [lang, setLang] = useState<'uz' | 'ru' | 'tr'>('uz');
   const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms' | 'news-gallery'>('home');
-  const [newsFilter, setNewsFilter] = useState<'all' | 'news' | 'gallery'>('all');
+  const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms' | 'news' | 'gallery'>('home');
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
   const [newsLightboxSrc, setNewsLightboxSrc] = useState<string | null>(null);
   const [selectedTeamDept, setSelectedTeamDept] = useState<string>('management');
@@ -1909,7 +1908,7 @@ export default function App() {
         setSelectedTeamDept('management');
       } else {
         const tab = hash.replace('#', '');
-        if (['home', 'about', 'about-history', 'about-values', 'about-mission', 'services', 'doctors', 'faq', 'contact', 'certificates', 'branches', 'privacy', 'terms', 'news-gallery'].includes(tab)) {
+        if (['home', 'about', 'about-history', 'about-values', 'about-mission', 'services', 'doctors', 'faq', 'contact', 'certificates', 'branches', 'privacy', 'terms', 'news', 'gallery'].includes(tab)) {
           setActiveTab(tab as any);
           setSelectedTeamMemberId(null);
         }
@@ -2991,8 +2990,8 @@ export default function App() {
                 {t.navFAQ}
               </button>
               <button 
-                onClick={() => { setActiveTab('news-gallery'); window.location.hash = 'news-gallery'; }} 
-                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'news-gallery' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
+                onClick={() => { setActiveTab('news'); window.location.hash = 'news'; }} 
+                className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'news' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
                 {lang === 'uz' ? 'Yangiliklar' : lang === 'ru' ? 'Новости' : 'Haberler'}
               </button>
@@ -3480,9 +3479,14 @@ export default function App() {
               >{t.navFAQ}</button>
 
               <button 
-                onClick={() => { setActiveTab('news-gallery'); setIsMobileMenuOpen(false); }}
-                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'news-gallery' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
-              >{lang === 'uz' ? 'Yangiliklar va Galereya' : lang === 'ru' ? 'Новости и Галерея' : 'Haberler & Galeri'}</button>
+                onClick={() => { setActiveTab('news'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'news' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{lang === 'uz' ? 'Yangiliklar' : lang === 'ru' ? 'Новости' : 'Haberler'}</button>
+
+              <button 
+                onClick={() => { setActiveTab('gallery'); setIsMobileMenuOpen(false); }}
+                className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'gallery' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
+              >{lang === 'uz' ? 'Fotogalereya' : lang === 'ru' ? 'Фотогалерея' : 'Foto Galeri'}</button>
 
               <button 
                 onClick={() => { setActiveTab('contact'); setIsMobileMenuOpen(false); }}
@@ -5000,50 +5004,28 @@ export default function App() {
       )}
 
       {/* ==========================================
-          YANGILIKLAR VA FOTOGALERIYA SECTION
+          YANGILIKLAR SECTION
          ========================================== */}
-      {activeTab === 'news-gallery' && (
-        <section id="news-gallery" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
-          <div className="max-w-7xl w-full mx-auto">
+      {activeTab === 'news' && (
+        <section id="news" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
+          <div className="max-w-7xl w-full mx-auto animate-in fade-in duration-300">
             {/* Header */}
-            <div className="flex flex-col items-center text-center gap-2 mb-12 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="flex flex-col items-center text-center gap-2 mb-12">
               <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
                 <FileText className="w-4 h-4" />
-                {lang === 'uz' ? 'YANGILIKLAR VA GALEREYA' : lang === 'ru' ? 'НОВОСТИ И ГАЛЕРЕЯ' : 'HABERLER & GALERİ'}
+                {lang === 'uz' ? 'YANGILIKLAR' : lang === 'ru' ? 'НОВОСТИ' : 'HABERLER'}
               </span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                {lang === 'uz' ? 'Kani-Lab hayotidan' : lang === 'ru' ? 'Из жизни Kani-Lab' : 'Kani-Lab Hayatından'}
+                {lang === 'uz' ? 'Kani-Lab yangiliklari' : lang === 'ru' ? 'Новости Kani-Lab' : 'Kani-Lab Haberleri'}
               </h2>
               <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                {lang === 'uz' ? 'Laboratoriyamizdagi eng so‘nggi yangiliklar, yutuqlarimiz va ish jarayonimizdan fotolavhalar' : lang === 'ru' ? 'Последние новости, достижения нашей лаборатории и фотохроника рабочего процесса' : 'Laboratuvarımızdan en son haberler, başarılarımız ve çalışma sürecimizden kareler'}
+                {lang === 'uz' ? 'Laboratoriyamizdagi eng so‘nggi yangiliklar va muhim yutuqlarimiz' : lang === 'ru' ? 'Последние новости и ключевые достижения нашей лаборатории' : 'Laboratuvarımızdan en son haberler ve önemli başarılarımız'}
               </p>
-            </div>
-
-            {/* Filter controls */}
-            <div className="flex justify-center gap-2 mb-10 overflow-x-auto py-2 shrink-0">
-              {[
-                { filter: 'all', label: lang === 'uz' ? 'Barchasi' : lang === 'ru' ? 'Все' : 'Hepsi' },
-                { filter: 'news', label: lang === 'uz' ? 'Yangiliklar' : lang === 'ru' ? 'Новости' : 'Haberler' },
-                { filter: 'gallery', label: lang === 'uz' ? 'Fotogalereya' : lang === 'ru' ? 'Фотогалерея' : 'Foto Galeri' }
-              ].map(tab => (
-                <button
-                  key={tab.filter}
-                  onClick={() => setNewsFilter(tab.filter as any)}
-                  className={`px-6 py-2.5 rounded-full text-xs font-black transition-all shrink-0 ${
-                    newsFilter === tab.filter
-                      ? 'bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white shadow-lg shadow-cyan-500/20'
-                      : 'bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
             </div>
 
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Render News Items */}
-              {(newsFilter === 'all' || newsFilter === 'news') && NEWS_ITEMS.map(item => (
+              {NEWS_ITEMS.map(item => (
                 <div 
                   key={item.id} 
                   className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
@@ -5083,9 +5065,34 @@ export default function App() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-              {/* Render Gallery Photos */}
-              {(newsFilter === 'all' || newsFilter === 'gallery') && GALLERY_ITEMS.map(item => (
+      {/* ==========================================
+          FOTOGALERIYA SECTION
+         ========================================== */}
+      {activeTab === 'gallery' && (
+        <section id="gallery" className="px-4 md:px-12 py-16 bg-slate-50 dark:bg-slate-950/20 min-h-screen">
+          <div className="max-w-7xl w-full mx-auto animate-in fade-in duration-300">
+            {/* Header */}
+            <div className="flex flex-col items-center text-center gap-2 mb-12">
+              <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
+                <Image className="w-4 h-4" />
+                {lang === 'uz' ? 'FOTOGALERIYA' : lang === 'ru' ? 'ФОТОГАЛЕРЕЯ' : 'FOTO GALERİ'}
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
+                {lang === 'uz' ? 'Ish jarayonimizdan fotolavhalar' : lang === 'ru' ? 'Фотохроника рабочего процесса' : 'Çalışma sürecimizden kareler'}
+              </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
+                {lang === 'uz' ? 'Laboratoriyamizning shinam binolari, zamonaviy jihozlari va professional jamoamiz' : lang === 'ru' ? 'Наши лаборатории, современное оборудование и профессиональная команда в объективе' : 'Laboratuvarımız, modern cihazlarımız ve profesyonel ekibimiz kadrajda'}
+              </p>
+            </div>
+
+            {/* Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {GALLERY_ITEMS.map(item => (
                 <div 
                   key={item.id} 
                   className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
@@ -5915,7 +5922,7 @@ export default function App() {
           <div className="flex flex-wrap gap-6 justify-center">
             <a href="#privacy" onClick={(e) => { e.preventDefault(); setActiveTab('privacy'); window.location.hash = 'privacy'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Maxfiylik Siyosati' : lang === 'ru' ? 'Конфиденциальность' : 'Gizlilik Politikası'}</a>
             <a href="#terms" onClick={(e) => { e.preventDefault(); setActiveTab('terms'); window.location.hash = 'terms'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Foydalanish shartlari' : lang === 'ru' ? 'Условия' : 'Kullanım Koşulları'}</a>
-            <a href="#news-gallery" onClick={(e) => { e.preventDefault(); setActiveTab('news-gallery'); window.location.hash = 'news-gallery'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Yangiliklar va Galereya' : lang === 'ru' ? 'Новости и Галерея' : 'Haberler & Galeri'}</a>
+            <a href="#gallery" onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); window.location.hash = 'gallery'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Fotogalereya' : lang === 'ru' ? 'Фотогалерея' : 'Foto Galeri'}</a>
             <button onClick={(e) => { e.preventDefault(); setActiveTab('certificates'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-[#00B4D8] transition-colors font-bold uppercase tracking-wider text-[11px]">{lang === 'uz' ? 'Sertifikatlarimiz' : lang === 'ru' ? 'Сертификаты' : 'Sertifikalarımız'}</button>
           </div>
 
