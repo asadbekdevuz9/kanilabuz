@@ -36,6 +36,7 @@ import sitoraImg from "./assets/images/Xurramova Sitora.jpg";
 import shaxzodaImg from "./assets/images/Qaxxorova Shaxzoda.jpg";
 import asadbekImg from "./assets/images/Davronov Asadbek.jpg";
 import yasminaImg from "./assets/images/Turopova Yasmina.jpg";
+import yusufbekImg from "./assets/images/Davronov Yusufbek.jpg";
 
 const sertifikatImg = cert3Img;
 
@@ -1217,24 +1218,33 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'yusufbek',
     name: 'Davronov Yusufbek',
-    position: { uz: 'Omborxona boshqaruvchisi', ru: 'Заведующий складом', tr: 'Depo ve Lojistik Yöneticisi' },
+    position: { 
+      uz: 'Omborxona boshqaruvchisi', 
+      ru: 'Заведующий складом', 
+      tr: 'Depo ve Lojistik Yöneticisi' 
+    },
     department: 'admin',
-    experience: { uz: '8 yillik tajriba', ru: '8 лет опыта', tr: '8 Yıllık Deneyim' },
+    experience: { 
+      uz: 'Tashabbuskor mutaxassis', 
+      ru: 'Инициативный специалист', 
+      tr: 'Girişimci Uzman' 
+    },
     specialties: {
       uz: ['Logistika boshqaruvi', 'Sovuq zanjir monitoringi', 'Inventarizatsiya'],
-      ru: ['Управление логистикой', 'Контроль холодовой цепи', 'Учет медицинских расходников'],
-      tr: ['Lojistik Yönetimi', 'Soğuk Zincir Kontrolü', 'Tıbbi Malzeme Envanteri']
+      ru: ['Управление логистикой', 'Мониторинг холодовой цепи', 'Инвентаризация'],
+      tr: ['Lojistik Yönetimi', 'Soğuk Zincir İzleme', 'Envanter Kontrolü']
     },
     grad: {
-      uz: 'Termiz Davlat Universiteti',
-      ru: 'Термезский государственный университет',
-      tr: 'Termez Devlet Üniversitesi'
+      uz: 'Mutaxassis o‘z kasbiy mahoratini amaliy ish jarayonida oshirib bormoqda.',
+      ru: 'Специалист повышает квалификацию в процессе практической работы.',
+      tr: 'Uzman, mesleki becerilerini pratik iş sürecinde geliştirmektedir.'
     },
     bio: {
-      uz: 'Tahlillar uchun tibbiy sarflanadigan materiallar va reaktivlar omborini sovuq zanjir talablari asosida boshqaradigan mas’ul xodim.',
-      ru: 'Отвечает за хранение реагентов и расходных материалов в строгом соответствии с температурными стандартами.',
-      tr: 'Reaktifler ve tıbbi sarf malzemelerinin soğuk zincir kurallarına uygun olarak depolanmasını sağlayan yönetici.'
-    }
+      uz: 'Davronov Yusufbek – Kani-Lab laboratoriyasining yosh, g‘ayratli va tashabbuskor mutaxassisi. 2026-yildan buyon laboratoriyamiz jamoasi tarkibida faoliyat yuritib kelmoqda. O‘zining mas’uliyatli yondashuvi va o‘rganishga bo‘lgan yuqori intilishi bilan laboratoriya uchun zarur bo‘lgan tibbiy sarflanuvchi materiallar va reaktivlar omborini xalqaro standartlarga, xususan, "sovuq zanjir" talablariga qat’iy rioya qilgan holda boshqarib kelmoqda. Yusufbek laboratoriya logistikasini tashkil etishda samaradorlik va aniqlikni ta’minlashda muhim o‘rin tutadi.',
+      ru: 'Давронов Юсуфбек — молодой, энергичный и инициативный специалист лаборатории Kani-Lab. Работает в команде лаборатории с 2026 года. Благодаря ответственному подходу и стремлению к знаниям, он управляет складом медицинских расходных материалов и реагентов в соответствии с международными стандартами и требованиями "холодовой цепи". Юсуфбек играет важную роль в обеспечении эффективности и точности логистики лаборатории.',
+      tr: 'Davronov Yusufbek, Kani-Lab laboratuvarının genç, dinamik ve girişimci bir uzmanıdır. 2026 yılından bu yana laboratuvar ekibimizde görev yapmaktadır. Sorumluluk sahibi yaklaşımı ve öğrenme azmi ile tıbbi sarf malzemeleri ve reaktif deposunu uluslararası standartlara, özellikle de "soğuk zincir" gereksinimlerine tam uyum içinde yönetmektedir. Yusufbek, laboratuvar lojistiğinin verimli ve hassas bir şekilde organize edilmesinde kritik bir rol oynamaktadır.'
+    },
+    photo: yusufbekImg
   },
   {
     id: "eshpo-latov-sunnatullo",
