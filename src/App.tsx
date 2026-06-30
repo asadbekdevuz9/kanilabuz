@@ -2036,6 +2036,7 @@ export default function App() {
 
   // Online statistics states
   const [isStatsModalOpen, setIsStatsModalOpen] = useState<boolean>(false);
+  const [statsTab, setStatsTab] = useState<'overview' | 'users' | 'devices'>('overview');
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
   const [onlineCount, setOnlineCount] = useState<number>(0);
   const [totalVisits, setTotalVisits] = useState<number>(14250);
@@ -2046,6 +2047,69 @@ export default function App() {
     region: 'Tashkent',
     city: 'Tashkent'
   });
+
+  const sessionStartTimeRef = useRef(new Date().toISOString());
+  const sessionIdRef = useRef(Math.random().toString(36).substring(2, 11));
+
+  // Translate tab name to display names
+  const getTabDisplayName = (tabId: string) => {
+    const mapping: Record<string, Record<string, string>> = {
+      'home': { uz: 'Bosh sahifa', ru: 'Главная', tr: 'Ana Sayfa' },
+      'about': { uz: 'Biz haqimizda', ru: 'О нас', tr: 'Hakkımızda' },
+      'about-history': { uz: 'Tariximiz', ru: 'История', tr: 'Tarihimiz' },
+      'about-values': { uz: 'Qadriyatlar', ru: 'Ценности', tr: 'Değerlerimiz' },
+      'about-mission': { uz: 'Missiyamiz', ru: 'Миссия', tr: 'Misyonumuz' },
+      'services': { uz: 'Xizmatlar', ru: 'Услуги', tr: 'Hizmetler' },
+      'doctors': { uz: 'Shifokorlar', ru: 'Врачи', tr: 'Doktorlar' },
+      'faq': { uz: 'FAQ', ru: 'Вопросы', tr: 'SSS' },
+      'contact': { uz: 'Aloqa', ru: 'Контакты', tr: 'İletişim' },
+      'certificates': { uz: 'Sertifikatlar', ru: 'Сертификаты', tr: 'Sertifikalar' },
+      'branches': { uz: 'Filiallar', ru: 'Филиалы', tr: 'Şubeler' },
+      'privacy': { uz: 'Maxfiylik Siyosati', ru: 'Конфиденциальность', tr: 'Gizlilik' },
+      'terms': { uz: 'Foydalanish shartlari', ru: 'Условия', tr: 'Şartlar' },
+      'news': { uz: 'Yangiliklar', ru: 'Новости', tr: 'Haberler' },
+      'gallery': { uz: 'Galereya', ru: 'Галерея', tr: 'Galeri' },
+      'news-gallery': { uz: 'Yangiliklar & Fotogalereya', ru: 'Новости и Галерея', tr: 'Haberler & Galeri' }
+    };
+    const val = mapping[tabId];
+    if (!val) return tabId;
+    return val[lang] || val['uz'];
+  };
+
+  // Device & Browser Share calculator
+  const deviceAndBrowserStats = useMemo(() => {
+    let mobileCount = 0;
+    let desktopCount = 0;
+    const browserCounts: Record<string, number> = {};
+
+    onlineUsers.forEach(u => {
+      if (u.device === 'mobile') {
+        mobileCount++;
+      } else {
+        desktopCount++;
+      }
+      const b = u.browser || 'Browser';
+      browserCounts[b] = (browserCounts[b] || 0) + 1;
+    });
+
+    const total = Math.max(1, onlineUsers.length);
+    const mobilePercentage = Math.round((mobileCount / total) * 100);
+    const desktopPercentage = Math.round((desktopCount / total) * 100);
+
+    const browsersList = Object.entries(browserCounts).map(([name, count]) => ({
+      name,
+      count,
+      percentage: Math.round((count / total) * 100)
+    })).sort((a, b) => b.count - a.count);
+
+    return {
+      mobileCount,
+      desktopCount,
+      mobilePercentage,
+      desktopPercentage,
+      browsersList
+    };
+  }, [onlineUsers]);
 
   // Flag emoji helper
   const getFlagEmoji = (countryCode: string) => {
@@ -2183,8 +2247,9 @@ export default function App() {
             city: userLocation.city,
             browser: browserName,
             device: deviceType,
-            joinedAt: new Date().toISOString(),
-            sessionId: Math.random().toString(36).substring(2, 11)
+            activeTab: activeTab,
+            joinedAt: sessionStartTimeRef.current,
+            sessionId: sessionIdRef.current
           });
         }
       });
@@ -2192,7 +2257,7 @@ export default function App() {
     return () => {
       channel.unsubscribe();
     };
-  }, [userLocation]);
+  }, [userLocation, activeTab]);
 
   // Visit counting logger
   useEffect(() => {
@@ -7523,200 +7588,268 @@ export default function App() {
               </div>
             </div>
 
+            {/* Navigation Tabs */}
+            <div className="flex gap-1 border-b border-slate-100 dark:border-slate-850/60 px-8 py-2 shrink-0 bg-slate-50/50 dark:bg-slate-900/30">
+              {[
+                { id: 'overview', label: lang === 'uz' ? 'Umumiy ko\'rinish' : lang === 'ru' ? 'Обзор' : 'Overview' },
+                { id: 'users', label: lang === 'uz' ? `Jonli Oqim (${onlineCount})` : lang === 'ru' ? `Живой Поток (${onlineCount})` : `Live Feed (${onlineCount})` },
+                { id: 'devices', label: lang === 'uz' ? 'Qurilmalar' : lang === 'ru' ? 'Устройства' : 'Devices' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setStatsTab(tab.id as any)}
+                  className={`px-4 py-2.5 text-xs font-black rounded-lg transition-all cursor-pointer ${
+                    statsTab === tab.id
+                      ? 'bg-[#00B4D8]/10 text-[#0096C7] dark:text-[#48CAE4]'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-850 dark:hover:text-slate-200'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
             {/* Modal Content */}
             <div className="p-8 pt-6 overflow-y-auto space-y-6 flex-1">
               
-              {/* Metrics Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Active Users */}
-                <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 dark:from-emerald-500/15 dark:to-teal-500/5 border border-emerald-500/10 dark:border-emerald-500/20 flex flex-col justify-between">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">
-                      {lang === 'uz' ? 'Hozir Online' : lang === 'ru' ? 'Онлайн Сейчас' : 'Active Now'}
-                    </span>
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
-                      {onlineCount}
-                    </h4>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
-                      {lang === 'uz' ? 'faol sessiyalar' : lang === 'ru' ? 'активных сессий' : 'active sessions'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Total Visits */}
-                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/80 flex flex-col justify-between">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 tracking-wider uppercase">
-                      {lang === 'uz' ? 'Jami Tashriflar' : lang === 'ru' ? 'Всего Посещений' : 'Total Visits'}
-                    </span>
-                    <Database className="w-4 h-4 text-slate-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
-                      {totalVisits.toLocaleString()}
-                    </h4>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
-                      {lang === 'uz' ? 'kirishlar soni' : lang === 'ru' ? 'всего просмотров' : 'total page loads'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Active Countries */}
-                <div className="p-5 rounded-2xl bg-gradient-to-br from-[#00B4D8]/10 to-[#0096C7]/5 dark:from-[#00B4D8]/15 dark:to-transparent border border-[#00B4D8]/10 dark:border-[#00B4D8]/20 flex flex-col justify-between">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-black text-[#0096C7] dark:text-[#48CAE4] tracking-wider uppercase">
-                      {lang === 'uz' ? 'Faol Davlatlar' : lang === 'ru' ? 'Активные Страны' : 'Active Countries'}
-                    </span>
-                    <Globe className="w-4 h-4 text-[#00B4D8]" />
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
-                      {countryStats.length}
-                    </h4>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
-                      {lang === 'uz' ? 'geografik hududlar' : lang === 'ru' ? 'гео-локаций' : 'geo-regions'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Geo Stats and User List Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                {/* Countries Distribution */}
-                <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 animate-in fade-in duration-300">
-                  <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-cyan-500" />
-                    {lang === 'uz' ? 'Davlatlar bo\'yicha ulush' : lang === 'ru' ? 'Доля по странам' : 'Country Share'}
-                  </h4>
-
-                  {countryStats.length === 0 ? (
-                    <div className="text-center py-8 text-xs font-bold text-slate-400">
-                      {lang === 'uz' ? 'Ma\'lumotlar yuklanmoqda...' : lang === 'ru' ? 'Загрузка данных...' : 'Loading analytics...'}
+              {statsTab === 'overview' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  {/* Metrics Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Active Users */}
+                    <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 dark:from-emerald-500/15 dark:to-teal-500/5 border border-emerald-500/10 dark:border-emerald-500/20 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">
+                          {lang === 'uz' ? 'Hozir Online' : lang === 'ru' ? 'Онлайн Сейчас' : 'Active Now'}
+                        </span>
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+                          {onlineCount}
+                        </h4>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                          {lang === 'uz' ? 'faol sessiyalar' : lang === 'ru' ? 'активных сессий' : 'active sessions'}
+                        </p>
+                      </div>
                     </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {countryStats.map((stat) => (
-                        <div key={stat.name} className="space-y-1.5">
-                          <div className="flex justify-between text-xs font-bold">
-                            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                              <span className="text-base leading-none">{getFlagEmoji(stat.code)}</span>
-                              {stat.name}
-                            </span>
-                            <span className="text-slate-900 dark:text-white">{stat.percentage}% ({stat.count} active)</span>
-                          </div>
-                          <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full transition-all duration-500"
-                              style={{ width: `${stat.percentage}%` }}
-                            />
-                          </div>
-                        </div>
-                      ))}
+
+                    {/* Total Visits */}
+                    <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/80 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 tracking-wider uppercase">
+                          {lang === 'uz' ? 'Jami Tashriflar' : lang === 'ru' ? 'Всего Посещений' : 'Total Visits'}
+                        </span>
+                        <Database className="w-4 h-4 text-slate-400" />
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+                          {totalVisits.toLocaleString()}
+                        </h4>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                          {lang === 'uz' ? 'kirishlar soni' : lang === 'ru' ? 'всего просмотров' : 'total page loads'}
+                        </p>
+                      </div>
                     </div>
-                  )}
+
+                    {/* Active Countries */}
+                    <div className="p-5 rounded-2xl bg-gradient-to-br from-[#00B4D8]/10 to-[#0096C7]/5 dark:from-[#00B4D8]/15 dark:to-transparent border border-[#00B4D8]/10 dark:border-[#00B4D8]/20 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-black text-[#0096C7] dark:text-[#48CAE4] tracking-wider uppercase">
+                          {lang === 'uz' ? 'Faol Davlatlar' : lang === 'ru' ? 'Активные Страны' : 'Active Countries'}
+                        </span>
+                        <Globe className="w-4 h-4 text-[#00B4D8]" />
+                      </div>
+                      <div>
+                        <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+                          {countryStats.length}
+                        </h4>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                          {lang === 'uz' ? 'geografik hududlar' : lang === 'ru' ? 'гео-локаций' : 'geo-regions'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Countries Distribution */}
+                  <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60">
+                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <Globe className="w-4 h-4 text-cyan-500" />
+                      {lang === 'uz' ? 'Foydalanuvchilarning davlatlar bo\'yicha taqsimoti' : lang === 'ru' ? 'Распределение пользователей по странам' : 'User Distribution by Country'}
+                    </h4>
+
+                    {countryStats.length === 0 ? (
+                      <div className="text-center py-8 text-xs font-bold text-slate-400">
+                        {lang === 'uz' ? 'Ma\'lumotlar yuklanmoqda...' : lang === 'ru' ? 'Загрузка данных...' : 'Loading analytics...'}
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {countryStats.map((stat) => (
+                          <div key={stat.name} className="p-3 bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-100/50 dark:border-slate-800/40 space-y-1.5">
+                            <div className="flex justify-between text-xs font-bold">
+                              <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                                <span className="text-base leading-none">{getFlagEmoji(stat.code)}</span>
+                                {stat.name}
+                              </span>
+                              <span className="text-slate-900 dark:text-white">{stat.percentage}% ({stat.count} online)</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-150 dark:bg-slate-850 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full"
+                                style={{ width: `${stat.percentage}%` }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
+              )}
 
-                {/* Active Sessions List */}
-                <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 flex flex-col animate-in fade-in duration-300">
-                  <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
-                      {lang === 'uz' ? 'Live Foydalanuvchilar oqimi' : lang === 'ru' ? 'Поток пользователей' : 'Live Users Feed'}
+              {statsTab === 'users' && (
+                <div className="space-y-4 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between text-xs font-bold text-slate-400 px-1">
+                    <span className="uppercase tracking-wider">
+                      {lang === 'uz' ? 'Faol Sessiyalar ro\'yxati' : lang === 'ru' ? 'Список активных сессий' : 'List of Active Sessions'}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-extrabold uppercase">
-                      {onlineCount} {lang === 'uz' ? 'online' : lang === 'ru' ? 'онлайн' : 'online'}
+                    <span>
+                      {onlineCount} {lang === 'uz' ? 'foydalanuvchi faol' : lang === 'ru' ? 'активных сессий' : 'users active'}
                     </span>
-                  </h4>
+                  </div>
 
-                  <div className="space-y-3.5 max-h-64 overflow-y-auto pr-1 scrollbar-thin">
+                  <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-thin">
                     {onlineUsers.length === 0 ? (
-                      <div className="text-center py-12 text-xs font-bold text-slate-400">
-                        {lang === 'uz' ? 'Hech kim online emas' : lang === 'ru' ? 'Нет пользователей онлайн' : 'No online sessions'}
+                      <div className="text-center py-16 text-xs font-bold text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-3xl">
+                        {lang === 'uz' ? 'Hozircha faol foydalanuvchilar yo\'q' : lang === 'ru' ? 'Нет активных сессий' : 'No active sessions'}
                       </div>
                     ) : (
                       onlineUsers.map((user, idx) => (
-                        <div key={user.sessionId || idx} className="p-3 bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-100/50 dark:border-slate-800/40 flex items-center justify-between text-xs transition-colors hover:bg-slate-100/30 dark:hover:bg-slate-950/50">
-                          <div className="flex items-center gap-2.5 overflow-hidden">
-                            <span className="text-xl shrink-0 leading-none" title={user.countryCode}>
+                        <div key={user.sessionId || idx} className="p-4 bg-slate-50 dark:bg-slate-950/30 rounded-2xl border border-slate-100/50 dark:border-slate-800/40 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs hover:border-cyan-500/20 dark:hover:border-cyan-500/20 transition-all">
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <span className="text-2xl shrink-0 leading-none" title={user.countryCode}>
                               {getFlagEmoji(user.countryCode)}
                             </span>
                             <div className="overflow-hidden">
-                              <div className="font-extrabold text-slate-800 dark:text-slate-200 truncate">
+                              <div className="font-extrabold text-slate-800 dark:text-slate-100 text-sm">
                                 {user.city}, {user.region}
                               </div>
-                              <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+                              <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2 mt-1">
                                 <span>{user.browser || 'Browser'}</span>
                                 <span className="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-                                <span className="flex items-center gap-0.5">
+                                <span className="flex items-center gap-1">
                                   {user.device === 'mobile' ? (
-                                    <Smartphone className="w-2.5 h-2.5" />
+                                    <Smartphone className="w-3 h-3 text-slate-400" />
                                   ) : (
-                                    <Monitor className="w-2.5 h-2.5" />
+                                    <Monitor className="w-3 h-3 text-slate-400" />
                                   )}
                                   {user.device || 'desktop'}
                                 </span>
                               </div>
                             </div>
                           </div>
-                          
-                          <div className="text-right shrink-0">
-                            <span className="text-[9px] text-slate-400 dark:text-slate-500 font-black block">
-                              {getTimeAgo(user.joinedAt)}
-                            </span>
-                            <span className="px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 rounded text-[9px] font-black uppercase mt-1 inline-block leading-none">
-                              Active
-                            </span>
+
+                          <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
+                            {user.activeTab && (
+                              <span className="px-2.5 py-1 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/10 rounded-lg text-[10px] font-black uppercase tracking-wider">
+                                {lang === 'uz' ? 'Ko\'rmoqda: ' : lang === 'ru' ? 'Смотрит: ' : 'Viewing: '}
+                                {getTabDisplayName(user.activeTab)}
+                              </span>
+                            )}
+                            <div className="text-right">
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold block">
+                                {getTimeAgo(user.joinedAt)}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       ))
                     )}
                   </div>
                 </div>
+              )}
 
-              </div>
+              {statsTab === 'devices' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Device breakdown */}
+                    <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <Monitor className="w-4 h-4 text-purple-500" />
+                        {lang === 'uz' ? 'Qurilmalar turi' : lang === 'ru' ? 'Типы устройств' : 'Device Types'}
+                      </h4>
 
-              {/* Developer DB Setup Helper */}
-              {!hasDbAnalyticsTable && (
-                <div className="p-5 bg-amber-50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/30 rounded-2xl animate-in slide-in-from-bottom-2 duration-300">
-                  <div className="flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-                    <div>
-                      <h5 className="text-sm font-bold text-amber-800 dark:text-amber-300">
-                        {lang === 'uz' ? 'Doimiy statistika bazasini sozlash' : lang === 'ru' ? 'Настройка базы данных статистики' : 'Setup Persistent Database Statistics'}
-                      </h5>
-                      <p className="text-xs text-amber-700 dark:text-amber-400 mt-1 leading-relaxed">
-                        {lang === 'uz' ? 'Sayt hozircha vaqtinchalik xotira (localStorage) yordamida tashriflarni hisoblamoqda (real-time tizim ishlayapti). Tashriflarni Supabase bazasida doimiy saqlash uchun quyidagi SQL kodni Supabase SQL Editor-da ishga tushiring:' : 
-                         lang === 'ru' ? 'Сайт временно считает посещения через локальное хранилище (real-time работает). Чтобы сохранять историю посещений в базе данных, выполните следующий SQL в Supabase SQL Editor:' : 
-                         'The site is temporarily tracking visits via localStorage (real-time presence is active). To save visit logs permanently in the database, run the following SQL inside Supabase SQL Editor:'}
-                      </p>
-                      
-                      <details className="mt-3 group">
-                        <summary className="text-xs font-black text-amber-800 dark:text-amber-300 cursor-pointer select-none group-open:mb-2 hover:underline">
-                          {lang === 'uz' ? 'SQL So\'rovni ko\'rish' : lang === 'ru' ? 'Показать SQL запрос' : 'Show SQL Query'}
-                        </summary>
-                        <pre className="p-3 bg-slate-900 dark:bg-black rounded-lg text-[10px] text-emerald-400 overflow-x-auto select-all font-mono leading-normal border border-slate-800">
-{`CREATE TABLE public.kanilab_analytics (
-    id SERIAL PRIMARY KEY,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
-    country TEXT,
-    region TEXT,
-    city TEXT,
-    browser TEXT,
-    device TEXT
-);
+                      <div className="space-y-6">
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-700 dark:text-slate-300">
+                          <span className="flex items-center gap-1.5">
+                            <Monitor className="w-4 h-4" />
+                            Desktop
+                          </span>
+                          <span>{deviceAndBrowserStats.desktopPercentage}% ({deviceAndBrowserStats.desktopCount} online)</span>
+                        </div>
 
-ALTER TABLE public.kanilab_analytics ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow anon insert" ON public.kanilab_analytics FOR INSERT TO anon WITH CHECK (true);
-CREATE POLICY "Allow anon select" ON public.kanilab_analytics FOR SELECT TO anon USING (true);`}
-                        </pre>
-                      </details>
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-700 dark:text-slate-300">
+                          <span className="flex items-center gap-1.5">
+                            <Smartphone className="w-4 h-4" />
+                            Mobile
+                          </span>
+                          <span>{deviceAndBrowserStats.mobilePercentage}% ({deviceAndBrowserStats.mobileCount} online)</span>
+                        </div>
+
+                        {/* Custom visual progress split bar */}
+                        <div className="space-y-2">
+                          <div className="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+                            <div 
+                              className="h-full bg-cyan-500 transition-all"
+                              style={{ width: `${deviceAndBrowserStats.desktopPercentage}%` }}
+                              title={`Desktop: ${deviceAndBrowserStats.desktopPercentage}%`}
+                            />
+                            <div 
+                              className="h-full bg-emerald-500 transition-all"
+                              style={{ width: `${deviceAndBrowserStats.mobilePercentage}%` }}
+                              title={`Mobile: ${deviceAndBrowserStats.mobilePercentage}%`}
+                            />
+                          </div>
+                          <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-cyan-500"></span>Desktop</span>
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span>Mobile</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Browsers list */}
+                    <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <Cpu className="w-4 h-4 text-amber-500" />
+                        {lang === 'uz' ? 'Brauzerlar ulushi' : lang === 'ru' ? 'Доля браузеров' : 'Browser Share'}
+                      </h4>
+
+                      {deviceAndBrowserStats.browsersList.length === 0 ? (
+                        <div className="text-center py-8 text-xs font-bold text-slate-400">
+                          {lang === 'uz' ? 'Yuklanmoqda...' : lang === 'ru' ? 'Загрузка...' : 'Loading...'}
+                        </div>
+                      ) : (
+                        <div className="space-y-4">
+                          {deviceAndBrowserStats.browsersList.map((stat) => (
+                            <div key={stat.name} className="space-y-1">
+                              <div className="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                                <span>{stat.name}</span>
+                                <span>{stat.percentage}% ({stat.count})</span>
+                              </div>
+                              <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"
+                                  style={{ width: `${stat.percentage}%` }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
