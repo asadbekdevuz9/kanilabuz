@@ -1456,33 +1456,33 @@ const TEAM_MEMBERS: TeamMember[] = [
     photo: zubaydaImg
   },
   {
-    id: "turopova-yasmina",
-    name: "Turopova Yasmina",
+    id: "turobova-yasmina",
+    name: "Turobova Yasmina",
     position: {
-      uz: "Klinik-laboratoriya laboranti",
-      ru: "Клинико-лабораторный лаборант",
-      tr: "Klinik Laboratuvar Teknisyeni"
+      uz: "Klinik diagnostika laboratoriya shifokori",
+      ru: "Врач клинической лабораторной диагностики",
+      tr: "Klinik Teşhis Laboratuvar Hekimi"
     },
     department: "lab",
     experience: {
-      uz: "4 yillik tajriba",
-      ru: "4 года опыта",
-      tr: "4 Yıllık Deneyim"
+      uz: "Yosh mutaxassis",
+      ru: "Молодой специалист",
+      tr: "Genç Uzman"
     },
     specialties: {
-      uz: ["Laboratoriya diagnostikasi", "Klinik tahlillar", "Namuna tayyorlash"],
-      ru: ["Лабораторная диагностика", "Клинические исследования", "Подготовка проб"],
-      tr: ["Laboratuvar Teşhisi", "Klinik Analizler", "Numune Hazırlama"]
+      uz: ["Klinik laboratoriya diagnostikasi", "Biokimyoviy tahlillar", "Diagnostika sifat nazorati"],
+      ru: ["Клиническая лабораторная диагностика", "Биохимические анализы", "Контроль качества диагностики"],
+      tr: ["Klinik laboratuvar teşhisi", "Biyokimyasal analizler", "Teşhis kalite kontrolü"]
     },
     grad: {
-      uz: "Termiz Tibbiyot Kolleji",
-      ru: "Термезский медицинский колледж",
-      tr: "Termez Medikal Koleji"
+      uz: "• Oliy ta’lim: Termiz davlat universiteti, Tabiiy fanlar fakulteti (2021–2025).\n• Ixtisoslashuv: Toshkent vrachlar malakasini oshirish instituti, \"Klinik diagnostika laboratoriya\" yo‘nalishi (2025–2026).",
+      ru: "• Высшее образование: Термезский государственный университет, факультет естественных наук (2021–2025 гг.).\n• Специализация: Ташкентский институт усовершенствования врачей, направление \"Клиническая лабораторная диагностика\" (2025–2026 гг.).",
+      tr: "• Lisans: Termez Devlet Üniversitesi, Doğa Bilimleri Fakültesi (2021–2025).\n• Uzmanlık: Taşkent Hekim Geliştirme Enstitüsü, \"Klinik Teşhis Laboratuvarı\" bölümü (2025–2026)."
     },
     bio: {
-      uz: "Turopova Yasmina – Kani-Lab laboratoriyasining professional klinik-laboratoriya laboranti. U tahlillarni yuqori aniqlikda bajarish, zamonaviy jihozlar bilan ishlashda tajribali mutaxassisdir.",
-      ru: "Туропова Ясмина — профессиональный клинико-лабораторный лаборант лаборатории Kani-Lab. Она обладает большим опытом работы с современным диагностическим оборудованием.",
-      tr: "Turopova Yasmina - Kani-Lab laboratuvarının profesyonel klinik laboratuvar teknisyenidir. Analizleri yüksek doğrulukla tamamlama ve modern cihazlarla çalışma konusunda deneyimlidir."
+      uz: "Turobova Yasmina – Kani-Lab laboratoriyasining yosh va istiqbolli mutaxassisi. U fundamental biologik bilimlarni chuqur klinik diagnostika ko‘nikmalari bilan uyg‘unlashtirgan holda, laboratoriya tahlillarining aniqligini ta’minlashda muhim rol o‘ynaydi. Toshkent vrachlar malakasini oshirish institutida laboratoriya diagnostikasi bo‘yicha ixtisoslashgan Yasmina, zamonaviy tahlil metodikalarini amaliyotda qo‘llash va diagnostika sifatini oshirishga yo‘naltirilgan. Uning kasbiy yondashuvi tahlil natijalarining ishonchliligi va tezkorligiga asoslangan bo‘lib, bemorlar salomatligini aniqlashda mas’uliyat bilan xizmat qiladi.",
+      ru: "Туробова Ясмина — молодой и перспективный специалист лаборатории Kani-Lab. Сочетая глубокие фундаментальные биологические знания с навыками клинической диагностики, она играет важную роль в обеспечении точности лабораторных анализов. Пройдя специализацию по лабораторной диагностике в Ташкентском институте усовершенствования врачей, Ясмина ориентирована на применение современных аналитических методов и повышение качества диагностики. Её профессиональный подход основан на надежности и оперативности результатов анализов, что позволяет ответственно служить здоровью пациентов.",
+      tr: "Turobova Yasmina, Kani-Lab laboratuvarının genç ve gelecek vadeden bir uzmanıdır. Temel biyolojik bilgileri derin klinik teşhis becerileriyle birleştirerek laboratuvar testlerinin doğruluğunun sağlanmasında önemli bir rol oynamaktadır. Taşkent Hekim Geliştirme Enstitüsü'nde laboratuvar teşhisi alanında uzmanlaşan Yasmina, modern analiz yöntemlerini uygulamaya ve teşhis kalitesini artırmaya odaklanmıştır. Mesleki yaklaşımı, analiz sonuçlarının güvenilirliği ve hızına dayanmakta olup hastaların sağlığını belirlemede sorumlulukla hizmet vermektedir."
     },
     photo: yasminaImg
   }
