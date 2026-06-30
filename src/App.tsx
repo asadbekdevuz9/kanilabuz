@@ -3183,21 +3183,6 @@ export default function App() {
                         </div>
                       )}
 
-                      {hoveredMenuDept === 'service' && (
-                        <button
-                          onClick={() => {
-                            setActiveTab('contact');
-                            setTimeout(() => {
-                              const el = document.getElementById('contact');
-                              if (el) el.scrollIntoView({ behavior: 'smooth' });
-                            }, 100);
-                          }}
-                          className="w-full text-left px-3 py-2 text-[10px] font-bold text-[#0096C7] dark:text-[#48CAE4] hover:bg-cyan-50/40 dark:hover:bg-cyan-950/20 rounded-lg transition-all border border-dashed border-cyan-100 dark:border-cyan-900 mt-2 flex items-center justify-center gap-1 shrink-0"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                          <span>{lang === 'uz' ? 'Kadrlar zaxirasi' : lang === 'ru' ? 'Кадровый резерв' : 'Kariyer Fırsatı'}</span>
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
