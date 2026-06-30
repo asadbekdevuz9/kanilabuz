@@ -2333,21 +2333,23 @@ export default function App() {
 
       // Save to Supabase DB for cross-device verification
       try {
-        supabase.from('kanilab_tickets').insert([
-          {
-            id: newId,
-            patient_name: patientName,
-            patient_phone: patientPhone,
-            selected_date: selectedDate,
-            selected_time: selectedTime,
-            selected_branch: selectedBranch,
-            cart: cart,
-            cart_total_amount: cartTotalAmount,
-            timestamp: newTicket.timestamp
-          }
-        ]).then(({ error }) => {
-          if (error) console.error("Supabase insert error:", error);
-        });
+        if (supabase) {
+          supabase.from('kanilab_tickets').insert([
+            {
+              id: newId,
+              patient_name: patientName,
+              patient_phone: patientPhone,
+              selected_date: selectedDate,
+              selected_time: selectedTime,
+              selected_branch: selectedBranch,
+              cart: cart,
+              cart_total_amount: cartTotalAmount,
+              timestamp: newTicket.timestamp
+            }
+          ]).then(({ error }) => {
+            if (error) console.error("Supabase insert error:", error);
+          });
+        }
       } catch(err) {
         console.error("Supabase insert error:", err);
       }
@@ -2373,7 +2375,7 @@ export default function App() {
 
     // Check on Supabase database if not found locally
     let supabaseMatch = null;
-    if (!localMatch) {
+    if (!localMatch && supabase) {
       try {
         const { data, error } = await supabase
           .from('kanilab_tickets')
@@ -2939,21 +2941,23 @@ export default function App() {
 
       // Save ticket to Supabase DB for cross-device verification
       try {
-        supabase.from('kanilab_tickets').insert([
-          {
-            id: randomID,
-            patient_name: patientName,
-            patient_phone: fullPhone,
-            selected_date: selectedDate,
-            selected_time: selectedTime,
-            selected_branch: selectedBranch,
-            cart: cart,
-            cart_total_amount: cartTotalAmount,
-            timestamp: newTicket.timestamp
-          }
-        ]).then(({ error }) => {
-          if (error) console.error("Supabase insert error:", error);
-        });
+        if (supabase) {
+          supabase.from('kanilab_tickets').insert([
+            {
+              id: randomID,
+              patient_name: patientName,
+              patient_phone: fullPhone,
+              selected_date: selectedDate,
+              selected_time: selectedTime,
+              selected_branch: selectedBranch,
+              cart: cart,
+              cart_total_amount: cartTotalAmount,
+              timestamp: newTicket.timestamp
+            }
+          ]).then(({ error }) => {
+            if (error) console.error("Supabase insert error:", error);
+          });
+        }
       } catch(err) {
         console.error("Supabase insert error:", err);
       }
