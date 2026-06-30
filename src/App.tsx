@@ -16,26 +16,28 @@ import { TestItem, LABORATORY_TESTS } from './testsData';
 import Typed from 'typed.js';
 
 import kaniLabLogoImg from './assets/images/logo.png';
-import rocheCobasImg from './assets/images/cobas6000.jpg';
-import mindrayBS2000Img from './assets/images/59ea81316c.jpg.500x500.jpg';
-import mindrayBC5800Img from './assets/images/mindray-bc-5800.jpg';
-import coagulationImg from './assets/images/C2000-4-AnalizadorCoagulacionSemiautomatico-1.jpg';
-import bioradPcrImg from './assets/images/lsr_CFX-Connect-Real-Time-PCR-Detection-System-PDP.png';
-import abbottC8000Img from './assets/images/C8000.png';
-import coatronXImg from './assets/images/Coatron-X.jpg';
+import rocheCobasImg from './assets/images/Aparatlar/cobas6000.jpg';
+import mindrayBS2000Img from './assets/images/Aparatlar/59ea81316c.jpg.500x500.jpg';
+import mindrayBC5800Img from './assets/images/Aparatlar/mindray-bc-5800.jpg';
+import coagulationImg from './assets/images/Aparatlar/C2000-4-AnalizadorCoagulacionSemiautomatico-1.jpg';
+import bioradPcrImg from './assets/images/Aparatlar/lsr_CFX-Connect-Real-Time-PCR-Detection-System-PDP.png';
+import abbottC8000Img from './assets/images/Aparatlar/C8000.png';
+import coatronXImg from './assets/images/Aparatlar/Coatron-X.jpg';
 import termizUnivImg from './assets/images/terdu.jpg';
 import tashkentMedicalImg from './assets/images/ttatf.jpg';
-import cert1Img from './assets/images/sertifikat-1.jfif';
-import cert2Img from './assets/images/sertifikat-2.jfif';
-import cert3Img from './assets/images/sertifikat-3.jfif';
+import cert1Img from './assets/images/Cap sertifikat/sertifikat-1.jfif';
+import cert2Img from './assets/images/Cap sertifikat/sertifikat-2.jfif';
+import cert3Img from './assets/images/Cap sertifikat/sertifikat-3.jfif';
 import markazOldImg from './assets/images/markaz old.jpg';
-import sunnatulloImg from "./assets/images/Eshpo'latov Sunnatullo.jpg";
-import sitoraImg from "./assets/images/Xurramova Sitora.jpg";
-import shaxzodaImg from "./assets/images/Qaxxorova Shaxzoda.jpg";
-import asadbekImg from "./assets/images/Davronov Asadbek.jpg";
-import yasminaImg from "./assets/images/Turopova Yasmina.jpg";
-import yusufbekImg from "./assets/images/Davronov Yusufbek.jpg";
-import farangizImg from "./assets/images/Alikulova Farangiz.jpg";
+import sunnatulloImg from "./assets/images/Xodimlar/Eshpo'latov Sunnatullo.jpg";
+import sitoraImg from "./assets/images/Xodimlar/Xurramova Sitora.jpg";
+import shaxzodaImg from "./assets/images/Xodimlar/Qaxxorova Shaxzoda.jpg";
+import asadbekImg from "./assets/images/Xodimlar/Davronov Asadbek.jpg";
+import yasminaImg from "./assets/images/Xodimlar/Turopova Yasmina.jpg";
+import yusufbekImg from "./assets/images/Xodimlar/Davronov Yusufbek.jpg";
+import farangizImg from "./assets/images/Xodimlar/Alikulova Farangiz.jpg";
+import zilolaImg from "./assets/images/Xodimlar/Amirqulova Zilola.jpg";
+import zubaydaImg from "./assets/images/Xodimlar/Xurramova Zubayda.jpg";
 import terdu1Img from "./assets/images/TerDU/TerDU-1.jpg";
 import terdu2Img from "./assets/images/TerDU/TerDU-2.jpg";
 import terdu3Img from "./assets/images/TerDU/TerDU-3.jpg";
@@ -1401,9 +1403,9 @@ const TEAM_MEMBERS: TeamMember[] = [
     },
     department: "lab",
     experience: {
-      uz: "6 yillik tajriba",
-      ru: "6 лет опыта",
-      tr: "6 Yıllık Deneyim"
+      uz: "5 yillik tajriba",
+      ru: "5 лет опыта",
+      tr: "5 Yıllık Deneyim"
     },
     specialties: {
       uz: ["Immunologik tekshiruvlar", "Laboratoriya diagnostikasi", "Diagnostika sifat nazorati"],
@@ -1411,15 +1413,16 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ["İmmünolojik Araştırmalar", "Laboratuvar Teşhisi", "Teşhis Kalite Kontrolü"]
     },
     grad: {
-      uz: "• Kollej: Termiz tibbiyot kolleji (2017–2020).",
-      ru: "• Колледж: Термезский медицинский колледж (2017–2020).",
-      tr: "• Kolej: Termez Medikal Koleji (2017–2020)."
+      uz: "• Kollej: Termiz shahridagi Tibbiyot kolleji (Laboratoriya diagnostikasi yo‘nalishi, 2020-yil).\n• Malaka oshirish: Respublika o‘rta tibbiyot va farmatsevtika xodimlari malakasini oshirish va ularni ixtisoslashtirish markazi Termiz filiali, \"Laboratoriya ishida zamonaviy tekshirish usullari\" mutaxassisligi (2026-yil).",
+      ru: "• Колледж: Термезский медицинский колледж (направление лабораторной диагностики, 2020 г.).\n• Повышение квалификации: Термезский филиал Республиканского центра повышения квалификации и специализации средних медицинских и фармацевтических работников, специальность \"Современные методы исследований в лабораторном деле\" (2026 г.).",
+      tr: "• Kolej: Termez Tıp Koleji (Laboratuvar Teşhisi bölümü, 2020).\n• Uzmanlık Eğitimi: Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi, \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" uzmanlık eğitimi (2026)."
     },
     bio: {
-      uz: "Amirqulova Zilola – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zilola, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi. Tibbiyot kollejida olgan fundamental tibbiy bilimlarini amaliyotda samarali qo‘llagan holda, laboratoriya tahlillari sifatini ta’minlash va diagnostika jarayonlarini optimallashtirishda o‘z hissasini qo‘shib kelmoqda. Uning kasbiy faoliyati bemorlar salomatligini aniqlashda laboratoriya tahlillarining o‘rni nechog‘lik muhimligini anglagan holda, mas’uliyat va e’tibor bilan yondashishga asoslangan.",
-      ru: "Амиркулова Зилола — квалифицированный специалист лаборатории Kani-Lab по направлению иммунологической диагностики. Работает с 2020 года, демонстрируя высокий уровень профессионализма при иммунологических исследованиях. Эффективно применяет медицинские знания в практике.",
-      tr: "Amirqulova Zilola - Kani-Lab laboratuvarının immünolojik teşhis alanındaki uzman personellerindendir. 2020 yılından bu yana immünolojik testlerde doğruluk ve profesyonellik göstermektedir. Tıp kolejinde edindiği bilgileri sahada başarıyla uygulamaktadır."
-    }
+      uz: "Amirqulova Zilola – 2020-yilda Surxondaryo viloyati, Termiz shahridagi Tibbiyot kollejining \"Laboratoriya diagnostikasi\" yo‘nalishini tamomlagan. Laboratoriya sohasida 5 yillik ish tajribasiga ega. 2021-yildan buyon \"Alles Sağlık Group\" MChJga qarashli Kani-Lab laboratoriyasining Termiz filialida laboratoriya mutaxassisi sifatida faoliyat yuritib kelmoqda. 2026-yilda Respublika o‘rta tibbiyot va farmatsevtika xodimlari malakasini oshirish va ularni ixtisoslashtirish markazi Termiz filialida \"Laboratoriya ishida zamonaviy tekshirish usullari\" mutaxassisligi bo‘yicha malaka oshirish kursini muvaffaqiyatli tamomlagan.",
+      ru: "Амиркулова Зилола окончила Термезский медицинский колледж Сурхандарьинской области в 2020 году по направлению \"Лабораторная диагностика\". Имеет 5-летний опыт работы в сфере лабораторных исследований. С 2021 года работает лаборантом в лаборатории Kani-Lab в Термезе, принадлежащей ООО \"Alles Sağlık Group\". В 2026 году успешно окончила курс повышения квалификации в Термезском филиале Республиканского центра повышения квалификации и специализации средних медицинских и фармацевтических работников по специальности \"Современные методы исследований в лабораторном деле\".",
+      tr: "Amirqulova Zilola, 2020 yılında Surhanderya ili Termez Tıp Koleji'nin \"Laboratuvar Teşhisi\" bölümünden mezun olmuştur. Laboratuvar alanında 5 yıllık iş deneyimine sahiptir. 2021 yılından bu yana \"Alles Sağlık Group\" bünyesindeki Kani-Lab laboratuvarının Termez şubesinde laboratuvar uzmanı olarak görev yapaktadır. 2026 yılında Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi'nde \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" branşında mesleki gelişim kursunu başarıyla tamamlamıştır."
+    },
+    photo: zilolaImg
   },
   {
     id: "xurramova-zubayda",
@@ -1441,15 +1444,16 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: ["İmmünolojik Araştırmalar", "Laboratuvar Teşhisi", "Teşhis Kalite Kontrolü"]
     },
     grad: {
-      uz: "• Kollej: Termiz tibbiyot kolleji (2017–2020).",
-      ru: "• Колледж: Термезский медицинский колледж (2017–2020).",
-      tr: "• Kolej: Termez Medikal Koleji (2017–2020)."
+      uz: "• Kollej: Termiz shahridagi Tibbiyot kolleji (Laboratoriya diagnostikasi yo‘nalishi, 2020-yil).\n• Malaka oshirish: Respublika o‘rta tibbiyot va farmatsevtika xodimlari malakasini oshirish va ularni ixtisoslashtirish markazi Termiz filiali, \"Laboratoriya ishida zamonaviy tekshirish usullari\" mutaxassisligi (2026-yil).",
+      ru: "• Колледж: Термезский медицинский колледж (направление лабораторной диагностики, 2020 г.).\n• Повышение квалификации: Термезский филиал Республиканского центра повышения квалификации и специализации средних медицинских и фармацевтических работников, специальность \"Современные методы исследований в лабораторном деле\" (2026 г.).",
+      tr: "• Kolej: Termez Tıp Koleji (Laboratuvar Teşhisi bölümü, 2020).\n• Uzmanlık Eğitimi: Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi, \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" uzmanlık eğitimi (2026)."
     },
     bio: {
-      uz: "Xurramova Zubayda – Kani-Lab laboratoriyasining immunologik diagnostika yo‘nalishidagi malakali mutaxassisi. 2020-yildan buyon faoliyat yuritib kelayotgan Zubayda, immunologik tekshiruvlarni o‘tkazishda yuqori aniqlik va professionallikni namoyon etadi. Tibbiyot kollejida olgan fundamental tibbiy bilimlarini amaliyotda samarali qo‘llagan holda, laboratoriya tahlillari sifatini ta’minlash va diagnostika jarayonlarini optimallashtirishda o‘z hissasini qo‘shib kelmoqda. Uning kasbiy faoliyati bemorlar salomatligini aniqlashda laboratoriya tahlillarining o‘rni nechog‘lik muhimligini anglagan holda, mas’uliyat va e’tibor bilan yondashishga asoslangan.",
-      ru: "Хуррамова Зубайда — квалифицированный специалист лаборатории Kani-Lab по иммунологическому направлению. С 2020 года она демонстрирует высокую точность и профессионализм при проведении иммунологических исследований. Эффективно применяя на практике фундаментальные медицинские знания, полученные в медицинском колледже, она вносит свой вклад в обеспечение качества лабораторных анализов и оптимизацию диагностических процессов. В своей профессиональной деятельности она руководствуется принципами ответственности и внимательности, понимая важную роль лабораторных анализов в определении здоровья пациентов.",
-      tr: "Xurramova Zubayda - Kani-Lab laboratuvarının immünoloji teşhis alanındaki nitelikli uzmanıdır. 2020 yılından bu yana görev yapan Zubayda, immünolojik araştırmalarda yüksek doğruluk ve uzmanlık sergilemektedir. Tıp kolejinde edindiği temel tıp bilgilerini sahada başarıyla uygulayarak, laboratuvar analizlerinin kalitesini artırmaya ve teşhis süreçlerini optimize etmeye katkıda bulunmaktadır. Mesleki faaliyetlerinde, laboratuvar testlerinin hasta sağlığını belirlemedeki kritik öneminin bilincinde olarak sorumluluk ve titizlikle hareket etmektedir."
-    }
+      uz: "Xurramova Zubayda – 2020-yilda Surxondaryo viloyati, Termiz shahridagi Tibbiyot kollejining \"Laboratoriya diagnostikasi\" yo‘nalishini tamomlagan. Laboratoriya sohasida 5 yillik ish tajribasiga ega. 2021-yildan buyon \"Alles Sağlık Group\" MChJga qarashli Kani-Lab laboratoriyasining Termiz filialida laboratoriya mutaxassisi sifatida faoliyat yuritib kelmoqda. 2026-yilda Respublika o‘rta tibbiyot va farmatsevtika xodimlari malakasini oshirish va ularni ixtisoslashtirish markazi Termiz filialida \"Laboratoriya ishida zamonaviy tekshirish usullari\" mutaxassisligi bo‘yicha malaka oshirish kursini muvaffaqiyatli tamomlagan.",
+      ru: "Хуррамова Зубайда окончила Термезский медицинский колледж Сурхандарьинской области в 2020 году по направлению \"Лабораторная диагностика\". Имеет 5-летний опыт работы в сфере лабораторных исследований. С 2021 года работает лаборантом в лаборатории Kani-Lab в Термезе, принадлежащей ООО \"Alles Sağlık Group\". В 2026 году успешно окончила курс повышения квалификации в Термезском филиале Республиканского центра повышения квалификации и специализации средних медицинских и фармацевтических работников по специальности \"Современные методы исследований в лабораторном деле\".",
+      tr: "Xurramova Zubayda, 2020 yılında Surhanderya ili Termez Tıp Koleji'nin \"Laboratuvar Teşhisi\" bölümünden mezun olmuştur. Laboratuvar alanında 5 yıllık iş deneyimine sahiptir. 2021 yılından bu yana \"Alles Sağlık Group\" bünyesindeki Kani-Lab laboratuvarının Termez şubesinde laboratuvar uzmanı olarak görev yapmaktadır. 2026 yılında Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi'nde \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" branşında mesleki gelişim kursunu başarıyla tamamlamıştır."
+    },
+    photo: zubaydaImg
   },
   {
     id: "turopova-yasmina",
