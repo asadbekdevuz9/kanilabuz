@@ -48,6 +48,7 @@ import xotinQizlarAngorImg from "./assets/images/2025 yil Xotin qizlar bayrami/x
 import xotinQizlarFilialdaImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni filialda.jpg";
 import xotinQizlarMarkazdaImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni Markazda.jpg";
 import xotinQizlarSherabodImg from "./assets/images/2025 yil Xotin qizlar bayrami/xotin qizlar kuni sherabod.jpg";
+import { supabase } from './supabaseClient';
 
 const sertifikatImg = cert3Img;
 
@@ -2330,6 +2331,27 @@ export default function App() {
         localStorage.setItem('kanilab_tickets', JSON.stringify(existing));
       } catch(e) {}
 
+      // Save to Supabase DB for cross-device verification
+      try {
+        supabase.from('kanilab_tickets').insert([
+          {
+            id: newId,
+            patient_name: patientName,
+            patient_phone: patientPhone,
+            selected_date: selectedDate,
+            selected_time: selectedTime,
+            selected_branch: selectedBranch,
+            cart: cart,
+            cart_total_amount: cartTotalAmount,
+            timestamp: newTicket.timestamp
+          }
+        ]).then(({ error }) => {
+          if (error) console.error("Supabase insert error:", error);
+        });
+      } catch(err) {
+        console.error("Supabase insert error:", err);
+      }
+
     }, 1500);
   };
 
@@ -2349,10 +2371,39 @@ export default function App() {
       localMatch = existing.find((t: any) => t.id === searchId || t.id.replace(/\D/g, '') === rawInput);
     } catch(e) {}
 
+    // Check on Supabase database if not found locally
+    let supabaseMatch = null;
+    if (!localMatch) {
+      try {
+        const { data, error } = await supabase
+          .from('kanilab_tickets')
+          .select('*')
+          .eq('id', searchId)
+          .single();
+        if (data && !error) {
+          supabaseMatch = {
+            id: data.id,
+            patientName: data.patient_name,
+            patientPhone: data.patient_phone,
+            selectedDate: data.selected_date,
+            selectedTime: data.selected_time,
+            selectedBranch: data.selected_branch,
+            cart: data.cart,
+            cartTotalAmount: data.cart_total_amount,
+            timestamp: data.timestamp
+          };
+        }
+      } catch(err) {
+        console.error("Supabase query error:", err);
+      }
+    }
+
+    const finalMatch = localMatch || supabaseMatch;
+
     // Send verification query to Telegram bot
     try {
-      const statusText = localMatch
-        ? `✅ TOPILDI — Chek raqami: ${searchId}\n👤 Bemor: ${localMatch.patientName}\n📞 Telefon: ${localMatch.patientPhone}\n📅 Sana: ${localMatch.selectedDate} ${localMatch.selectedTime}`
+      const statusText = finalMatch
+        ? `✅ TOPILDI — Chek raqami: ${searchId}\n👤 Bemor: ${finalMatch.patientName}\n📞 Telefon: ${finalMatch.patientPhone}\n📅 Sana: ${finalMatch.selectedDate} ${finalMatch.selectedTime}`
         : `❌ TOPILMADI — Tekshirilgan raqam: ${searchId}`;
       
       await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -2367,8 +2418,8 @@ export default function App() {
     } catch(e) { /* bot xatoligi UI ni to'xtatmasin */ }
 
     // Show result in UI
-    if (localMatch) {
-      setFoundTicket(localMatch);
+    if (finalMatch) {
+      setFoundTicket(finalMatch);
     } else {
       setCheckError(lang === 'uz' ? 'Bunday raqamli chek topilmadi' : lang === 'ru' ? 'Чек с таким номером не найден' : 'Bunday raqamli chek topilmadi');
     }
@@ -2885,6 +2936,27 @@ export default function App() {
         existing.push(newTicket);
         localStorage.setItem('kanilab_tickets', JSON.stringify(existing));
       } catch(e) {}
+
+      // Save ticket to Supabase DB for cross-device verification
+      try {
+        supabase.from('kanilab_tickets').insert([
+          {
+            id: randomID,
+            patient_name: patientName,
+            patient_phone: fullPhone,
+            selected_date: selectedDate,
+            selected_time: selectedTime,
+            selected_branch: selectedBranch,
+            cart: cart,
+            cart_total_amount: cartTotalAmount,
+            timestamp: newTicket.timestamp
+          }
+        ]).then(({ error }) => {
+          if (error) console.error("Supabase insert error:", error);
+        });
+      } catch(err) {
+        console.error("Supabase insert error:", err);
+      }
     }, 2000);
   };
 
