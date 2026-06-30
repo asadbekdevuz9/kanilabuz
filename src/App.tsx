@@ -5,7 +5,8 @@ import {
   Send, Sun, Moon, Sparkles, X, Globe, Microscope, FileText, 
   Award, Trash2, Printer, CheckCircle2, ChevronRight, Eye, RefreshCw,
   SlidersHorizontal, Filter, Grid, List, ArrowUpDown, ChevronUp, Plus, AlertCircle,
-  Heart, Menu, Maximize2, ClipboardList, Database, Zap, ChevronLeft, Circle, ArrowLeft
+  Heart, Menu, Maximize2, ClipboardList, Database, Zap, ChevronLeft, Circle, ArrowLeft,
+  Monitor, Smartphone
 } from 'lucide-react';
 
 // ==========================================
@@ -2032,6 +2033,229 @@ export default function App() {
   const [hoveredMenuDept, setHoveredMenuDept] = useState<string>('management');
   const [isMobileDeptOpen, setIsMobileDeptOpen] = useState<Record<string, boolean>>({});
   const [isMobileAboutOpen, setIsMobileAboutOpen] = useState<boolean>(false);
+
+  // Online statistics states
+  const [isStatsModalOpen, setIsStatsModalOpen] = useState<boolean>(false);
+  const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
+  const [onlineCount, setOnlineCount] = useState<number>(0);
+  const [totalVisits, setTotalVisits] = useState<number>(14250);
+  const [hasDbAnalyticsTable, setHasDbAnalyticsTable] = useState<boolean>(true);
+  const [userLocation, setUserLocation] = useState({
+    country: 'Uzbekistan',
+    countryCode: 'UZ',
+    region: 'Tashkent',
+    city: 'Tashkent'
+  });
+
+  // Flag emoji helper
+  const getFlagEmoji = (countryCode: string) => {
+    if (!countryCode) return '🌐';
+    if (countryCode === 'UNKNOWN') return '🌐';
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map(char => 127397 + char.charCodeAt(0));
+    try {
+      return String.fromCodePoint(...codePoints);
+    } catch (e) {
+      return '🌐';
+    }
+  };
+
+  // Time ago helper
+  const getTimeAgo = (joinedAtStr: string) => {
+    if (!joinedAtStr) return 'just now';
+    const joinedAt = new Date(joinedAtStr);
+    const now = new Date();
+    const diffMs = now.getTime() - joinedAt.getTime();
+    const diffSecs = Math.floor(diffMs / 1000);
+    const diffMins = Math.floor(diffSecs / 60);
+    
+    if (diffMins < 1) {
+      return lang === 'uz' ? 'Hozirgina' : lang === 'ru' ? 'Только что' : 'Just now';
+    }
+    return lang === 'uz' ? `${diffMins} daqiqa oldin` : lang === 'ru' ? `${diffMins} мин. назад` : `${diffMins}m ago`;
+  };
+
+  // Country share calculator
+  const countryStats = useMemo(() => {
+    const stats: Record<string, { count: number; code: string }> = {};
+    onlineUsers.forEach((u) => {
+      const country = u.country || 'Uzbekistan';
+      const code = u.countryCode || 'UZ';
+      if (!stats[country]) {
+        stats[country] = { count: 0, code };
+      }
+      stats[country].count += 1;
+    });
+    return Object.entries(stats).map(([name, val]) => ({
+      name,
+      code: val.code,
+      count: val.count,
+      percentage: Math.round((val.count / Math.max(1, onlineUsers.length)) * 100)
+    })).sort((a, b) => b.count - a.count);
+  }, [onlineUsers]);
+
+  // Geolocation API fetch
+  useEffect(() => {
+    const fetchGeoLocation = async () => {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.country_name) {
+            setUserLocation({
+              country: data.country_name,
+              countryCode: data.country_code || 'UZ',
+              region: data.region || 'Tashkent',
+              city: data.city || 'Tashkent'
+            });
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("ipapi.co failed, trying fallback...", e);
+      }
+      
+      try {
+        const res = await fetch('https://ipwhois.app/json/');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.country) {
+            setUserLocation({
+              country: data.country,
+              countryCode: data.country_code || 'UZ',
+              region: data.region || 'Tashkent',
+              city: data.city || 'Tashkent'
+            });
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("All geolocation APIs failed, using defaults:", err);
+      }
+    };
+    fetchGeoLocation();
+  }, []);
+
+  // Supabase Presence tracking
+  useEffect(() => {
+    if (!supabase) {
+      setHasDbAnalyticsTable(false);
+      return;
+    }
+
+    const channel = supabase.channel('kanilab-online-stats', {
+      config: {
+        presence: {
+          key: 'user-session',
+        },
+      },
+    });
+
+    const deviceType = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+    const browserName = navigator.userAgent.includes('Edg') ? 'Edge' :
+                        navigator.userAgent.includes('Chrome') ? 'Chrome' :
+                        navigator.userAgent.includes('Firefox') ? 'Firefox' :
+                        navigator.userAgent.includes('Safari') ? 'Safari' : 'Browser';
+
+    channel
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState();
+        const formattedUsers: any[] = [];
+        
+        Object.keys(state).forEach((key) => {
+          const presences = state[key] as any[];
+          presences.forEach((p) => {
+            formattedUsers.push(p);
+          });
+        });
+        
+        setOnlineUsers(formattedUsers);
+        setOnlineCount(formattedUsers.length);
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await channel.track({
+            country: userLocation.country,
+            countryCode: userLocation.countryCode,
+            region: userLocation.region,
+            city: userLocation.city,
+            browser: browserName,
+            device: deviceType,
+            joinedAt: new Date().toISOString(),
+            sessionId: Math.random().toString(36).substring(2, 11)
+          });
+        }
+      });
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [userLocation]);
+
+  // Visit counting logger
+  useEffect(() => {
+    const sessionVisitKey = 'kanilab_visit_registered';
+    const hasVisitedThisSession = sessionStorage.getItem(sessionVisitKey);
+    
+    const registerVisit = async () => {
+      let localVisits = parseInt(localStorage.getItem('kanilab_local_visits') || '14250', 10);
+      if (!hasVisitedThisSession) {
+        localVisits += 1;
+        localStorage.setItem('kanilab_local_visits', localVisits.toString());
+        sessionStorage.setItem(sessionVisitKey, 'true');
+      }
+      setTotalVisits(localVisits);
+
+      if (!supabase) {
+        setHasDbAnalyticsTable(false);
+        return;
+      }
+
+      try {
+        if (!hasVisitedThisSession) {
+          const deviceType = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+          const browserName = navigator.userAgent.includes('Edg') ? 'Edge' :
+                              navigator.userAgent.includes('Chrome') ? 'Chrome' :
+                              navigator.userAgent.includes('Firefox') ? 'Firefox' :
+                              navigator.userAgent.includes('Safari') ? 'Safari' : 'Browser';
+
+          const { error: insertError } = await supabase
+            .from('kanilab_analytics')
+            .insert({
+              country: userLocation.country,
+              region: userLocation.region,
+              city: userLocation.city,
+              browser: browserName,
+              device: deviceType
+            });
+            
+          if (insertError) {
+            setHasDbAnalyticsTable(false);
+          }
+        }
+
+        const { count, error: countError } = await supabase
+          .from('kanilab_analytics')
+          .select('*', { count: 'exact', head: true });
+
+        if (countError) {
+          setHasDbAnalyticsTable(false);
+        } else if (count !== null) {
+          setTotalVisits(count + 14250);
+          setHasDbAnalyticsTable(true);
+        }
+      } catch (err) {
+        console.warn("Analytics DB operation failed:", err);
+        setHasDbAnalyticsTable(false);
+      }
+    };
+
+    if (userLocation.country) {
+      registerVisit();
+    }
+  }, [userLocation]);
 
   // Qanday boriladi states
   const [routeFrom, setRouteFrom] = useState('');
@@ -6275,6 +6499,16 @@ export default function App() {
             <a href="#terms" onClick={(e) => { e.preventDefault(); setActiveTab('terms'); window.location.hash = 'terms'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Foydalanish shartlari' : lang === 'ru' ? 'Условия' : 'Kullanım Koşulları'}</a>
             <a href="#gallery" onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); window.location.hash = 'gallery'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Fotogalereya' : lang === 'ru' ? 'Фотогалерея' : 'Foto Galeri'}</a>
             <button onClick={(e) => { e.preventDefault(); setActiveTab('certificates'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-[#00B4D8] transition-colors font-bold uppercase tracking-wider text-[11px]">{lang === 'uz' ? 'Sertifikatlarimiz' : lang === 'ru' ? 'Сертификаты' : 'Sertifikalarımız'}</button>
+            <button 
+              onClick={() => setIsStatsModalOpen(true)} 
+              className="text-emerald-500 hover:text-emerald-400 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5 cursor-pointer"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              {lang === 'uz' ? 'Online Statistika' : lang === 'ru' ? 'Онлайн Статистика' : 'Online Stats'}
+            </button>
           </div>
 
           <div className="text-slate-400 text-center font-extrabold">
@@ -7245,6 +7479,262 @@ export default function App() {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================
+          REAL-TIME STATISTICS MODAL
+         ========================================== */}
+      {isStatsModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto" onClick={() => setIsStatsModalOpen(false)}>
+          <div 
+            className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-[32px] w-full max-w-3xl overflow-hidden shadow-2xl relative flex flex-col transition-all duration-300 max-h-[90vh]"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsStatsModalOpen(false)}
+              className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-full bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-700/80 transition-all cursor-pointer z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="p-8 pb-4 border-b border-slate-100 dark:border-slate-850 shrink-0">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+                  <Activity className="w-5 h-5 animate-pulse" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">
+                      {lang === 'uz' ? 'KaniLab Live Platforma Statistikasi' : lang === 'ru' ? 'Живая Статистика Платформы KaniLab' : 'KaniLab Live Platform Analytics'}
+                    </h3>
+                    <span className="px-2 py-0.5 bg-red-500 text-white text-[9px] font-black tracking-widest uppercase rounded flex items-center gap-1 shrink-0">
+                      <span className="w-1 h-1 bg-white rounded-full animate-ping"></span>
+                      LIVE
+                    </span>
+                  </div>
+                  <p className="text-xs font-bold text-slate-400 mt-1">
+                    {lang === 'uz' ? 'Real vaqt rejimida tashrif buyuruvchilar faolligi va geolokatsiyasi' : lang === 'ru' ? 'Активность посетителей и геолокация в реальном времени' : 'Real-time visitor activity and geolocation analytics'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-8 pt-6 overflow-y-auto space-y-6 flex-1">
+              
+              {/* Metrics Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Active Users */}
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 dark:from-emerald-500/15 dark:to-teal-500/5 border border-emerald-500/10 dark:border-emerald-500/20 flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">
+                      {lang === 'uz' ? 'Hozir Online' : lang === 'ru' ? 'Онлайн Сейчас' : 'Active Now'}
+                    </span>
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+                      {onlineCount}
+                    </h4>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                      {lang === 'uz' ? 'faol sessiyalar' : lang === 'ru' ? 'активных сессий' : 'active sessions'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Total Visits */}
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/80 flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 tracking-wider uppercase">
+                      {lang === 'uz' ? 'Jami Tashriflar' : lang === 'ru' ? 'Всего Посещений' : 'Total Visits'}
+                    </span>
+                    <Database className="w-4 h-4 text-slate-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+                      {totalVisits.toLocaleString()}
+                    </h4>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                      {lang === 'uz' ? 'kirishlar soni' : lang === 'ru' ? 'всего просмотров' : 'total page loads'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Active Countries */}
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-[#00B4D8]/10 to-[#0096C7]/5 dark:from-[#00B4D8]/15 dark:to-transparent border border-[#00B4D8]/10 dark:border-[#00B4D8]/20 flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-black text-[#0096C7] dark:text-[#48CAE4] tracking-wider uppercase">
+                      {lang === 'uz' ? 'Faol Davlatlar' : lang === 'ru' ? 'Активные Страны' : 'Active Countries'}
+                    </span>
+                    <Globe className="w-4 h-4 text-[#00B4D8]" />
+                  </div>
+                  <div>
+                    <h4 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+                      {countryStats.length}
+                    </h4>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
+                      {lang === 'uz' ? 'geografik hududlar' : lang === 'ru' ? 'гео-локаций' : 'geo-regions'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Geo Stats and User List Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* Countries Distribution */}
+                <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 animate-in fade-in duration-300">
+                  <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-cyan-500" />
+                    {lang === 'uz' ? 'Davlatlar bo\'yicha ulush' : lang === 'ru' ? 'Доля по странам' : 'Country Share'}
+                  </h4>
+
+                  {countryStats.length === 0 ? (
+                    <div className="text-center py-8 text-xs font-bold text-slate-400">
+                      {lang === 'uz' ? 'Ma\'lumotlar yuklanmoqda...' : lang === 'ru' ? 'Загрузка данных...' : 'Loading analytics...'}
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {countryStats.map((stat) => (
+                        <div key={stat.name} className="space-y-1.5">
+                          <div className="flex justify-between text-xs font-bold">
+                            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                              <span className="text-base leading-none">{getFlagEmoji(stat.code)}</span>
+                              {stat.name}
+                            </span>
+                            <span className="text-slate-900 dark:text-white">{stat.percentage}% ({stat.count} active)</span>
+                          </div>
+                          <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full transition-all duration-500"
+                              style={{ width: `${stat.percentage}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Active Sessions List */}
+                <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 flex flex-col animate-in fade-in duration-300">
+                  <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center justify-between">
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
+                      {lang === 'uz' ? 'Live Foydalanuvchilar oqimi' : lang === 'ru' ? 'Поток пользователей' : 'Live Users Feed'}
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-extrabold uppercase">
+                      {onlineCount} {lang === 'uz' ? 'online' : lang === 'ru' ? 'онлайн' : 'online'}
+                    </span>
+                  </h4>
+
+                  <div className="space-y-3.5 max-h-64 overflow-y-auto pr-1 scrollbar-thin">
+                    {onlineUsers.length === 0 ? (
+                      <div className="text-center py-12 text-xs font-bold text-slate-400">
+                        {lang === 'uz' ? 'Hech kim online emas' : lang === 'ru' ? 'Нет пользователей онлайн' : 'No online sessions'}
+                      </div>
+                    ) : (
+                      onlineUsers.map((user, idx) => (
+                        <div key={user.sessionId || idx} className="p-3 bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-100/50 dark:border-slate-800/40 flex items-center justify-between text-xs transition-colors hover:bg-slate-100/30 dark:hover:bg-slate-950/50">
+                          <div className="flex items-center gap-2.5 overflow-hidden">
+                            <span className="text-xl shrink-0 leading-none" title={user.countryCode}>
+                              {getFlagEmoji(user.countryCode)}
+                            </span>
+                            <div className="overflow-hidden">
+                              <div className="font-extrabold text-slate-800 dark:text-slate-200 truncate">
+                                {user.city}, {user.region}
+                              </div>
+                              <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+                                <span>{user.browser || 'Browser'}</span>
+                                <span className="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+                                <span className="flex items-center gap-0.5">
+                                  {user.device === 'mobile' ? (
+                                    <Smartphone className="w-2.5 h-2.5" />
+                                  ) : (
+                                    <Monitor className="w-2.5 h-2.5" />
+                                  )}
+                                  {user.device || 'desktop'}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="text-right shrink-0">
+                            <span className="text-[9px] text-slate-400 dark:text-slate-500 font-black block">
+                              {getTimeAgo(user.joinedAt)}
+                            </span>
+                            <span className="px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 rounded text-[9px] font-black uppercase mt-1 inline-block leading-none">
+                              Active
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Developer DB Setup Helper */}
+              {!hasDbAnalyticsTable && (
+                <div className="p-5 bg-amber-50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/30 rounded-2xl animate-in slide-in-from-bottom-2 duration-300">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h5 className="text-sm font-bold text-amber-800 dark:text-amber-300">
+                        {lang === 'uz' ? 'Doimiy statistika bazasini sozlash' : lang === 'ru' ? 'Настройка базы данных статистики' : 'Setup Persistent Database Statistics'}
+                      </h5>
+                      <p className="text-xs text-amber-700 dark:text-amber-400 mt-1 leading-relaxed">
+                        {lang === 'uz' ? 'Sayt hozircha vaqtinchalik xotira (localStorage) yordamida tashriflarni hisoblamoqda (real-time tizim ishlayapti). Tashriflarni Supabase bazasida doimiy saqlash uchun quyidagi SQL kodni Supabase SQL Editor-da ishga tushiring:' : 
+                         lang === 'ru' ? 'Сайт временно считает посещения через локальное хранилище (real-time работает). Чтобы сохранять историю посещений в базе данных, выполните следующий SQL в Supabase SQL Editor:' : 
+                         'The site is temporarily tracking visits via localStorage (real-time presence is active). To save visit logs permanently in the database, run the following SQL inside Supabase SQL Editor:'}
+                      </p>
+                      
+                      <details className="mt-3 group">
+                        <summary className="text-xs font-black text-amber-800 dark:text-amber-300 cursor-pointer select-none group-open:mb-2 hover:underline">
+                          {lang === 'uz' ? 'SQL So\'rovni ko\'rish' : lang === 'ru' ? 'Показать SQL запрос' : 'Show SQL Query'}
+                        </summary>
+                        <pre className="p-3 bg-slate-900 dark:bg-black rounded-lg text-[10px] text-emerald-400 overflow-x-auto select-all font-mono leading-normal border border-slate-800">
+{`CREATE TABLE public.kanilab_analytics (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    country TEXT,
+    region TEXT,
+    city TEXT,
+    browser TEXT,
+    device TEXT
+);
+
+ALTER TABLE public.kanilab_analytics ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow anon insert" ON public.kanilab_analytics FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "Allow anon select" ON public.kanilab_analytics FOR SELECT TO anon USING (true);`}
+                        </pre>
+                      </details>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+            </div>
+            
+            {/* Modal Footer */}
+            <div className="p-6 bg-slate-50 dark:bg-slate-950/20 border-t border-slate-100 dark:border-slate-800/40 flex justify-end shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsStatsModalOpen(false)}
+                className="px-6 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl text-xs font-black hover:bg-slate-300/80 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+              >
+                {lang === 'uz' ? 'Yopish' : lang === 'ru' ? 'Закрыть' : 'Kapat'}
+              </button>
+            </div>
+
           </div>
         </div>
       )}
