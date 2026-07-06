@@ -39,6 +39,7 @@ import yusufbekImg from "./assets/images/Xodimlar/Davronov Yusufbek.jpg";
 import farangizImg from "./assets/images/Xodimlar/Alikulova Farangiz.jpg";
 import zilolaImg from "./assets/images/Xodimlar/Amirqulova Zilola.jpg";
 import zubaydaImg from "./assets/images/Xodimlar/Xurramova Zubayda.jpg";
+import xoshiyevaSitoraImg from "./assets/images/Xodimlar/Xo'shiyeva Sitora.jpg";
 import terdu1Img from "./assets/images/TerDU/TerDU-1.jpg";
 import terdu2Img from "./assets/images/TerDU/TerDU-2.jpg";
 import terdu3Img from "./assets/images/TerDU/TerDU-3.jpg";
@@ -342,7 +343,7 @@ const PHONE_COUNTRIES = [
   { code: 'NP', name: 'Nepal',               dialCode: '+977', flag: '🇳🇵', length: 10, placeholder: '984 123 4567' },
   { code: 'MM', name: 'Myanma',              dialCode: '+95',  flag: '🇲🇲', length: 9,  placeholder: '9 2123 4567' },
   { code: 'KH', name: 'Kambodja',            dialCode: '+855', flag: '🇰🇭', length: 9,  placeholder: '12 345 678' },
-  { code: 'MN', name: "Mo'g'uliston",        dialCode: '+976', flag: '🇲🇳', length: 8,  placeholder: '8812 3456' },
+  { code: 'MN', name: "Mo'g\'uliston",        dialCode: '+976', flag: '🇲🇳', length: 8,  placeholder: '8812 3456' },
 ];
 
 
@@ -1033,6 +1034,188 @@ const TRANSLATIONS = {
       }
     ]
   },
+  en: {
+    navHome: 'Home',
+    navAbout: 'About Lab',
+    navAboutUs: 'About Us',
+    navAboutHistory: 'Our History',
+    navAboutValues: 'Our Values',
+    navAboutMission: 'Our Mission & Goals',
+    navServices: 'Tests',
+    navTeam: 'Our Team',
+    deptManagement: 'Management',
+    deptLab: 'Laboratory & Diagnostics',
+    deptFinance: 'Accounting & Finance',
+    deptService: 'Service & Support',
+    deptAdmin: 'Administrative Departments',
+    navFAQ: 'FAQ',
+    navContact: 'Contact',
+    navBranches: 'Branches',
+    navContactMain: 'Contact Center',
+    btnBook: 'Book Appointment',
+    btnAnalyses: 'Tests Catalog',
+    btnContactUs: 'Contact Us',
+    badgeGen: 'International Partnership & Quality',
+    heroHeadline: 'Experience of Uzbekistan, Turkey & Netherlands',
+    heroSub: 'Serving your health since 2019 through international collaboration and advanced robotic diagnostic systems.',
+    statPatients: 'Successful Diagnostics',
+    statTests: 'Types of Tests',
+    statAccuracy: 'Accuracy Rate',
+    statExperience: 'Years of Experience',
+    pcrResult: 'Rapid PCR Test',
+    negative: 'NEGATIVE',
+    confirmed: 'Confirmed 14:45',
+    dnaReport: 'DNA Report',
+    ready: 'Ready for Review',
+    aboutTitle: 'About KANI-LAB',
+    aboutSub: 'Medical laboratory at international standards level',
+    aboutText1: 'KANILAB is a premium clinical laboratory in the Surxondaryo region that combines the most advanced testing standards with modern diagnostic systems. Our central laboratory in Termez is equipped with the latest robotic analyzers from world leaders — Roche, Sysmex, and Abbott.',
+    aboutText2: 'We operate in accordance with international ISO 15189 standards and have our own branches in all districts of the Surxondaryo region, actively cooperating with the leading hospitals in Termez. Every sample is completely secure, barcoded, and tested under two-stage physician control.',
+    tech1: 'Automated analyses',
+    tech2: 'Robotic barcode tracking',
+    tech3: 'Fully sterile and painless sample collection',
+    tech4: 'ISO 15189 international certification',
+    serviceTitle: 'Diagnostic Programs',
+    serviceSub: 'Premium laboratory test packages for your health',
+    searchPlaceholder: 'Search tests (e.g. blood, hormone, PCR...)',
+    categoryAll: 'All',
+    categoryPackages: 'Diagnostic packages',
+    categoryHematology: 'Hematology',
+    categoryBiochem: 'Biochemistry',
+    categoryHormones: 'Hormones & Tumor Markers',
+    categoryInfections: 'Infectious Studies',
+    categoryCoagulogram: 'Coagulogram',
+    categoryBloodGroups: 'Blood Groups',
+    categoryAllergy: 'Allergy Panels',
+    categoryPcr: 'Molecular Genetics (PCR)',
+    categoryUrine: 'Urine Tests',
+    categoryBacteriology: 'Bacteriological Studies',
+    categoryGeneralClinical: 'General Clinical Tests',
+    fastingRequired: 'Fasting required',
+    fastingNoNeeded: 'No diet required',
+    resultsIn: 'Result time',
+    price: 'Price',
+    addToCart: 'Select',
+    selected: 'Selected',
+    cartTotal: 'Total selected tests',
+    cartEmpty: 'No tests selected. Choose the necessary tests from the list.',
+    btnProceedBooking: 'Book personal appointment',
+    aiAssistantTitle: 'Smart Diagnostic Advisor',
+    aiAssistantSub: 'Recommending tests based on clinical signs (symptoms)',
+    aiWelcome: 'Hello! I am the KANILAB diagnostic advisor. Select the main symptoms you are experiencing, and our robotic system will create a list of the most important tests for you:',
+    symptomFatigue: 'Constant fatigue and weakness',
+    symptomAllergy: 'Seasonal allergies and rashes',
+    symptomBiohack: 'Fitness and biohacking (Health monitoring)',
+    symptomCheckup: 'Annual general preventive check-up',
+    aiReplyFatigue: 'Constant fatigue and weakness are often associated with Vitamin D/B12 deficiency, thyroid problems (TSH), or hidden anemia. I recommend the following tests:',
+    aiReplyAllergy: 'To identify the antigens triggering an allergic reaction for seasonal nasal congestion, rashes, and watery eyes, the following panel is suitable for you:',
+    aiReplyBiohack: 'The following premium test complex is recommended to optimize your physical endurance, hormonal balance, and overall metabolism:',
+    aiReplyCheckup: 'Taking the following tests once a year to maintain a healthy lifestyle and detect diseases early is the gold standard in the medical world:',
+    addSuggested: 'Select recommended tests',
+    processTitle: 'Test Submission Process',
+    processSub: 'Every step is digitalized and secure with us',
+    step1Title: 'Digital registration',
+    step1Desc: 'Pre-schedule your appointment and tests on our website or via Telegram bot.',
+    step2Title: 'Sterile and painless sampling',
+    step2Desc: 'Quick sample collection using single-use vacuum systems in our premium medical office.',
+    step3Title: 'Automated analysis',
+    step3Desc: 'The sample is sent to the analyzer via robotic transport system, error probability 0%.',
+    step4Title: 'Digital report',
+    step4Desc: 'Once the results are ready, an encrypted PDF report is sent via SMS and Telegram.',
+    docTitle: 'Our Team',
+    docSub: 'Kani-Lab Professional Staff',
+    galleryTitle: 'Our Scientific Laboratory',
+    gallerySub: 'Photos from our robotic clinic that meets international ISO standards',
+    faqTitle: 'Frequently Asked Questions',
+    faqSub: 'All information about tests and KANILAB services',
+    contactTitle: 'We Welcome You at Our Premium Center',
+    contactSub: 'Contact us or visit our main laboratory in Termez city',
+    contactFormTitle: 'Have questions? Contact a doctor',
+    formName: 'Your full name',
+    formPhone: 'Your phone number',
+    formMsg: 'Your message or clinical symptoms',
+    formSubmit: 'Send Request',
+    formSuccess: 'Your application has been successfully received. Our medical advisor will contact you within 15 minutes.',
+    address: 'Surxondaryo region, Termez city, Alisher Navoiy street, 26A (Landmark: Inside the Old Eye Hospital building)',
+    workingHours: 'Mon - Sat: 08:00 - 17:00 | Sunday: Closed',
+    footerCopyright: '\u00A9 2026 KANILAB CLINICAL CORP. ALL RIGHTS RESERVED.',
+    modalTitle: 'Digital Appointment Booking',
+    modalStep1: 'Tests',
+    modalStep2: 'Information',
+    modalStep3: 'Date & Time',
+    modalStep4: 'Ticket',
+    selectedTestsLabel: 'List of selected tests',
+    noTestsSelectedModal: 'You have not selected any tests yet. You can add the following tests to your ticket:',
+    inputName: 'Your Full Name (as in passport)',
+    inputEmail: 'Your email address (for PDF results)',
+    selectBranch: 'Select clinic branch',
+    branch1: 'Termez Central Laboratory (Alisher Navoiy Street)',
+    branch2: 'Denov District Branch (Sharof Rashidov Street)',
+    branch3: 'Sherobod District Branch (Silk Road Street)',
+    selectDate: 'Select visit date',
+    selectTime: 'Select preferred time slot',
+    btnBack: 'Back',
+    btnNext: 'Next',
+    btnConfirm: 'Confirm Appointment',
+    bookingProcessing: 'Your digital ticket is being prepared. Diagnostic database is updating...',
+    ticketTitle: 'ELECTRONIC CLINICAL PASSPORT',
+    ticketSub: 'KANILAB Premium Diagnostics',
+    ticketID: 'Ticket Number',
+    patient: 'Patient',
+    date: 'Visit Date',
+    time: 'Time',
+    location: 'Branch',
+    preparation: 'Preparation for test submission',
+    prepText: 'Please do not eat 8-12 hours before submitting the test. Only clean still water is allowed. Please bring your identity document with you.',
+    btnPrint: 'Save / Print Ticket',
+    btnDone: 'Close',
+    viewAll: 'All tests',
+    reviewsTitle: 'Our Customers\' Reviews',
+    rating: 'Rating',
+    reviews: [
+      {
+        name: 'Dilnoza Umarova',
+        role: 'Patient',
+        review: 'The service at Kani-Lab is excellent! No queues, everything is electronic and fast. Test results came via Telegram in 4 hours. Very convenient and modern.'
+      },
+      {
+        name: 'Sardor Rahimov',
+        role: 'Regular Customer',
+        review: 'Cleanliness and safety at the clinic are at a high level. The nurses are very gentle, I felt absolutely no pain during sample collection. Thank you to the professional team.'
+      },
+      {
+        name: 'Malika Karimova',
+        role: 'Patient',
+        review: 'I used the symptom-based test selection service. Everything was very easy, clear and understandable. A premium approach to each patient is clearly felt.'
+      }
+    ],
+    items: [
+      {
+        q: '1. How and where can I get my test results?',
+        a: 'When your results are ready, you will receive an automatic message via our Telegram bot. You can receive your results through this bot or by visiting our laboratory in paper form.'
+      },
+      {
+        q: '2. What should I pay attention to before submitting a test?',
+        a: 'For accurate results, depending on the type of test (especially biochemical tests), it is recommended to come on an empty stomach. Our doctor will give you clear preparation instructions according to the type of test during registration.'
+      },
+      {
+        q: '3. How does KANILAB ensure data privacy?',
+        a: 'All customer data and test results are stored in an encrypted system. We comply with international ISO 15189 standards, which fully guarantees data security and confidentiality.'
+      },
+      {
+        q: '4. Why should I choose your laboratory?',
+        a: 'We participate in the quality control programs of the international organization "College of American Pathologists" (CAP) and use the most advanced Roche, Sysmex and Abbott laboratory systems in the world. Every one of our samples is examined under two-stage physician control.'
+      },
+      {
+        q: '5. What types of tests can be submitted at your laboratory?',
+        a: 'We offer a wide spectrum of biochemical, immunological, hormonal, microbiological and PCR tests. You can find detailed information about our services in the "Services" section of our website.'
+      },
+      {
+        q: '6. How fast are the test results?',
+        a: 'We pay great attention to speed: biochemical tests are ready within 2 hours, and hormonal and immunological tests within 4 hours. For more complex tests (PCR or microbiological), exact timelines can range from 3 to 10 days depending on the test type.'
+      }
+    ]
+  },
 };
 
 const getMedicalIcon = (field: string) => {
@@ -1066,12 +1249,12 @@ const getMedicalIcon = (field: string) => {
 interface TeamMember {
   id: string;
   name: string;
-  position: { uz: string; ru: string; tr: string };
+  position: { uz: string; ru: string; tr: string; en?: string };
   department: 'management' | 'lab' | 'finance' | 'service' | 'admin';
-  experience: { uz: string; ru: string; tr: string };
-  specialties: { uz: string[]; ru: string[]; tr: string[] };
-  grad: { uz: string; ru: string; tr: string };
-  bio: { uz: string; ru: string; tr: string };
+  experience: { uz: string; ru: string; tr: string; en?: string };
+  specialties: { uz: string[]; ru: string[]; tr: string[]; en?: string[] };
+  grad: { uz: string; ru: string; tr: string; en?: string };
+  bio: { uz: string; ru: string; tr: string; en?: string };
   photo?: string;
 }
 
@@ -1280,9 +1463,10 @@ const TEAM_MEMBERS: TeamMember[] = [
     },
     department: "lab",
     experience: {
-      uz: "6 yillik tajriba",
-      ru: "6 лет опыта",
-      tr: "6 Yıllık Deneyim"
+      uz: "3 yillik tajriba",
+      ru: "3 года опыта",
+      tr: "3 Yıllık Deneyim",
+      en: "3 years of experience"
     },
     specialties: {
       uz: ["Laboratoriya diagnostikasi", "Tahlillar sifat nazorati"],
@@ -1334,7 +1518,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: "qaxxorova-shaxzoda",
-    name: "Qaxxorova Shaxzoda Abdusalimovna",
+    name: "Qaxxorova Shaxzoda",
     position: {
       uz: "Klinik laboratoriya shifokor laboranti",
       ru: "Врач-лаборант клинической лаборатории",
@@ -1357,9 +1541,9 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: "• Uzmanlık: Taşkent Devlet Hekim Geliştirme Enstitüsü, “Klinik ve Biyokimyasal Laboratuvar Teşhisi Hekimi” branşı (2017–2018).\n• Lisans: Termez Devlet Üniversitesi (2012–2016)."
     },
     bio: {
-      uz: "Qaxxorova Shaxzoda Abdusalimovna – Kani-Lab laboratoriyasining 9 yillik boy ish stajiga ega tajribali laboratoriya shifokori. U o‘z faoliyatida tibbiyot va laboratoriya diagnostikasi sohasidagi fundamental bilimlarini amaliyot bilan muvaffaqiyatli uyg‘unlashtirib kelmoqda. Toshkent davlat shifokorlar malakasini oshirish institutidagi ixtisoslashuvi unga klinik-biokimyoviy tahlillarni yuqori aniqlik bilan amalga oshirish imkonini beradi. Shaxzoda Abdusalimovna diagnostika jarayonlarida xalqaro standartlarga rioya qilish, tahlil natijalarini to‘g‘ri talqin qilish va laboratoriya xizmatlari sifatini ta’minlashda yuqori professionallikni namoyon etadi.",
-      ru: "Каххорова Шахзода Абдусалимовна — опытный лабораторный врач с 9-летним стажем работы в лаборатории Kani-Lab. В своей деятельности она успешно сочетает фундаментальные знания в области медицины и лабораторной диагностики с практикой. Специализация в Ташкентском государственном институте усовершенствования врачей позволяет ей выполнять клинико-биохимические исследования с высокой точностью.",
-      tr: "Qaxxorova Shaxzoda Abdusalimovna - Kani-Lab laboratuvarında 9 yıllık zengin iş deneyimine sahip uzman hekimdir. Tıp ve laboratuvar teşhisi alanındaki temel bilgilerini pratikle başarıyla birleştirmektedir. Taşkent Devlet Hekim Geliştirme Enstitüsü uzmanlığı, klinik ve biyokimyasal analizleri yüksek hassasiyetle yapmasını sağlamaktadır."
+      uz: "Qaxxorova Shaxzoda – Kani-Lab laboratoriyasining 9 yillik boy ish stajiga ega tajribali laboratoriya shifokori. U o‘z faoliyatida tibbiyot va laboratoriya diagnostikasi sohasidagi fundamental bilimlarini amaliyot bilan muvaffaqiyatli uyg‘unlashtirib kelmoqda. Toshkent davlat shifokorlar malakasini oshirish institutidagi ixtisoslashuvi unga klinik-biokimyoviy tahlillarni yuqori aniqlik bilan amalga oshirish imkonini beradi. Shaxzoda diagnostika jarayonlarida xalqaro standartlarga rioya qilish, tahlil natijalarini to‘g‘ri talqin qilish va laboratoriya xizmatlari sifatini ta’minlashda yuqori professionallikni namoyon etadi.",
+      ru: "Каххорова Шахзода — опытный лабораторный врач с 9-летним стажем работы в лаборатории Kani-Lab. В своей деятельности она успешно сочетает фундаментальные знания в области медицины и лабораторной диагностики с практикой. Специализация в Ташкентском государственном институте усовершенствования врачей позволяет ей выполнять клинико-биохимические исследования с высокой точностью.",
+      tr: "Qaxxorova Shaxzoda - Kani-Lab laboratuvarında 9 yıllık zengin iş deneyimine sahip uzman hekimdir. Tıp ve laboratuvar teşhisi alanındaki temel bilgilerini pratikle başarıyla birleştirmektedir. Taşkent Devlet Hekim Geliştirme Enstitüsü uzmanlığı, klinik ve biyokimyasal analizleri yüksek hassasiyetle yapmasını sağlamaktadır."
     },
     photo: shaxzodaImg
   },
@@ -1421,7 +1605,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     bio: {
       uz: "Amirqulova Zilola – 2020-yilda Surxondaryo viloyati, Termiz shahridagi Tibbiyot kollejining \"Laboratoriya diagnostikasi\" yo‘nalishini tamomlagan. Laboratoriya sohasida 5 yillik ish tajribasiga ega. 2021-yildan buyon \"Alles Sağlık Group\" MChJga qarashli Kani-Lab laboratoriyasining Termiz filialida laboratoriya mutaxassisi sifatida faoliyat yuritib kelmoqda. 2026-yilda Respublika o‘rta tibbiyot va farmatsevtika xodimlari malakasini oshirish va ularni ixtisoslashtirish markazi Termiz filialida \"Laboratoriya ishida zamonaviy tekshirish usullari\" mutaxassisligi bo‘yicha malaka oshirish kursini muvaffaqiyatli tamomlagan.",
       ru: "Амиркулова Зилола окончила Термезский медицинский колледж Сурхандарьинской области в 2020 году по направлению \"Лабораторная диагностика\". Имеет 5-летний опыт работы в сфере лабораторных исследований. С 2021 года работает лаборантом в лаборатории Kani-Lab в Термезе, принадлежащей ООО \"Alles Sağlık Group\". В 2026 году успешно окончила курс повышения квалификации в Термезском филиале Республиканского центра повышения квалификации и специализации средних медицинских и фармацевтических работников по специальности \"Современные методы исследований в лабораторном деле\".",
-      tr: "Amirqulova Zilola, 2020 yılında Surhanderya ili Termez Tıp Koleji'nin \"Laboratuvar Teşhisi\" bölümünden mezun olmuştur. Laboratuvar alanında 5 yıllık iş deneyimine sahiptir. 2021 yılından bu yana \"Alles Sağlık Group\" bünyesindeki Kani-Lab laboratuvarının Termez şubesinde laboratuvar uzmanı olarak görev yapaktadır. 2026 yılında Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi'nde \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" branşında mesleki gelişim kursunu başarıyla tamamlamıştır."
+      tr: "Amirqulova Zilola, 2020 yılında Surhanderya ili Termez Tıp Koleji'nin \"Laboratuvar Teşhisi\" bölümünden mezun olmuştur. Laboratuvar alanında 5 yıllık iş deneyimine sahiptir. 2021 yılından bu yana \"Alles Sağlık Group\" bünyesindeki Kani-Lab laboratuvarının Termez şubesinde laboratuvar uzmanı olarak görev yapaktadır. 2026 yılında Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi\'nde \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" branşında mesleki gelişim kursunu başarıyla tamamlamıştır."
     },
     photo: zilolaImg
   },
@@ -1452,7 +1636,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     bio: {
       uz: "Xurramova Zubayda – 2020-yilda Surxondaryo viloyati, Termiz shahridagi Tibbiyot kollejining \"Laboratoriya diagnostikasi\" yo‘nalishini tamomlagan. Laboratoriya sohasida 5 yillik ish tajribasiga ega. 2021-yildan buyon \"Alles Sağlık Group\" MChJga qarashli Kani-Lab laboratoriyasining Termiz filialida laboratoriya mutaxassisi sifatida faoliyat yuritib kelmoqda. 2026-yilda Respublika o‘rta tibbiyot va farmatsevtika xodimlari malakasini oshirish va ularni ixtisoslashtirish markazi Termiz filialida \"Laboratoriya ishida zamonaviy tekshirish usullari\" mutaxassisligi bo‘yicha malaka oshirish kursini muvaffaqiyatli tamomlagan.",
       ru: "Хуррамова Зубайда окончила Термезский медицинский колледж Сурхандарьинской области в 2020 году по направлению \"Лабораторная диагностика\". Имеет 5-летний опыт работы в сфере лабораторных исследований. С 2021 года работает лаборантом в лаборатории Kani-Lab в Термезе, принадлежащей ООО \"Alles Sağlık Group\". В 2026 году успешно окончила курс повышения квалификации в Термезском филиале Республиканского центра повышения квалификации и специализации средних медицинских и фармацевтических работников по специальности \"Современные методы исследований в лабораторном деле\".",
-      tr: "Xurramova Zubayda, 2020 yılında Surhanderya ili Termez Tıp Koleji'nin \"Laboratuvar Teşhisi\" bölümünden mezun olmuştur. Laboratuvar alanında 5 yıllık iş deneyimine sahiptir. 2021 yılından bu yana \"Alles Sağlık Group\" bünyesindeki Kani-Lab laboratuvarının Termez şubesinde laboratuvar uzmanı olarak görev yapmaktadır. 2026 yılında Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi'nde \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" branşında mesleki gelişim kursunu başarıyla tamamlamıştır."
+      tr: "Xurramova Zubayda, 2020 yılında Surhanderya ili Termez Tıp Koleji'nin \"Laboratuvar Teşhisi\" bölümünden mezun olmuştur. Laboratuvar alanında 5 yıllık iş deneyimine sahiptir. 2021 yılından bu yana \"Alles Sağlık Group\" bünyesindeki Kani-Lab laboratuvarının Termez şubesinde laboratuvar uzmanı olarak görev yapmaktadır. 2026 yılında Cumhuriyet Orta Dereceli Sağlık ve Eczacılık Çalışanları Mesleki Gelişim ve Uzmanlık Merkezi Termez Şubesi\'nde \"Laboratuvar Çalışmalarında Modern Araştırma Yöntemleri\" branşında mesleki gelişim kursunu başarıyla tamamlamıştır."
     },
     photo: zubaydaImg
   },
@@ -1486,15 +1670,46 @@ const TEAM_MEMBERS: TeamMember[] = [
       tr: "Turobova Yasmina, Kani-Lab laboratuvarının genç ve gelecek vadeden bir uzmanıdır. Temel biyolojik bilgileri derin klinik teşhis becerileriyle birleştirerek laboratuvar testlerinin doğruluğunun sağlanmasında önemli bir rol oynamaktadır. Taşkent Hekim Geliştirme Enstitüsü'nde laboratuvar teşhisi alanında uzmanlaşan Yasmina, modern analiz yöntemlerini uygulamaya ve teşhis kalitesini artırmaya odaklanmıştır. Mesleki yaklaşımı, analiz sonuçlarının güvenilirliği ve hızına dayanmakta olup hastaların sağlığını belirlemede sorumlulukla hizmet vermektedir."
     },
     photo: yasminaImg
+  },
+  {
+    id: "xoshiyeva-sitora",
+    name: "Xo'shiyeva Sitora",
+    position: {
+      uz: "Klinik laboratoriya diagnostikasi mutaxassisi",
+      ru: "Специалист клинической лабораторной диагностики",
+      tr: "Klinik Laboratuvar Tanı Uzmanı",
+      en: "Clinical Laboratory Diagnostics Specialist"
+    },
+    department: "lab",
+    experience: {
+      uz: "Yosh mutaxassis",
+      ru: "Молодой специалист",
+      tr: "Genç Uzman",
+      en: "Junior Specialist"
+    },
+    specialties: {
+      uz: ["Klinik laboratoriya diagnostikasi", "Immunoferment tahlili (IFA)", "Polimeraz zanjirli reaksiya (PZR) diagnostikasi"],
+      ru: ["Клиническая лабораторная диагностика", "Иммуноферментный анализ (ИФА)", "Диагностика полимеразной цепной реакции (ПЦР)"],
+      tr: ["Klinik laboratuvar tanısı", "Enzim Bağlantılı İmmünosorbent Analizi (ELISA)", "Polimeraz Zincir Reaksiyonu (PCR) tanısı"],
+      en: ["Clinical laboratory diagnostics", "Enzyme-linked immunosorbent assay (ELISA)", "Polymerase chain reaction (PCR) diagnostics"]
+    },
+    grad: {
+      uz: "• Oliy ta'lim: Termiz davlat universiteti, Biologiya (turlar bo'yicha) yo'nalishi, bakalavr (2024-yil).\n• Ixtisoslashuv: Toshkent tibbiyot akademiyasi, \"Klinik laboratoriya diagnostikasi\" ixtisoslik kursi (2024–2025).\n• Qo'shimcha malaka: Toshkent davlat tibbiyot universiteti, \"Klinik amaliyotda immunoferment va polimeraz zanjirli reaksiya tahlili\" uzluksiz kasbiy ta'lim kursi (2026-yil).",
+      ru: "• Высшее образование: Термезский государственный университет, бакалавр по направлению \"Биология\" (2024 г.).\n• Специализация: Ташкентская медицинская академия, специализационный курс \"Клиническая лабораторная диагностика\" (2024–2025 гг.).\n• Дополнительная квалификация: Ташкентский государственный медицинский университет, курс непрерывного профессионального образования \"Анализ иммуноферментный и полимеразной цепной реакции в клинической практике\" (2026 г.).",
+      tr: "• Lisans: Termez Devlet Üniversitesi, Biyoloji lisans programı (2024).\n• Uzmanlık: Taşkent Tıp Akademisi, \"Klinik Laboratuvar Tanısı\" uzmanlık kursu (2024–2025).\n• Ek Yeterlilik: Taşkent Devlet Tıp Üniversitesi, \"Klinik Uygulamada İmmünoenzim ve Polimeraz Zincir Reaksiyonu Analizi\" sürekli mesleki eğitim kursu (2026).",
+      en: "• Higher Education: Termez State University, Bachelor's in Biology (2024).\n• Specialization: Tashkent Medical Academy, \"Clinical Laboratory Diagnostics\" specialization course (2024–2025).\n• Additional Qualification: Tashkent State Medical University, \"Immunoenzyme and Polymerase Chain Reaction Analysis in Clinical Practice\" continuing professional education course (2026)."
+    },
+    bio: {
+      uz: "Xo'shiyeva Sitora – tibbiy laboratoriya diagnostikasi sohasida chuqur nazariy va amaliy bilimlarga ega malakali mutaxassis. U o'zining kasbiy faoliyatida zamonaviy laboratoriya tahlillari, xususan, immunoferment va polimeraz zanjirli reaksiya (PZR) usullarini mukammal qo'llash orqali tibbiy xizmat sifatini oshirishga yo'naltirilgan. Sitora o'z ishiga mas'uliyat bilan yondashib, bemorlarga aniq va ishonchli diagnostik ma'lumotlarni taqdim etishni o'zining asosiy vazifasi deb biladi.",
+      ru: "Хошиева Ситора — квалифицированный специалист с глубокими теоретическими и практическими знаниями в области медицинской лабораторной диагностики. В своей профессиональной деятельности она направлена на повышение качества медицинских услуг путём мастерского применения современных лабораторных методов — прежде всего иммуноферментного анализа и полимеразной цепной реакции (ПЦР). Ситора ответственно подходит к своей работе и считает своей главной задачей предоставление пациентам точных и достоверных диагностических данных.",
+      tr: "Xo'shiyeva Sitora, tıbbi laboratuvar tanısı alanında derin teorik ve pratik bilgilere sahip nitelikli bir uzmandır. Mesleki faaliyetlerinde, başta immünoenzim ve polimeraz zincir reaksiyonu (PCR) yöntemlerini olmak üzere modern laboratuvar analizlerini mükemmel biçimde uygulayarak tıbbi hizmet kalitesini artırmaya yöneliktir. Sitora, işine sorumlulukla yaklaşmakta ve hastalara doğru ve güvenilir tanısal bilgiler sunmayı temel görevi olarak benimsemektedir.",
+      en: "Xo'shiyeva Sitora is a qualified specialist with deep theoretical and practical knowledge in the field of medical laboratory diagnostics. In her professional activities, she is focused on improving the quality of medical services by masterfully applying modern laboratory analyses, particularly immunoenzyme assay (ELISA) and polymerase chain reaction (PCR) techniques. Sitora approaches her work with great responsibility, considering the provision of accurate and reliable diagnostic information to patients as her primary mission."
+    },
+    photo: xoshiyevaSitoraImg
   }
 ];
 
 const LABORANTS = [
-  {
-    name: 'Xushiyeva Sitora',
-    pos: { uz: 'Gematologiya laboranti', ru: 'Лаборант гематологии', tr: 'Hematoloji Laborantı' },
-    exp: { uz: '3 yillik tajriba', ru: '3 года опыта', tr: '3 Yıllık Deneyim' }
-  },
   {
     name: 'Fayzullayeva Nigora',
     pos: { uz: 'Mikrobiologiya laborant vrachi', ru: 'Врач-лаборант микробиологии', tr: 'Mikrobiyoloji Uzman Doktoru' },
@@ -2374,6 +2589,13 @@ export default function App() {
     if (!obj) return '';
     return obj[lang] || obj['uz'] || obj['ru'] || '';
   };
+
+  const getLangTextInline = (uz: string, ru: string, tr: string, en: string) => {
+    if (lang === 'uz') return uz;
+    if (lang === 'ru') return ru;
+    if (lang === 'en') return en;
+    return tr;
+  };
   
   // Hero Typed.js State
   const typedEl = useRef<HTMLSpanElement>(null);
@@ -2386,19 +2608,25 @@ export default function App() {
           "Turkiya va Niderlandiya texnologiyalari.",
           "Robotlashtirilgan laboratoriya tizimi.",
           "180+ turdagi tezkor tahlillar.",
-          "Sizning salomatligingiz \u2013 bizning maqsadimiz."
+          "Sizning salomatligingiz – bizning maqsadimiz."
         ] : lang === 'ru' ? [
           "Точная диагностика по международным стандартам.",
           "Технологии Турции и Нидерландов.",
           "Роботизированная лабораторная система.",
           "Более 180 видов экспресс-анализов.",
-          "Ваше здоровье \u2013 наша цель."
+          "Ваше здоровье – наша цель."
+        ] : lang === 'en' ? [
+          "Accurate diagnostics based on international standards.",
+          "Technologies from Turkey and the Netherlands.",
+          "Robotic laboratory systems.",
+          "180+ types of rapid analyses.",
+          "Your health is our goal."
         ] : [
           "Uluslararası standartlarda doğru teşhis.",
           "Türkiye ve Hollanda teknolojileri.",
           "Robotik laboratuvar sistemi.",
           "180+ çeşit hızlı analiz.",
-          "Sağlığınız \u2013 hedefimiz."
+          "Sağlığınız – hedefimiz."
         ],
         typeSpeed: 60,
         backSpeed: 30,
@@ -2573,8 +2801,8 @@ export default function App() {
   // Load language and dark mode from localStorage on mount
   useEffect(() => {
     const savedLang = localStorage.getItem('kanilab_lang');
-    if (savedLang === 'uz' || savedLang === 'ru' || savedLang === 'tr') {
-      setLang(savedLang);
+    if (savedLang === 'uz' || savedLang === 'ru' || savedLang === 'tr' || savedLang === 'en') {
+      setLang(savedLang as any);
     }
     const savedDark = localStorage.getItem('kanilab_dark');
     if (savedDark === 'true') {
@@ -2592,8 +2820,8 @@ export default function App() {
   }, [darkMode]);
 
   // Sync state changes with localStorage
-  const handleLangChange = (newLang: 'uz' | 'ru' | 'tr') => {
-    setLang(newLang);
+  const handleLangChange = (newLang: 'uz' | 'ru' | 'tr' | 'en') => {
+    setLang(newLang as any);
     localStorage.setItem('kanilab_lang', newLang);
   };
 
@@ -2759,10 +2987,10 @@ export default function App() {
       pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(9);
       pdf.setFont('helvetica', 'bold');
-      pdf.text('KANILAB — CHIPTA', 4, 7);
+      pdf.text('KANILAB - ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
       pdf.setFontSize(8);
-      pdf.text(`Bemor: ${patientName}`, 4, 13);
-      pdf.text(`Raqam: ${generatedTicketID}`, 4, 18);
+      pdf.text(getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient') + `: ${patientName}`, 4, 13);
+      pdf.text(getLangTextInline('Raqam', 'Номер', 'Numara', 'Number') + `: ${generatedTicketID}`, 4, 18);
 
       // --- Ticket image below the header ---
       const pageW = 80;
@@ -2860,10 +3088,10 @@ export default function App() {
           pdf.setTextColor(255, 255, 255);
           pdf.setFontSize(9);
           pdf.setFont('helvetica', 'bold');
-          pdf.text('KANILAB — CHIPTA', 4, 7);
+          pdf.text('KANILAB - ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
           pdf.setFontSize(8);
-          pdf.text(`Bemor: ${patientName}`, 4, 13);
-          pdf.text(`Raqam: ${generatedTicketID}`, 4, 18);
+          pdf.text(getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient') + `: ${patientName}`, 4, 13);
+          pdf.text(getLangTextInline('Raqam', 'Номер', 'Numara', 'Number') + `: ${generatedTicketID}`, 4, 18);
 
           const pageW = 80;
           const imgH = (img.height / img.width) * pageW;
@@ -3264,10 +3492,10 @@ export default function App() {
     const errors = { name: '', phone: '' };
 
     if (!contactName.trim()) {
-      errors.name = lang === 'uz' ? 'Iltimos, ismingizni kiriting.' : lang === 'ru' ? 'Пожалуйста, введите ваше имя.' : 'Iltimos, ismingizni kiriting.';
+      errors.name = getLangTextInline('Iltimos, ismingizni kiriting.', 'Пожалуйста, введите ваше имя.', 'Lütfen adınızı girin.', 'Please enter your name.');
       isValid = false;
     } else if (contactName.trim().length < 3) {
-      errors.name = lang === 'uz' ? 'Ism kamida 3 ta belgidan iborat boʻlishi kerak.' : lang === 'ru' ? 'Имя должно быть не менее 3 символов.' : 'Ism kamida 3 ta belgidan iborat boʻlishi kerak.';
+      errors.name = getLangTextInline('Ism kamida 3 ta belgidan iborat boʻlishi kerak.', 'Имя должно быть не менее 3 символов.', 'İsim en az 3 karakterden oluşmalıdır.', 'Name must be at least 3 characters long.');
       isValid = false;
     }
 
@@ -3276,10 +3504,10 @@ export default function App() {
     const phoneRegex = /^\+?998\d{9}$/;
     
     if (!cleanedPhone) {
-      errors.phone = lang === 'uz' ? 'Iltimos, telefon raqamingizni kiriting.' : lang === 'ru' ? 'Пожалуйста, введите ваш номер телефона.' : 'Iltimos, telefon raqamingizni kiriting.';
+      errors.phone = getLangTextInline('Iltimos, telefon raqamingizni kiriting.', 'Пожалуйста, введите ваш номер телефона.', 'Lütfen telefon numaranızı girin.', 'Please enter your phone number.');
       isValid = false;
     } else if (!phoneRegex.test(cleanedPhone)) {
-      errors.phone = lang === 'uz' ? 'Format notoʻgʻri. Masalan: +998 90 123-45-67' : lang === 'ru' ? 'Неверный формат. Пример: +998 90 123-45-67' : 'Format notoʻgʻri. Masalan: +998 90 123-45-67';
+      errors.phone = getLangTextInline('Format notoʻgʻri. Masalan: +998 90 123-45-67', 'Неверный формат. Пример: +998 90 123-45-67', 'Geçersiz biçim. Örnek: +998 90 123-45-67', 'Invalid format. Example: +998 90 123-45-67');
       isValid = false;
     }
 
@@ -3356,7 +3584,7 @@ export default function App() {
                 {/* About Dropdown Panel */}
                 <div className="absolute left-0 top-full mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 flex flex-col gap-1">
                   <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1">
-                    {lang === 'uz' ? 'Kani-Lab haqida' : lang === 'ru' ? 'О Kani-Lab' : 'Kani-Lab Hakkında'}
+                    {getLangTextInline('Kani-Lab haqida', 'О Kani-Lab', 'Kani-Lab Hakkında', 'About Kani-Lab')}
                   </div>
                   {[
                     { tab: 'about', label: t.navAboutUs, icon: <Microscope className="w-3 h-3 text-[#00B4D8]" />, color: 'bg-[#00B4D8]/10' },
@@ -3486,7 +3714,7 @@ export default function App() {
                 onClick={() => { setActiveTab('news'); window.location.hash = 'news'; }} 
                 className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'news' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
-                {lang === 'uz' ? 'Yangiliklar' : lang === 'ru' ? 'Новости' : 'Haberler'}
+                {getLangTextInline('Yangiliklar', 'Новости', 'Haberler', 'News')}
               </button>
               <div className="relative group py-1">
                 <button
@@ -3556,6 +3784,13 @@ export default function App() {
               >
                 TR
               </button>
+              <button 
+                id="lang-en"
+                onClick={() => handleLangChange('en')} 
+                className={`px-3 py-1.5 rounded-full transition-all duration-300 ${lang === 'en' ? 'bg-[#00B4D8] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'}`}
+              >
+                EN
+              </button>
             </div>
 
             {/* Dark Mode toggle button */}
@@ -3574,8 +3809,8 @@ export default function App() {
               className="hidden xl:flex px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs xl:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105 active:scale-95 transition-all items-center gap-2 whitespace-nowrap"
             >
               <Search className="w-4 h-4 shrink-0" />
-              <span className="hidden xl:inline">{lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}</span>
-              <span className="xl:hidden">{lang === 'uz' ? 'Chek' : lang === 'ru' ? 'Чек' : 'Fatura'}</span>
+              <span className="hidden xl:inline">{getLangTextInline('Chekni tekshirish', 'Проверка чека', 'Faturayı Kontrol Et', 'Check Receipt')}</span>
+              <span className="xl:hidden">{getLangTextInline('Chek', 'Чек', 'Bilet/Fatura', 'Receipt/Ticket')}</span>
             </button>
             <button 
               id="book-appointment-navbar"
@@ -3610,6 +3845,7 @@ export default function App() {
                   <button onClick={() => handleLangChange('uz')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'uz' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>UZ</button>
                   <button onClick={() => handleLangChange('ru')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'ru' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>RU</button>
                   <button onClick={() => handleLangChange('tr')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'tr' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>TR</button>
+                  <button onClick={() => handleLangChange('en')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'en' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>EN</button>
                 </div>
                 <button onClick={() => handleThemeToggle()} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
                   {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
@@ -3792,7 +4028,7 @@ export default function App() {
             {/* Mobile Contact Info Details inside the menu */}
             <div className="p-4 bg-slate-100 dark:bg-slate-900/60 rounded-2xl flex flex-col gap-2.5 border border-slate-200/20 dark:border-slate-800/20">
               <div className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                {lang === 'uz' ? 'MULOQOT TARMOQLARI' : lang === 'ru' ? 'КОНТАКТНЫЕ НОМЕРА' : 'İletişim Ağları'}
+                {getLangTextInline('MULOQOT TARMOQLARI', 'КОНТАКТНЫЕ НОМЕРА', 'İletişim', 'CONTACT NUMBERS')}
               </div>
               <a href="tel:+998900751234" className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 hover:text-[#00B4D8] transition-colors">
                 <Phone className="w-3.5 h-3.5 text-[#00B4D8]" />
@@ -3844,6 +4080,7 @@ export default function App() {
                 <button onClick={() => handleLangChange('uz')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'uz' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>UZ</button>
                 <button onClick={() => handleLangChange('ru')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'ru' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>RU</button>
                 <button onClick={() => handleLangChange('tr')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'tr' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>TR</button>
+                <button onClick={() => handleLangChange('en')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'en' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>EN</button>
               </div>
               <button onClick={() => handleThemeToggle()} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
                 {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
@@ -3974,12 +4211,12 @@ export default function App() {
               <button 
                 onClick={() => { setActiveTab('news'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'news' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
-              >{lang === 'uz' ? 'Yangiliklar' : lang === 'ru' ? 'Новости' : 'Haberler'}</button>
+              >{getLangTextInline('Yangiliklar', 'Новости', 'Haberler', 'News')}</button>
 
               <button 
                 onClick={() => { setActiveTab('gallery'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'gallery' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
-              >{lang === 'uz' ? 'Fotogalereya' : lang === 'ru' ? 'Фотогалерея' : 'Foto Galeri'}</button>
+              >{getLangTextInline('Fotogalereya', 'Фотогалерея', 'Foto Galeri', 'Photo Gallery')}</button>
 
               <button 
                 onClick={() => { setActiveTab('contact'); setIsMobileMenuOpen(false); }}
@@ -3991,7 +4228,7 @@ export default function App() {
 
             <div className="p-4 bg-slate-100 dark:bg-slate-900 rounded-2xl flex flex-col gap-3">
               <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
-                {lang === 'uz' ? 'MULOQOT TARMOQLARI' : lang === 'ru' ? 'КОНТАКТНЫЕ НОМЕРА' : 'İletişim'}
+                {getLangTextInline('MULOQOT TARMOQLARI', 'КОНТАКТНЫЕ НОМЕРА', 'İletişim', 'CONTACT NUMBERS')}
               </div>
               <a href="tel:+998900751234" className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 hover:text-[#00B4D8]">
                 <Phone className="w-4 h-4 text-[#00B4D8]" /><span>+998 90 075 12 34</span>
@@ -4064,13 +4301,13 @@ export default function App() {
               onClick={startEmptyBooking}
               className="px-10 py-4 bg-white text-slate-900 rounded-full text-base font-black shadow-xl hover:bg-slate-100 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"
             >
-              {lang === 'uz' ? 'Onlayn navbat olish' : lang === 'ru' ? 'Онлайн бронирование' : 'Çevrimiçi Sıra Alın'}
+              {getLangTextInline('Onlayn navbat olish', 'Онлайн бронирование', 'Çevrimiçi Sıra Alın', 'Book Appointment Online')}
             </button>
             <button 
               onClick={() => setActiveTab('services')}
               className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full text-base font-black shadow-xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"
             >
-              {lang === 'uz' ? 'Tahlillar va narxlar' : lang === 'ru' ? 'Анализы и цены' : 'Analizler ve Fiyatlar'}
+              {getLangTextInline('Tahlillar va narxlar', 'Анализы и цены', 'Analizler ve Fiyatlar', 'Tests & Prices')}
             </button>
           </div>
 
@@ -4365,10 +4602,10 @@ export default function App() {
         <section id="about-history" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
           <div className="flex flex-col items-center text-center gap-2 mb-16">
             <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">
-              {lang === 'uz' ? 'Bizning tariximiz' : lang === 'ru' ? 'Наша история' : 'Tarihimiz'}
+              {getLangTextInline('Bizning tariximiz', 'Наша история', 'Tarihimiz', 'Our History')}
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
-              {lang === 'uz' ? 'Yillar davomida ishonchli rivojlanish yo‘li' : lang === 'ru' ? 'Путь надежного развития на протяжении лет' : 'Yıllar Boyunca Güvenli Gelişim Yolu'}
+              {getLangTextInline('Yillar davomida ishonchli rivojlanish yo‘li', 'Путь надежного развития на протяжении лет', 'Yıllar Boyunca Güvenli Gelişim Yolu', 'Path of Reliable Development Over the Years')}
             </h2>
             <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
           </div>
@@ -4377,23 +4614,23 @@ export default function App() {
             {[
               {
                 year: '2019',
-                title: lang === 'uz' ? 'Kani-Lab asos solinishi' : lang === 'ru' ? 'Основание Kani-Lab' : 'Kani-Lab Kuruluşu',
-                desc: lang === 'uz' ? 'Surxondaryo viloyatining Termiz shahrida zamonaviy klinik tahlil xizmatlarini taqdim etish maqsadida Kani-Lab laboratoriyasiga asos solindi.' : lang === 'ru' ? 'Основание лаборатории Kani-Lab с целью предоставления современных услуг клинического анализа в Термезе.' : 'Tirmiz şehrinde modern klinik analiz hizmetleri sunmak amacıyla Kani-Lab kuruldu.'
+                title: getLangTextInline('Kani-Lab asos solinishi', 'Основание Kani-Lab', 'Kani-Lab Kuruluşu', 'Founding of Kani-Lab'),
+                desc: getLangTextInline("Surxondaryo viloyatining Termiz shahrida zamonaviy klinik tahlil xizmatlarini taqdim etish maqsadida Kani-Lab laboratoriyasiga asos solindi.", "Основание лаборатории Kani-Lab с целью предоставления современных услуг клинического анализа в Термезе.", "Tirmiz şehrinde modern klinik analiz hizmetleri sunmak amacıyla Kani-Lab kuruldu.", "The Kani-Lab laboratory was founded in Termez city of the Surxondaryo region to provide modern clinical analysis services.")
               },
               {
                 year: '2021',
-                title: lang === 'uz' ? 'Tehnologik yangilanish va robotlashtirish' : lang === 'ru' ? 'Технологическое обновление' : 'Teknolojik Yenilenme',
-                desc: lang === 'uz' ? 'Shveysariya va Yaponiyaning yetakchi diagnostika tizimlari (Roche, Sysmex) joriy etildi. Robotlashtirilgan namuna olish tizimlari sinovdan o\'tkazildi.' : lang === 'ru' ? 'Внедрение передовых диагностических систем из Швейцарии и Японии (Roche, Sysmex). Тестирование роботов.' : 'İsviçre ve Japonya lider teşhis sistemleri (Roche, Sysmex) entegre edildi.'
+                title: getLangTextInline('Tehnologik yangilanish va robotlashtirish', 'Технологическое обновление', 'Teknolojik Yenilenme', 'Teknolojik Yenilenme'),
+                desc: getLangTextInline("Shveysariya va Yaponiyaning yetakchi diagnostika tizimlari (Roche, Sysmex) joriy etildi. Robotlashtirilgan namuna olish tizimlari sinovdan o'tkazildi.", "Внедрение передовых diagnosticheskih sistem iz Shveytsarii i Yaponii (Roche, Sysmex). Testirovanie robotov.", "İsviçre ve Japonya lider teşhis sistemleri (Roche, Sysmex) entegre edildi.", "Leading Swiss and Japanese diagnostic systems (Roche, Sysmex) were integrated. Robotic sampling systems were tested.")
               },
               {
                 year: '2023',
-                title: lang === 'uz' ? 'Hududiy kengayish' : lang === 'ru' ? 'Региональное расширение' : 'Bölgesel Büyüme',
-                desc: lang === 'uz' ? 'Surxondaryo viloyatining barcha tumanlarida yangi filiallar ochildi. TTA Termiz filiali va TerDU bilan ilmiy hamkorlik shartnomalari imzolandi.' : lang === 'ru' ? 'Открытие филиалов во всех районах Сурхандарьи. Подписание научных соглашений с вузами.' : 'Surhanderya genelinde yeni şubeler açıldı. TerDU ve TTA Tirmiz şubesi ile bilimsel ortaklıklar kuruldu.'
+                title: getLangTextInline('Hududiy kengayish', 'Региональное расширение', 'Bölgesel Büyüme', 'Regional Expansion'),
+                desc: getLangTextInline("Surxondaryo viloyatining barcha tumanlarida yeni filiallar ochildi. TTA Termiz filiali va TerDU bilan ilmiy hamkorlik shartnomalari imzolandi.", "Открытие филиалов во всех районах Сурхандарьи. Подписание научных соглашений с вузами.", "Surhanderya genelinde yeni şubeler açıldı. TerDU ve TTA Tirmiz şubesi ile bilimsel ortaklıklar kuruldu.", "New branches were opened across all districts of the Surxondaryo region. Scientific cooperation agreements were signed with Termez State University and the Termez branch of TMA.")
               },
               {
                 year: '2025-2026',
-                title: lang === 'uz' ? 'Xalqaro sertifikatlash (ISO 15189)' : lang === 'ru' ? 'Международная сертификация' : 'Uluslararası Sertifikasyon',
-                desc: lang === 'uz' ? 'Sifatni boshqarish tizimi ISO 15189 xalqaro standarti talablariga moslashtirildi. To‘liq raqamlashtirilgan yagona ma’lumotlar bazasi tashkil etildi.' : lang === 'ru' ? 'Соответствие стандарту ISO 15189. Создание единой полностью цифровой базы данных.' : 'ISO 15189 uluslararası kalite standartlarına uyum sağlandı. Tamamen dijital veri altyapısı kuruldu.'
+                title: getLangTextInline('Xalqaro sertifikatlash (ISO 15189)', 'Международная сертификация', 'Uluslararası Sertifikasyon', 'International Certification (ISO 15189)'),
+                desc: getLangTextInline("Sifatni boshqarish tizimi ISO 15189 xalqaro standarti talablariga moslashtirildi. To‘liq raqamlashtirilgan yagona ma’lumotlar bazasi tashkil etildi.", "Соответствие стандарту ISO 15189. Создание единой полностью цифровой базы данных.", "ISO 15189 uluslararası kalite standartlarına uyum sağlandı. Tamamen dijital veri altyapısı kuruldu.", "The quality management system was aligned with ISO 15189 international standard requirements. A unified, fully digitized database was established.")
               }
             ].map((item, idx) => (
               <div key={idx} className="relative group">
@@ -4418,10 +4655,10 @@ export default function App() {
         <section id="about-values" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
           <div className="flex flex-col items-center text-center gap-2 mb-16">
             <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">
-              {lang === 'uz' ? 'Bizning qadriyatlarimiz' : lang === 'ru' ? 'Наши ценности' : 'Değerlerimiz'}
+              {getLangTextInline('Bizning qadriyatlarimiz', 'Наши ценности', 'Değerlerimiz', 'Our Values')}
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
-              {lang === 'uz' ? 'Sifat va ishonch poydevori' : lang === 'ru' ? 'Фундамент качества и доверия' : 'Kalite ve Güvenin Temeli'}
+              {getLangTextInline('Sifat va ishonch poydevori', 'Фундамент качества и доверия', 'Kalite ve Güvenin Temeli', 'Foundation of Quality & Trust')}
             </h2>
             <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
           </div>
@@ -4430,23 +4667,23 @@ export default function App() {
             {[
               {
                 icon: '🛡️',
-                title: lang === 'uz' ? 'Ishonchlilik' : lang === 'ru' ? 'Надежность' : 'Güvenilirlik',
-                desc: lang === 'uz' ? 'Bizning tahlillar aniqligi xalqaro nazorat standartlari va zamonaviy uskunalar bilan 99.9% darajada kafolatlanadi.' : lang === 'ru' ? 'Точность наших анализов гарантируется на 99,9% благодаря оборудованию и контролю качества.' : 'Analiz doğruluğumuz uluslararası kontrol standartları ve modern cihazlarla %99.9 oranında garantilenir.'
+                title: getLangTextInline('Ishonchlilik', 'Надежность', 'Güvenilirlik', 'Reliability'),
+                desc: getLangTextInline("Bizning tahlillar aniqligi xalqaro nazorat standartlari va zamonaviy uskunalar bilan 99.9% darajada kafolatlanadi.", "Точность наших анализов гарантируется на 99,9% благодаря оборудованию и контролю качества.", "Analiz doğruluğumuz uluslararası kontrol standartları ve modern cihazlarla %99.9 oranında garantilenir.", "The accuracy of our tests is guaranteed at 99.9% with international control standards and modern equipment.")
               },
               {
                 icon: '⚡',
-                title: lang === 'uz' ? 'Tezkorlik' : lang === 'ru' ? 'Оперативность' : 'Hız',
-                desc: lang === 'uz' ? 'Bemorlar va hamkor shifokorlar vaqtini qadrlaymiz — tahlillar eng qisqa muddatlarda tayyor bo‘ladi va yuboriladi.' : lang === 'ru' ? 'Мы ценим время пациентов и врачей — анализы выполняются в кратчайшие сроки.' : 'Hasta ve doktorlarımızın zamanına değer veriyoruz — analizler en hızlı sürede sonuçlandırılır.'
+                title: getLangTextInline('Tezkorlik', 'Оперативность', 'Hız', 'Efficiency'),
+                desc: getLangTextInline("Bemorlar va hamkor shifokorlar vaqtini qadrlaymiz — tahlillar eng qisqa muddatlarda tayyor bo‘ladi va yuboriladi.", "Мы ценим время пациентов и врачей — анализы выполняются в кратчайшие сроки.", "Hasta ve doktorlarımızın zamanına değer veriyoruz — analizler en hızlı sürede sonuçlandırılır.", "We value the time of patients and partner doctors — tests are completed and delivered in the shortest possible time.")
               },
               {
                 icon: '🤝',
-                title: lang === 'uz' ? 'Hamjihatlik' : lang === 'ru' ? 'Сотрудничество' : 'Birliktelik',
-                desc: lang === 'uz' ? 'Yirik ilmiy va tibbiy muassasalar bilan doimiy tajriba almashish va hamkorlik orqali sohani rivojlantiramiz.' : lang === 'ru' ? 'Мы развиваем сферу через постоянный обмен опытом и сотрудничество с мед. учреждениями.' : 'Bölgesel ve ulusal tıp kuruluşları ile ortak çalışmalar yürüterek bilime katkı sağlıyoruz.'
+                title: getLangTextInline('Hamjihatlik', 'Сотрудничество', 'Birliktelik', 'Collaboration'),
+                desc: getLangTextInline("Yirik ilmiy va tibbiy muassasalar bilan doimiy tajriba almashish va hamkorlik orqali sohani rivojlantiramiz.", "Мы развиваем сферу через постоянный обмен опытом и сотрудничество с мед. учреждениями.", "Bölgesel ve ulusal tıp kuruluşları ile ortak çalışmalar yürüterek bilime katkı sağlıyoruz.", "We develop the field through continuous experience exchange and collaboration with major scientific and medical institutions.")
               },
               {
                 icon: '🌱',
-                title: lang === 'uz' ? 'Rivojlanish' : lang === 'ru' ? 'Развитие' : 'Gelişim',
-                desc: lang === 'uz' ? 'Laboratoriya xodimlarining doimiy malaka oshirishi va so‘nggi texnologiyalarni joriy etish orqali to‘xtovsiz o‘sishdamiz.' : lang === 'ru' ? 'Постоянное повышение квалификации персонала и внедрение технологий.' : 'Personel eğitimi ve sürekli teknoloji yatırımları ile kendimizi daima geliştiriyoruz.'
+                title: getLangTextInline('Rivojlanish', 'Развитие', 'Gelişim', 'Development'),
+                desc: getLangTextInline("Laboratoriya xodimlarining doimiy malaka oshirishi va so‘nggi texnologiyalarni joriy etish orqali to‘xtovsiz o‘sishdamiz.", "Постоянное повышение квалификации персонала и внедрение технологий.", "Personel eğitimi ve sürekli teknoloji yatırımları ile kendimizi daima geliştiriyoruz.", "We are constantly growing through ongoing training of laboratory staff and the implementation of latest technologies.")
               }
             ].map((value, idx) => (
               <div key={idx} className="bg-white dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/50 p-8 rounded-3xl text-center shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -4466,10 +4703,10 @@ export default function App() {
         <section id="about-mission" className="px-4 md:px-12 py-20 max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto border-t border-slate-200/40 dark:border-slate-800/40 transition-all duration-300">
           <div className="flex flex-col items-center text-center gap-2 mb-16">
             <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">
-              {lang === 'uz' ? 'Bizning maqsad va vazifalarimiz' : lang === 'ru' ? 'Наши цели и задачи' : 'Misyon & Vizyon'}
+              {getLangTextInline('Bizning maqsad va vazifalarimiz', 'Наши цели и задачи', 'Misyon & Vizyon', 'Mission & Vision')}
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight max-w-3xl">
-              {lang === 'uz' ? 'Kelajakka yo‘naltirilgan maqsadlar' : lang === 'ru' ? 'Цели, ориентированные на будущее' : 'Geleceğe Yönelik Hedefler'}
+              {getLangTextInline('Kelajakka yo‘naltirilgan maqsadlar', 'Цели, ориентированные на будущее', 'Geleceğe Yönelik Hedefler', 'Future-Oriented Goals')}
             </h2>
             <div className="w-16 h-1 bg-[#00B4D8] rounded-full mt-2"></div>
           </div>
@@ -4478,31 +4715,31 @@ export default function App() {
             <div className="space-y-6 text-left">
               <div className="p-6 bg-[#00B4D8]/5 border border-[#00B4D8]/20 rounded-3xl">
                 <h3 className="text-xl font-extrabold text-[#0096C7] mb-2">
-                  {lang === 'uz' ? 'Bizning maqsadimiz (Missiya)' : lang === 'ru' ? 'Наша миссия' : 'Misyonumuz'}
+                  {getLangTextInline('Bizning maqsadimiz (Missiya)', 'Наша миссия', 'Misyonumuz', 'Our Mission')}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
-                  {lang === 'uz' ? 'Aholiga eng yuqori sifatli tahlil xizmatlarini taqdim etish va kasalliklarni dastlabki bosqichlarda aniq tashxis qo‘yish orqali insonlar salomatligi va hayotini saqlashga xizmat qilish.' : lang === 'ru' ? 'Предоставление качественных услуг анализа для ранней диагностики заболеваний ради сохранения здоровья.' : 'Topluma en üst kalitede analiz hizmetleri sunarak hastalıkları erken teşhis etmek ve yaşam kalitesini korumak.'}
+                  {getLangTextInline('Aholiga eng yuqori sifatli tahlil xizmatlarini taqdim etish va kasalliklarni dastlabki bosqichlarda aniq tashxis qo‘yish orqali insonlar salomatligi va hayotini saqlashga xizmat qilish.', 'Предоставление качественных услуг анализа для ранней диагностики заболеваний ради сохранения здоровья.', 'Topluma en üst kalitede analiz hizmetleri sunarak hastalıkları erken teşhis etmek ve yaşam kalitesini korumak.', "To serve people's health and save lives by providing the highest quality analysis services and accurate early diagnosis.")}
                 </p>
               </div>
 
               <div className="p-6 bg-emerald-500/5 border border-emerald-500/20 rounded-3xl">
                 <h3 className="text-xl font-extrabold text-emerald-600 mb-2">
-                  {lang === 'uz' ? 'Kelajak rejamiz (Vizyon)' : lang === 'ru' ? 'Наше видение' : 'Vizyonumuz'}
+                  {getLangTextInline('Kelajak rejamiz (Vizyon)', 'Наше видение', 'Vizyonumuz', 'Our Vision')}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
-                  {lang === 'uz' ? 'Surxondaryo viloyati va respublika miqyosida raqamli va robotlashtirilgan laboratoriya tizimlarini yoyish orqali sohaga eng ilg‘or xalqaro standartlarni integratsiya qilish.' : lang === 'ru' ? 'Интеграция передовых стандартов путем внедрения робототехники в регионах.' : 'Surhanderya ve genel ülkede dijital ve robotik laboratuvar sistemlerini yayarak uluslararası standartları entegre etmek.'}
+                  {getLangTextInline('Surxondaryo viloyati va respublika miqyosida raqamli va robotlashtirilgan laboratoriya tizimlarini yoyish orqali sohaga eng ilg‘or xalqaro standartlarni integratsiya qilish.', 'Интеграция передовых стандартов путем внедрения робототехники в регионах.', 'Surhanderya ve genel ülkede dijital ve robotik laboratuvar sistemlerini yayarak uluslararası standartları entegre etmek.', 'To integrate the most advanced international standards by expanding digital and robotic laboratory systems across Surxondaryo region and the republic.')}
                 </p>
               </div>
             </div>
 
             <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[32px] space-y-6 text-left shadow-xs">
               <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
-                {lang === 'uz' ? 'Asosiy vazifalarimiz:' : lang === 'ru' ? 'Наши ключевые задачи:' : 'Temel Hedeflerimiz:'}
+                {getLangTextInline('Asosiy vazifalarimiz:', 'Наши ключевые задачи:', 'Temel Hedeflerimiz:', 'Key Objectives:')}
               </h3>
               {[
-                { title: lang === 'uz' ? 'Sifatni doimiy nazorat qilish' : lang === 'ru' ? 'Постоянный контроль качества' : 'Sürekli Kalite Kontrolü', text: lang === 'uz' ? 'ISO 15189 xalqaro standartlarini barcha laboratoriya jarayonlarida to‘liq tatbiq etish.' : lang === 'ru' ? 'Внедрение стандартов ISO 15189 во все процессы.' : 'ISO 15189 standartlarını tüm süreçlerde aktif uygulamak.' },
-                { title: lang === 'uz' ? 'Raqamlashtirishni kengaytirish' : lang === 'ru' ? 'Расширение диджитализации' : 'Dijitalleşmeyi Genişletmek', text: lang === 'uz' ? 'Bemorlar tahlil natijalarini istalgan joydan turib bir necha soniyada olishlarini ta’minlash.' : lang === 'ru' ? 'Обеспечение получения результатов за секунды.' : 'Hastaların sonuçlarına saniyeler içinde ulaşmasını kolaylaştırmak.' },
-                { title: lang === 'uz' ? 'Yangi diagnostika turlarini joriy etish' : lang === 'ru' ? 'Внедрение новых видов диагностики' : 'Yeni Teşhis Türleri Sunmak', text: lang === 'uz' ? 'Ilg‘or genetika va onkologik diagnostika tahlillarini Surxondaryoning o‘zida yo‘lga qo‘yish.' : lang === 'ru' ? 'Организация передовой генетической диагностики непосредственно в Сурхандарье.' : 'Gelişmiş genetik ve onkolojik testleri doğrudan Surhanderya\'da sunmak.' }
+                { title: getLangTextInline('Sifatni doimiy nazorat qilish', 'Постоянный контроль качества', 'Sürekli Kalite Kontrolü', 'Continuous Quality Control'), text: getLangTextInline("ISO 15189 xalqaro standartlarini bajaran barcha laboratoriya jarayonlarida to‘liq tatbiq etish.", "Внедрение стандартов ISO 15189 во все процессы.", "ISO 15189 standartlarını tüm süreçlerde aktif uygulamak.", "Full implementation of ISO 15189 international standards in all laboratory processes.") },
+                { title: getLangTextInline('Raqamlashtirishni kengaytirish', 'Расширение диджитализации', 'Dijitalleşmeyi Genişletmek', 'Expanding Digitalization'), text: getLangTextInline("Bemorlar tahlil natijalarini istalgan joydan turib bir necha soniyada olishlarini ta’minlash.", "Обеспечение получения результатов за секунды.", "Hastaların sonuçlarına saniyeler içinde ulaşmasını kolaylaştırmak.", "Ensuring patients can receive their analysis results from anywhere in just seconds.") },
+                { title: getLangTextInline('Yangi diagnostika turlarini joriy etish', 'Внедрение новых видов диагностики', 'Yeni Teşhis Türleri Sunmak', 'Implementing New Diagnostics'), text: getLangTextInline("Ilg‘or genetika va onkologik diagnostika tahlillarini Surxondaryoning o‘zida yo‘lga qo‘yish.", "Организация передовой генетической диагностики непосредственно в Сурхандарье.", "Gelişmiş genetik ve onkolojik testleri doğrudan Surhanderya'da sunmak.", "Establishing advanced genetic and oncological diagnostics directly within the Surxondaryo region.") }
               ].map((task, idx) => (
                 <div key={idx} className="flex gap-4 items-start">
                   <div className="w-8 h-8 rounded-full bg-cyan-100 dark:bg-cyan-900/60 text-[#0096C7] dark:text-[#48CAE4] flex items-center justify-center font-black shrink-0 text-sm mt-0.5">
@@ -4968,7 +5205,7 @@ export default function App() {
                       tr: 'Sağlık meslek yüksekokulu mezunu uzman'
                     },
                     bio: {
-                      uz: `${lab.name} Kani-Lab klinikasida ${lab.pos.uz} lavozimida faoliyat ko'rsatib kelayotgan tajribali professional mutaxassis. Tahlillarni aniq va tezkor o'tkazishda yuqori mas'uliyat va tajribaga ega.`,
+                      uz: `${lab.name} Kani-Lab klinikasida ${lab.pos.uz} lavozimida faoliyat ko'rsatib kelayotgan tajribali professional mutaxassis. Tahlillarni aniq va tezkor o\'tkazishda yuqori mas\'uliyat va tajribaga ega.`,
                       ru: `${lab.name} — опытный квалифицированный специалист, работающий в клинике Kani-Lab на должности ${lab.pos.ru}. Обладает высокими навыками проведения высокоточных лабораторных исследований.`,
                       tr: `${lab.name}, Kani-Lab bünyesinde ${lab.pos.tr} olarak görev yapan deneyimli uzman personel. Analizlerin güvenilir ve hızlı şekilde sonuçlandırılmasında yüksek sorumluluk ve tecrübe sahibidir.`
                     }
@@ -4981,13 +5218,13 @@ export default function App() {
                   <div className="flex flex-col items-center justify-center text-center gap-4 py-20 animate-in fade-in duration-300">
                     <AlertCircle className="w-12 h-12 text-red-500 animate-bounce" />
                     <h3 className="text-xl font-bold text-slate-800 dark:text-white">
-                      {lang === 'uz' ? 'Xodim topilmadi' : lang === 'ru' ? 'Сотрудник не найден' : 'Personel Bulunamadı'}
+                      {getLangTextInline('Xodim topilmadi', 'Сотрудник не найден', 'Personel Bulunamadı', 'Staff not found')}
                     </h3>
                     <button 
                       onClick={() => { setActiveTab('home'); window.location.hash = 'home'; }}
                       className="px-5 py-2.5 bg-[#00B4D8] text-white rounded-xl font-bold text-xs shadow-md transition-all hover:bg-[#0096C7]"
                     >
-                      {lang === 'uz' ? 'Bosh sahifaga qaytish' : lang === 'ru' ? 'На главную' : 'Ana Sayfaya Dön'}
+                      {getLangTextInline('Bosh sahifaga qaytish', 'На главную', 'Ana Sayfaya Dön', 'Back to Home')}
                     </button>
                   </div>
                 );
@@ -5008,7 +5245,7 @@ export default function App() {
                     className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-[#00B4D8] dark:hover:text-[#48CAE4] font-bold text-xs mb-8 transition-colors group focus:outline-none"
                   >
                     <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                    <span>{lang === 'uz' ? 'Bosh sahifaga qaytish' : lang === 'ru' ? 'На главную' : 'Ana Sayfaya Dön'}</span>
+                    <span>{getLangTextInline('Bosh sahifaga qaytish', 'На главную', 'Ana Sayfaya Dön', 'Back to Home')}</span>
                   </button>
 
                   {/* Isolated Profile Layout */}
@@ -5057,7 +5294,7 @@ export default function App() {
                       
                       <div className="border-l-4 border-[#00B4D8] pl-4 mb-8">
                         <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">
-                          {lang === 'uz' ? 'Biografiya' : lang === 'ru' ? 'Биография' : 'Biyografi'}
+                          {getLangTextInline('Biografiya', 'Биография', 'Biyografi', 'Biography')}
                         </h4>
                         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                           {getLangText(member.bio)}
@@ -5066,7 +5303,7 @@ export default function App() {
 
                       <div className="mb-8">
                         <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">
-                          {lang === 'uz' ? 'Mutaxassislik yo‘nalishlari' : lang === 'ru' ? 'Направления специализации' : 'Uzmanlık Alanları'}
+                          {getLangTextInline('Mutaxassislik yo‘nalishlari', 'Направления специализации', 'Uzmanlık Alanları', 'Specialization Fields')}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {getLangText(member.specialties).map((spec, i) => (
@@ -5083,7 +5320,7 @@ export default function App() {
                       {/* Education section in the right panel */}
                       <div className="border-t border-slate-100 dark:border-slate-800/80 pt-6 mt-6 mb-8">
                         <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2.5">
-                          {lang === 'uz' ? 'Ta‘lim va malaka' : lang === 'ru' ? 'Образование и квалификация' : 'Eğitim ve Kalifikasyon'}
+                          {getLangTextInline('Ta‘lim va malaka', 'Образование и квалификация', 'Eğitim ve Kalifikasyon', 'Education & Qualifications')}
                         </h4>
                         <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium whitespace-pre-line">
                           {getLangText(member.grad)}
@@ -5093,7 +5330,7 @@ export default function App() {
                       <div className="p-5 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div className="flex flex-col">
                           <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                            {lang === 'uz' ? 'Aloqa (Klinika pochtasi)' : lang === 'ru' ? 'Контакты (Общий email)' : 'İletişim (Ortak e-posta)'}
+                            {getLangTextInline('Aloqa (Klinika pochtasi)', 'Контакты (Общий email)', 'İletişim (Ortak e-posta)', 'Contact (General Email)')}
                           </span>
                           <span className="text-xs font-bold text-slate-700 dark:text-slate-200 mt-1 flex items-center gap-1.5">
                             <Mail className="w-3.5 h-3.5 text-[#00B4D8]" />
@@ -5111,7 +5348,7 @@ export default function App() {
                           }}
                           className="px-5 py-2.5 bg-[#00B4D8] hover:bg-[#0096C7] text-white rounded-xl text-xs font-black shadow-lg shadow-[#00B4D8]/20 transition-all focus:outline-none shrink-0"
                         >
-                          {lang === 'uz' ? 'Savol berish / Uchrashuv belgilash' : lang === 'ru' ? 'Задать вопрос / Записаться' : 'Soru Sor / Randevu Al'}
+                          {getLangTextInline('Savol berish / Uchrashuv belgilash', 'Задать вопрос / Записаться', 'Soru Sor / Randevu Al', 'Ask a Question / Book Appointment')}
                         </button>
                       </div>
 
@@ -5130,7 +5367,7 @@ export default function App() {
                     {lang === 'uz' ? 'Xodimni tanlang' : lang === 'ru' ? 'Выберите сотрудника' : 'Personel Seçin'}
                   </h3>
                   <p className="text-sm text-slate-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed">
-                    {lang === 'uz' ? "Yuqoridagi menyudan bo'limni tanlang va xodim profiliga o'ting" : lang === 'ru' ? 'Выберите отдел в меню выше и перейдите к профилю сотрудника' : 'Yukarıdaki menüden bölüm seçin'}
+                    {lang === 'uz' ? "Yuqoridagi menyudan bo'limni tanlang va xodim profiliga o\'ting" : lang === 'ru' ? 'Выберите отдел в меню выше и перейдите к профилю сотрудника' : 'Yukarıdaki menüden bölüm seçin'}
                   </p>
                 </div>
               </div>
@@ -5280,7 +5517,7 @@ export default function App() {
                 {lang === 'uz' ? 'KANILAB Bosh Laboratoriyasi' : lang === 'ru' ? 'Главный корпус KANILAB' : 'KANILAB Merkez Laboratuvarı'}
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                {lang === 'uz' ? 'Landmark: Sobiq Koʻz kasalxonasi binosi ichida (Eski Koʻz Kasalxonasi).' : lang === 'ru' ? 'Ориентир: внутри здания бывшей Глазной больницы (Eski Ko\'z Kasalxonasi).' : 'Landmark: Eski Göz Hastanesi binası içi.'}
+                {getLangTextInline('Landmark: Sobiq Ko‘z kasalxonasi binosi ichida (Eski Ko‘z Kasalxonasi).', 'Ориентир: Внутри здания бывшей Глазной больницы (Старая Глазная Больница).', 'Landmark: Eski Göz Hastanesi binası içinde.', 'Landmark: Inside the former Eye Hospital building (Old Eye Hospital).')}
                 <br />
                 {lang === 'uz' ? 'Termiz shahridagi eng ilg‘or va zamonaviy tahlillar markazining bosh binosi.' : lang === 'ru' ? 'Главный корпус самого современного и передового диагностического центра в Термезе.' : 'Tirmiz şehrindeki en gelişmiş ve modern analiz merkezinin ana binası.'}
               </p>
@@ -5310,7 +5547,7 @@ export default function App() {
               className="mt-4 w-max px-6 py-3 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-white dark:to-slate-200 text-white dark:text-slate-900 rounded-xl font-bold hover:shadow-lg transition-all active:scale-95 flex items-center gap-2"
             >
               <Star className="w-4 h-4" />
-              {lang === 'uz' ? 'Fikr qoldirish' : lang === 'ru' ? 'Оставить отзыв' : 'Yorum Bırak'}
+              {getLangTextInline('Fikr qoldirish', 'Оставить отзыв', 'Yorum Bırak', 'Leave a Review')}
             </button>
           </div>
 
@@ -5373,16 +5610,16 @@ export default function App() {
               </button>
 
               <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
-                {lang === 'uz' ? 'Fikr qoldirish' : lang === 'ru' ? 'Оставить отзыв' : 'Yorum Bırak'}
+                {getLangTextInline('Fikr qoldirish', 'Оставить отзыв', 'Yorum Bırak', 'Leave a Review')}
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-                {lang === 'uz' ? 'Xizmatlarimiz haqida o\'z fikringizni yozib qoldiring.' : lang === 'ru' ? 'Напишите свой отзыв о наших услугах.' : 'Xizmatlarimiz haqida o\'z fikringizni yozib qoldiring.'}
+                {getLangTextInline('Xizmatlarimiz haqida o\'z fikringizni yozib qoldiring.', 'Оставьте свой отзыв о наших услугах.', 'Hizmetlerimiz hakkındaki görüşlerinizi yazın.', 'Share your thoughts about our services.')}
               </p>
 
               <form onSubmit={handleReviewSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
-                    {lang === 'uz' ? 'Ism va familiya' : lang === 'ru' ? 'Имя и фамилия' : 'İsim ve Soyisim'}
+                    {getLangTextInline('Ism va familiya', 'Имя и фамилия', 'İsim ve Soyisim', 'First and Last Name')}
                   </label>
                   <input 
                     type="text" 
@@ -5390,23 +5627,23 @@ export default function App() {
                     value={newReview.name}
                     onChange={e => setNewReview({...newReview, name: e.target.value})}
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder={lang === 'uz' ? 'Ismingizni kiriting' : lang === 'ru' ? 'Введите ваше имя' : 'İsminizi girin'}
+                    placeholder={getLangTextInline('Ismingizni kiriting', 'Введите ваше имя', 'Adınızı girin', 'Enter your name')}
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
-                    {lang === 'uz' ? 'Mijoz turi' : lang === 'ru' ? 'Тип клиента' : 'Müşteri türü'}
+                    {getLangTextInline('Mijoz turi', 'Тип клиента', 'Müşteri Türü', 'Client Type')}
                   </label>
                   <select
                     value={newReview.role}
                     onChange={e => setNewReview({...newReview, role: e.target.value})}
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500 appearance-none"
                   >
-                    <option value="">{lang === 'uz' ? 'Tanlang...' : lang === 'ru' ? 'Выберите...' : 'Seçin...'}</option>
-                    <option value={lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Hasta'}>{lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Hasta'}</option>
-                    <option value={lang === 'uz' ? 'Shifokor' : lang === 'ru' ? 'Врач' : 'Doktor'}>{lang === 'uz' ? 'Shifokor' : lang === 'ru' ? 'Врач' : 'Doktor'}</option>
-                    <option value={lang === 'uz' ? 'Hamkor' : lang === 'ru' ? 'Партнер' : 'Ortak'}>{lang === 'uz' ? 'Hamkor' : lang === 'ru' ? 'Партнер' : 'Ortak'}</option>
+                    <option value="">{getLangTextInline('Tanlang...', 'Выберите...', 'Seçiniz...', 'Select...')}</option>
+                    <option value={getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient')}>{getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient')}</option>
+                    <option value={getLangTextInline('Shifokor', 'Врач', 'Doktor', 'Doctor')}>{getLangTextInline('Shifokor', 'Врач', 'Doktor', 'Doctor')}</option>
+                    <option value={getLangTextInline('Hamkor', 'Партнер', 'İş Ortağı', 'Partner')}>{getLangTextInline('Hamkor', 'Партнер', 'İş Ortağı', 'Partner')}</option>
                   </select>
                 </div>
 
@@ -5427,7 +5664,7 @@ export default function App() {
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
-                    {lang === 'uz' ? 'Fikringiz' : lang === 'ru' ? 'Ваш отзыв' : 'Görüşünüz'}
+                    {getLangTextInline('Fikringiz', 'Ваш отзыв', 'Görüşünüz', 'Your Review')}
                   </label>
                   <textarea 
                     required
@@ -5435,7 +5672,7 @@ export default function App() {
                     value={newReview.review}
                     onChange={e => setNewReview({...newReview, review: e.target.value})}
                     className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
-                    placeholder={lang === 'uz' ? 'Taassurotlaringiz bilan o\'rtoqlashing...' : lang === 'ru' ? 'Поделитесь своими впечатлениями...' : 'Taassurotlaringiz bilan o\'rtoqlashing...'}
+                    placeholder={getLangTextInline('Taassurotlaringiz bilan o\'rtoqlashing...', 'Поделитесь своими впечатлениями...', 'İzlenimlerinizi paylaşın...', 'Share your impressions...')}
                   />
                 </div>
 
@@ -5444,7 +5681,7 @@ export default function App() {
                     type="submit"
                     className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl font-bold shadow-lg shadow-cyan-500/20 active:scale-98 transition-all"
                   >
-                    {lang === 'uz' ? 'Yuborish' : lang === 'ru' ? 'Отправить' : 'Gönder'}
+                    {getLangTextInline('Yuborish', 'Отправить', 'Gönder', 'Submit')}
                   </button>
                 </div>
               </form>
@@ -5508,10 +5745,10 @@ export default function App() {
               <div className="flex flex-col items-center text-center gap-2 mb-12">
                 <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
                   <FileText className="w-4 h-4" />
-                  {lang === 'uz' ? 'YANGILIKLAR' : lang === 'ru' ? 'НОВОСТИ' : 'HABERLER'}
+                  {getLangTextInline('YANGILIKLAR', 'НОВОСТИ', 'HABERLER', 'NEWS')}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                  {lang === 'uz' ? 'Kani-Lab yangiliklari va videolari' : lang === 'ru' ? 'Новости и видеоматериалы Kani-Lab' : 'Kani-Lab Haberleri ve Videoları'}
+                  {getLangTextInline('Kani-Lab yangiliklari va videolari', 'Новости и видео Kani-Lab', 'Kani-Lab Haberleri ve Videoları', 'Kani-Lab News & Videos')}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
                   {lang === 'uz' ? 'Laboratoriyamizdagi eng so‘nggi yangiliklar, yutuqlarimiz va rasmiy videolavhalar' : lang === 'ru' ? 'Последние новости, достижения и официальные видеорепортажи о нашей работе' : 'Laboratuvarımızdan en son haberler, başarılarımız ve resmi videolarımız'}
@@ -5571,7 +5808,7 @@ export default function App() {
                               </div>
                             )}
                             <div className="absolute top-4 left-4 px-3 py-1 bg-cyan-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
-                              {item.category === 'video' ? (lang === 'uz' ? 'Video' : lang === 'ru' ? 'Видео' : 'Video') : item.category === 'news' ? (lang === 'uz' ? 'Yangilik' : lang === 'ru' ? 'Новость' : 'Haber') : (lang === 'uz' ? 'Yutuq' : lang === 'ru' ? 'Достижение' : 'Başarı')}
+                              {item.category === 'video' ? getLangTextInline('Video', 'Видео', 'Video', 'Video') : item.category === 'news' ? getLangTextInline('Yangilik', 'Новость', 'Haber', 'News') : getLangTextInline('Yutuq', 'Достижение', 'Başarı', 'Achievement')}
                             </div>
                           </>
                         )}
@@ -5612,17 +5849,17 @@ export default function App() {
                                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                                 </span>
-                                {lang === 'uz' ? 'Hozir ijro etilmoqda' : lang === 'ru' ? 'Сейчас играет' : 'Şimdi oynatılıyor'}
+                                {getLangTextInline('Hozir ijro etilmoqda', 'Сейчас воспроизводится', 'Şimdi oynatılıyor', 'Now Playing')}
                               </>
                             ) : (
                               <>
-                                {lang === 'uz' ? 'Videoni tomosha qilish' : lang === 'ru' ? 'Смотреть видео' : 'Videoyu İzle'}
+                                {getLangTextInline('Videoni tomosha qilish', 'Смотреть видео', 'Videoyu İzle', 'Watch Video')}
                                 <ChevronRight className="w-4 h-4" />
                               </>
                             )
                           ) : (
                             <>
-                              {lang === 'uz' ? 'Batafsil o‘qish' : lang === 'ru' ? 'Подробнее' : 'Detaylı Oku'}
+                              {getLangTextInline('Batafsil o‘qish', 'Читать далее', 'Detaylı Oku', 'Read More')}
                               <ChevronRight className="w-4 h-4" />
                             </>
                           )}
@@ -5652,10 +5889,10 @@ export default function App() {
               <div className="flex flex-col items-center text-center gap-2 mb-10">
                 <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />
-                  {lang === 'uz' ? 'FOTOGALEREYA' : lang === 'ru' ? 'ФОТОГАЛЕРЕЯ' : 'FOTOĞALERİ'}
+                  {getLangTextInline('FOTOGALEREYA', 'ФОТОГАЛЕРЕЯ', 'FOTO GALERİ', 'PHOTO GALLERY')}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                  {lang === 'uz' ? 'Kani-Lab fotogalereyasi' : lang === 'ru' ? 'Фотогалерея Kani-Lab' : 'Kani-Lab Fotoğraf Galerisi'}
+                  {getLangTextInline('Kani-Lab fotogalereyasi', 'Фотогалерея Kani-Lab', 'Kani-Lab Fotoğraf Galerisi', 'Kani-Lab Photo Gallery')}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
                   {lang === 'uz' 
@@ -5677,7 +5914,7 @@ export default function App() {
                       : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  {lang === 'uz' ? 'Barchasi' : lang === 'ru' ? 'Все' : 'Hepsi'}
+                  {getLangTextInline('Barchasi', 'Все', 'Hepsi', 'All')}
                 </button>
                 <button
                   type="button"
@@ -5688,7 +5925,7 @@ export default function App() {
                       : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  {lang === 'uz' ? 'Ilmiy hamkorlik (TerDU)' : lang === 'ru' ? 'Научное сотрудничество (ТерГУ)' : 'Bilimsel İşbirliği (TerDU)'}
+                  {getLangTextInline('Ilmiy hamkorlik (TerDU)', 'Научное сотрудничество (ТерГУ)', 'Bilimsel İşbirliği (TerDU)', 'Scientific Collaboration (TerSU)')}
                 </button>
                 <button
                   type="button"
@@ -5699,7 +5936,7 @@ export default function App() {
                       : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  {lang === 'uz' ? 'Qon olish shahobchasi (2022)' : lang === 'ru' ? 'Пункт забора крови (2022)' : 'Kan Alma Birimi (2022)'}
+                  {getLangTextInline('Qon olish shahobchasi (2022)', 'Пункт забора крови (2022)', 'Kan Alma Birimi (2022)', 'Blood Draw Station (2022)')}
                 </button>
                 <button
                   type="button"
@@ -5710,7 +5947,7 @@ export default function App() {
                       : 'bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60'
                   }`}
                 >
-                  {lang === 'uz' ? '8-mart bayrami' : lang === 'ru' ? 'Праздник 8 марта' : '8 Mart Bayramı'}
+                  {getLangTextInline('8-mart bayrami', 'Праздник 8 марта', '8 Mart Bayramı', "International Women's Day")}
                 </button>
               </div>
 
@@ -5739,8 +5976,7 @@ export default function App() {
                       <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-transparent flex flex-col justify-end pt-20">
                         <span className="text-[9px] text-cyan-400 font-black uppercase tracking-widest block mb-1.5">
                           {item.category === 'collaboration' 
-                            ? (lang === 'uz' ? 'TerDU hamkorligi' : lang === 'ru' ? 'Сотрудничество с ТерГУ' : 'TerDU İşbirliği')
-                            : (lang === 'uz' ? 'Qon olish shahobchasi' : lang === 'ru' ? 'Пункт забора крови' : 'Kan Alma Birimi')}
+                            ? getLangTextInline('TerDU hamkorligi', 'Сотрудничество с ТерГУ', 'TerDU işbirliği', 'TerSU Collaboration') : getLangTextInline('Qon olish shahobchasi', 'Пункт забора крови', 'Kan Alma Birimi', 'Blood Draw Station')}
                         </span>
                         <h4 className="text-sm font-black text-white leading-tight">
                           {getLangText(item.title)}
@@ -5808,7 +6044,7 @@ export default function App() {
                   onClick={() => setSelectedNewsId(null)}
                   className="px-6 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl text-xs font-black hover:bg-slate-300/80 dark:hover:bg-slate-700 transition-colors"
                 >
-                  {lang === 'uz' ? 'Yopish' : lang === 'ru' ? 'Закрыть' : 'Kapat'}
+                  {getLangTextInline('Yopish', 'Закрыть', 'Kapat', 'Close')}
                 </button>
               </div>
             </div>
@@ -5848,10 +6084,10 @@ export default function App() {
             <div className="flex flex-col items-center text-center gap-2 mb-14">
               <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                {lang === 'uz' ? 'KANI-LAB TARMOG\'' : lang === 'ru' ? 'СЕТЬ KANI-LAB' : 'KANİ-LAB AĞI'}
+                {getLangTextInline('KANI-LAB TARMOG‘I', 'СЕТЬ KANI-LAB', 'KANİ-LAB AĞI', 'KANI-LAB NETWORK')}
               </span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                {lang === 'uz' ? 'Bizning filiallar' : lang === 'ru' ? 'Наши филиалы' : 'Şubelerimiz'}
+                {getLangTextInline('Bizning filiallar', 'Наши филиалы', 'Şubelerimiz', 'Our Branches')}
               </h2>
               <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
                 {lang === 'uz' ? `Termiz shahrida va Surxondaryo viloyatida ${BRANCHES.length} ta filial orqali xizmat ko\'rsatamiz` : lang === 'ru' ? `Оказываем услуги через ${BRANCHES.length} филиалов в г. Термез и Сурхандарьинской области` : `Termiz ve Surhanderya bölgesinde ${BRANCHES.length} şube ile hizmet veriyoruz`}
@@ -5874,7 +6110,7 @@ export default function App() {
                       {idx + 1}
                     </span>
                     <span className="px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-wider rounded-full border border-emerald-100 dark:border-emerald-900/50">
-                      {lang === 'uz' ? 'FAOL' : lang === 'ru' ? 'АКТИВНЫЙ' : 'AKTİF'}
+                      {getLangTextInline('FAOL', 'АКТИВЕН', 'AKTİF', 'ACTIVE')}
                     </span>
                   </div>
 
@@ -5927,7 +6163,7 @@ export default function App() {
                     className="mt-5 w-full py-2.5 rounded-xl bg-[#00B4D8]/8 hover:bg-[#00B4D8] border border-[#00B4D8]/20 hover:border-[#00B4D8] text-[#0096C7] hover:text-white text-xs font-black flex items-center justify-center gap-2 transition-all duration-200 group/btn"
                   >
                     <MapPin className="w-3.5 h-3.5 group-hover/btn:animate-bounce" />
-                    {lang === 'uz' ? 'Xaritada ko\'rish' : lang === 'ru' ? 'Показать на карте' : 'Haritada Göster'}
+                    {getLangTextInline('Xaritada ko‘rish', 'Показать на карте', 'Haritada Göster', 'View on Map')}
                   </a>
                 </div>
               ))}
@@ -5937,17 +6173,17 @@ export default function App() {
             <div className="mt-14 p-8 bg-gradient-to-r from-[#00B4D8]/8 to-[#0096C7]/5 border border-[#00B4D8]/15 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
               <div>
                 <h4 className="text-xl font-extrabold text-slate-800 dark:text-white mb-1">
-                  {lang === 'uz' ? 'Qaysi filial sizga yaqin?' : lang === 'ru' ? 'Какой филиал ближайший к вам?' : 'Hangi şube size daha yakın?'}
+                  {getLangTextInline('Qaysi filial sizga yaqin?', 'Какая ветка ближе к вам?', 'Hangi şube size daha yakın?', 'Which branch is closer to you?')}
                 </h4>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {lang === 'uz' ? 'Uydan namuna olish xizmati ham mavjud' : lang === 'ru' ? 'Доступна услуга взятия анализов на дому' : 'Evde örnek alma hizmeti de mevcuttur'}
+                  {getLangTextInline('Uydan namuna olish xizmati ham mavjud', 'Также доступна услуга взятия анализов на дому', 'Evde örnek alma hizmeti de mevcuttur', 'Home sample collection service is also available')}
                 </p>
               </div>
               <button
                 onClick={() => { setActiveTab('contact'); window.location.hash = 'contact'; }}
                 className="px-7 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white font-black text-sm rounded-2xl shadow-lg shadow-[#00B4D8]/25 hover:opacity-90 transition-all shrink-0"
               >
-                {lang === 'uz' ? 'Bog\'lanish' : lang === 'ru' ? 'Связаться' : 'İletişim'}
+                {getLangTextInline('Bog\'lanish', 'Связаться', 'İletişim', 'Contact')}
               </button>
             </div>
 
@@ -5977,7 +6213,7 @@ export default function App() {
                   <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Flagman Center</div>
                   <p className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1">{t.address}</p>
                   <p className="text-xs text-slate-400 mt-1.5 font-semibold">
-                    {lang === 'uz' ? 'Landmark: Sobiq Koʻz kasalxonasi binosi ichida (Eski Koʻz Kasalxonasi).' : lang === 'ru' ? "Ориентир: внутри здания бывшей Глазной больницы (Eski Ko'z Kasalxonasi)." : 'Landmark: Sobiq Koʻz kasalxonasi binosi ichida (Eski Koʻz Kasalxonasi).'}
+                    {getLangTextInline('Landmark: Sobiq Ko‘z kasalxonasi binosi ichida (Eski Ko‘z Kasalxonasi).', 'Ориентир: Внутри здания бывшей Глазной больницы (Старая Глазная Больница).', 'Landmark: Eski Göz Hastanesi binası içinde.', 'Landmark: Inside the former Eye Hospital building (Old Eye Hospital).')}
                   </p>
                 </div>
               </div>
@@ -6030,7 +6266,7 @@ export default function App() {
                   </div>
                   <div className="space-y-1.5 relative z-10">
                     <h4 className="text-lg font-black text-slate-800 dark:text-white">
-                      {lang === 'uz' ? 'Ariza qabul qilindi!' : lang === 'ru' ? 'Заявка принята!' : 'Ariza qabul qilindi!'}
+                      {getLangTextInline('Ariza qabul qilindi!', 'Заявка принята!', 'Başvuru kabul edildi!', 'Application received!')}
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-emerald-400 font-semibold leading-relaxed max-w-sm">
                       {t.formSuccess}
@@ -6119,13 +6355,13 @@ export default function App() {
               <div>
                 <span className="text-[10px] font-black text-[#00B4D8] uppercase tracking-widest flex items-center gap-1.5 mb-1.5">
                   <Zap className="w-3.5 h-3.5" />
-                  {lang === 'uz' ? 'Marshrut rejalashtiruvchi' : lang === 'ru' ? 'Планировщик маршрута' : 'Rota Planlayıcı'}
+                  {getLangTextInline('Marshrut rejalashtiruvchi', 'Планировщик маршрута', 'Rota Planlayıcı', 'Route Planner')}
                 </span>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
-                  {lang === 'uz' ? 'Qanday boriladi?' : lang === 'ru' ? 'Как добраться?' : 'Nasıl Gidilir?'}
+                  {getLangTextInline('Qanday boriladi?', 'Как добраться?', 'Nasıl Gidilir?', 'How to get there?')}
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  {lang === 'uz' ? "Hozirgi turgan joyingizdan istalgan filialimizgacha bo'lgan eng qulay va tezkor yo'nalishni aniqlang." : lang === 'ru' ? 'Определите наиболее удобный и быстрый маршрут от вашего текущего местоположения до любого из наших филиалов.' : 'Bulunduğunuz konumdan herhangi bir şubemize giden en kolay ve hızlı rotayı belirleyin.'}
+                  {lang === 'uz' ? "Hozirgi turgan joyingizdan istalgan filialimizgacha bo'lgan eng qulay va tezkor yo\'nalishni aniqlang." : lang === 'ru' ? 'Определите наиболее удобный и быстрый маршрут от вашего текущего местоположения до любого из наших филиалов.' : 'Bulunduğunuz konumdan herhangi bir şubemize giden en kolay ve hızlı rotayı belirleyin.'}
                 </p>
               </div>
 
@@ -6141,7 +6377,7 @@ export default function App() {
                       type="text"
                       value={routeFrom}
                       onChange={(e) => setRouteFrom(e.target.value)}
-                      placeholder={lang === 'uz' ? 'Hozirgi manzilingiz yoki shahar' : lang === 'ru' ? 'Ваше текущее местоположение или город' : 'Mevcut konumunuz veya şehir'}
+                      placeholder={getLangTextInline('Hozirgi manzilingiz yoki shahar', 'Ваше текущее местоположение или город', 'Mevcut konumunuz veya şehir', 'Your current location or city')}
                       className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white"
                     />
                   </div>
@@ -6150,7 +6386,7 @@ export default function App() {
                 {/* Qayerga Dropdown */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                    {lang === 'uz' ? 'Qayerga?' : lang === 'ru' ? 'Куда?' : 'Nereye?'}
+                    {getLangTextInline('Qayerga?', 'Куда?', 'Nereye?', 'Where to?')}
                   </label>
                   <div className="relative">
                     <select
@@ -6171,13 +6407,13 @@ export default function App() {
                 {/* Qanaqasiga (Travel Mode) Radio buttons */}
                 <div className="flex flex-col gap-2">
                   <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                    {lang === 'uz' ? 'Qanaqasiga?' : lang === 'ru' ? 'Как именно?' : 'Nasıl?'}
+                    {getLangTextInline('Qanaqasiga?', 'Как?', 'Nasıl?', 'How?')}
                   </span>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { mode: 'driving', label: lang === 'uz' ? 'Avtomobil' : lang === 'ru' ? 'Авто' : 'Araç', icon: '🚗' },
-                      { mode: 'transit', label: lang === 'uz' ? 'Transport' : lang === 'ru' ? 'Автобус' : 'Toplu Taşıma', icon: '🚌' },
-                      { mode: 'walking', label: lang === 'uz' ? 'Piyoda' : lang === 'ru' ? 'Пешком' : 'Yürüyerek', icon: '🚶' }
+                      { mode: 'driving', label: getLangTextInline('Avtomobil', 'Автомобиль', 'Araç', 'Car'), icon: '🚗' },
+                      { mode: 'transit', label: getLangTextInline('Transport', 'Транспорт', 'Toplu Taşıma', 'Transit'), icon: '🚌' },
+                      { mode: 'walking', label: getLangTextInline('Piyoda', 'Пешком', 'Yürüyerek', 'Walking'), icon: '🚶' }
                     ].map((tMode) => (
                       <label
                         key={tMode.mode}
@@ -6218,7 +6454,7 @@ export default function App() {
                 }}
                 className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-[#00B4D8]/20 hover:opacity-90 transition-all flex items-center justify-center gap-2 group/btn"
               >
-                <span>{lang === 'uz' ? "O'rganing" : lang === 'ru' ? 'Проложить маршрут' : 'Rotayı Keşfedin'}</span>
+                <span>{getLangTextInline("O'rganing", 'Исследовать', 'Rotayı Keşfedin', 'Explore Route')}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -6235,7 +6471,7 @@ export default function App() {
               />
               <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-wider flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                <span>{lang === 'uz' ? 'Jonli xarita' : lang === 'ru' ? 'Живая карта' : 'Canlı Harita'}</span>
+                <span>{getLangTextInline('Jonli xarita', 'Живая карта', 'Canlı Harita', 'Live Map')}</span>
               </div>
             </div>
 
@@ -6253,7 +6489,7 @@ export default function App() {
             {/* Header */}
             <div className="text-center">
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
-                {lang === 'uz' ? 'Bizning Sertifikatlar' : lang === 'ru' ? 'Наши сертификаты' : 'Sertifikalarımız'}
+                {getLangTextInline('Bizning Sertifikatlar', 'Наши сертификаты', 'Sertifikalarımız', 'Our Certificates')}
               </h2>
               <p className="text-sm md:text-base text-slate-500 max-w-2xl mx-auto font-medium">
                 {lang === 'uz' ? 'Xalqaro sifat kafolati va litsenziyalar' : lang === 'ru' ? 'Международная гарантия качества и лицензии' : 'Uluslararası kalite güvencesi ve lisanslar'}
@@ -6265,23 +6501,38 @@ export default function App() {
               {[
                   {
                     id: 1,
-                    title: lang === 'uz' ? 'CAP Sertifikati (2020)' : lang === 'ru' ? 'Сертификат CAP (2020)' : 'CAP Sertifikası (2020)',
+                    title: getLangTextInline("CAP Sertifikati (2020)", "CAP Сертификат (2020)", "CAP Sertifikası (2020)", "CAP Certificate (2020)"),
                     year: '2020',
-                    desc: lang === 'uz' ? 'Ushbu sertifikat Kani-Med laboratoriyasi 2020-yilda College of American Pathologists (CAP) tomonidan o\'tkazilgan tashqi sifat nazorati (External Quality Assurance) tekshiruvlarida muvaffaqiyatli qatnashganligini tasdiqlaydi. Tadqiqotlar shuni ko\'rsatadiki, CAP sertifikatiga ega laboratoriyalar boshqalarga qaraganda ancha aniq natijalar beradi. Bu bizning bemorlar salomatligiga bo\'lgan o\'ta mas\'uliyatimizni belgilaydi. Biz faqat xalqaro standartlarga mos uskunalar va reaktivlardan foydalanamiz.' : lang === 'ru' ? 'Этот сертификат подтверждает, что в 2020 году лаборатория Kani-Med успешно прошла внешнюю оценку качества от CAP. Исследования показывают, что лаборатории с сертификатом CAP предоставляют гораздо более точные результаты. Это определяет нашу огромную ответственность за здоровье пациентов. Мы используем только оборудование и реагенты, соответствующие международным стандартам.' : 'Bu sertifika, Kani-Med laboratuvarının 2020 yılında College of American Pathologists (CAP) tarafından yürütülen dış kalite kontrol (Dış Kalite Güvencesi) testlerine başarıyla katıldığını teyit eder. Araştırmalar, CAP sertifikalı laboratuvarların diğerlerine kıyasla çok daha doğru sonuçlar verdiğini göstermektedir. Bu durum, hastalarımızın sağlığına verdiğimiz yüksek sorumluluğu tanımlar. Yalnızca uluslararası standartlara uygun ekipman ve reaktifleri kullanmaktayız.',
+                    desc: getLangTextInline(
+                      "Ushbu sertifikat Kani-Med laboratoriyasi 2020-yilda College of American Pathologists (CAP) tomonidan o'tkazilgan tashqi sifat nazorati (External Quality Assurance) tekshiruvlarida muvaffaqiyatli qatnashganligini tasdiqlaydi. Tadqiqotlar shuni ko\'rsatadiki, CAP sertifikatiga ega laboratoriyalar boshqalarga qaraganda ancha aniq natijalar beradi. Bu bizning bemorlar salomatligiga bo\'lgan o\'ta mas\'uliyatimizni belgilaydi. Biz faqat xalqaro standartlarga mos uskunalar va reaktivlardan foydalanamiz.",
+                      "Этот сертификат подтверждает успешное участие лаборатории Kani-Med во внешнем контроле качества (CAP) в 2020 году. Исследования показывают, что сертифицированные лаборатории дают более точные результаты.",
+                      "Bu sertifika, Kani-Med laboratuvarının 2020 yılında College of American Pathologists (CAP) tarafından yürütülen dış kalite kontrol testlerine başarıyla katıldığını teyit eder.",
+                      "This certificate confirms the successful participation of Kani-Med laboratory in External Quality Assurance checks conducted by the College of American Pathologists (CAP) in 2020. Studies show that CAP-certified laboratories provide significantly more accurate results, defining our ultimate responsibility toward patient health. We use only equipment and reagents meeting international standards."
+                    ),
                     img: cert1Img
                   },
                   {
                     id: 2,
-                    title: lang === 'uz' ? 'CAP Sertifikati (2021)' : lang === 'ru' ? 'Сертификат CAP (2021)' : 'CAP Sertifikası (2021)',
+                    title: getLangTextInline("CAP Sertifikati (2021)", "CAP Сертификат (2021)", "CAP Sertifikası (2021)", "CAP Certificate (2021)"),
                     year: '2021',
-                    desc: lang === 'uz' ? '2021-yilgi mavsumda tahlillarimiz sifati xalqaro standartlarga to\'liq javob berishi tasdiqlandi. Laboratoriyamiz doimiy ravishda yuqori sifat nazoratini saqlab kelmoqda va har bir bemor uchun aniq natijalar kafolatlanadi. Biz yana bir bor diagnostika sifati bo\'yicha etakchi ekanligimizni isbotladik. CAP sifat kafolati nafaqat bizning uskuna va xodimlarimizni, balki butun diagnostika jarayonimizni qat\'iy tekshiruvdan o\'tkazdi. Bu ishonchli tashxis va to\'g\'ri davolanishning asosi hisoblanadi.' : lang === 'ru' ? 'В сезоне 2021 года качество наших анализов было подтверждено на соответствие международным стандартам. Гарантия качества CAP строго проверила не только наше оборудование и персонал, но и весь диагностический процесс. Это основа для надежного диагноза и правильного лечения.' : '2021-yilgi mavsumda tahlillarimiz sifati xalqaro standartlarga to\'liq javob berishi tasdiqlandi. Laboratoriyamiz doimiy ravishda yuqori sifat nazoratini saqlab kelmoqda va har bir bemor uchun aniq natijalar kafolatlanadi. Biz yana bir bor diagnostika sifati bo\'yicha etakchi ekanligimizni isbotladik. CAP sifat kafolati nafaqat bizning uskuna va xodimlarimizni, balki butun diagnostika jarayonimizni qat\'iy tekshiruvdan o\'tkazdi. Bu ishonchli tashxis va to\'g\'ri davolanishning asosi hisoblanadi.',
+                    desc: getLangTextInline(
+                      "2021-yilgi mavsumda tahlillarimiz sifati xalqaro standartlarga to'liq javob berishi tasdiqlandi. Laboratoriyamiz doimiy ravishda yuqori sifat nazoratini saqlab kelmoqda va har bir bemor uchun aniq natijalar kafolatlanadi. Biz yana bir bor diagnostika sifati bo\'yicha etakchi ekanligimizni isbotladik. CAP sifat kafolati nafaqat bizning uskuna va xodimlarimizni, balki butun diagnostika jarayonimizni qat\'iy tekshiruvdan o\'tkazdi. Bu ishonchli tashxis va to\'g\'ri davolanishning asosi hisoblanadi.",
+                      "В сезоне 2021 года подтверждено полное соответствие качества анализов международным стандартам. Наша лаборатория постоянно поддерживает высокий уровень контроля качества.",
+                      "2021 sezonunda analizlerimizin kalitesinin uluslararası standartlara tam uyumlu olduğu onaylanmıştır. Laboratuvarımız sürekli olarak yüksek kalite kontrolü sağlamaktadır.",
+                      "In the 2021 season, the quality of our analyses was confirmed to fully meet international standards. Our laboratory consistently maintains high quality control, and accurate results are guaranteed for each patient. We proved once again that we are leaders in diagnostic quality. CAP quality assurance strictly inspected not only our equipment and staff but also our entire diagnostic workflow, laying the foundation for reliable diagnosis and correct treatment."
+                    ),
                     img: cert2Img
                   },
                   {
                     id: 3,
-                    title: lang === 'uz' ? 'CAP Sertifikati (2022)' : lang === 'ru' ? 'Сертификат CAP (2022)' : 'CAP Sertifikası (2022)',
+                    title: getLangTextInline("CAP Sertifikati (2022)", "CAP Сертификат (2022)", "CAP Sertifikası (2022)", "CAP Certificate (2022)"),
                     year: '2022',
-                    desc: lang === 'uz' ? 'Ushbu xujjat 2022-yilda texnik va tibbiy mutaxassislarimizning malakasi xalqaro darajada ekanligini hamda laboratoriya jihozlarimizning benuqson ishlashini kafolatlaydi. Ketma-ket yillar davomida CAP xalqaro miqyosida o\'tkaziladigan malaka tekshiruvlarida 100% ijobiy ko\'rsatkichlarga erishib kelmoqdamiz. Bemorlarimiz tahlil natijalarini to\'g\'ridan-to\'g\'ri chet eldagi shifoxonalarga ham yuborishlari mumkin, chunki bizning sertifikat butun dunyoda tan olinadi.' : lang === 'ru' ? 'Этот документ гарантирует, что в 2022 году квалификация наших специалистов находилась на международном уровне. Наши пациенты могут отправлять результаты анализов напрямую в зарубежные клиники, так как наш сертификат признан во всем мире.' : 'Ushbu xujjat 2022-yilda texnik va tibbiy mutaxassislarimizning malakasi xalqaro darajada ekanligini hamda laboratoriya jihozlarimizning benuqson ishlashini kafolatlaydi. Ketma-ket yillar davomida CAP xalqaro miqyosida o\'tkaziladigan malaka tekshiruvlarida 100% ijobiy ko\'rsatkichlarga erishib kelmoqdamiz. Bemorlarimiz tahlil natijalarini to\'g\'ridan-to\'g\'ri chet eldagi shifoxonalarga ham yuborishlari mumkin, chunki bizning sertifikat butun dunyoda tan olinadi.',
+                    desc: getLangTextInline(
+                      "Ushbu xujjat 2022-yilda texnik va tibbiy mutaxassislarimizning malakasi xalqaro darajada ekanligini hamda laboratoriya jihozlarimiznining benuqson ishlashini kafolatlaydi. Ketma-ket yillar davomida CAP xalqaro miqyosida o'tkaziladigan malaka tekshiruvlarida 100% ijobiy ko\'rsatkichlarga erishib kelmoqdamiz. Bemorlarimiz tahlil natijalarini to\'g\'ridan-to\'g\'ri chet eldagi shifoxonalarga ham yuborishlari mumkin, chunki bizning sertifikat butun dunyoda tan olinadi.",
+                      "Этот документ гарантирует международную квалификацию наших специалистов и безупречную работу оборудования в 2022 году. Наши результаты признаются по всему миру.",
+                      "Bu belge, 2022 yılında teknik ve tıbbi uzmanlarımızın uluslararası düzeydeki yetkinliğini ve laboratuvar ekipmanlarımızın kusursuz çalışmasını garanti eder.",
+                      "This document guarantees that the qualifications of our technical and medical specialists are of an international standard and that our laboratory equipment functions flawlessly. Year after year, we achieve a 100% positive rate in CAP international proficiency testing. Our patients can also send their test results directly to overseas hospitals, as our certification is recognized worldwide."
+                    ),
                     img: cert3Img
                   }
               ].map((cert, index) => (
@@ -6295,7 +6546,7 @@ export default function App() {
                   <div className="w-full xl:w-[50%] flex flex-col justify-center text-left">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00B4D8]/10 text-[#00B4D8] text-sm font-bold uppercase tracking-widest w-fit mb-5">
                       <Award className="w-5 h-5" />
-                      {cert.year} {lang === 'uz' ? 'Yil' : lang === 'ru' ? 'Год' : 'Yıl'}
+                      {cert.year} {getLangTextInline('Yil', 'Год', 'Yıl', 'Year')}
                     </div>
                     <h4 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight tracking-tight">
                       {cert.title}
@@ -6322,10 +6573,10 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-none">
-                  {lang === 'uz' ? 'MAXFIYLIK SIYOSATI' : lang === 'ru' ? 'ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ' : 'GİZLİLİK POLİTİKASI'}
+                  {getLangTextInline('MAXFIYLIK SIYOSATI', 'ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ', 'GİZLİLİK POLİTİKASI', 'PRIVACY POLICY')}
                 </h1>
                 <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2">
-                  {lang === 'uz' ? 'Kani-Lab laboratoriyasi ma’lumotlar maxfiyligi siyosati' : lang === 'ru' ? 'Политика конфиденциальности данных лаборатории Kani-Lab' : 'Kani-Lab Laboratuvarı Veri Gizliliği Politikası'}
+                  {getLangTextInline('Kani-Lab laboratoriyasi ma’lumotlar maxfiyligi siyosati', 'Политика конфиденциальности данных лаборатории Kani-Lab', 'Kani-Lab Laboratuvarı Veri Gizliliği Politikası', 'Data Privacy Policy of Kani-Lab Laboratory')}
                 </p>
               </div>
             </div>
@@ -6333,24 +6584,49 @@ export default function App() {
             <div className="space-y-8 text-slate-600 dark:text-slate-300 font-medium leading-[1.65] text-sm md:text-base">
               {[
                 {
-                  title: lang === 'uz' ? 'Kirish va qamrov' : lang === 'ru' ? 'Введение и сфера применения' : 'Giriş ve Kapsam',
-                  desc: lang === 'uz' ? `Ushbu Maxfiylik siyosati Kani-Lab tomonidan mijozlarning shaxsiy va tibbiy ma'lumotlarini qanday yig‘ish, qayta ishlash, saqlash va himoya qilish tartiblarini belgilaydi.` : lang === 'ru' ? 'Настоящая Политика конфиденциальности определяет процедуры сбора, обработки, хранения и защиты Kani-Lab личных и медицинских данных клиентов.' : 'Bu Gizlilik Politikası, Kani-Lab tarafından müşterilerin kişisel ve tıbbi verilerinin toplanması, işlenmesi, saklanması ve korunması prosedürlerini belirler.'
+                  title: getLangTextInline('Kirish va qamrov', 'Введение и сфера применения', 'Giriş ve Kapsam', 'Introduction & Scope'),
+                  desc: getLangTextInline(
+                    'Ushbu Maxfiylik siyosati Kani-Lab tomonidan mijozlarning shaxsiy va tibbiy ma\'lumotlarini qanday yig‘ish, qayta ishlash, saqlash va himoya qilish tartiblarini belgilaydi.',
+                    'Настоящая Политика конфиденциальности определяет процедуры сбора, обработки, хранения и защиты личных и медицинских данных клиентов в Kani-Lab.',
+                    'Bu Gizlilik Politikası, Kani-Lab tarafından müşterilerin kişisel ve tıbbi verilerinin toplanması, işlenmesi, saklanması ve korunması prosedürlerini belirler.',
+                    'This Privacy Policy defines the procedures for collecting, processing, storing, and protecting personal and medical data of customers by Kani-Lab.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Ma’lumotlarni yig‘ish' : lang === 'ru' ? 'Сбор данных' : 'Veri Toplama',
-                  desc: lang === 'uz' ? `Biz faqat xizmat ko‘rsatish uchun zarur bo‘lgan ma'lumotlarni, jumladan ism-sharif, aloqa raqamlari, elektron pochta manzili hamda tahlil natijalarini to‘g‘ri shakllantirish uchun zarur bo‘lgan tibbiy anamnez ma'lumotlarini to‘playmiz.` : lang === 'ru' ? 'Мы собираем только информацию, необходимую для оказания услуг, включая имя, контактные номера, адрес электронной почты и медицинский анамнез, необходимый для правильного формирования результатов анализа.' : 'Ad-soyad, iletişim numaraları, e-posta adresi ve analiz sonuçlarının doğru şekilde oluşturulması için gerekli olan tıbbi geçmiş bilgileri dahil olmak üzere yalnızca hizmet sunumu için gerekli bilgileri topluyoruz.'
+                  title: getLangTextInline('Ma’lumotlarni yig‘ish', 'Сбор данных', 'Veri Топлама', 'Data Collection'),
+                  desc: getLangTextInline(
+                    'Biz faqat xizmat ko‘rsatish uchun zarur bo‘lgan ma\'lumotlarni, jumladan ism-sharif, aloqa raqamlari, elektron pochta manzili hamda tahlil natijalarini to‘g‘ri shakllantirish uchun zarur bo‘lgan tibbiy anamnez ma\'lumotlarini to‘playmiz.',
+                    'Мы собираем только информацию, необходимую для оказания услуг, включая имя, контактные номера, адрес электронной почты и медицинский анамнез для правильного формирования результатов.',
+                    'Ad-soyad, iletişim numaraları, e-posta adresi ve analiz sonuçlarının doğru şekilde oluşturulması için gerekli olan tıbbi geçmişini de toplayabiliriz.',
+                    'We collect only the information necessary for providing services, including full name, contact numbers, email address, and medical history required for the correct generation of test results.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Tibbiy sir va konfidensiallik' : lang === 'ru' ? 'Медицинская тайна и конфиденциальность' : 'Tıbbi Sır ve Gizlilik',
-                  desc: lang === 'uz' ? `Bemorning barcha tahlil natijalari va ular bilan bog‘liq tibbiy ma'lumotlar qat'iy "Tibbiy sir" maqomiga ega. Ushbu ma'lumotlar uchinchi shaxslarga, davlat organlariga yoki boshqa muassasalarga faqat qonunchilikda belgilangan hollar bundan mustasno, hech qanday holatda oshkor etilmaydi.` : lang === 'ru' ? 'Все результаты анализов пациента и связанные с ними медицинские данные имеют статус строгой "Медицинской тайны". Эта информация ни при каких обстоятельствах не разглашается третьим лицам или государственным органам, за исключением случаев, предусмотренных законом.' : 'Hastanın tüm analiz sonuçları ve bunlarla ilgili tıbbi verileri katı bir şekilde "Tıbbi Sır" statüsündedir. Bu bilgiler, yasal zorunluluklar hariç, hiçbir koşulda üçüncü şahıslara veya devlet kurumlarına açıklanmaz.'
+                  title: getLangTextInline('Tibbiy sir va konfidensiallik', 'Медицинская тайна и конфиденциальность', 'Tıbbi Sır ve Gizlilik', 'Medical Secrecy & Confidentiality'),
+                  desc: getLangTextInline(
+                    'Bemorning barcha tahlil natijalari va ular bilan bog‘liq tibbiy ma\'lumotlar qat\'iy "Tibbiy sir" maqomiga ega. Ushbu ma\'lumotlar uchinchi shaxslarga, davlat organlariga yoki boshqa muassasalarga faqat qonunchilikda belgilangan hollar bundan mustasno, hech qanday holatda oshkor etilmaydi.',
+                    'Все результаты анализов пациента и связанные с ними медицинские данные имеют статус строгой "Медицинской тайны". Эта информация ни при каких обстоятельствах не разглашается третьим лицам или государственным органам, за исключением случаев, предусмотренных законом.',
+                    'Hastanın tüm analiz sonuçları ve bunlarla ilgili tıbbi verileri katı bir şekilde "Tıbbi Sır" statüsündedir. Bu bilgiler, yasal zorunluluklar hariç, hiçbir koşulda üçüncü şahıslara veya devlet kurumlarına açıklanmaz.',
+                    'All patient test results and related medical data have the status of strict "Medical Secrecy". This information will not be disclosed to third parties, government agencies, or other institutions under any circumstances, except as required by law.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? `Ma'lumotlar xavfsizligi` : lang === 'ru' ? 'Безопасность данных' : 'Veri Güvenliği',
-                  desc: lang === 'uz' ? `Kani-Lab mijozlarning shaxsiy ma'lumotlarini ruxsatsiz kirish, o‘zgartirish, yo‘q qilish yoki oshkor etishdan himoya qilish uchun ilg‘or shifrlash texnologiyalari va xavfsiz server infratuzilmasidan foydalanadi.` : lang === 'ru' ? 'Kani-Lab использует передовые технологии шифрования и безопасную инфраструктуру серверов для защиты личных данных клиентов от несанкционированного доступа, изменения, уничтожения или разглашения.' : 'Kani-Lab, müşterilerin kişisel verilerini yetkisiz erişim, değiştirme, imha veya ifşa edilmekten korumak için gelişmiş şifreleme teknolojileri ve güvenli sunucu altyapısı kullanır.'
+                  title: getLangTextInline('Ma\'lumotlar xavfsizligi', 'Безопасность данных', 'Veri Güvenliği', 'Data Security'),
+                  desc: getLangTextInline(
+                    'Kani-Lab mijozlarning shaxsiy ma\'lumotlarini ruxsatsiz kirish, o‘zgartirish, yo‘q qilish yoki oshkor etishdan himoya qilish uchun ilg‘or shifrlash texnologiyalari va xavfsiz server infratuzilmasidan foydalanadi.',
+                    'Kani-Lab использует передовые технологии шифрования и безопасную инфраструктуру серверов для защиты личных данных клиентов от несанкционированного доступа, изменения, уничтожения или разглашения.',
+                    'Kani-Lab, müşterilerin kişisel verilerini yetkisiz erişim, değiştirme, imha veya ifşa edilmekten korumak için gelişmiş şifreleme teknolojileri ve güvenli sunucu altyapısı kullanır.',
+                    'Kani-Lab uses advanced encryption technologies and secure server infrastructure to protect customers\' personal data from unauthorized access, modification, destruction, or disclosure.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Mijoz huquqlari' : lang === 'ru' ? 'Права клиентов' : 'Müşteri Hakları',
-                  desc: lang === 'uz' ? `Har bir mijoz o‘zining shaxsiy ma'lumotlaridan foydalanish shartlari bilan tanishish, ma'lumotlarga o‘zgartirish kiritish yoki ularni o‘chirishni so‘rash huquqiga ega.` : lang === 'ru' ? 'Каждый клиент имеет право ознакомиться с условиями использования своих персональных данных, запросить внесение изменений или их удаление.' : 'Her müşteri, kişisel verilerinin kullanım koşullarını inceleme, verilerde değişiklik yapılmasını veya silinmesini talep etme hakkına sahiptir.'
+                  title: getLangTextInline('Mijoz huquqlari', 'Права клиентов', 'Müşteri Hakları', 'Customer Rights'),
+                  desc: getLangTextInline(
+                    'Har bir mijoz o‘zining shaxsiy ma\'lumotlaridan foydalanish shartlari bilan tanishish, ma\'lumotlarga o‘zgartirish kiritish yoki ularni o‘chirishni so‘rash huquqiga ega.',
+                    'Каждый клиент имеет право ознакомиться с условиями использования своих личных данных, запросить внесение изменений или их удаление.',
+                    'Her müşteri, kişisel verilerinin kullanım koşullarını inceleme, verilerde değişiklik yapılmasını veya silinmesini talep etme hakkına sahiptir.',
+                    'Each customer has the right to review the terms of use of their personal data, request modifications, or ask for its deletion.'
+                  )
                 }
               ].map((section, idx) => (
                 <div key={idx} className="space-y-2">
@@ -6382,10 +6658,10 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-none">
-                  {lang === 'uz' ? 'FOYDALANISH SHARTLARI' : lang === 'ru' ? 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ' : 'KULLANIM KOŞULLARI'}
+                  {getLangTextInline('FOYDALANISH SHARTLARI', 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ', 'KULLANIM KOŞULLARI', 'TERMS OF USE')}
                 </h1>
                 <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2">
-                  {lang === 'uz' ? 'Kani-Lab veb-platformasidan foydalanish bo‘yicha shartlar va qoidalar' : lang === 'ru' ? 'Условия и правила использования веб-платформы Kani-Lab' : 'Kani-Lab Web Platformunun Kullanım Şartları ve Koşulları'}
+                  {getLangTextInline('Kani-Lab veb-platformasidan foydalanish bo‘yicha shartlar va qoidalar', 'Правила и условия использования веб-платформы Kani-Lab', 'Kani-Lab Web Platformunun Kullanım Şartları ve Koşulları', 'Terms and Conditions for Using the Kani-Lab Web Platform')}
                 </p>
               </div>
             </div>
@@ -6393,24 +6669,49 @@ export default function App() {
             <div className="space-y-8 text-slate-600 dark:text-slate-300 font-medium leading-[1.65] text-sm md:text-base">
               {[
                 {
-                  title: lang === 'uz' ? 'Kelishuv shartlari' : lang === 'ru' ? 'Соглашение об условиях' : 'Anlaşma Şartları',
-                  desc: lang === 'uz' ? 'Ushbu veb-saytga kirish va undan foydalanish orqali siz quyidagi shartlar va qoidalarga so‘zsiz rozi bo‘lasiz. Agar siz ushbu shartlarga rozi bo‘lmasangiz, saytdan foydalanishni to‘xtatishingiz kerak.' : lang === 'ru' ? 'Доступ к этому веб-сайту и его использование означают ваше безоговорочное согласие со следующими правилами и условиями. Если вы не согласны с ними, пожалуйста, прекратите использование сайта.' : 'Bu web sitesine erişerek ve kullanarak, aşağıdaki şart ve koşulları kayıtsız şartsız kabul etmiş olursunuz. Bu şartları kabul etmiyorsanız, siteyi kullanmayı bırakmalısınız.'
+                  title: getLangTextInline('Kelishuv shartlari', 'Соглашение об условиях', 'Anlaşma Şartları', 'Terms of Agreement'),
+                  desc: getLangTextInline(
+                    'Ushbu veb-saytga kirish va undan foydalanish orqali siz quyidagi shartlar va qoidalarga so‘zsiz rozi bo‘lasiz. Agar siz ushbu shartlarga rozi bo‘lmasangiz, saytdan foydalanishni to‘xtatishingiz kerak.',
+                    'Получая доступ к этому веб-сайту и используя его, вы безоговорочно соглашаетесь со следующими условиями. Если вы не согласны с ними, вам следует прекратить использование сайта.',
+                    'Bu web sitesine erişerek ve kullanarak, aşağıdaki şart ve koşulları kayıtsız şartsız kabul etmiş olursunuz. Bu şartları kabul etmiyorsanız, siteyi kullanmayı bırakmalısınız.',
+                    'By accessing and using this website, you unconditionally agree to the following terms and conditions. If you do not agree to these terms, you must stop using the website.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Axborot xarakteri' : lang === 'ru' ? 'Информационный характер' : 'Bilgilendirme Amaçlı İçerik',
-                  desc: lang === 'uz' ? `Veb-saytda taqdim etilgan tibbiy ma'lumotlar, maqolalar va tahlil tushuntirishlari faqat ma'lumot berish maqsadida joylashtirilgan. Ular professional tibbiy tashxis qo‘yish, davolash rejalarini belgilash yoki shifokor maslahatining o‘rnini bosmaydi. Har qanday tibbiy qaror qabul qilishdan oldin mutaxassis bilan maslahatlashish tavsiya etiladi.` : lang === 'ru' ? 'Предоставленная на сайте информация носит исключительно ознакомительный характер. Она не заменяет профессиональную консультацию врача, диагностику или планы лечения.' : 'Sitede sunulan tıbbi bilgiler, makaleler ve analiz açıklamaları yalnızca bilgilendirme amaçlıdır. Profesyonel tıbbi teşhis, tedavi veya doktor tavsiyesinin yerini alamaz.'
+                  title: getLangTextInline('Axborot xarakteri', 'Информационный характер', 'Bilgilendirme Amaçlı İçerik', 'Informational Nature'),
+                  desc: getLangTextInline(
+                    'Veb-saytda taqdim etilgan tibbiy ma\'lumotlar, maqolalar va tahlil tushuntirishlari faqat ma\'lumot berish maqsadida joylashtirilgan. Ular professional tibbiy tashxis qo‘yish, davolash rejalarini belgilash yoki shifokor maslahatining o‘rnini bosmaydi. Har qanday tibbiy qaror qabul qilishdan oldin mutaxassis bilan maslahatlashish tavsiya etiladi.',
+                    'Медицинская информация, статьи и пояснения к анализам, представленные на сайте, носят исключительно ознакомительный характер. Они не заменяют профессиональную медицинскую диагностику, лечение или консультацию врача.',
+                    'Sitede sunulan tıbbi bilgiler, makaleler ve analiz açıklamaları yalnızca bilgilendirme amaçlıdır. Profesyonel tıbbi teşhis, tedavi veya doktor tavsiyesinin yerini alamaz. Herhangi bir tıbbi karar vermeden önce bir uzmana danışmanız önerilir.',
+                    'The medical information, articles, and analysis explanations provided on the website are for informational purposes only. They do not replace professional medical diagnosis, treatment plans, or doctor consultations. It is recommended to consult a specialist before making any medical decisions.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Xizmatlar va buyurtmalar' : lang === 'ru' ? 'Услуги и заказы' : 'Hizmetler ve Siparişler',
-                  desc: lang === 'uz' ? `Laboratoriya xizmatlariga onlayn buyurtma berish jarayonida taqdim etilgan ma'lumotlarning to‘g‘riligi uchun foydalanuvchi shaxsan javobgardir. Noto‘g‘ri ma'lumotlar kiritilishi natijasida yuzaga kelishi mumkin bo‘lgan xatolar uchun Kani-Lab mas'uliyatni o‘z zimmasiga olmaydi.` : lang === 'ru' ? 'Пользователь несет личную ответственность за достоверность данных, предоставленных при онлайн-заказе услуг. Kani-Lab не несет ответственности за ошибки, возникшие в результате ввода неверных данных.' : 'Laboratuvar hizmetlerine çevrimiçi sipariş verilmesi sürecinde sağlanan bilgilerin doğruluğundan kullanıcı şahsen sorumludur. Yanlış bilgi girişi sonucu doğabilecek hatalardan Kani-Lab sorumlu tutulamaz.'
+                  title: getLangTextInline('Xizmatlar va buyurtmalar', 'Услуги и заказы', 'Hizmetler ve Siparişler', 'Services & Orders'),
+                  desc: getLangTextInline(
+                    'Laboratoriya xizmatlariga onlayn buyurtma berish jarayonida taqdim etilgan ma\'lumotlarning to‘g‘riligi uchun foydalanuvchi shaxsan javobgardir. Noto‘gri ma\'lumotlar kiritilishi natijasida yuzaga kelishi mumkin bo‘lgan xatolar uchun Kani-Lab mas\'uliyatni o‘z zimmasiga olmaydi.',
+                    'Пользователь несет личную ответственность за достоверность информации, предоставленной в процессе онлайн-заказа лабораторных услуг. Kani-Lab не несет ответственности за ошибки, возникшие из-за неверных данных.',
+                    'Laboratuvar hizmetlerine çevrimiçi sipariş verilmesi sürecinde sağlanan bilgilerin doğruluğundan kullanıcı şahsen sorumludur. Yanlış bilgi girişi sonucu doğabilecek hatalardan Kani-Lab sorumlu tutulamaz.',
+                    'The user is personally responsible for the accuracy of the information provided during the online ordering of laboratory services. Kani-Lab does not assume responsibility for errors resulting from incorrect data entry.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Intellektual mulk' : lang === 'ru' ? 'Интеллектуальная собственность' : 'Fikri Mülkiyet',
-                  desc: lang === 'uz' ? `Ushbu saytdagi barcha kontent, jumladan, brend logotiplari, dizayn elementlari, grafik tasvirlar, dasturiy kodlar va matnlar Kani-Lab kompaniyasining mulki hisoblanadi. Ulardan mualliflik ruxsatisiz nusxa ko‘chirish, tarqatish yoki tijorat maqsadlarida foydalanish qat'iyan taqiqlanadi.` : lang === 'ru' ? 'Весь контент сайта является собственностью Kani-Lab. Копирование, распространение или использование в коммерческих целях без разрешения строго запрещено.' : `Sitedeki tüm içerikler Kani-Lab'ın mülkiyetindedir. Telif izni olmaksızın kopyalanması, dağıtılması veya ticari amaçlarla kullanılması kesinlikle yasaktır.`
+                  title: getLangTextInline('Intellektual mulk', 'Интеллектуальная собственность', 'Fikri Mülkiyet', 'Intellectual Property'),
+                  desc: getLangTextInline(
+                    'Ushbu saytdagi barcha kontent, jumladan, brend logotiplari, dizayn elementlari, grafik tasvirlar, dasturiy kodlar va matnlar Kani-Lab kompaniyasining mulki hisoblanadi. Ulardan mualliflik ruxsatisiz nusxa ko‘chirish, tarqatish yoki tijorat maqsadlarida foydalanish qat\'iyan taqiqlanadi.',
+                    'Весь контент на этом сайте, включая логотипы брендов, элементы дизайна, графику, программный код и тексты, является собственностью Kani-Lab. Копирование, распространение или использование в коммерческих целях строго запрещено.',
+                    'Sitedeki tüm içerikler Kani-Lab\'ın mülkiyetindedir. Telif izni olmaksızın kopyalanması, dağıtılması veya ticari amaçlarla kullanılması kesinlikle yasaktır.',
+                    'All content on this site, including brand logos, design elements, graphics, source code, and text, is the property of Kani-Lab. Copying, distributing, or using them for commercial purposes without written copyright permission is strictly prohibited.'
+                  )
                 },
                 {
-                  title: lang === 'uz' ? 'Javobgarlikni cheklash' : lang === 'ru' ? 'Ограничение ответственности' : 'Sorumluluk Sınırlaması',
-                  desc: lang === 'uz' ? `Kani-Lab veb-saytning uzluksiz ishlashini ta'minlashga harakat qiladi, biroq texnik nosozliklar, uchinchi tomon xizmatlari yoki internet tarmog‘idagi uzilishlar tufayli yuzaga kelgan vaqtinchalik uzilishlar uchun javobgar emas.` : lang === 'ru' ? 'Kani-Lab стремится обеспечить бесперебойную работу сайта, но не несет ответственности за временные перебои из-за технических сбоев или проблем с провайдерами.' : 'Kani-Lab, web sitesinin kesintisiz çalışmasını sağlamaya çalışır, ancak teknik arızalar veya internet kesintilerinden kaynaklanan geçici aksaklıklardan sorumlu değildir.'
+                  title: getLangTextInline('Javobgarlikni cheklash', 'Ограничение ответственности', 'Sorumluluk Sınırlaması', 'Limitation of Liability'),
+                  desc: getLangTextInline(
+                    'Kani-Lab veb-saytning uzluksiz ishlashini vaqtinchalik uzilishlar uchun javobgar emas.',
+                    'Kani-Lab старается обеспечить бесперебойную работу сайта, но не несет ответственности за временные сбои из-за технических проблем, сторонних сервисов или сбоев сети Интернет.',
+                    'Kani-Lab, web sitesinin kesintisiz çalışmasını sağlamaya çalışır, ancak teknik arızalar veya internet kesintilerinden kaynaklanan geçici aksaklıklardan sorumlu değildir.',
+                    'Kani-Lab endeavors to ensure the continuous operation of the website, but is not liable for temporary interruptions caused by technical malfunctions, third-party services, or Internet connectivity issues.'
+                  )
                 }
               ].map((section, idx) => (
                 <div key={idx} className="space-y-2">
@@ -6447,7 +6748,7 @@ export default function App() {
             </div>
             
             <p className="text-xs text-slate-400 dark:text-slate-400 leading-relaxed font-semibold max-w-sm">
-              {lang === 'uz' ? 'KANI-LAB - eng ilgʻor robotlashtirilgan analizatorlar va yuqori darajadagi tibbiy ekspertlar jamoasi bilan Surxondaryodagi birinchi raqamli premium klinik laboratoriya tarmogʻi.' : lang === 'ru' ? 'KANILAB — первая клиническая лаборатория премиум-класса в Сурхандарье с передовым роботизированным оборудованием и командой экспертов.' : 'KANILAB, gelişmiş robotik analizörleri ve üst düzey tıbbi uzman ekibiyle Surhanderya\'daki bir numaralı premium klinik laboratuvar ağıdır.'}
+              {getLangTextInline('KANI-LAB - eng ilg‘or robotlashtirilgan analizatorlar va yuqori darajadagi tibbiy ekspertlar jamoasi bilan Surxondaryodagi birinchi raqamli premium klinik laboratoriya tarmog‘i.', 'KANILAB – сеть клинических лабораторий премиум-класса с передовым оборудованием в Сурхандарье.', 'KANILAB, gelişmiş robotik analizörleri ve üst düzey uzman ekibiyle birinci sınıf klinik laboratuvardır.', 'KANILAB is the number one premium clinical laboratory network in Surxondaryo with advanced robotic analyzers and a high-level team of medical experts.')}
             </p>
 
             {/* Premium Glassmorphic Social Media Icons */}
@@ -6508,13 +6809,13 @@ export default function App() {
 
           {/* Column 2: Head Office & Working Hours */}
           <div className="flex flex-col gap-4 text-left">
-            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{lang === 'uz' ? 'Bosh Ofis & Ish Tartibi' : lang === 'ru' ? 'Главный офис и Часы работы' : 'Merkez Ofis ve Çalışma Düzeni'}</h4>
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{getLangTextInline('Bosh Ofis & Ish Tartibi', 'Главный офис и Часы работы', 'Merkez Ofis ve Çalışma Düzeni', 'Head Office & Working Hours')}</h4>
             
             <div className="space-y-3.5 text-xs text-slate-600 dark:text-slate-400 font-semibold">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#00B4D8] shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-slate-800 dark:text-slate-200 font-extrabold">{lang === 'uz' ? 'Termiz Shahri' : lang === 'ru' ? 'Город Термез' : 'Tirmiz Şehri'}</p>
+                  <p className="text-slate-800 dark:text-slate-200 font-extrabold">{getLangTextInline('Termiz Shahri', 'Город Термез', 'Tirmiz Şehri', 'Termez City')}</p>
                   <p className="mt-1 leading-relaxed text-[11px]">{t.address}</p>
                 </div>
               </div>
@@ -6522,7 +6823,7 @@ export default function App() {
               <div className="flex items-start gap-2">
                 <Clock className="w-4 h-4 text-[#00B4D8] shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-slate-800 dark:text-slate-200 font-extrabold">{lang === 'uz' ? 'Ish Vaqti' : lang === 'ru' ? 'Часы приема' : 'Çalışma Saatleri'}</p>
+                  <p className="text-slate-800 dark:text-slate-200 font-extrabold">{getLangTextInline('Ish Vaqti', 'Часы приема', 'Çalışma Saatleri', 'Working Hours')}</p>
                   <p className="mt-1 text-[11px]">{t.workingHours}</p>
                 </div>
               </div>
@@ -6531,7 +6832,7 @@ export default function App() {
 
           {/* Column 3: Contact & Rapid Links */}
           <div className="flex flex-col gap-4 text-left">
-            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{lang === 'uz' ? 'Tezkor Bogʻlanish' : lang === 'ru' ? 'Быстрая Связь' : 'Hızlı İletişim'}</h4>
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{getLangTextInline('Tezkor Bogʻlanish', 'Быстрая Связь', 'Hızlı İletişim', 'Quick Contact')}</h4>
             
             <div className="space-y-3">
               <a href="tel:+998900751234" className="flex items-center gap-3 text-xs font-extrabold text-slate-700 dark:text-slate-300 hover:text-[#00B4D8] transition-colors group">
@@ -6560,10 +6861,10 @@ export default function App() {
 
         <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-6 pt-8 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
           <div className="flex flex-wrap gap-6 justify-center">
-            <a href="#privacy" onClick={(e) => { e.preventDefault(); setActiveTab('privacy'); window.location.hash = 'privacy'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Maxfiylik Siyosati' : lang === 'ru' ? 'Конфиденциальность' : 'Gizlilik Politikası'}</a>
-            <a href="#terms" onClick={(e) => { e.preventDefault(); setActiveTab('terms'); window.location.hash = 'terms'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Foydalanish shartlari' : lang === 'ru' ? 'Условия' : 'Kullanım Koşulları'}</a>
-            <a href="#gallery" onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); window.location.hash = 'gallery'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{lang === 'uz' ? 'Fotogalereya' : lang === 'ru' ? 'Фотогалерея' : 'Foto Galeri'}</a>
-            <button onClick={(e) => { e.preventDefault(); setActiveTab('certificates'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-[#00B4D8] transition-colors font-bold uppercase tracking-wider text-[11px]">{lang === 'uz' ? 'Sertifikatlarimiz' : lang === 'ru' ? 'Сертификаты' : 'Sertifikalarımız'}</button>
+            <a href="#privacy" onClick={(e) => { e.preventDefault(); setActiveTab('privacy'); window.location.hash = 'privacy'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{getLangTextInline('Maxfiylik Siyosati', 'Конфиденциальность', 'Gizlilik Politikası', 'Privacy Policy')}</a>
+            <a href="#terms" onClick={(e) => { e.preventDefault(); setActiveTab('terms'); window.location.hash = 'terms'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{getLangTextInline('Foydalanish shartlari', 'Условия', 'Kullanım Koşulları', 'Terms of Use')}</a>
+            <a href="#gallery" onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); window.location.hash = 'gallery'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{getLangTextInline('Fotogalereya', 'Фотогалерея', 'Foto Galeri', 'Photo Gallery')}</a>
+            <button onClick={(e) => { e.preventDefault(); setActiveTab('certificates'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-[#00B4D8] transition-colors font-bold uppercase tracking-wider text-[11px]">{getLangTextInline('Sertifikatlarimiz', 'Сертификаты', 'Sertifikalarımız', 'Our Certificates')}</button>
             <button 
               onClick={() => setIsStatsModalOpen(true)} 
               className="text-emerald-500 hover:text-emerald-400 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5 cursor-pointer"
@@ -6572,7 +6873,7 @@ export default function App() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              {lang === 'uz' ? 'Online Statistika' : lang === 'ru' ? 'Онлайн Статистика' : 'Online Stats'}
+              {getLangTextInline('Online Statistika', 'Онлайн Статистика', 'Online Stats', 'Online Stats')}
             </button>
           </div>
 
@@ -6686,7 +6987,7 @@ export default function App() {
 
                   {/* Pricing Overview */}
                   <div className="p-4 bg-slate-100/60 dark:bg-slate-950 rounded-2xl flex items-center justify-between text-sm">
-                    <span className="font-extrabold text-slate-700 dark:text-slate-300">{lang === 'uz' ? 'Jami summa' : lang === 'ru' ? 'Итоговая сумма' : 'Jami summa'}:</span>
+                    <span className="font-extrabold text-slate-700 dark:text-slate-300">{getLangTextInline('Jami summa', 'Итоговая сумма', 'Toplam Tutar', 'Total Amount')}:</span>
                     <span className="text-xl font-black text-[#0096C7] dark:text-[#48CAE4]">{formatPrice(cartTotalAmount)}</span>
                   </div>
 
@@ -6799,7 +7100,7 @@ export default function App() {
                         className="w-full pl-11 pr-10 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-semibold text-left focus:outline-none focus:ring-2 focus:ring-[#00B4D8] text-slate-800 dark:text-white flex items-center justify-between shadow-sm cursor-pointer"
                       >
                         <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400" />
-                        <span className="truncate">{selectedBranch || (lang === 'uz' ? 'Muassasani tanlang...' : lang === 'ru' ? 'Выберите учреждение...' : 'Select branch...')}</span>
+                        <span className="truncate">{selectedBranch || getLangTextInline('Muassasani tanlang...', 'Выберите учреждение...', 'Kurum seçiniz...', 'Select branch...')}</span>
                         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isBranchDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
                     </div>
@@ -6825,7 +7126,7 @@ export default function App() {
                                 type="text"
                                 value={branchSearchQuery}
                                 onChange={(e) => setBranchSearchQuery(e.target.value)}
-                                placeholder={lang === 'uz' ? 'Qidirish...' : lang === 'ru' ? 'Поиск...' : 'Search...'}
+                                placeholder={getLangTextInline('Qidirish...', 'Поиск...', 'Ara...', 'Search...')}
                                 className="w-full pl-9 pr-3 py-2 bg-transparent text-xs font-semibold focus:outline-none text-slate-800 dark:text-white"
                                 autoFocus
                               />
@@ -6835,7 +7136,7 @@ export default function App() {
                                   onClick={() => setBranchSearchQuery('')}
                                   className="absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold"
                                 >
-                                  {lang === 'uz' ? 'Tozalash' : 'Очистить'}
+                                  {getLangTextInline('Tozalash', 'Очистить', 'Temizle', 'Clear')}
                                 </button>
                               )}
                             </div>
@@ -6854,7 +7155,7 @@ export default function App() {
                               if (filtered.length === 0) {
                                 return (
                                   <div className="p-4 text-center text-xs text-slate-400 font-medium">
-                                    {lang === 'uz' ? 'Hech narsa topilmadi' : lang === 'ru' ? 'Ничего не найдено' : 'No results found'}
+                                    {getLangTextInline('Hech narsa topilmadi', 'Ничего ne topilmadi', 'Sonuç bulunamadı', 'No results found')}
                                   </div>
                                 );
                               }
@@ -7036,7 +7337,7 @@ export default function App() {
                         </div>
                         <div style={{ color: '#fff', fontSize: '18px', fontWeight: 900, letterSpacing: '4px' }}>KANILAB</div>
                         <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: '9px', fontWeight: 700, letterSpacing: '2px', marginTop: '3px' }}>
-                          {lang === 'uz' ? 'PREMIUM DIAGNOSTIKA MARKAZI' : lang === 'ru' ? 'ПРЕМИУМ ДИАГНОСТИКА' : 'PREMIUM DIAGNOSTIKA'}
+                          {getLangTextInline('PREMIUM DIAGNOSTIKA MARKAZI', 'ЦЕНТР ПРЕМИУМ ДИАГНОСТИКИ', 'PREMIUM TANI MERKEZİ', 'PREMIUM DIAGNOSTICS CENTER')}
                         </div>
                         {/* Decorative bottom wave */}
                         <div style={{
@@ -7050,14 +7351,14 @@ export default function App() {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <div>
                             <div style={{ fontSize: '8px', color: '#94a3b8', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
-                              {lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Bemor'}
+                              {getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient')}
                             </div>
                             <div style={{ fontSize: '13px', fontWeight: 900, color: '#0f172a', marginTop: '2px' }}>{patientName}</div>
                             <div style={{ fontSize: '10px', color: '#64748b', marginTop: '1px' }}>{patientPhone}</div>
                           </div>
                           <div style={{ textAlign: 'right' }}>
                             <div style={{ fontSize: '8px', color: '#94a3b8', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
-                              {lang === 'uz' ? 'Chek' : lang === 'ru' ? 'Чек' : 'Chek'}
+                              {getLangTextInline('Chek', 'Чек', 'Bilet/Fatura', 'Receipt/Ticket')}
                             </div>
                             <div style={{ fontSize: '12px', fontWeight: 900, color: '#0096C7', marginTop: '2px', letterSpacing: '1px' }}>{generatedTicketID}</div>
                           </div>
@@ -7067,9 +7368,9 @@ export default function App() {
                       {/* === DETAILS ROWS === */}
                       <div style={{ padding: '8px 16px', borderBottom: '1px dashed #cbd5e1' }}>
                         {[
-                          { label: lang === 'uz' ? 'Sana' : lang === 'ru' ? 'Дата' : 'Sana', value: selectedDate },
-                          { label: lang === 'uz' ? 'Vaqt' : lang === 'ru' ? 'Время' : 'Vaqt', value: selectedTime },
-                          { label: lang === 'uz' ? 'Filial' : lang === 'ru' ? 'Филиал' : 'Şube', value: selectedBranch },
+                          { label: getLangTextInline('Sana', 'Дата', 'Tarih', 'Date'), value: selectedDate },
+                          { label: getLangTextInline('Vaqt', 'Время', 'Saat', 'Time'), value: selectedTime },
+                          { label: getLangTextInline('Filial', 'Филиал', 'Şube', 'Branch'), value: selectedBranch === 'branch1' ? getLangTextInline('Markaziy (Alisher Navoiy)', 'Центральный (Алишер Навои)', 'Merkez (Alisher Navoiy)', 'Central (Alisher Navoiy)') : selectedBranch === 'branch2' ? getLangTextInline('Sharqiy (Olmazor)', 'Восточный (Алмазар)', 'Doğu (Olmazor)', 'Eastern (Olmazor)') : selectedBranch === 'branch3' ? getLangTextInline('Janubiy (Termiz)', 'Южный (Термез)', 'Güney (Termez)', 'Southern (Termez)') : selectedBranch },
                         ].map((row, i) => (
                           <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontSize: '11px' }}>
                             <span style={{ color: '#94a3b8', fontWeight: 600 }}>{row.label}</span>
@@ -7081,7 +7382,7 @@ export default function App() {
                       {/* === SERVICES LIST === */}
                       <div style={{ padding: '10px 16px', borderBottom: '1px dashed #cbd5e1' }}>
                         <div style={{ fontSize: '8px', fontWeight: 900, color: '#94a3b8', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '8px' }}>
-                          {lang === 'uz' ? 'Xizmatlar' : lang === 'ru' ? 'Услуги' : 'Xizmatlar'} — {cart.length} {lang === 'uz' ? 'ta' : lang === 'ru' ? 'шт.' : 'ta'}
+                          {getLangTextInline('Xizmatlar', 'Услуги', 'Hizmetler', 'Services')} - {cart.length} {getLangTextInline('ta', ' шт.', ' adet', ' items')}
                         </div>
                         {cart.map((id, index) => {
                           const test = LABORATORY_TESTS.find(item => item.id === id);
@@ -7101,7 +7402,7 @@ export default function App() {
                       <div style={{ padding: '10px 16px 8px', borderBottom: '1px dashed #cbd5e1' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ fontSize: '11px', fontWeight: 900, color: '#1e293b', letterSpacing: '1px' }}>
-                            {lang === 'uz' ? 'JAMI SUMMA' : lang === 'ru' ? 'ИТОГО' : 'JAMI'}
+                            {getLangTextInline('JAMI SUMMA', 'ИТОГОВАЯ СУММА', 'TOPLAM TUTAR', 'TOTAL AMOUNT')}
                           </span>
                           <span style={{ fontSize: '16px', fontWeight: 900, color: '#0096C7' }}>{formatPrice(cartTotalAmount)}</span>
                         </div>
@@ -7123,7 +7424,7 @@ export default function App() {
                           📞 +998 78 150 12 34 | kanilab.uz
                         </div>
                         <div style={{ fontSize: '8px', color: '#cbd5e1', marginTop: '4px', fontWeight: 600, letterSpacing: '1px' }}>
-                          {lang === 'uz' ? "Sog'lig'ingiz — bizning maqsadimiz" : lang === 'ru' ? 'Ваше здоровье — наша цель' : "Sog'lig'ingiz — bizning maqsadimiz"}
+                          {getLangTextInline("Sog'lig\'ingiz – bizning maqsadimiz", 'Ваше здоровье – наша цель', 'Sağlığınız – hedefimiz', 'Your health is our goal')}
                         </div>
                       </div>
 
@@ -7144,9 +7445,9 @@ export default function App() {
                     <div className="flex items-center gap-2.5">
                       <Phone className="w-4 h-4 text-[#00B4D8] animate-pulse" />
                       <div>
-                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{lang === 'uz' ? 'Yordam va qoʻllab-quvvatlash' : lang === 'ru' ? 'Поддержка и справки' : 'Yordam va qoʻllab-quvvatlash'}</div>
+                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{getLangTextInline('Yordam va qo‘llab-quvvatlash', 'Помощь и поддержка', 'Yardım ve Destek', 'Help & Support')}</div>
                         <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mt-0.5">
-                          {lang === 'uz' ? 'Muammo yuzaga kelsa, biz bilan bogʻlaning' : lang === 'ru' ? 'При возникновении вопросов звоните' : 'Muammo yuzaga kelsa, biz bilan bogʻlaning'}
+                          {getLangTextInline('Muammo yuzaga kelsa, biz bilan bog‘laning', 'Если возникнут проблемы, свяжитесь с нами', 'Bir sorun oluşursa bizimle iletişime geçin', 'If a problem arises, please contact us')}
                         </div>
                       </div>
                     </div>
@@ -7175,10 +7476,10 @@ export default function App() {
                           pdf.rect(0, 0, 80, 20, 'F');
                           pdf.setTextColor(255, 255, 255);
                           pdf.setFontSize(9); pdf.setFont('helvetica', 'bold');
-                          pdf.text('KANILAB — CHIPTA', 4, 7);
+                          pdf.text('KANILAB - ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
                           pdf.setFontSize(8);
-                          pdf.text(`Bemor: ${patientName}`, 4, 13);
-                          pdf.text(`Raqam: ${generatedTicketID}`, 4, 18);
+                          pdf.text(getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient') + `: ${patientName}`, 4, 13);
+                          pdf.text(getLangTextInline('Raqam', 'Номер', 'Numara', 'Number') + `: ${generatedTicketID}`, 4, 18);
                           const pageW = 80;
                           const imgH = (img.height / img.width) * pageW;
                           pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
@@ -7188,7 +7489,7 @@ export default function App() {
                       className="flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 hover:bg-slate-200 transition-colors"
                     >
                       <FileText className="w-4 h-4" />
-                      {lang === 'uz' ? 'PDF saqlab olish' : lang === 'ru' ? 'Сохранить PDF' : 'PDF olarak kaydet'}
+                      {getLangTextInline('PDF saqlab olish', 'Сохранить PDF', 'PDF Olarak İndir', 'Save PDF')}
                     </button>
                     
                     <button
@@ -7318,7 +7619,7 @@ export default function App() {
                 className="w-full mt-1.5 py-3 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-2xl text-xs font-black hover:shadow-lg hover:shadow-cyan-500/20 active:scale-98 transition-all flex items-center justify-center gap-1.5"
               >
                 <Calendar className="w-4 h-4" />
-                <span>{lang === 'uz' ? 'Hozir band qilish' : lang === 'ru' ? 'Забронировать сейчас' : 'Hozir band qilish'}</span>
+                <span>{getLangTextInline('Hozir band qilish', 'Забронировать сейчас', 'Şimdi Rezervasyon Yap', 'Book Now')}</span>
               </button>
 
             </div>
@@ -7378,7 +7679,7 @@ export default function App() {
                   {selectedAnalyzer.name}
                 </h3>
                 <p className="text-slate-300 font-medium mt-2">
-                  {lang === 'uz' ? selectedAnalyzer.category.uz : selectedAnalyzer.category.ru}
+                  {getLangText(selectedAnalyzer.category)}
                 </p>
               </div>
             </div>
@@ -7389,17 +7690,17 @@ export default function App() {
               <div className="mb-6">
                 <h4 className="text-sm font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Activity className="w-4 h-4" />
-                  {lang === 'uz' ? 'Qisqacha tavsif' : lang === 'ru' ? 'Краткое описание' : 'Qisqacha tavsif'}
+                  {getLangTextInline('Qisqacha tavsif', 'Краткое описание', 'Kısa Açıklama', 'Brief Description')}
                 </h4>
                 <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                  {lang === 'uz' ? selectedAnalyzer.shortDesc.uz : selectedAnalyzer.shortDesc.ru}
+                  {getLangText(selectedAnalyzer.shortDesc)}
                 </p>
               </div>
 
               <div className="mb-6">
                 <h4 className="text-sm font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Microscope className="w-4 h-4" />
-                  {lang === 'uz' ? 'Ilmiy va texnik ma\'lumotlar' : lang === 'ru' ? 'Научные и технические данные' : 'Bilimsel ve Teknik Veriler'}
+                  {getLangTextInline('Ilmiy va texnik ma\'lumotlar', 'Научно-технические данные', 'Bilimsel ve Teknik Veriler', 'Scientific & Technical Data')}
                 </h4>
                 <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-100 dark:border-slate-800">
                   <p className="text-base text-slate-700 dark:text-slate-300 leading-relaxed text-justify mb-5">
@@ -7437,7 +7738,7 @@ export default function App() {
             <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800">
               <h2 className="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
                 <Search className="w-5 h-5 text-[#00B4D8]" />
-                {lang === 'uz' ? 'Chekni tekshirish' : lang === 'ru' ? 'Проверка чека' : 'Faturayı Kontrol Et'}
+                {getLangTextInline('Chekni tekshirish', 'Проверка чека', 'Faturayı Kontrol Et', 'Check Ticket')}
               </h2>
               <button 
                 onClick={() => setIsCheckModalOpen(false)}
@@ -7448,7 +7749,7 @@ export default function App() {
             </div>
             <div className="p-6">
               <form onSubmit={handleCheckTicket} className="flex gap-2 mb-6">
-                <div className="flex-1 flex items-center bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#00B4D8]">
+                <div className="flex-1 flex items-center bg-slate-50 dark:bg-slate-950 border border-slate-200/40 dark:border-slate-800/40 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#00B4D8]">
                   <span className="pl-4 pr-1 text-sm font-bold text-slate-400 select-none">KL-</span>
                   <input
                     type="text"
@@ -7463,7 +7764,7 @@ export default function App() {
                   />
                 </div>
                 <button type="submit" className="px-6 py-3 bg-[#00B4D8] hover:bg-[#0096C7] text-white font-bold rounded-xl transition-colors">
-                  {lang === 'uz' ? 'Izlash' : lang === 'ru' ? 'Поиск' : 'Izlash'}
+                  {getLangTextInline('Izlash', 'Поиск', 'Arama', 'Search')}
                 </button>
               </form>
 
@@ -7478,28 +7779,33 @@ export default function App() {
                 <div className="p-5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-2xl">
                   <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 mb-4">
                     <CheckCircle2 className="w-5 h-5" />
-                    <span className="font-bold">{lang === 'uz' ? 'Chipta topildi' : lang === 'ru' ? 'Чек найден' : 'Bilet bulundu'}</span>
+                    <span className="font-bold">{getLangTextInline('Chipta topildi', 'Чек найден', 'Bilet bulundu', 'Ticket Found')}</span>
                   </div>
                   <div className="space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
 
                     {/* Asosiy ma'lumotlar */}
                     <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
-                      <span className="text-slate-500">{lang === 'uz' ? 'Chipta' : lang === 'ru' ? 'Чек' : 'Chipta'}:</span>
+                      <span className="text-slate-500">{getLangTextInline('Chipta', 'Чек', 'Bilet', 'Ticket')}:</span>
                       <strong className="text-slate-900 dark:text-white">{foundTicket.id}</strong>
                     </div>
                     <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
-                      <span className="text-slate-500">{lang === 'uz' ? 'Bemor' : lang === 'ru' ? 'Пациент' : 'Hasta'}:</span>
+                      <span className="text-slate-500">{getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient')}:</span>
                       <strong className="text-slate-900 dark:text-white">{foundTicket.patientName}</strong>
                     </div>
                     <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
-                      <span className="text-slate-500">{lang === 'uz' ? 'Sana' : lang === 'ru' ? 'Дата' : 'Sana'}:</span>
+                      <span className="text-slate-500">{getLangTextInline('Sana', 'Дата', 'Tarih', 'Date')}:</span>
                       <strong className="text-slate-900 dark:text-white">{foundTicket.selectedDate} {foundTicket.selectedTime}</strong>
                     </div>
                     {foundTicket.selectedBranch && (
                       <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
-                        <span className="text-slate-500">{lang === 'uz' ? 'Filial' : lang === 'ru' ? 'Филиал' : 'Şube'}:</span>
+                        <span className="text-slate-500">{getLangTextInline('Filial', 'Филиал', 'Şube', 'Branch')}:</span>
                         <span className="text-right text-xs font-semibold text-slate-700 dark:text-slate-300">
-                          {foundTicket.selectedBranch === 'branch1' ? 'Markaziy (Alisher Navoiy)' : foundTicket.selectedBranch === 'branch2' ? 'Sharqiy (Olmazor)' : foundTicket.selectedBranch === 'branch3' ? 'Janubiy (Termiz)' : foundTicket.selectedBranch}
+                          {getLangTextInline(
+                            foundTicket.selectedBranch === 'branch1' ? 'Markaziy (Alisher Navoiy)' : foundTicket.selectedBranch === 'branch2' ? 'Sharqiy (Olmazor)' : foundTicket.selectedBranch === 'branch3' ? 'Janubiy (Termiz)' : foundTicket.selectedBranch,
+                            foundTicket.selectedBranch === 'branch1' ? 'Центральный (Алишер Навои)' : foundTicket.selectedBranch === 'branch2' ? 'Восточный (Алмазар)' : foundTicket.selectedBranch === 'branch3' ? 'Южный (Термез)' : foundTicket.selectedBranch,
+                            foundTicket.selectedBranch === 'branch1' ? 'Merkez (Alisher Navoiy)' : foundTicket.selectedBranch === 'branch2' ? 'Doğu (Olmazor)' : foundTicket.selectedBranch === 'branch3' ? 'Güney (Termez)' : foundTicket.selectedBranch,
+                            foundTicket.selectedBranch === 'branch1' ? 'Central (Alisher Navoiy)' : foundTicket.selectedBranch === 'branch2' ? 'Eastern (Olmazor)' : foundTicket.selectedBranch === 'branch3' ? 'Southern (Termez)' : foundTicket.selectedBranch
+                          )}
                         </span>
                       </div>
                     )}
@@ -7508,7 +7814,7 @@ export default function App() {
                     {foundTicket.cart && foundTicket.cart.length > 0 && (
                       <div className="border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
                         <div className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2">
-                          {lang === 'uz' ? 'Tahlillar' : lang === 'ru' ? 'Анализы' : 'Tahlillar'} ({foundTicket.cart.length})
+                          {getLangTextInline('Tahlillar', 'Анализы', 'Analizler', 'Tests')} ({foundTicket.cart.length})
                         </div>
                         <div className="space-y-1.5 max-h-40 overflow-y-auto">
                           {foundTicket.cart.map((id: string, idx: number) => {
@@ -7529,15 +7835,15 @@ export default function App() {
 
                     {/* Jami */}
                     <div className="flex justify-between border-b border-emerald-100 dark:border-emerald-800/30 pb-2">
-                      <span className="text-slate-500 font-bold">{lang === 'uz' ? 'Jami summa' : lang === 'ru' ? 'Итого' : 'Jami summa'}:</span>
+                      <span className="text-slate-500 font-bold">{getLangTextInline('Jami summa', 'Итого', 'Toplam Tutar', 'Total Amount')}:</span>
                       <strong className="text-[#00B4D8] text-base">{formatPrice(foundTicket.cartTotalAmount)}</strong>
                     </div>
 
                     {/* Holat */}
                     <div className="flex justify-between pt-1">
-                      <span className="text-slate-500">{lang === 'uz' ? 'Holati' : lang === 'ru' ? 'Статус' : 'Holati'}:</span>
+                      <span className="text-slate-500">{getLangTextInline('Holati', 'Статус', 'Durum', 'Status')}:</span>
                       <span className="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-800/50 text-emerald-700 dark:text-emerald-300 rounded text-xs font-bold uppercase">
-                        {lang === 'uz' ? 'Tasdiqlangan' : lang === 'ru' ? 'Подтвержден' : 'Onaylandı'}
+                        {getLangTextInline('Tasdiqlangan', 'Подтвержден', 'Onaylandı', 'Confirmed')}
                       </span>
                     </div>
                   </div>
@@ -7547,8 +7853,8 @@ export default function App() {
           </div>
         </div>
       )}
-
-      {/* ==========================================
+      
+{/* ==========================================
           REAL-TIME STATISTICS MODAL
          ========================================== */}
       {isStatsModalOpen && (
@@ -7574,7 +7880,7 @@ export default function App() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">
-                      {lang === 'uz' ? 'KaniLab Live Platforma Statistikasi' : lang === 'ru' ? 'Живая Статистика Платформы KaniLab' : 'KaniLab Live Platform Analytics'}
+                      {getLangTextInline('KaniLab Live Platforma Statistikasi', 'Статистика живой платформы KaniLab', 'KaniLab Canlı Platform Analitiği', 'KaniLab Live Platform Analytics')}
                     </h3>
                     <span className="px-2 py-0.5 bg-red-500 text-white text-[9px] font-black tracking-widest uppercase rounded flex items-center gap-1 shrink-0">
                       <span className="w-1 h-1 bg-white rounded-full animate-ping"></span>
@@ -7582,7 +7888,7 @@ export default function App() {
                     </span>
                   </div>
                   <p className="text-xs font-bold text-slate-400 mt-1">
-                    {lang === 'uz' ? 'Real vaqt rejimida tashrif buyuruvchilar faolligi va geolokatsiyasi' : lang === 'ru' ? 'Активность посетителей и геолокация в реальном времени' : 'Real-time visitor activity and geolocation analytics'}
+                    {getLangTextInline('Real vaqt rejimida tashrif buyuruvchilar faolligi va geolokatsiyasi', 'Активность посетителей и геолокация в реальном времени', 'Gerçek zamanlı ziyaretçi etkinliği ve coğrafi konum analitiği', 'Real-time visitor activity and geolocation analytics')}
                   </p>
                 </div>
               </div>
@@ -7591,9 +7897,9 @@ export default function App() {
             {/* Navigation Tabs */}
             <div className="flex gap-1 border-b border-slate-100 dark:border-slate-850/60 px-8 py-2 shrink-0 bg-slate-50/50 dark:bg-slate-900/30">
               {[
-                { id: 'overview', label: lang === 'uz' ? 'Umumiy ko\'rinish' : lang === 'ru' ? 'Обзор' : 'Overview' },
-                { id: 'users', label: lang === 'uz' ? `Jonli Oqim (${onlineCount})` : lang === 'ru' ? `Живой Поток (${onlineCount})` : `Live Feed (${onlineCount})` },
-                { id: 'devices', label: lang === 'uz' ? 'Qurilmalar' : lang === 'ru' ? 'Устройства' : 'Devices' }
+                { id: 'overview', label: getLangTextInline('Umumiy ko\'rinish', 'Обзор', 'Genel Bakış', 'Overview') },
+                { id: 'users', label: getLangTextInline('Jonli Oqim', 'Живой поток', 'Canlı Akış', 'Live Feed') + ` (${onlineCount})` },
+                { id: 'devices', label: getLangTextInline('Qurilmalar', 'Устройства', 'Cihazlar', 'Devices') }
               ].map(tab => (
                 <button
                   key={tab.id}
@@ -7620,7 +7926,7 @@ export default function App() {
                     <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 dark:from-emerald-500/15 dark:to-teal-500/5 border border-emerald-500/10 dark:border-emerald-500/20 flex flex-col justify-between">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">
-                          {lang === 'uz' ? 'Hozir Online' : lang === 'ru' ? 'Онлайн Сейчас' : 'Active Now'}
+                          {getLangTextInline('Hozir Online', 'Активно сейчас', 'Şimdi Aktif', 'Active Now')}
                         </span>
                         <span className="relative flex h-2 w-2">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -7632,7 +7938,7 @@ export default function App() {
                           {onlineCount}
                         </h4>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
-                          {lang === 'uz' ? 'faol sessiyalar' : lang === 'ru' ? 'активных сессий' : 'active sessions'}
+                          {getLangTextInline('faol sessiyalar', 'активных сессий', 'aktif oturum', 'active sessions')}
                         </p>
                       </div>
                     </div>
@@ -7641,7 +7947,7 @@ export default function App() {
                     <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/80 flex flex-col justify-between">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 tracking-wider uppercase">
-                          {lang === 'uz' ? 'Jami Tashriflar' : lang === 'ru' ? 'Всего Посещений' : 'Total Visits'}
+                          {getLangTextInline('Jami Tashriflar', 'Всего посещений', 'Toplam Ziyaret', 'Total Visits')}
                         </span>
                         <Database className="w-4 h-4 text-slate-400" />
                       </div>
@@ -7650,7 +7956,7 @@ export default function App() {
                           {totalVisits.toLocaleString()}
                         </h4>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
-                          {lang === 'uz' ? 'kirishlar soni' : lang === 'ru' ? 'всего просмотров' : 'total page loads'}
+                          {getLangTextInline('kirishlar soni', 'всего просмотров', 'toplam sayfa yükleme', 'total page loads')}
                         </p>
                       </div>
                     </div>
@@ -7659,7 +7965,7 @@ export default function App() {
                     <div className="p-5 rounded-2xl bg-gradient-to-br from-[#00B4D8]/10 to-[#0096C7]/5 dark:from-[#00B4D8]/15 dark:to-transparent border border-[#00B4D8]/10 dark:border-[#00B4D8]/20 flex flex-col justify-between">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-[10px] font-black text-[#0096C7] dark:text-[#48CAE4] tracking-wider uppercase">
-                          {lang === 'uz' ? 'Faol Davlatlar' : lang === 'ru' ? 'Активные Страны' : 'Active Countries'}
+                          {getLangTextInline('Faol Davlatlar', 'Активные страны', 'Aktif Ülkeler', 'Active Countries')}
                         </span>
                         <Globe className="w-4 h-4 text-[#00B4D8]" />
                       </div>
@@ -7668,7 +7974,7 @@ export default function App() {
                           {countryStats.length}
                         </h4>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">
-                          {lang === 'uz' ? 'geografik hududlar' : lang === 'ru' ? 'гео-локаций' : 'geo-regions'}
+                          {getLangTextInline('geografik hududlar', 'гео-регионы', 'coğrafi bölgeler', 'geo-regions')}
                         </p>
                       </div>
                     </div>
@@ -7678,12 +7984,12 @@ export default function App() {
                   <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60">
                     <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                       <Globe className="w-4 h-4 text-cyan-500" />
-                      {lang === 'uz' ? 'Foydalanuvchilarning davlatlar bo\'yicha taqsimoti' : lang === 'ru' ? 'Распределение пользователей по странам' : 'User Distribution by Country'}
+                      {getLangTextInline('Foydalanuvchilarning davlatlar bo\'yicha taqsimoti', 'Распределение пользователей по странам', 'Ülkelere Göre Kullanıcı Dağılımı', 'User Distribution by Country')}
                     </h4>
 
                     {countryStats.length === 0 ? (
                       <div className="text-center py-8 text-xs font-bold text-slate-400">
-                        {lang === 'uz' ? 'Ma\'lumotlar yuklanmoqda...' : lang === 'ru' ? 'Загрузка данных...' : 'Loading analytics...'}
+                        {getLangTextInline('Ma\'lumotlar yuklanmoqda...', 'Загрузка данных...', 'Veriler yükleniyor...', 'Loading analytics...')}
                       </div>
                     ) : (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -7714,17 +8020,17 @@ export default function App() {
                 <div className="space-y-4 animate-in fade-in duration-200">
                   <div className="flex items-center justify-between text-xs font-bold text-slate-400 px-1">
                     <span className="uppercase tracking-wider">
-                      {lang === 'uz' ? 'Faol Sessiyalar ro\'yxati' : lang === 'ru' ? 'Список активных сессий' : 'List of Active Sessions'}
+                      {getLangTextInline('Faol Sessiyalar ro\'yxati', 'Список активных сессий', 'Aktif Oturum Listesi', 'List of Active Sessions')}
                     </span>
                     <span>
-                      {onlineCount} {lang === 'uz' ? 'foydalanuvchi faol' : lang === 'ru' ? 'активных сессий' : 'users active'}
+                      {onlineCount} {getLangTextInline('foydalanuvchi faol', 'активных пользователей', 'aktif kullanıcı', 'users active')}
                     </span>
                   </div>
 
                   <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-thin">
                     {onlineUsers.length === 0 ? (
                       <div className="text-center py-16 text-xs font-bold text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-3xl">
-                        {lang === 'uz' ? 'Hozircha faol foydalanuvchilar yo\'q' : lang === 'ru' ? 'Нет активных сессий' : 'No active sessions'}
+                        {getLangTextInline('Hozircha faol foydalanuvchilar yo\'q', 'Нет активных сессий', 'Aktif oturum yok', 'No active sessions')}
                       </div>
                     ) : (
                       onlineUsers.map((user, idx) => (
@@ -7755,7 +8061,7 @@ export default function App() {
                           <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
                             {user.activeTab && (
                               <span className="px-2.5 py-1 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/10 rounded-lg text-[10px] font-black uppercase tracking-wider">
-                                {lang === 'uz' ? 'Ko\'rmoqda: ' : lang === 'ru' ? 'Смотрит: ' : 'Viewing: '}
+                                {getLangTextInline('Ko\'rmoqda: ', 'Просматривает: ', 'Görüntülüyor: ', 'Viewing: ')}
                                 {getTabDisplayName(user.activeTab)}
                               </span>
                             )}
@@ -7779,7 +8085,7 @@ export default function App() {
                     <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60">
                       <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                         <Monitor className="w-4 h-4 text-purple-500" />
-                        {lang === 'uz' ? 'Qurilmalar turi' : lang === 'ru' ? 'Типы устройств' : 'Device Types'}
+                        {getLangTextInline('Qurilmalar turi', 'Типы устройств', 'Cihaz Türleri', 'Device Types')}
                       </h4>
 
                       <div className="space-y-6">
@@ -7825,12 +8131,12 @@ export default function App() {
                     <div className="p-6 rounded-2xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/60">
                       <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                         <Cpu className="w-4 h-4 text-amber-500" />
-                        {lang === 'uz' ? 'Brauzerlar ulushi' : lang === 'ru' ? 'Доля браузеров' : 'Browser Share'}
+                        {getLangTextInline('Brauzerlar ulushi', 'Доля браузеров', 'Tarayıcı Payı', 'Browser Share')}
                       </h4>
 
                       {deviceAndBrowserStats.browsersList.length === 0 ? (
                         <div className="text-center py-8 text-xs font-bold text-slate-400">
-                          {lang === 'uz' ? 'Yuklanmoqda...' : lang === 'ru' ? 'Загрузка...' : 'Loading...'}
+                          {getLangTextInline('Yuklanmoqda...', 'Загрузка...', 'Yükleniyor...', 'Loading...')}
                         </div>
                       ) : (
                         <div className="space-y-4">
@@ -7864,7 +8170,7 @@ export default function App() {
                 onClick={() => setIsStatsModalOpen(false)}
                 className="px-6 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl text-xs font-black hover:bg-slate-300/80 dark:hover:bg-slate-700 transition-colors cursor-pointer"
               >
-                {lang === 'uz' ? 'Yopish' : lang === 'ru' ? 'Закрыть' : 'Kapat'}
+                {getLangTextInline('Yopish', 'Закрыть', 'Kapat', 'Close')}
               </button>
             </div>
 

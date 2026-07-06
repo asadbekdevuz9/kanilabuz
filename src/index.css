@@ -114,3 +114,132 @@ img {
   pointer-events: none !important;
   -webkit-user-drag: none !important;
 }
+
+/* ==========================================
+   PREMIUM DRIVER.JS WALKTHROUGH STYLING
+   ========================================== */
+
+/* Smooth sliding transitions for the highlight stage and popover */
+.driver-stage {
+  transition: top 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+              left 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+              width 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+              height 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  border-radius: 20px !important;
+  background-color: transparent !important;
+}
+
+.driver-popover.kanilab-premium-popover {
+  transition: top 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+              left 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 24px !important;
+  padding: 24px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  font-family: inherit !important;
+  max-width: 320px !important;
+}
+
+/* Dark Mode support for popover */
+html.dark .driver-popover.kanilab-premium-popover {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Customize title */
+.driver-popover.kanilab-premium-popover .driver-popover-title {
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
+}
+
+html.dark .driver-popover.kanilab-premium-popover .driver-popover-title {
+  color: #f8fafc !important;
+}
+
+/* Customize description */
+.driver-popover.kanilab-premium-popover .driver-popover-description {
+  font-size: 12.5px !important;
+  font-weight: 550 !important;
+  color: #475569 !important;
+  line-height: 1.5 !important;
+}
+
+html.dark .driver-popover.kanilab-premium-popover .driver-popover-description {
+  color: #cbd5e1 !important;
+}
+
+/* Customize buttons container */
+.driver-popover.kanilab-premium-popover .driver-popover-footer {
+  margin-top: 18px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* All buttons styling */
+.driver-popover.kanilab-premium-popover button {
+  padding: 8px 16px !important;
+  font-size: 10px !important;
+  font-weight: 850 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 9999px !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  cursor: pointer !important;
+  text-shadow: none !important;
+  outline: none !important;
+}
+
+/* Next button (Primary) */
+.driver-popover.kanilab-premium-popover .driver-popover-next-btn {
+  background: linear-gradient(135deg, #00B4D8, #0096C7) !important;
+  color: white !important;
+}
+
+.driver-popover.kanilab-premium-popover .driver-popover-next-btn:hover {
+  opacity: 0.95 !important;
+  transform: scale(1.03) !important;
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2) !important;
+}
+
+/* Prev and Close buttons (Secondary) */
+.driver-popover.kanilab-premium-popover .driver-popover-prev-btn, 
+.driver-popover.kanilab-premium-popover .driver-popover-close-btn {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+html.dark .driver-popover.kanilab-premium-popover .driver-popover-prev-btn, 
+html.dark .driver-popover.kanilab-premium-popover .driver-popover-close-btn {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+.driver-popover.kanilab-premium-popover .driver-popover-prev-btn:hover, 
+.driver-popover.kanilab-premium-popover .driver-popover-close-btn:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.dark .driver-popover.kanilab-premium-popover .driver-popover-prev-btn:hover, 
+html.dark .driver-popover.kanilab-premium-popover .driver-popover-close-btn:hover {
+  background-color: #334155 !important;
+}
+
+/* Progress indicator formatting */
+.driver-popover.kanilab-premium-popover .driver-popover-progress-text {
+  font-size: 10px !important;
+  font-weight: 850 !important;
+  color: #00B4D8 !important;
+  margin-right: auto !important;
+}
+
