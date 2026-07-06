@@ -5805,6 +5805,32 @@ export default function App() {
                 </p>
               </div>
 
+              {/* Featured Main Video */}
+              <div className="max-w-4xl mx-auto w-full mb-12 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/60 rounded-3xl overflow-hidden shadow-md">
+                <div className="aspect-video w-full bg-black relative">
+                  <iframe 
+                    className="w-full h-full border-none"
+                    src="https://www.youtube.com/embed/IrN0aMwhuhE?autoplay=1&mute=1&loop=1&playlist=IrN0aMwhuhE"
+                    title={getLangTextInline('KANI-LAB: Sog\'ligingiz ishonchli qo\'llarda!', 'KANI-LAB: Ваше здоровье в надежных руках!', 'KANI-LAB: Sağlığınız güvenli ellerde!', 'KANI-LAB: Your health is in safe hands!')}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-4 bg-slate-50/50 dark:bg-slate-950/20 border-t border-slate-200/30 dark:border-slate-800/30 text-center">
+                  <h3 className="text-sm font-extrabold text-slate-900 dark:text-white leading-tight">
+                    {getLangTextInline('KANI-LAB: Sog\'ligingiz ishonchli qo\'llarda!', 'KANI-LAB: Ваше здоровье в надежных руках!', 'KANI-LAB: Sağlığınız güvenli ellerde!', 'KANI-LAB: Your health is in safe hands!')}
+                  </h3>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+                    {getLangTextInline(
+                      'Kani-Lab diagnostika laboratoriyasining rasmiy video-taqdimoti',
+                      'Официальная видеопрезентация диагностической лаборатории Kani-Lab',
+                      'Kani-Lab teşhis laboratuvarının resmi video tanıtımı',
+                      'Official video presentation of Kani-Lab diagnostic laboratory'
+                    )}
+                  </p>
+                </div>
+              </div>
+
               {/* Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {sortedNews.map(item => {
