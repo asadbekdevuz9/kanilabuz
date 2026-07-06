@@ -1729,10 +1729,10 @@ const LABORANTS = [
 
 const BRANCHES: {
   id: string;
-  name: { uz: string; ru: string; tr: string };
-  address: { uz: string; ru: string; tr: string };
+  name: { uz: string; ru: string; tr: string; en?: string };
+  address: { uz: string; ru: string; tr: string; en?: string };
   phone: string;
-  hours: { uz: string; ru: string; tr: string };
+  hours: { uz: string; ru: string; tr: string; en?: string };
   mapsUrl: string;
   lat?: number;
   lng?: number;
@@ -1742,15 +1742,17 @@ const BRANCHES: {
     name: {
       uz: 'Qiziriq tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Кызырыкском районном медицинском объединении',
-      tr: 'Kızırık İlçe Tıp Birleşimi Şubesi'
+      tr: 'Kızırık İlçe Tıp Birleşimi Şubesi',
+      en: 'Qiziriq District Medical Association Branch'
     },
     address: {
       uz: 'Qiziriq tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Кызырыкского районного медицинского объединения',
-      tr: 'Kızırık İlçe Tıp Birleşimi alanında'
+      tr: 'Kızırık İlçe Tıp Birleşimi alanında',
+      en: 'Inside the territory of Qiziriq District Medical Association'
     },
     phone: '+998 88 350 24 42',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU372pc'
   },
   {
@@ -1758,15 +1760,17 @@ const BRANCHES: {
     name: {
       uz: 'Sherobod tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Шерабадском районном медицинском объединении',
-      tr: 'Şerabad İlçe Tıp Birleşimi Şubesi'
+      tr: 'Şerabad İlçe Tıp Birleşimi Şubesi',
+      en: 'Sherobod District Medical Association Branch'
     },
     address: {
       uz: 'Sherobod tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Шерабадского районного медицинского объединения',
-      tr: 'Şerabad İlçe Tıp Birleşimi alanında'
+      tr: 'Şerabad İlçe Tıp Birleşimi alanında',
+      en: 'Inside the territory of Sherobod District Medical Association'
     },
     phone: '+998 99 622 54 52',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CPTNNTig'
   },
   {
@@ -1774,15 +1778,17 @@ const BRANCHES: {
     name: {
       uz: 'Angor tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Ангорском районном медицинском объединении',
-      tr: 'Angor İlçe Tıp Birleşimi Şubesi'
+      tr: 'Angor İlçe Tıp Birleşimi Şubesi',
+      en: 'Angor District Medical Association Branch'
     },
     address: {
       uz: 'Angor tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Ангорского районного медицинского объединения',
-      tr: 'Angor İlçe Tıp Birleşimi alanında'
+      tr: 'Angor İlçe Tıp Birleşimi alanında',
+      en: 'Inside the territory of Angor District Medical Association'
     },
     phone: '+998 93 635 22 58',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU37BLj'
   },
   {
@@ -1790,15 +1796,17 @@ const BRANCHES: {
     name: {
       uz: 'Uchqizil tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Учкизилском районном медицинском объединении',
-      tr: 'Üçkızıl İlçe Tıp Birleşimi Şubesi'
+      tr: 'Üçkızıl İlçe Tıp Birleşimi Şubesi',
+      en: 'Uchqizil District Medical Association Branch'
     },
     address: {
       uz: 'Uchqizil tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Учкизилского районного медицинского объединения',
-      tr: 'Üçkızıl İlçe Tıp Birleşimi alanında'
+      tr: 'Üçkızıl İlçe Tıp Birleşimi alanında',
+      en: 'Inside the territory of Uchqizil District Medical Association'
     },
     phone: '+998 94 063 30 99',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU3zD-i'
   },
   {
@@ -1806,15 +1814,17 @@ const BRANCHES: {
     name: {
       uz: 'Sho‘rchi tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Шурчинском районном медицинском объединении',
-      tr: 'Şurçi İlçe Tıp Birleşimi Şubesi'
+      tr: 'Şurçi İlçe Tıp Birleşimi Şubesi',
+      en: 'Shurchi District Medical Association Branch'
     },
     address: {
       uz: 'Sho‘rchi tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Шурчинского районного медицинского объединения',
-      tr: 'Şurçi İlçe Tıp Birleşimi alanında'
+      tr: 'Şurçi İlçe Tıp Birleşimi alanında',
+      en: 'Inside the territory of Shurchi District Medical Association'
     },
     phone: '+998 99 715 77 72',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU3zJjj'
   },
   {
@@ -1822,15 +1832,17 @@ const BRANCHES: {
     name: {
       uz: 'Qumqo‘rg‘on tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Кумкурганском районном медицинском объединении',
-      tr: 'Kumkurgan İlçe Tıp Birleşimi Şubesi'
+      tr: 'Kumkurgan İlçe Tıp Birleşimi Şubesi',
+      en: "Qumqo'rg'on District Medical Association Branch"
     },
     address: {
       uz: 'Qumqo‘rg‘on tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Кумкурганского районного медицинского объединения',
-      tr: 'Kumkurgan İlçe Tıp Birleşimi alanında'
+      tr: 'Kumkurgan İlçe Tıp Birleşimi alanında',
+      en: "Inside the territory of Qumqo'rg'on District Medical Association"
     },
     phone: '+998 93 091 16 93',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU3vX3a'
   },
   {
@@ -1838,15 +1850,17 @@ const BRANCHES: {
     name: {
       uz: 'Jarqo‘rg‘on tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Джаркурганском районном медицинском объединении',
-      tr: 'Jarkurgan İlçe Tıp Birleşimi Şubesi'
+      tr: 'Jarkurgan İlçe Tıp Birleşimi Şubesi',
+      en: "Jarqo'rg'on District Medical Association Branch"
     },
     address: {
       uz: 'Jarqo‘rg‘on tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Джаркурганского районного медицинского объединения',
-      tr: 'Jarkurgan İlçe Tıp Birleşimi alanında'
+      tr: 'Jarkurgan İlçe Tıp Birleşimi alanında',
+      en: "Inside the territory of Jarqo'rg'on District Medical Association"
     },
     phone: '+998 94 076 45 55 / +998 90 072 02 81',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU3v4Kt'
   },
   {
@@ -1854,15 +1868,17 @@ const BRANCHES: {
     name: {
       uz: 'Boysun tuman tibbiyot birlashmasi filiali',
       ru: 'Филиал при Байсунском районном медицинском объединении',
-      tr: 'Boysun İlçe Tıp Birleşimi Şubesi'
+      tr: 'Boysun İlçe Tıp Birleşimi Şubesi',
+      en: 'Boysun District Medical Association Branch'
     },
     address: {
       uz: 'Boysun tumani tibbiyot birlashmasi hududida',
       ru: 'На территории Байсунского районного медицинского объединения',
-      tr: 'Boysun İlçe Tıp Birleşimi alanında'
+      tr: 'Boysun İlçe Tıp Birleşimi alanında',
+      en: 'Inside the territory of Boysun District Medical Association'
     },
     phone: '+998 91 580 52 22',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTU3rCyk'
   },
   {
@@ -1870,15 +1886,17 @@ const BRANCHES: {
     name: {
       uz: 'Onkologiya va radiologiya tibbiyot markazi Surxondaryo filiali',
       ru: 'Сурхандарьинский филиал онкологического и радиологического центра',
-      tr: 'Onkoloji ve Radyoloji Tıp Merkezi Surhanderya Şubesi'
+      tr: 'Onkoloji ve Radyoloji Tıp Merkezi Surhanderya Şubesi',
+      en: 'Surxondaryo Branch of Oncology and Radiology Medical Center'
     },
     address: {
       uz: 'Respublika ixtisoslashtirilgan onkologiya va radiologiya ilmiy-amaliy tibbiyot markazi Surxondaryo viloyat filiali hududida',
       ru: 'На территории Сурхандарьинского филиала онкологического и радиологического центра',
-      tr: 'Cumhuriyet Onkoloji ve Radyoloji Merkezi Surhanderya Şubesi alanında'
+      tr: 'Cumhuriyet Onkoloji ve Radyoloji Merkezi Surhanderya Şubesi alanında',
+      en: 'Inside the territory of Surxondaryo Regional Branch of the Republican Specialized Scientific and Practical Medical Center of Oncology and Radiology'
     },
     phone: '+998 99 093 90 70',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUprV4H'
   },
   {
@@ -1886,15 +1904,17 @@ const BRANCHES: {
     name: {
       uz: 'Viloyat ko‘p tarmoqli bolalar tibbiyot markazi filiali',
       ru: 'Филиал при Детском многопрофильном медицинском центре',
-      tr: 'Çocuk Çok Yönlü Tıp Merkezi Şubesi'
+      tr: 'Çocuk Çok Yönlü Tıp Merkezi Şubesi',
+      en: 'Regional Multi-Profile Children\'s Medical Center Branch'
     },
     address: {
       uz: 'Surxondaryo viloyat ko‘p tarmoqli bolalar tibbiyot markazi hududida',
       ru: 'На территории Сурхандарьинского областного детского многопрофильного медцентра',
-      tr: 'Surhanderya Çocuk Çok Yönlü Tıp Merkezi alanında'
+      tr: 'Surhanderya Çocuk Çok Yönlü Tıp Merkezi alanında',
+      en: 'Inside the territory of Surxondaryo Regional Multi-Profile Children\'s Medical Center'
     },
     phone: '+998 93 093 93 34',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUpjY3O'
   },
   {
@@ -1902,15 +1922,17 @@ const BRANCHES: {
     name: {
       uz: 'Respublika shoshilinch tibbiy yordam ilmiy markazi Surxondaryo filiali',
       ru: 'Филиал Центра экстренной медицинской помощи, Сурхандарьинский филиал',
-      tr: 'Acil Tıp Bilim Merkezi Surhanderya Şubesi'
+      tr: 'Acil Tıp Bilim Merkezi Surhanderya Şubesi',
+      en: 'Surxondaryo Branch of the Republican Scientific Center of Emergency Medical Care'
     },
     address: {
       uz: 'Respublika shoshilinch tibbiy yordam ilmiy markazi Surxondaryo filiali hududida',
       ru: 'На территории Сурхандарьинского филиала Республиканского научного центра экстренной медпомощи',
-      tr: 'Cumhuriyet Acil Tıp Merkezi Surhanderya Şubesi alanında'
+      tr: 'Cumhuriyet Acil Tıp Merkezi Surhanderya Şubesi alanında',
+      en: 'Inside the territory of Surxondaryo Branch of the Republican Scientific Center of Emergency Medical Care'
     },
     phone: '+998 93 077 70 34',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUpbLIB'
   },
   {
@@ -1918,15 +1940,17 @@ const BRANCHES: {
     name: {
       uz: 'Kardiologiya ilmiy-amaliy tibbiyot markazi Surxondaryo filiali',
       ru: 'Сурхандарьинский филиал Кардиологического центра',
-      tr: 'Kardiyoloji Tıp Merkezi Surhanderya Şubesi'
+      tr: 'Kardiyoloji Tıp Merkezi Surhanderya Şubesi',
+      en: 'Surxondaryo Branch of Cardiology Scientific and Practical Medical Center'
     },
     address: {
       uz: 'Respublika ixtisoslashtirilgan kardiologiya markazi Surxondaryo viloyat filiali hududida',
       ru: 'На территории Сурхандарьинского филиала Республиканского кардиологического центра',
-      tr: 'Cumhuriyet Kardiyoloji Merkezi Surhanderya Şubesi alanında'
+      tr: 'Cumhuriyet Kardiyoloji Merkezi Surhanderya Şubesi alanında',
+      en: 'Inside the territory of Surxondaryo Regional Branch of the Republican Specialized Cardiology Center'
     },
     phone: '+998 88 350 28 82',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUpZTLl'
   },
   {
@@ -1934,15 +1958,17 @@ const BRANCHES: {
     name: {
       uz: 'Surxondaryo viloyati perinatal markazi filiali',
       ru: 'Филиал при Областном перинатальном центре',
-      tr: 'Vilayet Perinatal Merkezi Şubesi'
+      tr: 'Vilayet Perinatal Merkezi Şubesi',
+      en: 'Surxondaryo Regional Perinatal Center Branch'
     },
     address: {
       uz: 'Surxondaryo viloyati perinatal markazi hududida',
       ru: 'На территории Сурхандарьинского областного перинатального центра',
-      tr: 'Surhanderya Vilayet Perinatal Merkezi alanında'
+      tr: 'Surhanderya Vilayet Perinatal Merkezi alanında',
+      en: 'Inside the territory of Surxondaryo Regional Perinatal Center'
     },
     phone: '+998 95 571 28 19',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUpVH-d'
   },
   {
@@ -1950,15 +1976,17 @@ const BRANCHES: {
     name: {
       uz: 'Surxondaryo viloyat qon quyish markazi filiali',
       ru: 'Филиал при Областном центре переливания крови',
-      tr: 'Vilayet Kan Bağışı Merkezi Şubesi'
+      tr: 'Vilayet Kan Bağışı Merkezi Şubesi',
+      en: 'Surxondaryo Regional Blood Transfusion Center Branch'
     },
     address: {
       uz: 'Surxondaryo viloyat qon quyish markazi hududida',
       ru: 'На территории Сурхандарьинского областного центра переливания крови',
-      tr: 'Surhanderya Vilayet Kan Bağışı Merkezi alanında'
+      tr: 'Surhanderya Vilayet Kan Bağışı Merkezi alanında',
+      en: 'Inside the territory of Surxondaryo Regional Blood Transfusion Center'
     },
     phone: '+998 99 115 65 55',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUpfD29'
   },
   {
@@ -1966,15 +1994,17 @@ const BRANCHES: {
     name: {
       uz: "Surxondaryo viloyat ko‘p tarmoqli tibbiyot markazi filiali",
       ru: 'Филиал при Областном многопрофильном медицинском центре',
-      tr: 'Vilayet Çok Yönlü Tıp Merkezi Şubesi'
+      tr: 'Vilayet Çok Yönlü Tıp Merkezi Şubesi',
+      en: 'Surxondaryo Regional Multi-Profile Medical Center Branch'
     },
     address: {
       uz: "Surxondaryo viloyat ko‘p tarmoqli tibbiyot markazi hududida",
       ru: 'На территории Сурхандарьинского областного многопрофильного медицинского центра',
-      tr: 'Surhanderya Vilayet Çok Yönlü Tıp Merkezi alanında'
+      tr: 'Surhanderya Vilayet Çok Yönlü Tıp Merkezi alanında',
+      en: 'Inside the territory of Surxondaryo Regional Multi-Profile Medical Center'
     },
     phone: '+998 99 093 93 10',
-    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00' },
+    hours: { uz: 'Du-Shan: 08:00–17:00', ru: 'Пн-Сб: 08:00–17:00', tr: 'Pzt-Cmt: 08:00–17:00', en: 'Mon-Sat: 08:00–17:00' },
     mapsUrl: 'https://yandex.uz/maps/-/CTUpnR52'
   }
 ];
@@ -1991,61 +2021,52 @@ const NEWS_ITEMS = [
     title: {
       uz: 'Kani-Lab laboratoriyasi haqida to‘liq video-taqdimot',
       ru: 'Полная видеопрезентация о лаборатории Kani-Lab',
-      tr: 'Kani-Lab laboratuvarı hakkında detaylı video tanıtımı'
+      tr: 'Kani-Lab laboratuvarı hakkında detaylı video tanıtımı',
+      en: 'Full video presentation about Kani-Lab laboratory'
     },
-    summary: {
+    description: {
       uz: 'Kani-Lab laboratoriyasi faoliyati, zamonaviy robotlashtirilgan tahlil uskunalari va yuqori texnologik imkoniyatlarimiz aks etgan yangi video.',
-      ru: 'Новое видео о деятельности Kani-Lab, современном роботизированном оборудовании и высоких технологиях.',
-      tr: 'Kani-Lab laboratuvarı faaliyetleri, modern robotik analizörleri ve yüksek teknolojik imkanlarımızı gösteren yeni video.'
-    },
-    content: {
-      uz: 'Kani-Lab klinikasining yuqori texnologik sharoitlari va unda bajarilayotgan ilg‘or diagnostika jarayonlari tasvirlangan to‘liq video-lavha. Ushbu videoda laboratoriyamizda qo‘llaniladigan eng ilg‘or analizatorlar va jamoamizning kasbiy faoliyati ko‘rsatib o‘tilgan. Siz ushbu video orqali tahlillaringiz qanday sharoitda va qanchelik yuqori aniqlikda tekshirilishini o‘z ko‘zingiz bilan ko‘rishingiz mumkin.',
-      ru: 'Полный видеообзор, демонстрирующий высокотехнологичные условия клиники Kani-Lab и передовые процессы диагностики. В этом видео показаны лучшие анализаторы, используемые в нашей лаборатории, и профессиональная деятельность команды. Вы можете лично увидеть, в каких условиях и с какой точностью проводятся ваши анализы.',
-      tr: 'Kani-Lab kliniğinin yüksek teknolojik koşullarını ve burada gerçekleştirilen ileri düzey teşhis süreçlerini gösteren kapsamlı video tanıtımı. Bu videoda laboratuvarımızda kullanılan en gelişmiş analizörler ve ekibimizin profesyonel çalışmaları sergilenmektedir. Bu video sayesinde analizlerinizin hangi koşullarda ve ne kadar yüksek hassasiyetle incelendiğini kendi gözlerinizle görebilirsiniz.'
-    },
-    image: ''
-  },
-  {
-    id: 'news-video-1',
-    category: 'video',
-    date: '2022-06-29',
-    youtubeId: 'ip-ujIjFOzo',
-    title: {
-      uz: 'Termiz shahridagi Perinatal markazida Kani-Lab filiali ochildi',
-      ru: 'Открытие филиала Kani-Lab в Перинатальном центре города Термез',
-      tr: 'Termiz Perinatal Merkezinde Kani-Lab şubesi açıldı'
-    },
-    summary: {
-      uz: 'Termiz shahridagi viloyat perinatal markazida shoshilinch hamda yuqori aniqlikdagi tahlillar uchun mo‘ljallangan Kani-Lab qo‘shma laboratoriyasi faoliyat boshladi.',
-      ru: 'В областном перинатальном центре города Термез начала работу совместная лаборатория Kani-Lab для проведения экстренных и высокоточных анализов.',
-      tr: 'Termiz şehrindeki vilayet perinatal merkezinde acil ve yüksek hassasiyetli testler için Kani-Lab ortak laboratuvarı faaliyete başladı.'
-    },
-    content: {
-      uz: 'Surxondaryo viloyat perinatal markazida Kani-Lab laboratoriya tarmog‘ining yangi qo‘shma filiali ochilish marosimidan lavhalar. Ushbu filial tug‘uruq yoshidagi ayollar va chaqaloqlar uchun o‘ta muhim bo‘lgan shoshilinch hamda yuqori aniqlikdagi tahlillarni qisqa muddatlarda topshirish imkonini yaratdi. Ushbu hamkorlik loyihasi viloyatimizda onalik va bolalikni muhofaza qilish, tezkor tibbiy yordam sifatini yangi bosqichga ko‘tarishda muhim qadam bo‘ldi.',
-      ru: 'Кадры с церемонии открытия нового совместного филиала лабораторной сети Kani-Lab в Сурхандарьинском областном перинатальном центре. Этот филиал создал возможность для женщин детородного возраста и новорожденных сдавать критически важные экстренные и высокоточные анализы в кратчайшие сроки. Данный совместный проект стал важным шагом в охране материнства и детства в регионе.',
-      tr: 'Surhanderya vilayeti perinatal merkezinde Kani-Lab laboratuvar ağının yeni ortak şubesinin açılış töreninden görüntüler. Bu şube, doğum yaşındaki kadınlar ve yeni doğan bebekler için hayati önem taşıyan acil ve yüksek hassasiyetli testlerin çok kısa sürede yapılmasını sağladı. Bu işbirliği projesi, bölgede anne ve çocuk sağlığının korunmasında önemli bir adım oldu.'
+      ru: 'Новое видео, отражающее деятельность лаборатории Kani-Lab, современное роботизированное аналитическое оборудование и наши высокотехнологичные возможности.',
+      tr: 'Kani-Lab laboratuvarının faaliyetlerini, modern robotik analiz ekipmanlarını ve yüksek teknoloji imkanlarımızı yansıtan yeni tanıtım videosu.',
+      en: 'A new video reflecting Kani-Lab laboratory activities, modern robotic analytical equipment, and our high-tech capabilities.'
     },
     image: ''
   },
   {
     id: 'news-video-2',
     category: 'video',
+    date: '2022-06-29',
+    youtubeId: 'p5-yqEegx6Y',
+    title: {
+      uz: 'Termiz shahridagi Perinatal markazida Kani-Lab filiali ochildi',
+      ru: 'В Перинатальном центре г. Термеза открылся филиал Kani-Lab',
+      tr: 'Tirmiz şehrindeki Perinatal merkezinde Kani-Lab şubesi açıldı',
+      en: 'Kani-Lab branch opened in the Perinatal Center in Termez'
+    },
+    description: {
+      uz: 'Termiz shahridagi viloyat perinatal markazida shoshilinch hamda yuqori aniqlikdagi tahlillar uchun mo‘ljallangan Kani-Lab qo‘shma laboratoriyasi faoliyat boshladi.',
+      ru: 'В областном перинатальном центре города Термеза начала работу совместная лаборатория Kani-Lab, предназначенная для проведения экстренных и высокоточных анализов.',
+      tr: 'Tirmiz şehrindeki vilayet perinatal merkezinde acil ve yüksek hassasiyetli analizler için tasarlanmış Kani-Lab ortak laboratuvarı faaliyete başladı.',
+      en: 'A joint Kani-Lab laboratory designed for emergency and high-precision analyses has started operations in the regional perinatal center in Termez.'
+    },
+    image: ''
+  },
+  {
+    id: 'news-video-1',
+    category: 'video',
     date: '2021-06-29',
-    youtubeId: '1AVLR1p5FUs',
+    youtubeId: '7Bifg4-Ceqs',
     title: {
       uz: 'Kani-Lab Markaziy Laboratoriyasi faoliyati haqida maxsus videolavha',
-      ru: 'Специальный видеорепортаж о деятельности центральной лаборатории Kani-Lab',
-      tr: 'Kani-Lab Merkez Laboratuvarı faaliyetleri hakkında özel video klip'
+      ru: 'Специальный видеосюжет о деятельности Центральной Лаборатории Kani-Lab',
+      tr: 'Kani-Lab Merkez Laboratuvarı faaliyetleri hakkında özel video klip',
+      en: 'Special video segment on the activities of Kani-Lab Central Laboratory'
     },
-    summary: {
+    description: {
       uz: 'Kani-Lab premium laboratoriya tarmog‘ining markaziy laboratoriyasida tahlillarni bajarish jarayoni va tibbiy jihozlar haqida video-arxiv.',
-      ru: 'Архивная видеохроника о процессах выполнения анализов и медицинском оборудовании в центральной лаборатории Kani-Lab.',
-      tr: 'Kani-Lab premium laboratuvar ağının merkez laboratuvarındaki test süreçleri ve tıbbi ekipmanlar hakkında arşiv videosu.'
-    },
-    content: {
-      uz: 'Kani-Lab premium laboratoriya tarmog‘i ilk tashkil etilgan yillardagi faoliyat ko‘rsatkichlari, tahlillarni xalqaro andozalarga muvofiq bajarish standartlari va laboratoriyaning Surxondaryo viloyatida yuqori sifatli tibbiy xizmatlarni taqdim etish borasidagi ilk muvaffaqiyatli qadamlari tasvirlangan video-arxiv. Bu lavha laboratoriyamizning shonli rivojlanish yo‘lini va yuqori sifatga bo‘lgan sodiqligimizni yaqqol ko‘rsatib beradi.',
-      ru: 'Архивный видеоматериал, демонстрирующий показатели работы премиальной сети Kani-Lab в первые годы ее основания, стандарты выполнения анализов в соответствии с международными требованиями и первые успешные шаги лаборатории по предоставлению высококачественных медицинских услуг в Сурхандарьинской области.',
-      tr: 'Kani-Lab premium laboratuvar ağının kurulduğu ilk yıllardaki faaliyet performansı, analizlerin uluslararası standartlara uygun olarak gerçekleştirilme süreçleri ve laboratuvarın Surhanderya bölgesinde yüksek kaliteli tıbbi hizmetler sunmadaki ilk başarılı adımlarını gösteren arşiv videosu.'
+      ru: 'Видеоархив о процессе выполнения анализов и медицинском оборудовании в центральной лаборатории сети лабораторий премиум-класса Kani-Lab.',
+      tr: 'Kani-Lab premium laboratuvar ağının merkez laboratuvarındaki analiz süreci ve tıbbi ekipmanlar hakkında video arşivi.',
+      en: 'A video archive about the test execution process and medical equipment in the central laboratory of the Kani-Lab premium laboratory network.'
     },
     image: ''
   }
@@ -2058,12 +2079,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Seminar va nazariy o‘quv mashg‘ulotlari',
       ru: 'Семинары и теоретические занятия',
-      tr: 'Seminerler ve teorik eğitimler'
+      tr: 'Seminerler ve teorik eğitimler',
+      en: 'Seminars and theoretical training sessions'
     },
     description: {
       uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
       ru: 'Кадры с теоретических и семинарских занятий для студентов-биологов Термезского государственного университета',
-      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen teorik seminerlerden bir kare'
+      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen teorik seminerlerden bir kare',
+      en: 'A scene from practical classes conducted for biology students of Termez State University'
     },
     image: terdu4Img
   },
@@ -2073,12 +2096,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Laboratoriya tahlillari bo‘yicha seminar',
       ru: 'Семинар по лабораторным анализам',
-      tr: 'Laboratuvar analizleri üzerine seminer'
+      tr: 'Laboratuvar analizleri üzerine seminer',
+      en: 'Seminar on laboratory analyses'
     },
     description: {
       uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
       ru: 'Кадры с практических занятий для студентов биологического направления Термезского государственного университета',
-      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen pratik derslerden bir kare'
+      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencileri için düzenlenen pratik derslerden bir kare',
+      en: 'A scene from practical training sessions held for biology students of Termez State University'
     },
     image: terdu1Img
   },
@@ -2088,12 +2113,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Amaliy laboratoriya mashg‘ulotlari',
       ru: 'Практические лабораторные занятия',
-      tr: 'Pratik laboratuvar uygulamaları'
+      tr: 'Pratik laboratuvar uygulamaları',
+      en: 'Practical laboratory sessions'
     },
     description: {
       uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
       ru: 'Студенты биологического факультета ТерГУ во время выполнения практических лабораторных работ',
-      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencilerinin laboratuvardaki pratik çalışma anları'
+      tr: 'Termez Devlet Üniversitesi Biyoloji bölümü öğrencilerinin laboratuvardaki pratik çalışma anları',
+      en: 'Biology students of Termez State University during practical laboratory tasks'
     },
     image: terdu3Img
   },
@@ -2103,12 +2130,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Tibbiy diagnostika bo‘yicha mahorat darslari',
       ru: 'Мастер-классы по медицинской диагностике',
-      tr: 'Tıbbi teşhis üzerine atölye çalışmaları'
+      tr: 'Tıbbi teşhis üzerine atölye çalışmaları',
+      en: 'Master classes on medical diagnostics'
     },
     description: {
       uz: 'Termiz Davlat Universiteti Biologiya yo‘nalishi talabalari uchun o‘tkazilgan amaliy mashg‘ulotlardan lavha',
       ru: 'Проведение мастер-классов по методам современной медицинской диагностики для будущих специалистов',
-      tr: 'Geleceğin uzmanlarına modern tıbbi teşhis yöntemleri üzerine uygulamalı eğitim verilmesi'
+      tr: 'Geleceğin uzmanlarına modern tıbbi teşhis yöntemleri üzerine uygulamalı eğitim verilmesi',
+      en: 'Providing hands-on training to future specialists on modern medical diagnostic methods'
     },
     image: terdu2Img
   },
@@ -2118,12 +2147,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Tantanali ochilish marosimi: KANI-LAB yangi imkoniyatlar sari',
       ru: 'Торжественная церемония открытия: KANI-LAB на пути к новым возможностям',
-      tr: 'Görkemli açılış töreni: KANI-LAB yeni fırsatlara doğru'
+      tr: 'Görkemli açılış töreni: KANI-LAB yeni fırsatlara doğru',
+      en: 'Grand Opening Ceremony: KANI-LAB towards new opportunities'
     },
     description: {
       uz: 'KANI-LAB laboratoriyasining Respublika ixtisoslashtirilgan dermatovenerologiya va kosmetologiya ilmiy-amaliy tibbiyot markazi Surxondaryo viloyat filialidagi qon olish shahobchasi tantanali ochilish marosimidan lavhalar.',
       ru: 'Кадры с торжественной церемонии открытия пункта забора крови KANI-LAB в Сурхандарьинском областном филиале Республиканского специализированного научно-практического медицинского центра дерматовенерологии и косметологии.',
-      tr: 'Cumhuriyet Dermatoveneroloji ve Kozmetoloji Uzmanlık Bilimsel ve Pratik Tıp Merkezi Surhanderya bölge şubesinde KANI-LAB kan alma biriminin görkemli açılış töreninden görüntüler.'
+      tr: 'Cumhuriyet Dermatoveneroloji ve Kozmetoloji Uzmanlık Bilimsel ve Pratik Tıp Merkezi Surhanderya bölge şubesinde KANI-LAB kan alma biriminin görkemli açılış töreninden görüntüler.',
+      en: 'Scenes from the grand opening ceremony of the KANI-LAB blood collection station at the Surxondaryo regional branch of the Republican Specialized Scientific and Practical Medical Center of Dermatology and Cosmetology.'
     },
     image: tanosil1Img
   },
@@ -2133,12 +2164,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'An’anaviy qizil tasmalar kesildi: yangi bo‘lim faoliyati rasman boshlandi',
       ru: 'Традиционная красная лента разрезана: новое отделение официально начало работу',
-      tr: 'Geleneksel kırmızı kurdele kesildi: yeni bölüm resmen faaliyete başladı'
+      tr: 'Geleneksel kırmızı kurdele kesildi: yeni bölüm resmen faaliyete başladı',
+      en: 'Traditional red ribbons cut: new department officially starts operations'
     },
     description: {
       uz: 'Tasmalar kesilib, Respublika dermatovenerologiya va kosmetologiya markazi filialida yangi qon olish shahobchamiz faoliyati rasman boshlangan lahzalar.',
       ru: 'Момент разрезания ленты, символизирующий официальный запуск нашего нового пункта забора крови в филиале Республиканского центра дерматовенерологии и косметологии.',
-      tr: 'Kurdele kesilerek Cumhuriyet Dermatoveneroloji ve Kozmetoloji Merkezi şubesinde yeni kan alma birimimizin resmen faaliyete başladığı anlar.'
+      tr: 'Kurdele kesilerek Cumhuriyet Dermatoveneroloji ve Kozmetoloji Merkezi şubesinde yeni kan alma birimimizin resmen faaliyete başladığı anlar.',
+      en: 'Moments when the ribbon was cut, officially starting the activities of our new blood collection point in the branch of the Republican Dermatology and Cosmetology Center.'
     },
     image: tanosil2Img
   },
@@ -2148,12 +2181,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Birinchi ish kunlari: mutaxassislarimiz tashrif buyurgan mehmonlar va hamkasblar bilan birga',
       ru: 'Первые рабочие дни: наши специалисты с гостями и коллегами',
-      tr: 'İlk iş günleri: uzmanlarımız davetli misafirler ve meslektaşları ile birlikte'
+      tr: 'İlk iş günleri: uzmanlarımız davetli misafirler ve meslektaşları ile birlikte',
+      en: 'First working days: our specialists together with visiting guests and colleagues'
     },
     description: {
       uz: 'Mutaxassislarimiz yangi ochilgan qon olish shahobchasida hamkor shifokorlar va mehmonlar bilan birinchi ish kunida.',
       ru: 'Наши специалисты с врачами-партнерами и гостями в первый рабочий день в новом пункте забора крови.',
-      tr: 'Uzmanlarımızın, yeni açılan kan alma biriminde ortak doktorlar ve misafirler ile ilk iş gününden bir kare.'
+      tr: 'Uzmanlarımızın, yeni açılan kan alma biriminde ortak doktorlar ve misafirler ile ilk iş gününden bir kare.',
+      en: 'Our specialists on the first working day at the newly opened blood collection point with partner doctors and guests.'
     },
     image: tanosil3Img
   },
@@ -2163,12 +2198,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Sifatli xizmat ko‘rsatish uchun barcha texnik tayyorgarlik ta’minlangan',
       ru: 'Обеспечена техническая подготовка для качественного обслуживания',
-      tr: 'Kaliteli hizmet için tüm teknik hazırlıklar tamamlandı'
+      tr: 'Kaliteli hizmet için tüm teknik hazırlıklar tamamlandı',
+      en: 'All technical preparations ensured for high-quality service'
     },
     description: {
       uz: 'Bemorlarni ro‘yxatga olish, tahlil namunalarini rasmiylashtirish va xavfsiz qon olish uchun barcha shart-sharoitlar shay holatga keltirilgan.',
       ru: 'Обеспечены все технические условия для регистрации пациентов, оформления образцов анализов и безопасного забора крови.',
-      tr: 'Hastalardan numunelerin güvenli alınması, kaydı ve analize hazırlanması için tüm teknik ve hijyenik altyapı hazır durumdadır.'
+      tr: 'Hastalardan numunelerin güvenli alınması, kaydı ve analize hazırlanması için tüm teknik ve hijyenik altyapı hazır durumdadır.',
+      en: 'All conditions are prepared and ready for patient registration, test sample processing, and safe blood collection.'
     },
     image: tanosil4Img
   },
@@ -2178,12 +2215,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'KANI-LAB Angor filiali jamoasi bayram shukuhi bilan',
       ru: 'Коллектив филиала KANI-LAB в Ангоре в праздничной атмосфере',
-      tr: 'Angor\'daki KANI-LAB şubesi ekibi bayram havasında'
+      tr: 'Angor\'daki KANI-LAB şubesi ekibi bayram havasında',
+      en: 'KANI-LAB Angor branch team in festive spirit'
     },
     description: {
       uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
       ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
-      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.',
+      en: 'The KANI-LAB team highly values the role and work of women in society, especially in the field of medicine. On the occasion of March 8, festive events were held for our female employees and partners at the main office and all branches of our laboratory. These scenes reflect the warm relations and festive mood in our team.'
     },
     image: xotinQizlarAngorImg
   },
@@ -2193,12 +2232,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Filiallarimizda bayram tabriklari va e\'tibor',
       ru: 'Праздничные поздравления и внимание в наших филиалах',
-      tr: 'Şubelerimizde bayram tebrikleri ve gösterilen ilgi'
+      tr: 'Şubelerimizde bayram tebrikleri ve gösterilen ilgi',
+      en: 'Holiday congratulations and attention in our branches'
     },
     description: {
       uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
       ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
-      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.',
+      en: 'The KANI-LAB team highly values the role and work of women in society, especially in the field of medicine. On the occasion of March 8, festive events were held for our female employees and partners at the main office and all branches of our laboratory. These scenes reflect the warm relations and festive mood in our team.'
     },
     image: xotinQizlarFilialdaImg
   },
@@ -2208,12 +2249,14 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'KANI-LAB Markaziy laboratoriyasida bayram tadbiri',
       ru: 'Праздничное мероприятие в Центральной лаборатории KANI-LAB',
-      tr: 'KANI-LAB Merkez Laboratuvarı\'nda bayram etkinliği'
+      tr: 'KANI-LAB Merkez Laboratuvarı\'nda bayram etkinliği',
+      en: 'Holiday event at KANI-LAB Central Laboratory'
     },
     description: {
       uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
       ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
-      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.',
+      en: 'The KANI-LAB team highly values the role and work of women in society, especially in the field of medicine. On the occasion of March 8, festive events were held for our female employees and partners at the main office and all branches of our laboratory. These scenes reflect the warm relations and festive mood in our team.'
     },
     image: xotinQizlarMarkazdaImg
   },
@@ -2223,19 +2266,21 @@ const GALLERY_ITEMS = [
     title: {
       uz: 'Jamoamiz birgalikda: bayramona kayfiyat va xotira uchun surat',
       ru: 'Наша команда вместе: праздничное настроение и фото на память',
-      tr: 'Ekibimiz bir arada: bayram havası ve hatıra fotoğrafı'
+      tr: 'Ekibimiz bir arada: bayram havası ve hatıra fotoğrafı',
+      en: 'Our team together: festive mood and commemorative photo'
     },
     description: {
       uz: 'KANI-LAB jamoasi ayollarning jamiyatdagi, xususan tibbiyot sohasidagi o‘rni va mehnatini yuksak qadrlaydi. 8-mart bayrami munosabati bilan laboratoriyamizning markaziy ofisi hamda barcha filiallarida ayol xodimlarimiz va hamkorlarimiz uchun bayram tadbirlari o‘tkazildi. Ushbu lavhalarda jamoamizdagi iliq munosabatlar va bayramona kayfiyat aks etgan.',
       ru: 'Коллектив KANI-LAB высоко ценит роль и труд женщин в обществе, особенно в сфере медицины. В связи с праздником 8 марта в головном офисе и во всех филиалах нашей лаборатории прошли праздничные мероприятия для наших сотрудниц и партнеров. В этих кадрах отражены теплые отношения и праздничная атмосфера в нашем коллективе.',
-      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kadın çalışanlarımız ve ortaklarımız için kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.'
+      tr: 'KANI-LAB ekibi, kadınların toplumdaki, özellikle de tıp alanındaki rolünü ve emeğini derinden takdir etmektedir. 8 Mart Dünya Kadınlar Günü vesilesiyle merkez ofisimiz ve tüm şubelerimizde kutlama etkinlikleri düzenlendi. Bu kareler, ekibimizdeki sıcak ilişkileri ve bayram havasını yansıtmaktadır.',
+      en: 'The KANI-LAB team highly values the role and work of women in society, especially in the field of medicine. On the occasion of March 8, festive events were held for our female employees and partners at the main office and all branches of our laboratory. These scenes reflect the warm relations and festive mood in our team.'
     },
     image: xotinQizlarSherabodImg
   }
 ];
 
 export default function App() {
-  const [lang, setLang] = useState<'uz' | 'ru' | 'tr'>('uz');
+  const [lang, setLang] = useState<'uz' | 'ru' | 'tr' | 'en'>('uz');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'home' | 'about' | 'about-history' | 'about-values' | 'about-mission' | 'services' | 'doctors' | 'faq' | 'contact' | 'certificates' | 'branches' | 'privacy' | 'terms' | 'news' | 'gallery'>('home');
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
@@ -4369,8 +4414,8 @@ export default function App() {
                       🇨🇭
                     </div>
                     <div>
-                      <h4 className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider">{lang === 'uz' ? 'Shveysariya Aniqligi' : lang === 'ru' ? 'Швейцарская Точность' : 'İsviçre Hassasiyeti'}</h4>
-                      <p className="text-[10px] text-slate-400 mt-0.5 font-bold">{lang === 'uz' ? '99.9% Analitik nazorat kafolati' : lang === 'ru' ? '99.9% Гарантия точности' : '%99.9 Analitik Kontrol Garantisi'}</p>
+                      <h4 className="text-xs font-black text-slate-800 dark:text-slate-200 uppercase tracking-wider">{getLangTextInline('Shveysariya Aniqligi', 'Швейцарская Точность', 'İsviçre Hassasiyeti', 'Swiss Precision')}</h4>
+                      <p className="text-[10px] text-slate-400 mt-0.5 font-bold">{getLangTextInline('99.9% Analitik nazorat kafolati', '99.9% Гарантия точности', '%99.9 Analitik Kontrol Garantisi', '99.9% Analytical Control Guarantee')}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
@@ -4387,23 +4432,23 @@ export default function App() {
                   {[
                     { 
                       icon: <Activity className="w-5 h-5" />, 
-                      title: lang === 'uz' ? 'To\'liq avtomatizatsiya' : lang === 'ru' ? 'Полная автоматизация' : 'Tam Otomasyon', 
-                      desc: lang === 'uz' ? 'Inson omilisiz tekshiruv' : lang === 'ru' ? 'Тестирование без ошибок' : 'İnsan faktörü olmadan test' 
+                      title: getLangTextInline('To\'liq avtomatizatsiya', 'Полная автоматизация', 'Tam Otomasyon', 'Full Automation'), 
+                      desc: getLangTextInline('Inson omilisiz tekshiruv', 'Тестирование без ошибок', 'İnsan faktörü olmadan test', 'Testing without human error') 
                     },
                     { 
                       icon: <ShieldCheck className="w-5 h-5" />, 
-                      title: lang === 'uz' ? 'Sifat nazorati' : lang === 'ru' ? 'Контроль качества' : 'Kalite Kontrolü', 
-                      desc: lang === 'uz' ? 'CAP va ISO 15189' : lang === 'ru' ? 'Стандарты CAP и ISO' : 'CAP ve ISO 15189' 
+                      title: getLangTextInline('Sifat nazorati', 'Контроль качества', 'Kalite Kontrolü', 'Quality Control'), 
+                      desc: getLangTextInline('CAP va ISO 15189', 'Стандарты CAP и ISO', 'CAP ve ISO 15189', 'CAP and ISO 15189 Standards') 
                     },
                     { 
                       icon: <Zap className="w-5 h-5" />, 
-                      title: lang === 'uz' ? 'Tezkor natijalar' : lang === 'ru' ? 'Быстрые результаты' : 'Hızlı Sonuçlar', 
-                      desc: lang === 'uz' ? '2-4 soat ichida tayyor' : lang === 'ru' ? 'Готовность за 2-4 часа' : '2-4 saat içinde hazır' 
+                      title: getLangTextInline('Tezkor natijalar', 'Быстрые результаты', 'Hızlı Sonuçlar', 'Fast Results'), 
+                      desc: getLangTextInline('2-4 soat ichida tayyor', 'Готовность за 2-4 часа', '2-4 saat içinde hazır', 'Ready within 2-4 hours') 
                     },
                     { 
                       icon: <Database className="w-5 h-5" />, 
-                      title: lang === 'uz' ? 'Katta qamrov' : lang === 'ru' ? 'Широкий охват' : 'Geniş Kapsam', 
-                      desc: lang === 'uz' ? '180+ turdagi tahlillar' : lang === 'ru' ? 'Более 180 видов анализов' : '180+ çeşit analiz' 
+                      title: getLangTextInline('Katta qamrov', 'Широкий охват', 'Geniş Kapsam', 'Wide Coverage'), 
+                      desc: getLangTextInline('180+ turdagi tahlillar', 'Более 180 видов анализов', '180+ çeşit analiz', '180+ types of tests') 
                     }
                   ].map((feat, i) => (
                     <div key={i} className="p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col gap-3 hover:shadow-md transition-shadow">
@@ -4422,7 +4467,7 @@ export default function App() {
                   <div>
                     <div className="text-3xl font-black text-white">50,000+</div>
                     <div className="text-xs font-bold text-cyan-400 uppercase tracking-widest mt-1">
-                      {lang === 'uz' ? 'Yillik tahlillar soni' : lang === 'ru' ? 'Анализов в год' : 'Yıllık Analiz Sayısı'}
+                      {getLangTextInline('Yillik tahlillar soni', 'Анализов в год', 'Yıllık Analiz Sayısı', 'Annual tests performed')}
                     </div>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
@@ -4447,12 +4492,12 @@ export default function App() {
                   <Cpu className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lang === 'uz' ? 'YUKSAK TEHNOLOGIYALAR' : lang === 'ru' ? 'ВЫСОКИЕ ТЕХНОЛОГИИ' : 'YÜKSEK TEKNOLOJİLER'}</span>
-                  <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight mt-0.5">{lang === 'uz' ? 'Zamonaviy Robotlashtirilgan Analizatorlarimiz' : lang === 'ru' ? 'Наше Роботизированное Оборудование' : 'Modern Robotik Analizörlerimiz'}</h3>
+                  <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{getLangTextInline('YUKSAK TEHNOLOGIYALAR', 'ВЫСОКИЕ ТЕХНОЛОГИИ', 'YÜKSEK TEKNOLOJİLER', 'HIGH TECHNOLOGIES')}</span>
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight mt-0.5">{getLangTextInline('Zamonaviy Robotlashtirilgan Analizatorlarimiz', 'Наше Роботизированное Оборудование', 'Modern Robotik Analizörlerimiz', 'Our Modern Robotic Analyzers')}</h3>
                 </div>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold max-w-md">
-                {lang === 'uz' ? 'Laboratoriyamiz tahlillar aniqligini ta’minlash maqsadida Shveysariya, Yaponiya va AQShning eng so‘nggi diagnostika texnologiyalari bilan jihozlaganmiz.' : lang === 'ru' ? 'Наша лаборатория оснащена современными диагностическими комплексами из Швейцарии, Японии и США для максимальной точности анализов.' : 'Laboratuvarımız, analiz doğruluğunu sağlamak amacıyla İsviçre, Japonya ve ABD\'den gelen en son tanı teknolojileriyle donatılmıştır.'}
+                {getLangTextInline('Laboratoriyamiz tahlillar aniqligini ta’minlash maqsadida Shveysariya, Yaponiya va AQShning eng so‘nggi diagnostika texnologiyalari bilan jihozlaganmiz.', 'Наша лаборатория оснащена современными диагностическими комплексами из Швейцарии, Японии и США для максимальной точности анализов.', 'Laboratuvarımız, analiz doğruluğunu sağlamak amacıyla İsviçre, Japonya ve ABD\'den gelen en son tanı teknolojileriyle donatılmıştır.', 'Our laboratory is equipped with the latest diagnostic technologies from Switzerland, Japan, and the USA to ensure the highest accuracy of tests.')}
               </p>
             </div>
 
@@ -5536,10 +5581,10 @@ export default function App() {
           <div className="lg:col-span-5 flex flex-col gap-4">
             <span className="text-sm font-bold text-[#00B4D8] uppercase tracking-wider">{t.reviewsTitle}</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {lang === 'uz' ? 'Bemorlarimiz biz haqimizda nima deydi?' : lang === 'ru' ? 'Что говорят пациенты о KANILAB' : 'Hastalarımız hakkımızda ne diyor?'}
+              {getLangTextInline('Bemorlarimiz biz haqimizda nima deydi?', 'Что говорят пациенты о KANILAB', 'Hastalarımız hakkımızda ne diyor?', 'What do our patients say about us?')}
             </h2>
             <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm font-medium">
-              {lang === 'uz' ? 'Biz diagnostika jarayonlarida o‘z salomatligini bizga ishonib topshirgan bemorlarning fikrlarini to‘playmiz va har doim natijalarimiz uchun javob beramiz.' : lang === 'ru' ? 'Мы собираем отзывы пациентов, которые доверяют нам свою диагностику. Мы гарантируем точность результатов.' : 'Teşhis süreçlerinde sağlığını bize emanet eden hastalarımızın görüşlerini topluyor ve sonuçlarımızın her zaman arkasında duruyoruz.'}
+              {getLangTextInline('Biz diagnostika jarayonlarida o‘z salomatligini bizga ishonib topshirgan bemorlarning fikrlarini to‘playmiz va har doim natijalarimiz uchun javob beramiz.', 'Мы собираем отзывы пациентов, которые доверяют нам свою диагностику. Мы гарантируем точность результатов.', 'Teşhis süreçlerinde sağlığını bize emanet eden hastalarımızın görüşlerini topluyor ve sonuçlarımızın her zaman arkasında duruyoruz.', 'We collect feedback from patients who trust us with their diagnostics, and we always stand behind our results.')}
             </p>
             
             <button 
@@ -5751,7 +5796,12 @@ export default function App() {
                   {getLangTextInline('Kani-Lab yangiliklari va videolari', 'Новости и видео Kani-Lab', 'Kani-Lab Haberleri ve Videoları', 'Kani-Lab News & Videos')}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                  {lang === 'uz' ? 'Laboratoriyamizdagi eng so‘nggi yangiliklar, yutuqlarimiz va rasmiy videolavhalar' : lang === 'ru' ? 'Последние новости, достижения и официальные видеорепортажи о нашей работе' : 'Laboratuvarımızdan en son haberler, başarılarımız ve resmi videolarımız'}
+                  {getLangTextInline(
+                    'Laboratoriyamizdagi eng so‘nggi yangiliklar, yutuqlarimiz va rasmiy videolavhalar',
+                    'Последние новости, достижения и официальные видеорепортажи о нашей работе',
+                    'Laboratuvarımızdan en son haberler, başarılarımız ve resmi videolarımız',
+                    'Latest news, achievements, and official videos from our laboratory'
+                  )}
                 </p>
               </div>
 
@@ -5895,11 +5945,12 @@ export default function App() {
                   {getLangTextInline('Kani-Lab fotogalereyasi', 'Фотогалерея Kani-Lab', 'Kani-Lab Fotoğraf Galerisi', 'Kani-Lab Photo Gallery')}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                  {lang === 'uz' 
-                    ? 'Laboratoriyamiz faoliyati, ilmiy-akademik hamkorliklarimiz va tantanali tadbirlarimizdan yorqin lahzalar' 
-                    : lang === 'ru' 
-                    ? 'Яркие моменты нашей работы, научно-практического сотрудничества и праздничных мероприятий' 
-                    : 'Faaliyetlerimiz, bilimsel-akademik işbirliklerimiz ve törensel etkinliklerimizden kareler'}
+                  {getLangTextInline(
+                    'Laboratoriyamiz faoliyati, ilmiy-akademik hamkorliklarimiz va tantanali tadbirlarimizdan yorqin lahzalar',
+                    'Яркие моменты нашей работы, научно-практического сотрудничества и праздничных мероприятий',
+                    'Faaliyetlerimiz, bilimsel-akademik işbirliklerimiz ve törensel etkinliklerimizden kareler',
+                    'Vibrant moments from our laboratory activities, scientific-academic collaborations, and ceremonial events'
+                  )}
                 </p>
               </div>
 
@@ -6090,7 +6141,12 @@ export default function App() {
                 {getLangTextInline('Bizning filiallar', 'Наши филиалы', 'Şubelerimiz', 'Our Branches')}
               </h2>
               <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mt-1">
-                {lang === 'uz' ? `Termiz shahrida va Surxondaryo viloyatida ${BRANCHES.length} ta filial orqali xizmat ko\'rsatamiz` : lang === 'ru' ? `Оказываем услуги через ${BRANCHES.length} филиалов в г. Термез и Сурхандарьинской области` : `Termiz ve Surhanderya bölgesinde ${BRANCHES.length} şube ile hizmet veriyoruz`}
+                {getLangTextInline(
+                  `Termiz shahrida va Surxondaryo viloyatida ${BRANCHES.length} ta filial orqali xizmat ko'rsatamiz`,
+                  `Оказываем услуги через ${BRANCHES.length} филиалов в г. Термез и Сурхандарьинской области`,
+                  `Termiz ve Surhanderya bölgesinde ${BRANCHES.length} şube ile hizmet veriyoruz`,
+                  `We provide services through ${BRANCHES.length} branches in Termez city and Surxondaryo region`
+                )}
               </p>
             </div>
 
@@ -6361,7 +6417,12 @@ export default function App() {
                   {getLangTextInline('Qanday boriladi?', 'Как добраться?', 'Nasıl Gidilir?', 'How to get there?')}
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  {lang === 'uz' ? "Hozirgi turgan joyingizdan istalgan filialimizgacha bo'lgan eng qulay va tezkor yo\'nalishni aniqlang." : lang === 'ru' ? 'Определите наиболее удобный и быстрый маршрут от вашего текущего местоположения до любого из наших филиалов.' : 'Bulunduğunuz konumdan herhangi bir şubemize giden en kolay ve hızlı rotayı belirleyin.'}
+                  {getLangTextInline(
+                    "Hozirgi turgan joyingizdan istalgan filialimizgacha bo'lgan eng qulay va tezkor yo'nalishni aniqlang.",
+                    "Определите наиболее удобный и быстрый маршрут от вашего текущего местоположения до любого из наших филиалов.",
+                    "Bulunduğunuz konumdan herhangi bir şubemize giden en kolay ve hızlı rotayı belirleyin.",
+                    "Find the most convenient and fastest route from your current location to any of our branches."
+                  )}
                 </p>
               </div>
 
@@ -6369,7 +6430,7 @@ export default function App() {
                 {/* Qayerdan Input */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                    {lang === 'uz' ? 'Qayerdan?' : lang === 'ru' ? 'Откуда?' : 'Nereden?'}
+                    {getLangTextInline('Qayerdan?', 'Откуда?', 'Nereden?', 'From where?')}
                   </label>
                   <div className="relative">
                     <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -7324,10 +7385,10 @@ export default function App() {
                         {/* Logo */}
                         <div style={{ 
                           background: 'white', 
-                          width: '56px', height: '56px', 
+                          width: '56px\', height: \'56px', 
                           borderRadius: '50%', 
                           margin: '0 auto 8px', 
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          display: 'flex\', alignItems: \'center\', justifyContent: \'center',
                           boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
                         }}>
                           <img src={kaniLabLogoImg} alt="KaniLab" crossOrigin="anonymous" style={{
@@ -7341,8 +7402,8 @@ export default function App() {
                         </div>
                         {/* Decorative bottom wave */}
                         <div style={{
-                          position: 'absolute', bottom: -1, left: 0, right: 0, height: '12px',
-                          background: '#fff', borderRadius: '50% 50% 0 0 / 100% 100% 0 0'
+                          position: 'absolute\', bottom: -1, left: 0, right: 0, height: \'12px',
+                          background: '#fff\', borderRadius: \'50% 50% 0 0 / 100% 100% 0 0'
                         }} />
                       </div>
 
