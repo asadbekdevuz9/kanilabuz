@@ -6668,67 +6668,118 @@ export default function App() {
               </div>
             </div>
 
+            <p className="text-slate-600 dark:text-slate-300 font-semibold mb-6 text-sm leading-relaxed border-b border-slate-100 dark:border-slate-800 pb-6">
+              {getLangTextInline(
+                'KANI-LAB Klinik Laboratoriyasining rasmiy veb-saytiga xush kelibsiz. Foydalanuvchilarning shaxsiy ma\'lumotlari xavfsizligini muhim deb biladi. Ushbu Maxfiylik siyosati veb-saytimizdan foydalanish davomida qanday ma\'lumotlar yig\'ilishi, ulardan qanday foydalanilishi va qanday himoya qilinishi haqida ma\'lumot beradi.',
+                'Добро пожаловать на официальный сайт Клинической Лаборатории KANI-LAB. Настоящая Политика конфиденциальности определяет, какая информация собирается при использовании сайта, как она используется и защищается.',
+                'KANI-LAB Klinik Laboratuvarı\'nın resmi web sitesine hoş geldiniz. Bu Gizlilik Politikası, web sitemizin kullanımı sırasında hangi verilerin toplandığını, nasıl kullanıldığını ve nasıl korunduğunu açıklamaktadır.',
+                'Welcome to the official website of KANI-LAB Clinical Laboratory. This Privacy Policy details what information is collected during the use of our website, how it is used, and how it is protected.'
+              )}
+            </p>
+
             <div className="space-y-8 text-slate-600 dark:text-slate-300 font-medium leading-[1.65] text-sm md:text-base">
               {[
                 {
-                  title: getLangTextInline('Kirish va qamrov', 'Введение и сфера применения', 'Giriş ve Kapsam', 'Introduction & Scope'),
+                  title: getLangTextInline('1. Yig\'iladigan ma\'lumotlar', '1. Собираемая информация', '1. Toplanan Bilgiler', '1. Collected Information'),
                   desc: getLangTextInline(
-                    'Ushbu Maxfiylik siyosati Kani-Lab tomonidan mijozlarning shaxsiy va tibbiy ma\'lumotlarini qanday yig‘ish, qayta ishlash, saqlash va himoya qilish tartiblarini belgilaydi.',
-                    'Настоящая Политика конфиденциальности определяет процедуры сбора, обработки, хранения и защиты личных и медицинских данных клиентов в Kani-Lab.',
-                    'Bu Gizlilik Politikası, Kani-Lab tarafından müşterilerin kişisel ve tıbbi verilerinin toplanması, işlenmesi, saklanması ve korunması prosedürlerini belirler.',
-                    'This Privacy Policy defines the procedures for collecting, processing, storing, and protecting personal and medical data of customers by Kani-Lab.'
+                    'Veb-saytimiz orqali quyidagi ma\'lumotlar yig\'ilishi mumkin:\n\n• Ism va familiya\n• Telefon raqami\n• Elektron pochta manzili (agar taqdim etilsa)\n• Murojaat yoki xabar mazmuni\n• Qurilma turi, brauzer va IP manzil kabi texnik ma\'lumotlar\n• Cookie fayllari orqali yig\'iladigan statistik ma\'lumotlar',
+                    'Через наш сайт может собираться следующая информация:\n\n• Имя и фамилия\n• Номер телефона\n• Адрес электронной почты (если предоставлен)\n• Содержание обращения или сообщения\n• Технические данные, такие как тип устройства, браузер и IP-адрес\n• Статистические данные, собираемые с помощью файлов cookie',
+                    'Web sitemiz üzerinden aşağıdaki bilgiler toplanabilir:\n\n• Ad ve soyadı\n• Telefon numarası\n• E-posta adresi (sağlanmışsa)\n• Talep veya mesaj içeriği\n• Cihaz türü, tarayıcı ve IP adresi gibi teknik veriler\n• Çerezler (cookie) aracılığıyla toplanan istatistiksel veriler',
+                    'The following information may be collected through our website:\n\n• First name and last name\n• Phone number\n• Email address (if provided)\n• Content of the inquiry or message\n• Technical data such as device type, browser, and IP address\n• Statistical data collected through cookies'
                   )
                 },
                 {
-                  title: getLangTextInline('Ma’lumotlarni yig‘ish', 'Сбор данных', 'Veri Топлама', 'Data Collection'),
+                  title: getLangTextInline('2. Ma\'lumotlardan foydalanish', '2. Использование информации', '2. Bilgilerin Kullanımı', '2. Use of Information'),
                   desc: getLangTextInline(
-                    'Biz faqat xizmat ko‘rsatish uchun zarur bo‘lgan ma\'lumotlarni, jumladan ism-sharif, aloqa raqamlari, elektron pochta manzili hamda tahlil natijalarini to‘g‘ri shakllantirish uchun zarur bo‘lgan tibbiy anamnez ma\'lumotlarini to‘playmiz.',
-                    'Мы собираем только информацию, необходимую для оказания услуг, включая имя, контактные номера, адрес электронной почты и медицинский анамнез для правильного формирования результатов.',
-                    'Ad-soyad, iletişim numaraları, e-posta adresi ve analiz sonuçlarının doğru şekilde oluşturulması için gerekli olan tıbbi geçmişini de toplayabiliriz.',
-                    'We collect only the information necessary for providing services, including full name, contact numbers, email address, and medical history required for the correct generation of test results.'
+                    'Yig\'ilgan ma\'lumotlardan quyidagi maqsadlarda foydalaniladi:\n\n• Foydalanuvchi murojaatlariga javob berish\n• Laboratoriya xizmatlari haqida ma\'lumot taqdim etish\n• Sayt faoliyatini yaxshilash va foydalanuvchi tajribasini rivojlantirish\n• Texnik nosozliklarni aniqlash va bartaraf etish\n• Amaldagi qonunchilik talablariga rioya qilish',
+                    'Собранная информация используется в следующих целях:\n\n• Ответы на запросы пользователей\n• Предоставление информации о лабораторных услугах\n• Улучшение работы сайта и развитие пользовательского опыта\n• Выявление и устранение технических неисправностей\n• Соблюдение требований применимого законодательства',
+                    'Toplanan bilgiler aşağıdaki amaçlarla kullanılır:\n\n• Kullanıcı taleplerine yanıt vermek\n• Laboratuvar hizmetleri hakkında bilgi sunmak\n• Site performansını artırmak ve kullanıcı deneyimini geliştirmek\n• Teknik arızaları tespit etmek ve gidermek\n• Yürürlükteki yasal gerekliliklere uymak',
+                    'The collected information is used for the following purposes:\n\n• Responding to user inquiries\n• Providing information about laboratory services\n• Improving website operation and developing user experience\n• Identifying and resolving technical issues\n• Complying with applicable legal requirements'
                   )
                 },
                 {
-                  title: getLangTextInline('Tibbiy sir va konfidensiallik', 'Медицинская тайна и конфиденциальность', 'Tıbbi Sır ve Gizlilik', 'Medical Secrecy & Confidentiality'),
+                  title: getLangTextInline('3. Shaxsiy ma\'lumotlarni himoya qilish', '3. Защита персональных данных', '3. Kişisel Verilerin Korunması', '3. Protection of Personal Data'),
                   desc: getLangTextInline(
-                    'Bemorning barcha tahlil natijalari va ular bilan bog‘liq tibbiy ma\'lumotlar qat\'iy "Tibbiy sir" maqomiga ega. Ushbu ma\'lumotlar uchinchi shaxslarga, davlat organlariga yoki boshqa muassasalarga faqat qonunchilikda belgilangan hollar bundan mustasno, hech qanday holatda oshkor etilmaydi.',
-                    'Все результаты анализов пациента и связанные с ними медицинские данные имеют статус строгой "Медицинской тайны". Эта информация ни при каких обстоятельствах не разглашается третьим лицам или государственным органам, за исключением случаев, предусмотренных законом.',
-                    'Hastanın tüm analiz sonuçları ve bunlarla ilgili tıbbi verileri katı bir şekilde "Tıbbi Sır" statüsündedir. Bu bilgiler, yasal zorunluluklar hariç, hiçbir koşulda üçüncü şahıslara veya devlet kurumlarına açıklanmaz.',
-                    'All patient test results and related medical data have the status of strict "Medical Secrecy". This information will not be disclosed to third parties, government agencies, or other institutions under any circumstances, except as required by law.'
+                    'KANI-LAB foydalanuvchilarning shaxsiy ma\'lumotlarini ruxsatsiz kirish, o\'zgartirish, oshkor qilish yoki yo\'qotilishdan himoya qilish uchun zamonaviy texnik va tashkiliy xavfsizlik choralarini qo\'llaydi.',
+                    'KANI-LAB применяет современные технические и организационные меры безопасности для защиты персональных данных пользователей от несанкционированного доступа, изменения, разглашения или потери.',
+                    'KANI-LAB, kullanıcıların kişisel verilerini yetkisiz erişim, değiştirme, ifşa etme veya kaybolmaya karşı korumak amacıyla modern teknik ve idari güvenlik önlemleri uygulamaktadır.',
+                    'KANI-LAB applies modern technical and organizational security measures to protect users\' personal data from unauthorized access, modification, disclosure, or loss.'
                   )
                 },
                 {
-                  title: getLangTextInline('Ma\'lumotlar xavfsizligi', 'Безопасность данных', 'Veri Güvenliği', 'Data Security'),
+                  title: getLangTextInline('4. Uchinchi shaxslar bilan ma\'lumot almashish', '4. Передача данных третьим лицам', '4. Üçüncü Şahıslarla Veri Paylaşımı', '4. Sharing Data with Third Parties'),
                   desc: getLangTextInline(
-                    'Kani-Lab mijozlarning shaxsiy ma\'lumotlarini ruxsatsiz kirish, o‘zgartirish, yo‘q qilish yoki oshkor etishdan himoya qilish uchun ilg‘or shifrlash texnologiyalari va xavfsiz server infratuzilmasidan foydalanadi.',
-                    'Kani-Lab использует передовые технологии шифрования и безопасную инфраструктуру серверов для защиты личных данных клиентов от несанкционированного доступа, изменения, уничтожения или разглашения.',
-                    'Kani-Lab, müşterilerin kişisel verilerini yetkisiz erişim, değiştirme, imha veya ifşa edilmekten korumak için gelişmiş şifreleme teknolojileri ve güvenli sunucu altyapısı kullanır.',
-                    'Kani-Lab uses advanced encryption technologies and secure server infrastructure to protect customers\' personal data from unauthorized access, modification, destruction, or disclosure.'
+                    'KANI-LAB foydalanuvchilarning shaxsiy ma\'lumotlarini uchinchi shaxslarga sotmaydi va ulardan tijorat maqsadlarida foydalanmaydi. Ma\'lumotlar faqat qonunchilik talab qilgan hollarda yoki foydalanuvchining roziligi bilan taqdim etilishi mumkin.',
+                    'KANI-LAB не продает личные данные пользователей третьим лицам и не использует их в коммерческих целях. Информация может быть предоставлена только в случаях, предусмотренных законодательством, или с согласия пользователя.',
+                    'KANI-LAB, kullanıcıların kişisel verilerini üçüncü şahıslara satmaz ve ticari amaçlarla kullanmaz. Bilgiler yalnızca yasal gereklilik durumlarında veya kullanıcının rızasıyla paylaşılabilir.',
+                    'KANI-LAB does not sell users\' personal data to third parties and does not use it for commercial purposes. Data may only be shared if required by law or with the user\'s consent.'
                   )
                 },
                 {
-                  title: getLangTextInline('Mijoz huquqlari', 'Права клиентов', 'Müşteri Hakları', 'Customer Rights'),
+                  title: getLangTextInline('5. Cookie fayllari', '5. Файлы cookie', '5. Çerezler (Cookies)', '5. Cookies'),
                   desc: getLangTextInline(
-                    'Har bir mijoz o‘zining shaxsiy ma\'lumotlaridan foydalanish shartlari bilan tanishish, ma\'lumotlarga o‘zgartirish kiritish yoki ularni o‘chirishni so‘rash huquqiga ega.',
-                    'Каждый клиент имеет право ознакомиться с условиями использования своих личных данных, запросить внесение изменений или их удаление.',
-                    'Her müşteri, kişisel verilerinin kullanım koşullarını inceleme, verilerde değişiklik yapılmasını veya silinmesini talep etme hakkına sahiptir.',
-                    'Each customer has the right to review the terms of use of their personal data, request modifications, or ask for its deletion.'
+                    'Veb-sayt foydalanuvchi tajribasini yaxshilash, sayt faoliyatini tahlil qilish va xizmatlar sifatini oshirish maqsadida cookie texnologiyalaridan foydalanishi mumkin. Foydalanuvchi brauzer sozlamalari orqali cookie fayllarini boshqarishi yoki o\'chirib qo\'yishi mumkin.',
+                    'Веб-сайт может использовать технологии cookie для улучшения пользовательского опыта, анализа работы сайта и повышения качества услуг. Пользователь может управлять файлами cookie или отключить их в настройках браузера.',
+                    'Web sitesi, kullanıcı deneyimini iyileştirmek, site performansını analiz etmek ve hizmet kalitesini artırmak amacıyla çerez teknolojilerini kullanabilir. Kullanıcı tarayıcı ayarlarından çerezleri yönetebilir veya devre dışı bırakabilir.',
+                    'The website may use cookie technologies to improve user experience, analyze site performance, and enhance service quality. Users can manage or disable cookies through their browser settings.'
+                  )
+                },
+                {
+                  title: getLangTextInline('6. Tashqi havolalar', '6. Внешние ссылки', '6. Harici Bağlantılar', '6. External Links'),
+                  desc: getLangTextInline(
+                    'Saytda Telegram, Instagram yoki boshqa tashqi resurslarga havolalar bo\'lishi mumkin. Ushbu platformalarning maxfiylik siyosati va ma\'lumotlarni qayta ishlash tartibi KANI-LAB nazoratidan tashqarida.',
+                    'Сайт может содержать ссылки на Telegram, Instagram или другие внешние ресурсы. Политика конфиденциальности и порядок обработки данных этих платформ находятся вне контроля KANI-LAB.',
+                    'Sitede Telegram, Instagram veya diğer harici kaynaklara bağlantılar yer alabilir. Bu platformların gizlilik politikaları ve veri işleme prosedürleri KANI-LAB\'ın kontrolü dışındadır.',
+                    'The site may contain links to Telegram, Instagram, or other external resources. The privacy policies and data processing procedures of these platforms are beyond the control of KANI-LAB.'
+                  )
+                },
+                {
+                  title: getLangTextInline('7. Foydalanuvchi huquqlari', '7. Права пользователя', '7. Kullanıcı Hakları', '7. User Rights'),
+                  desc: getLangTextInline(
+                    'Foydalanuvchilar o\'z shaxsiy ma\'lumotlariga oid ma\'lumot olish, ularni yangilash, tuzatish yoki amaldagi qonunchilikka muvofiq o\'chirishni so\'rash huquqiga ega.',
+                    'Пользователи имеют право получать информацию о своих персональных данных, обновлять, исправлять или запрашивать их удаление в соответствии с применимым законодательством.',
+                    'Kullanıcılar, kişisel verileri hakkında bilgi alma, bunları güncelleme, düzeltme veya yürürlükteki mevzuata uygun olarak silinmesini talep etme hakkına sahiptir.',
+                    'Users have the right to request information about their personal data, update it, correct it, or request its deletion in accordance with applicable legislation.'
+                  )
+                },
+                {
+                  title: getLangTextInline('8. Maxfiylik siyosatiga o\'zgartirishlar', '8. Изменения в политике конфиденциальности', '8. Gizlilik Politikasındaki Değişiklikler', '8. Changes to Privacy Policy'),
+                  desc: getLangTextInline(
+                    'KANI-LAB ushbu Maxfiylik siyosatini istalgan vaqtda yangilash huquqini o\'zida saqlab qoladi. Yangilangan tahrir veb-saytda e\'lon qilingan kundan boshlab kuchga kiradi.',
+                    'KANI-LAB оставляет за собой право обновлять настоящую Политику конфиденциальности в любое время. Обновленная версия вступает в силу со дня ее публикации на сайте.',
+                    'KANI-LAB, bu Gizlilik Politikasını istediği zaman güncelleme hakkını saklı tutar. Güncellenmiş sürüm, web sitesinde yayınlandığı tarihten itibaren geçerli olur.',
+                    'KANI-LAB reserves the right to update this Privacy Policy at any time. The updated version takes effect from the day it is published on the website.'
+                  )
+                },
+                {
+                  title: getLangTextInline('9. Bog\'lanish', '9. Контакты', '9. İletişim', '9. Contact'),
+                  desc: getLangTextInline(
+                    'Maxfiylik siyosati bo\'yicha savollar yoki murojaatlar uchun biz bilan bog\'lanishingiz mumkin:\n\nKANI-LAB Klinik Laboratoriyasi\n\nManzil: Termiz shahri, Alisher Navoiy ko\'chasi 26A\n\nTelefon: +998 90 075 12 34 • +998 78 150 12 34\n\nIsh vaqti: Dushanba – Shanba, 08:00 – 17:00',
+                    'Для вопросов или обращений по поводу политики конфиденциальности вы можете связаться с нами:\n\nКлиническая Лаборатория KANI-LAB\n\nАдрес: г. Термез, улица Алишера Навои, 26А\n\nТелефон: +998 90 075 12 34 • +998 78 150 12 34\n\nВремя работы: Понедельник – Суббота, 08:00 – 17:00',
+                    'Gizlilik politikası ile ilgili soru veya talepleriniz için bizimle iletişime geçebilirsiniz:\n\nKANI-LAB Klinik Laboratuvarı\n\nAdres: Termiz şehri, Alisher Navoiy caddesi 26A\n\nTelefon: +998 90 075 12 34 • +998 78 150 12 34\n\nÇalışma saatleri: Pazartesi – Cumartesi, 08:00 – 17:00',
+                    'For questions or inquiries regarding the privacy policy, you can contact us:\n\nKANI-LAB Clinical Laboratory\n\nAddress: Termez city, Alisher Navoiy street 26A\n\nPhone: +998 90 075 12 34 • +998 78 150 12 34\n\nOperating hours: Monday – Saturday, 08:00 – 17:00'
                   )
                 }
               ].map((section, idx) => (
                 <div key={idx} className="space-y-2">
                   <h3 className="text-lg font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-lg bg-[#00B4D8]/10 text-[#0096C7] flex items-center justify-center text-xs font-black shrink-0">
-                      {idx + 1}
-                    </span>
                     {section.title}
                   </h3>
-                  <p className="pl-8 text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
+                  <p className="pl-6 text-slate-500 dark:text-slate-400 font-semibold leading-relaxed whitespace-pre-line">
                     {section.desc}
                   </p>
                 </div>
               ))}
             </div>
+
+            <p className="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-400 dark:text-slate-500 text-center leading-relaxed">
+              {getLangTextInline(
+                'KANI-LAB rasmiy veb-saytidan foydalanishni davom ettirish orqali siz ushbu Maxfiylik siyosati bilan tanishganingizni va unda bayon etilgan shartlarga rozilik bildirganingizni tasdiqlaysiz.',
+                'Продолжая использовать официальный сайт KANI-LAB, вы подтверждаете, что ознакомились с настоящей Политикой конфиденциальности и согласны с ее условиями.',
+                'KANI-LAB resmi web sitesini kullanmaya devam ederek, bu Gizlilik Politikasını okuduğunuzu ve burada belirtilen koşulları kabul ettiğinizi onaylamış olursunuz.',
+                'By continuing to use the official KANI-LAB website, you confirm that you have read and understood this Privacy Policy and agree to the terms set forth herein.'
+              )}
+            </p>
           </div>
         </section>
       )}
@@ -6753,67 +6804,127 @@ export default function App() {
               </div>
             </div>
 
+            <p className="text-slate-600 dark:text-slate-300 font-semibold mb-6 text-sm leading-relaxed border-b border-slate-100 dark:border-slate-800 pb-6">
+              {getLangTextInline(
+                'KANI-LAB Klinik Laboratoriyasining rasmiy veb-saytiga xush kelibsiz. Ushbu saytdan foydalanish orqali siz quyida keltirilgan foydalanish shartlariga rozilik bildirgan hisoblanasiz. Mazkur shartlar foydalanuvchilar va KANI-LAB o\'rtasidagi o\'zaro munosabatlarni tartibga solish maqsadida ishlab chiqilgan.',
+                'Добро пожаловать на официальный сайт Клинической Лаборатории KANI-LAB. Используя этот сайт, вы соглашаетесь с условиями использования, приведенными ниже. Эти условия разработаны для регулирования взаимоотношений между пользователями и KANI-LAB.',
+                'KANI-LAB Klinik Laboratuvarı\'nın resmi web sitesine hoş geldiniz. Bu siteyi kullanarak, aşağıda belirtilen kullanım koşullarını kabul etmiş olursunuz. Bu koşullar, kullanıcılar ile KANI-LAB arasındaki ilişkileri düzenlemek amacıyla geliştirilmiştir.',
+                'Welcome to the official website of KANI-LAB Clinical Laboratory. By using this site, you agree to the terms of use set forth below. These terms are designed to regulate the relationship between users and KANI-LAB.'
+              )}
+            </p>
+
             <div className="space-y-8 text-slate-600 dark:text-slate-300 font-medium leading-[1.65] text-sm md:text-base">
               {[
                 {
-                  title: getLangTextInline('Kelishuv shartlari', 'Соглашение об условиях', 'Anlaşma Şartları', 'Terms of Agreement'),
+                  title: getLangTextInline('1. Saytdan foydalanish', '1. Использование сайта', '1. Sitenin Kullanımı', '1. Using the Site'),
                   desc: getLangTextInline(
-                    'Ushbu veb-saytga kirish va undan foydalanish orqali siz quyidagi shartlar va qoidalarga so‘zsiz rozi bo‘lasiz. Agar siz ushbu shartlarga rozi bo‘lmasangiz, saytdan foydalanishni to‘xtatishingiz kerak.',
-                    'Получая доступ к этому веб-сайту и используя его, вы безоговорочно соглашаетесь со следующими условиями. Если вы не согласны с ними, вам следует прекратить использование сайта.',
-                    'Bu web sitesine erişerek ve kullanarak, aşağıdaki şart ve koşulları kayıtsız şartsız kabul etmiş olursunuz. Bu şartları kabul etmiyorsanız, siteyi kullanmayı bırakmalısınız.',
-                    'By accessing and using this website, you unconditionally agree to the following terms and conditions. If you do not agree to these terms, you must stop using the website.'
+                    'KANI-LAB rasmiy veb-sayti laboratoriya xizmatlari, tahlillar, narxlar, ish vaqti, filiallar hamda bog\'lanish ma\'lumotlari haqida foydalanuvchilarga qulay va ishonchli axborot taqdim etish uchun yaratilgan. Saytdan faqat qonuniy maqsadlarda foydalanish mumkin.',
+                    'Официальный веб-сайт KANI-LAB создан для предоставления пользователям удобной и достоверной информации о лабораторных услугах, анализах, ценах, времени работы, филиалах и контактных данных. Сайт может быть использован только в законных целях.',
+                    'KANI-LAB resmi web sitesi, kullanıcılara laboratuvar hizmetleri, testler, fiyatlar, çalışma saatleri, şubeler ve iletişim bilgileri hakkında kolay ve güvenilir bilgi sağlamak amacıyla oluşturulmuştur. Site yalnızca yasal amaçlar için kullanılabilir.',
+                    'The official KANI-LAB website is designed to provide users with convenient and reliable information about laboratory services, tests, prices, operating hours, branches, and contact information. The site may only be used for lawful purposes.'
                   )
                 },
                 {
-                  title: getLangTextInline('Axborot xarakteri', 'Информационный характер', 'Bilgilendirme Amaçlı İçerik', 'Informational Nature'),
+                  title: getLangTextInline('2. Ma\'lumotlarning aniqligi', '2. Точность информации', '2. Bilgilerin Doğruluğu', '2. Accuracy of Information'),
                   desc: getLangTextInline(
-                    'Veb-saytda taqdim etilgan tibbiy ma\'lumotlar, maqolalar va tahlil tushuntirishlari faqat ma\'lumot berish maqsadida joylashtirilgan. Ular professional tibbiy tashxis qo‘yish, davolash rejalarini belgilash yoki shifokor maslahatining o‘rnini bosmaydi. Har qanday tibbiy qaror qabul qilishdan oldin mutaxassis bilan maslahatlashish tavsiya etiladi.',
-                    'Медицинская информация, статьи и пояснения к анализам, представленные на сайте, носят исключительно ознакомительный характер. Они не заменяют профессиональную медицинскую диагностику, лечение или консультацию врача.',
-                    'Sitede sunulan tıbbi bilgiler, makaleler ve analiz açıklamaları yalnızca bilgilendirme amaçlıdır. Profesyonel tıbbi teşhis, tedavi veya doktor tavsiyesinin yerini alamaz. Herhangi bir tıbbi karar vermeden önce bir uzmana danışmanız önerilir.',
-                    'The medical information, articles, and analysis explanations provided on the website are for informational purposes only. They do not replace professional medical diagnosis, treatment plans, or doctor consultations. It is recommended to consult a specialist before making any medical decisions.'
+                    'Saytda e\'lon qilingan barcha ma\'lumotlarni dolzarb va ishonchli saqlashga harakat qilamiz. Biroq xizmatlar, narxlar, ish vaqti yoki boshqa ma\'lumotlar zaruratga ko\'ra o\'zgarishi mumkin. Eng so\'nggi ma\'lumotlarni olish uchun laboratoriyamiz bilan bog\'lanishingiz tavsiya etiladi.',
+                    'Мы стараемся поддерживать всю информацию на сайте актуальной и достоверной. Однако услуги, цены, время работы или другая информация могут меняться по мере необходимости. Рекомендуется связаться с нашей лабораторией для получения актуальных данных.',
+                    'Sitede yayınlanan tüm bilgileri güncel ve güvenilir tutmaya çalışıyoruz. Ancak hizmetler, fiyatlar, çalışma saatleri veya diğer bilgiler gerektiğinde değişebilir. En güncel bilgileri almak için laboratuvarımızla iletişime geçmeniz önerilir.',
+                    'We strive to keep all information published on the site up-to-date and reliable. However, services, prices, working hours, or other information may change as needed. It is recommended to contact our laboratory for the latest information.'
                   )
                 },
                 {
-                  title: getLangTextInline('Xizmatlar va buyurtmalar', 'Услуги и заказы', 'Hizmetler ve Siparişler', 'Services & Orders'),
+                  title: getLangTextInline('3. Tibbiy ma\'lumotlar', '3. Медицинская информация', '3. Tıbbi Bilgiler', '3. Medical Information'),
                   desc: getLangTextInline(
-                    'Laboratoriya xizmatlariga onlayn buyurtma berish jarayonida taqdim etilgan ma\'lumotlarning to‘g‘riligi uchun foydalanuvchi shaxsan javobgardir. Noto‘gri ma\'lumotlar kiritilishi natijasida yuzaga kelishi mumkin bo‘lgan xatolar uchun Kani-Lab mas\'uliyatni o‘z zimmasiga olmaydi.',
-                    'Пользователь несет личную ответственность за достоверность информации, предоставленной в процессе онлайн-заказа лабораторных услуг. Kani-Lab не несет ответственности за ошибки, возникшие из-за неверных данных.',
-                    'Laboratuvar hizmetlerine çevrimiçi sipariş verilmesi sürecinde sağlanan bilgilerin doğruluğundan kullanıcı şahsen sorumludur. Yanlış bilgi girişi sonucu doğabilecek hatalardan Kani-Lab sorumlu tutulamaz.',
-                    'The user is personally responsible for the accuracy of the information provided during the online ordering of laboratory services. Kani-Lab does not assume responsibility for errors resulting from incorrect data entry.'
+                    'Saytda joylashtirilgan ma\'lumotlar faqat umumiy axborot berish maqsadida taqdim etiladi va shifokor konsultatsiyasi, tashxis yoki davolash o\'rnini bosmaydi. Laboratoriya natijalari faqat malakali tibbiyot mutaxassisi tomonidan baholanishi lozim.',
+                    'Информация на сайте предоставлена исключительно в ознакомительных целях и не заменяет консультацию врача, диагностику или лечение. Результаты лабораторных исследований должны оцениваться только квалифицированным медицинским специалистом.',
+                    'Sitede yer alan bilgiler yalnızca genel bilgilendirme amaçlıdır ve doktor konsültasyonu, teşhis veya tedavinin yerini almaz. Laboratuvar sonuçları yalnızca kalifiye bir tıp uzmanı tarafından değerlendirilmelidir.',
+                    'The information posted on the site is provided for general informational purposes only and does not replace doctor consultation, diagnosis, or treatment. Laboratory results should only be evaluated by a qualified medical professional.'
                   )
                 },
                 {
-                  title: getLangTextInline('Intellektual mulk', 'Интеллектуальная собственность', 'Fikri Mülkiyet', 'Intellectual Property'),
+                  title: getLangTextInline('4. Intellektual mulk', '4. Интеллектуальная собственность', '4. Fikri Mülkiyet', '4. Intellectual Property'),
                   desc: getLangTextInline(
-                    'Ushbu saytdagi barcha kontent, jumladan, brend logotiplari, dizayn elementlari, grafik tasvirlar, dasturiy kodlar va matnlar Kani-Lab kompaniyasining mulki hisoblanadi. Ulardan mualliflik ruxsatisiz nusxa ko‘chirish, tarqatish yoki tijorat maqsadlarida foydalanish qat\'iyan taqiqlanadi.',
-                    'Весь контент на этом сайте, включая логотипы брендов, элементы дизайна, графику, программный код и тексты, является собственностью Kani-Lab. Копирование, распространение или использование в коммерческих целях строго запрещено.',
-                    'Sitedeki tüm içerikler Kani-Lab\'ın mülkiyetindedir. Telif izni olmaksızın kopyalanması, dağıtılması veya ticari amaçlarla kullanılması kesinlikle yasaktır.',
-                    'All content on this site, including brand logos, design elements, graphics, source code, and text, is the property of Kani-Lab. Copying, distributing, or using them for commercial purposes without written copyright permission is strictly prohibited.'
+                    'Ushbu saytda joylashgan logotiplar, dizayn elementlari, matnlar, rasmlar, grafikalar, videolar va boshqa materiallar KANI-LAB yoki tegishli huquq egalarining mulki hisoblanadi. Ularni yozma ruxsatsiz nusxalash, tarqatish, o\'zgartirish yoki tijorat maqsadida foydalanish taqiqlanadi.',
+                    'Логотипы, элементы дизайна, тексты, изображения, графика, видео и другие материалы на этом сайте являются собственностью KANI-LAB или соответствующих правообладателей. Их копирование, распространение, изменение или использование в коммерческих целях без письменного разрешения запрещено.',
+                    'Bu sitede yer alan logolar, tasarım öğeleri, metinler, resimler, grafikler, videolar ve diğer materyaller KANI-LAB\'ın veya ilgili hak sahiplerinin mülkiyetindedir. Yazılı izin olmaksızın bunların kopyalanması, dağıtılması, değiştirilmesi veya ticari amaçlarla kullanılması yasaktır.',
+                    'The logos, design elements, texts, images, graphics, videos, and other materials on this site are the property of KANI-LAB or their respective owners. Copying, distributing, modifying, or using them for commercial purposes without written permission is prohibited.'
                   )
                 },
                 {
-                  title: getLangTextInline('Javobgarlikni cheklash', 'Ограничение ответственности', 'Sorumluluk Sınırlaması', 'Limitation of Liability'),
+                  title: getLangTextInline('5. Foydalanuvchi majburiyatlari', '5. Обязанности пользователя', '5. Kullanıcı Yükümlülükleri', '5. User Obligations'),
                   desc: getLangTextInline(
-                    'Kani-Lab veb-saytning uzluksiz ishlashini vaqtinchalik uzilishlar uchun javobgar emas.',
-                    'Kani-Lab старается обеспечить бесперебойную работу сайта, но не несет ответственности за временные сбои из-за технических проблем, сторонних сервисов или сбоев сети Интернет.',
-                    'Kani-Lab, web sitesinin kesintisiz çalışmasını sağlamaya çalışır, ancak teknik arızalar veya internet kesintilerinden kaynaklanan geçici aksaklıklardan sorumlu değildir.',
-                    'Kani-Lab endeavors to ensure the continuous operation of the website, but is not liable for temporary interruptions caused by technical malfunctions, third-party services, or Internet connectivity issues.'
+                    'Foydalanuvchi sayt orqali noto\'g\'ri yoki yolg\'on ma\'lumot yubormasligi, boshqa foydalanuvchilarning huquqlarini buzmasligi hamda saytning normal ishlashiga xalaqit beruvchi harakatlarni amalga oshirmasligi shart.',
+                    'Пользователь обязуется не отправлять через сайт недостоверную или ложную информацию, не нарушать права других пользователей и не совершать действий, препятствующих нормальной работе сайта.',
+                    'Kullanıcı, site aracılığıyla yanlış veya yanıltıcı bilgi göndermemeyi, diğer kullanıcıların haklarını ihlal etmemeyi ve sitenin normal çalışmasını engelleyecek eylemlerde bulunmamayı taahhüt eder.',
+                    'The user must not send incorrect or false information through the site, must not violate the rights of other users, and must not perform actions that interfere with the normal operation of the site.'
+                  )
+                },
+                {
+                  title: getLangTextInline('6. Maxfiylik va shaxsiy ma\'lumotlar', '6. Конфиденциальность и персональные данные', '6. Gizlilik ve Kişisel Veriler', '6. Privacy & Personal Data'),
+                  desc: getLangTextInline(
+                    'Sayt orqali yuborilgan shaxsiy ma\'lumotlar amaldagi qonunchilik talablariga muvofiq qayta ishlanadi va himoya qilinadi. Foydalanuvchilarning shaxsiy ma\'lumotlari ularning roziligisiz uchinchi shaxslarga taqdim etilmaydi, qonunchilikda nazarda tutilgan holatlar bundan mustasno.',
+                    'Персональные данные, отправленные через сайт, обрабатываются и защищаются в соответствии с применимым законодательством. Личные данные пользователей не передаются третьим лицам без их согласия, за исключением случаев, предусмотренных законом.',
+                    'Site üzerinden gönderilen kişisel veriler, yürürlükteki mevzuat hükümlerine uygun olarak işlenmekte ve korunmaktadır. Kullanıcıların kişisel verileri, yasaların gerektirdiği durumlar hariç, rızaları olmaksızın üçüncü şahıslara verilmez.',
+                    'Personal data submitted through the site is processed and protected in accordance with applicable legal requirements. Users\' personal data will not be shared with third parties without their consent, except as provided by law.'
+                  )
+                },
+                {
+                  title: getLangTextInline('7. Uchinchi tomon resurslari', '7. Сторонние ресурсы', '7. Üçüncü Taraf Kaynakları', '7. Third-Party Resources'),
+                  desc: getLangTextInline(
+                    'Saytda Telegram, Instagram yoki boshqa tashqi platformalarga havolalar mavjud bo\'lishi mumkin. Ushbu resurslarning mazmuni, xizmatlari yoki maxfiylik siyosati uchun KANI-LAB javobgar emas.',
+                    'Сайт может содержать ссылки на Telegram, Instagram или другие внешние платформы. KANI-LAB не несет ответственности за содержание, услуги или политику конфиденциальности этих ресурсов.',
+                    'Sitede Telegram, Instagram veya diğer harici platformlara bağlantılar bulunabilir. KANI-LAB, bu kaynakların içeriğinden, hizmetlerinden veya gizlilik politikalarından sorumlu değildir.',
+                    'The site may contain links to Telegram, Instagram, or other external platforms. KANI-LAB is not responsible for the content, services, or privacy policies of these resources.'
+                  )
+                },
+                {
+                  title: getLangTextInline('8. Javobgarlikni cheklash', '8. Ограничение ответственности', '8. Sorumluluk Sınırlaması', '8. Limitation of Liability'),
+                  desc: getLangTextInline(
+                    'KANI-LAB saytning uzluksiz va xavfsiz inshonchli ishlashini ta\'minlashga intiladi. Biroq internet tarmog\'idagi uzilishlar, texnik nosozliklar yoki boshqa nazoratdan tashqari holatlar tufayli yuzaga keladigan noqulayliklar uchun javobgarlikni o\'z zimmasiga olmaydi.',
+                    'KANI-LAB стремится обеспечить бесперебойную и безопасную работу сайта. Однако лаборатория не несет ответственности за неудобства, вызванные сбоями в сети Интернет, техническими неполадками или другими обстоятельствами вне нашего контроля.',
+                    'KANI-LAB, sitenin kesintisiz ve güvenli çalışmasını sağlamak için çaba gösterir. Ancak, internet ağındaki kesintiler, teknik arızalar veya kontrolü dışındaki diğer durumlardan kaynaklanan olumsuzluklar için sorumluluk kabul etmez.',
+                    'KANI-LAB strives to ensure the continuous and secure operation of the site. However, it does not assume liability for inconveniences caused by internet outages, technical failures, or other circumstances beyond our control.'
+                  )
+                },
+                {
+                  title: getLangTextInline('9. Shartlarga o\'zgartirish kiritish', '9. Изменение условий', '9. Şartlarda Değişiklik Yapılması', '9. Changes to Terms'),
+                  desc: getLangTextInline(
+                    'KANI-LAB ushbu foydalanish shartlarini istalgan vaqtda yangilash yoki o\'zgartirish huquqiga ega. Yangilangan tahrir saytga joylashtirilgan paytdan boshlab kuchga kiradi. Foydalanuvchilarga shartlarni vaqti-vaqti bilan ko\'rib chiqish tavsiya etiladi.',
+                    'KANI-LAB оставляет за собой право обновлять или изменять настоящие условия использования в любое время. Обновленная версия вступает в силу с момента ее публикации на сайте. Пользователям рекомендуется периодически просматривать условия.',
+                    'KANI-LAB, bu kullanım koşullarını istediği zaman güncelleme veya değiştirme hakkına sahiptir. Güncellenmiş sürüm, sitede yayınlandığı andan itibaren yürürlüğe girer. Kullanıcıların şartları periyodik olarak gözden geçirmeleri önerilir.',
+                    'KANI-LAB reserves the right to update or change these terms of use at any time. The updated version takes effect from the moment it is posted on the site. Users are advised to review the terms periodically.'
+                  )
+                },
+                {
+                  title: getLangTextInline('10. Bog\'lanish', '10. Контакты', '10. İletişim', '10. Contact'),
+                  desc: getLangTextInline(
+                    'Agar ushbu foydalanish shartlari bo\'yicha savollaringiz bo\'lsa, biz bilan quyidagi aloqa vositalari orqali bog\'lanishingiz mumkin:\n\nKANI-LAB Klinik Laboratoriyasi\n\nManzil: Termiz shahri, Alisher Navoiy ko\'chasi 26A\n\nTelefon: +998 90 075 12 34 • +998 78 150 12 34\n\nIsh vaqti: Dushanba – Shanba, 08:00 – 17:00',
+                    'Если у вас есть вопросы по настоящим условиям использования, вы можете связаться с нами по следующим контактам:\n\nКлиническая Лаборатория KANI-LAB\n\nАдрес: г. Термез, улица Алишера Навои, 26А\n\nТелефон: +998 90 075 12 34 • +998 78 150 12 34\n\nВремя работы: Понедельник – Суббота, 08:00 – 17:00',
+                    'Bu kullanım koşulları hakkında sorularınız varsa, bizimle aşağıdaki iletişim kanalları aracılığıyla iletişime geçebilirsiniz:\n\nKANI-LAB Klinik Laboratuvarı\n\nAdres: Termiz şehri, Alisher Navoiy caddesi 26A\n\nTelefon: +998 90 075 12 34 • +998 78 150 12 34\n\nÇalışma saatleri: Pazartesi – Cumartesi, 08:00 – 17:00',
+                    'If you have any questions regarding these terms of use, you can contact us using the following contact details:\n\nKANI-LAB Clinical Laboratory\n\nAddress: Termez city, Alisher Navoiy street 26A\n\nPhone: +998 90 075 12 34 • +998 78 150 12 34\n\nOperating hours: Monday – Saturday, 08:00 – 17:00'
                   )
                 }
               ].map((section, idx) => (
                 <div key={idx} className="space-y-2">
                   <h3 className="text-lg font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center text-xs font-black shrink-0">
-                      {idx + 1}
-                    </span>
                     {section.title}
                   </h3>
-                  <p className="pl-8 text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
+                  <p className="pl-6 text-slate-500 dark:text-slate-400 font-semibold leading-relaxed whitespace-pre-line">
                     {section.desc}
                   </p>
                 </div>
               ))}
             </div>
+
+            <p className="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 text-xs font-bold text-slate-400 dark:text-slate-500 text-center leading-relaxed">
+              {getLangTextInline(
+                'KANI-LAB rasmiy veb-saytidan foydalanishni davom ettirish orqali siz mazkur Foydalanish shartlarini o\'qiganingizni, tushunganingizni va ularga rozilik bildirganingizni tasdiqlaysiz.',
+                'Продолжая использовать официальный сайт KANI-LAB, вы подтверждаете, что прочитали, поняли и согласны с настоящими Условиями использования.',
+                'KANI-LAB resmi web sitesini kullanmaya devam ederek, bu Kullanım Koşullarını okuduğunuzu, anladığınızı ve kabul ettiğinizi onaylamış olursunuz.',
+                'By continuing to use the official KANI-LAB website, you confirm that you have read, understood, and agree to these Terms of Use.'
+              )}
+            </p>
           </div>
         </section>
       )}
