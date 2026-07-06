@@ -1979,8 +1979,8 @@ const BRANCHES: {
   }
 ];
 
-// Dynamic reconstruction to prevent GitHub Secret Scanning warning and scrapers detection
-const TELEGRAM_BOT_TOKEN = "8976412924" + ":" + "AAFcVbEeUgB2Ngymnol6cDDLybhlI1xLWzI";
+// Loaded dynamically from ignored .env file or Vercel Environment Variables to prevent GitHub leaks
+const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || "";
 
 const NEWS_ITEMS = [
   {
