@@ -2017,18 +2017,18 @@ const NEWS_ITEMS = [
     id: 'news-video-3',
     category: 'video',
     date: '2026-06-29',
-    youtubeId: 'IrN0aMwhuhE',
+    youtubeId: 's7gVpItmnj4',
     title: {
-      uz: 'Kani-Lab laboratoriyasi haqida to‘liq video-taqdimot',
-      ru: 'Полная видеопрезентация о лаборатории Kani-Lab',
-      tr: 'Kani-Lab laboratuvarı hakkında detaylı video tanıtımı',
-      en: 'Full video presentation about Kani-Lab laboratory'
+      uz: 'O\'zbekistonda yagona hisoblangan "Kani-Lab" markaziy laboratoriyasi haqida siz bilmagan ma\'lumotlar',
+      ru: 'Факты о центральной лаборатории "Kani-Lab", признанной уникальной в Узбекистане',
+      tr: 'Özbekistan\'da eşsiz kabul edilen "Kani-Lab" merkez laboratuvarı hakkında bilmediğiniz gerçekler',
+      en: 'Facts you did not know about the "Kani-Lab" central laboratory, considered unique in Uzbekistan'
     },
     description: {
-      uz: 'Kani-Lab laboratoriyasi faoliyati, zamonaviy robotlashtirilgan tahlil uskunalari va yuqori texnologik imkoniyatlarimiz aks etgan yangi video.',
-      ru: 'Новое видео, отражающее деятельность лаборатории Kani-Lab, современное роботизированное аналитическое оборудование и наши высокотехнологичные возможности.',
-      tr: 'Kani-Lab laboratuvarının faaliyetlerini, modern robotik analiz ekipmanlarını ve yüksek teknoloji imkanlarımızı yansıtan yeni tanıtım videosu.',
-      en: 'A new video reflecting Kani-Lab laboratory activities, modern robotic analytical equipment, and our high-tech capabilities.'
+      uz: 'Kani-Lab markaziy laboratoriyasining imkoniyatlari, tahlillar jarayoni va yuqori texnologik jihozlari haqida maxsus videolavha.',
+      ru: 'Специальный видеосюжет о возможностях центральной лаборатории Kani-Lab, процессе анализа и высокотехнологичном оборудовании.',
+      tr: 'Kani-Lab merkez laboratuvarının imkanları, analiz süreci и yüksek teknolojik ekipmanları hakkında özel video klip.',
+      en: 'A special video segment about the capabilities of the Kani-Lab central laboratory, testing processes, and high-tech equipment.'
     },
     image: ''
   },
@@ -2036,7 +2036,7 @@ const NEWS_ITEMS = [
     id: 'news-video-2',
     category: 'video',
     date: '2022-06-29',
-    youtubeId: 'p5-yqEegx6Y',
+    youtubeId: 'ip-ujIjFOzo',
     title: {
       uz: 'Termiz shahridagi Perinatal markazida Kani-Lab filiali ochildi',
       ru: 'В Перинатальном центре г. Термеза открылся филиал Kani-Lab',
@@ -2046,7 +2046,7 @@ const NEWS_ITEMS = [
     description: {
       uz: 'Termiz shahridagi viloyat perinatal markazida shoshilinch hamda yuqori aniqlikdagi tahlillar uchun mo‘ljallangan Kani-Lab qo‘shma laboratoriyasi faoliyat boshladi.',
       ru: 'В областном перинатальном центре города Термеза начала работу совместная лаборатория Kani-Lab, предназначенная для проведения экстренных и высокоточных анализов.',
-      tr: 'Tirmiz şehrindeki vilayet perinatal merkezinde acil ve yüksek hassasiyetli analizler için tasarlanmış Kani-Lab ortak laboratuvarı faaliyete başladı.',
+      tr: 'Tirmiz şehrindeki vilayet perinatal merkezinde acil и yüksek hassasiyetli analizler için tasarlanmış Kani-Lab ortak laboratuvarı faaliyete başladı.',
       en: 'A joint Kani-Lab laboratory designed for emergency and high-precision analyses has started operations in the regional perinatal center in Termez.'
     },
     image: ''
@@ -2055,7 +2055,7 @@ const NEWS_ITEMS = [
     id: 'news-video-1',
     category: 'video',
     date: '2021-06-29',
-    youtubeId: '7Bifg4-Ceqs',
+    youtubeId: '1AVLR1p5FUs',
     title: {
       uz: 'Kani-Lab Markaziy Laboratoriyasi faoliyati haqida maxsus videolavha',
       ru: 'Специальный видеосюжет о деятельности Центральной Лаборатории Kani-Lab',
