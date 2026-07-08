@@ -2843,6 +2843,360 @@ export default function App() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [selectedAnalyzer, setSelectedAnalyzer] = useState<typeof ANALYZERS_DATA[0] | null>(null);
 
+  // Onboarding Tour state
+  const [showTourPrompt, setShowTourPrompt] = useState(false);
+  const [activeTourStep, setActiveTourStep] = useState(-1);
+  const [tourRect, setTourRect] = useState<DOMRect | null>(null);
+
+  // Tour Steps Configuration
+  const tourSteps = [
+    {
+      targetId: "navbar-logo",
+      title: {
+        uz: "Kani-Lab Logotipi",
+        ru: "Логотип Kani-Lab",
+        tr: "Kani-Lab Logosu",
+        en: "Kani-Lab Logo"
+      },
+      icon: "🏥",
+      desc: {
+        uz: "KANI-LAB klinik laboratoriyasiga xush kelibsiz! Ushbu logotipni bosish orqali istalgan sahifadan bosh sahifaga qaytishingiz mumkin.",
+        ru: "Добро пожаловать в клиническую лабораторию KANI-LAB! Нажав на этот логотип, вы можете вернуться на главную страницу с любой другой.",
+        tr: "KANI-LAB klinik laboratuvarına hoş geldiniz! Bu logoya tıklayarak herhangi bir sayfadan ana sayfaya geri dönebilirsiniz.",
+        en: "Welcome to KANI-LAB clinical laboratory! By clicking this logo, you can return to the home page from any other page."
+      }
+    },
+    {
+      targetId: "navbar-link-home",
+      title: {
+        uz: "Bosh sahifa",
+        ru: "Главная страница",
+        tr: "Ana Sayfa",
+        en: "Home Page"
+      },
+      icon: "🏠",
+      desc: {
+        uz: "Saytning asosiy sahifasiga o'tish. Bu yerda siz laboratoriyamiz haqida umumiy va eng  muhim ma'lumotlarni topasiz.",
+        ru: "Переход на главную страницу. Здесь вы найдете общую и самую важную информацию о нашей лаборатории.",
+        tr: "Ana sayfaya geçiş. Burada laboratuvarımız hakkında genel ve en önemli bilgileri bulabilirsiniz.",
+        en: "Go to the home page. Here you will find general and most important information about our laboratory."
+      }
+    },
+    {
+      targetId: "navbar-dropdown-about",
+      title: {
+        uz: "Biz haqimizda",
+        ru: "О нас",
+        tr: "Hakkımızda",
+        en: "About Us"
+      },
+      icon: "🔬",
+      desc: {
+        uz: "Laboratoriyamiz tarixi, qadriyatlari, missiyasi va litsenziyalari bilan tanishish uchun ushbu bo'limni ko'zdan kechiring.",
+        ru: "Изучите этот раздел, чтобы узнать об истории, ценностях, миссии и лицензиях нашей лаборатории.",
+        tr: "Laboratuvarımızın tarihçesi, değerleri, misyonu ve lisansları hakkında bilgi edinmek için bu bölümü inceleyin.",
+        en: "Browse this section to learn about the history, values, mission, and licenses of our laboratory."
+      }
+    },
+    {
+      targetId: "navbar-services",
+      title: {
+        uz: "Tahlillar katalogi",
+        ru: "Каталог анализов",
+        tr: "Analiz Kataloğu",
+        en: "Analyses Catalog"
+      },
+      icon: "🧪",
+      desc: {
+        uz: "Bizning barcha tahlillarimiz ro'yxati, ularning batafsil tavsiflari, topshirish qoidalari va narxlari bilan ushbu bo'limda tanishishingiz mumkin.",
+        ru: "В этом разделе вы можете ознакомиться со списком всех наших анализов, их подробным описанием, правилами сдачи и ценами.",
+        tr: "Bu bölümde tüm analizlerimizin listesini, detaylı açıklamalarını, verilme kurallarını ogrenip fiyatlarını inceleyebilirsiniz.",
+        en: "In this section, you can review the list of all our analyses, their detailed descriptions, preparation rules, and prices."
+      }
+    },
+    {
+      targetId: "navbar-dropdown-team",
+      title: {
+        uz: "Mutaxassislarimiz",
+        ru: "Наши специалисты",
+        tr: "Uzmanlarımız",
+        en: "Our Team"
+      },
+      icon: "👨‍⚕️",
+      desc: {
+        uz: "Kani-Lab ning yuqori malakali shifokorlari, laboratoriya mutaxassislari hamda tibbiy xodimlari ro'yxati va ular haqida ma'lumot.",
+        ru: "Список и информация о высококвалифицированных врачах, лабораторных специалистах и медицинском персонале Kani-Lab.",
+        tr: "Kani-Lab'ın yüksek nitelikli doktorları, laboratuvar uzmanları ve tıbbi personeli hakkında bilgi ve listeler.",
+        en: "The list and details of Kani-Lab's highly qualified doctors, laboratory specialists, and medical staff."
+      }
+    },
+    {
+      targetId: "navbar-link-faq",
+      title: {
+        uz: "Ko'p beriladigan savollar",
+        ru: "Часто задаваемые вопросы",
+        tr: "Sıkça Sorulan Sorular",
+        en: "FAQ"
+      },
+      icon: "❓",
+      desc: {
+        uz: "Tahlillar topshirish va laboratoriya xizmatlariga doir tez-tez beriladigan savollarga javoblarni shu yerdan topishingiz mumkin.",
+        ru: "Здесь вы найдете ответы на часто задаваемые вопросы, касающиеся сдачи анализов и лабораторных услуг.",
+        tr: "Analiz süreçleri ve laboratuvar hizmetleriyle ilgili sıkça sorulan soruların yanıtlarını buradan bulabilirsiniz.",
+        en: "Here you can find answers to frequently asked questions regarding sample submission and laboratory services."
+      }
+    },
+    {
+      targetId: "navbar-link-news",
+      title: {
+        uz: "Yangiliklar va Blog",
+        ru: "Новости и Блог",
+        tr: "Haberler ve Blog",
+        en: "News & Blog"
+      },
+      icon: "📰",
+      desc: {
+        uz: "Tibbiyot sohasidagi eng so'nggi yangiliklar, laboratoriya e'lonlari va salomatlikka oid foydali maqolalar bo'limi.",
+        ru: "Раздел последних новостей в области медицины, объявлений лаборатории и полезных статей о здоровье.",
+        tr: "Tıp alanındaki en son haberler, laboratuvar duyuruları ogrenip sağlıkla ilgili faydalı makalelerin yer aldığı bölüm.",
+        en: "The section containing the latest medical news, laboratory announcements, and useful health articles."
+      }
+    },
+    {
+      targetId: "navbar-dropdown-contact",
+      title: {
+        uz: "Aloqa va Filiallar",
+        ru: "Контакты и Филиалы",
+        tr: "İletişim ve Şubeler",
+        en: "Contacts & Branches"
+      },
+      icon: "📞",
+      desc: {
+        uz: "Biz bilan bog'lanish ma'lumotlari hamda barcha filiallarimizning joylashuvi, telefon raqamlari va manzillari.",
+        ru: "Контактная информация для связи с нами, а также расположение, телефоны и адреса всех наших филиалов.",
+        tr: "Bizimle iletişime geçebileceğiniz bilgiler и tüm şubelerinin konumları, telefon numaraları ve adresleri.",
+        en: "Contact details to reach us, alongside locations, phone numbers, and addresses of all our branches."
+      }
+    },
+    {
+      targetId: "lang-switcher",
+      title: {
+        uz: "Tilni o'zgartirish",
+        ru: "Выбор языка",
+        tr: "Dil Seçimi",
+        en: "Language Selection"
+      },
+      icon: "🌐",
+      desc: {
+        uz: "Saytdan o'zingizga qulay tilda foydalaning. Biz o'zbek, rus, turk va ingliz tillarini qo'llab-quvvatlaymiz.",
+        ru: "Пользуйтесь сайтом на удобном для вас языке. Мы поддерживаем узбекский, русский, турецкий и английский языки.",
+        tr: "Web sitemizi sizin için en uygun dilde kullanın. Özbekçe, Rusça, Türkçe ve İngilizce dillerini destekliyoruz.",
+        en: "Use the website in your preferred language. We support Uzbek, Russian, Turkish, and English languages."
+      }
+    },
+    {
+      targetId: "theme-toggle",
+      title: {
+        uz: "Mavzuni almashtirish",
+        ru: "Смена темы",
+        tr: "Tema Değişimi",
+        en: "Theme Toggle"
+      },
+      icon: "🌙",
+      desc: {
+        uz: "Ko'zlaringiz charchamasligi uchun qorong'u (tungi) va yorug' (kunduzgi) mavzular orasida osongina almashing.",
+        ru: "Легко переключайтесь между темной (ночной) и светлой (дневной) темами, чтобы ваши глаза не уставали.",
+        tr: "Gözlerinizin yorulmaması için karanlık (gece) ve aydınlık (gündüz) temalar arasında kolayca geçiş yapın.",
+        en: "Easily toggle between dark (night) and light (day) themes to keep your eyes comfortable."
+      }
+    },
+    {
+      targetId: "navbar-check-receipt",
+      title: {
+        uz: "Chekni onlayn tekshirish",
+        ru: "Онлайн проверка чека",
+        tr: "Faturayı Çevrimiçi Kontrol Et",
+        en: "Online Receipt Check"
+      },
+      icon: "🔍",
+      desc: {
+        uz: "Natijalaringiz tayyor bo'ldimi? Chekdagi shtrix-kod raqamini kiritib, tahlil natijalarini istalgan vaqtda yuklab oling.",
+        ru: "Ваши результаты готовы? Введите номер штрих-кода с чека и скачайте результаты анализов в любое время.",
+        tr: "Sonuçlarınız hazır mı? Faturadaki barkod numarasını girerek analiz sonuçlarınızı istediğiniz zaman indirin.",
+        en: "Are your results ready? Enter the barcode number from your receipt and download your analysis results at any time."
+      }
+    },
+    {
+      targetId: "book-appointment-navbar",
+      title: {
+        uz: "Navbat band qilish",
+        ru: "Запись на прием",
+        tr: "Randevu Al",
+        en: "Book Appointment"
+      },
+      icon: "📅",
+      desc: {
+        uz: "Laboratoriyada navbat kutmaslik uchun qulay vaqt va filialni tanlab, onlayn tarzda navbat oling.",
+        ru: "Запишитесь на прием онлайн, выбрав удобное время и филиал, чтобы избежать очередей в лаборатории.",
+        tr: "Laboratuvarda sıra beklememek için uygun bir saat ve şube seçerek çevrimiçi randevunuzu alın.",
+        en: "Book an appointment online by choosing a convenient time and branch to avoid queues at the laboratory."
+      }
+    },
+    {
+      targetId: "footer-brand",
+      title: {
+        uz: "Brend va Ijtimoiy tarmoqlar",
+        ru: "Бренд и Соцсети",
+        tr: "Marka ve Sosyal Medya",
+        en: "Brand & Socials"
+      },
+      icon: "✨",
+      desc: {
+        uz: "Biz haqimizda qisqacha ma'lumot va eng so'nggi yangiliklarimizdan xabardor bo'lish uchun rasmiy ijtimoiy tarmoqlarimizga havolalar.",
+        ru: "Краткая информация о нас и ссылки на наши официальные социальные сети, чтобы оставаться в курсе последних новостей.",
+        tr: "Hakkımızda kısa bir bilgi ve en son gelişmelerden haberdar olmak için resmi sosyal medya hesaplarımızın bağlantıları.",
+        en: "A brief description of us and links to our official social media accounts to keep up with the latest updates."
+      }
+    },
+    {
+      targetId: "footer-info",
+      title: {
+        uz: "Bosh Ofis va Ish tartibi",
+        ru: "Главный офис и График",
+        tr: "Merkez Ofis ve Çalışma Saatleri",
+        en: "Head Office & Schedule"
+      },
+      icon: "📍",
+      desc: {
+        uz: "Bizning bosh ofisimiz manzili va sizga xizmat ko'rsatadigan ish kunlari hamda ish soatlarimiz haqida ma'lumot.",
+        ru: "Информация об адресе нашего главного офиса, а также рабочих днях и часах приема посетителей.",
+        tr: "Merkez ofisimizin adresi ile size hizmet verdiğimiz çalışma günleri ve saatlerimiz hakkında bilgiler.",
+        en: "Information about our main office address, as well as working days and visitor reception hours."
+      }
+    },
+    {
+      targetId: "footer-contact",
+      title: {
+        uz: "Tezkor Aloqa raqamlari",
+        ru: "Номера для связи",
+        tr: "Hızlı Иletişim Numaraları",
+        en: "Quick Contact Numbers"
+      },
+      icon: "📬",
+      desc: {
+        uz: "Sizda savol yoki takliflar bormi? Telefon raqamlarimiz orqali qo'ng'iroq qiling, mutaxassislarimiz yordam berishga tayyor.",
+        ru: "У вас есть вопросы или предложения? Позвоните по нашим номерам, наши специалисты всегда готовы помочь.",
+        tr: "Sorularınız veya önerileriniz mi var? Telefon numaralarımızdan bizi arayın, uzmanlarımız yardıma hazır.",
+        en: "Do you have questions or feedback? Call us at our phone numbers, our specialists are ready to assist you."
+      }
+    },
+    {
+      targetId: "footer-links",
+      title: {
+        uz: "Foydali havolalar",
+        ru: "Полезные ссылки",
+        tr: "Faydalı Bağlantılar",
+        en: "Useful Links"
+      },
+      icon: "🔗",
+      desc: {
+        uz: "Maxfiylik siyosati, foydalanish shartlari, fotogalereya, sertifikatlarimiz va jonli vaqtda platforma statistikasiga o'tish.",
+        ru: "Быстрый переход к политике конфиденциальности, условиям использования, фотогалерее, сертификатам и живой статистике.",
+        tr: "Gizlilik politikası, kullanım koşulları, fotoğraf galerisi, sertifikalarımız ve canlı istatistiklere hızlı erişim.",
+        en: "Quick access to the Privacy Policy, Terms of Use, Photo Gallery, Certificates, and Live Analytics."
+      }
+    },
+    {
+      targetId: "footer-copyright",
+      title: {
+        uz: "Mualliflik huquqi",
+        ru: "Авторские права",
+        tr: "Telif Hakkı",
+        en: "Copyright Notice"
+      },
+      icon: "©️",
+      desc: {
+        uz: "Barcha huquqlar himoyalangan. Saytdan olingan ma'lumotlardan foydalanganda KANI-LAB klinik laboratoriyasiga havola ko'rsatilishi shart.",
+        ru: "Все права защищены. При использовании материалов с сайта ссылка на клиническую лабораторию KANI-LAB обязательна.",
+        tr: "Tüm hakları saklıdır. Sitedeki materyallerin kullanımında KANI-LAB klinik laboratuvarına atıfta bulunulması zorunludur.",
+        en: "All rights reserved. When using materials from the website, a reference to KANI-LAB clinical laboratory is mandatory."
+      }
+    }
+  ];
+
+  // Show onboarding prompt banner to first-time visitors
+  // Also supports ?tour=true URL param to force-start tour (no DevTools needed)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    // ?tour=true → immediately start tour at step 0
+    if (params.get('tour') === 'true') {
+      localStorage.removeItem('kanilab_tour_completed');
+      setShowTourPrompt(false);
+      setTimeout(() => setActiveTourStep(0), 300);
+      // Clean URL without reload
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, '', cleanUrl);
+      return;
+    }
+
+    // ?reset-tour → show prompt again
+    if (params.get('reset-tour') !== null) {
+      localStorage.removeItem('kanilab_tour_completed');
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, '', cleanUrl);
+    }
+
+    const isCompleted = localStorage.getItem('kanilab_tour_completed');
+    if (!isCompleted) {
+      const timer = setTimeout(() => {
+        setShowTourPrompt(true);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Update spotlight rect when activeTourStep changes or window scroll/resize occurs
+  useEffect(() => {
+    if (activeTourStep < 0 || activeTourStep >= tourSteps.length) {
+      setTourRect(null);
+      return;
+    }
+
+    const updateRect = () => {
+      const step = tourSteps[activeTourStep];
+      const el = document.getElementById(step.targetId);
+      if (el) {
+        if (step.targetId.startsWith('footer-')) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        const rect = el.getBoundingClientRect();
+        setTourRect(rect);
+        console.log('[Tour] step', activeTourStep, 'element', step.targetId, 'rect:', rect);
+      } else {
+        console.warn('[Tour] Element NOT FOUND:', step.targetId);
+        setTourRect(null);
+      }
+    };
+
+    // Try immediately, then retry a few times in case of DOM timing
+    updateRect();
+    const t1 = setTimeout(updateRect, 150);
+    const t2 = setTimeout(updateRect, 400);
+
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect);
+    };
+  }, [activeTourStep]);
+
   // Load language and dark mode from localStorage on mount
   useEffect(() => {
     const savedLang = localStorage.getItem('kanilab_lang');
@@ -3603,7 +3957,7 @@ export default function App() {
           {/* Left Side: Logo & Navigation */}
           <div className="flex items-center gap-4 xl:gap-6">
             {/* Logo */}
-            <div className="flex items-center gap-2 cursor-pointer select-none shrink-0 mr-2" onClick={() => setActiveTab('home')}>
+            <div id="navbar-logo" className="flex items-center gap-2 cursor-pointer select-none shrink-0 mr-2" onClick={() => setActiveTab('home')}>
               <div className="w-16 h-16 flex items-center justify-center">
                 <KaniLabLogo className="w-16 h-16 hover:scale-105 transition-transform duration-300" />
               </div>
@@ -3612,13 +3966,14 @@ export default function App() {
             {/* Desktop Navigation Links */}
             <div className="hidden xl:flex items-center gap-2 xl:gap-3 2xl:gap-5 text-xs 2xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
               <button 
+                id="navbar-link-home"
                 onClick={() => setActiveTab('home')} 
                 className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'home' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
                 {t.navHome}
               </button>
               {/* Haqida Dropdown */}
-              <div className="relative group py-1">
+              <div id="navbar-dropdown-about" className="relative group py-1">
                 <button
                   className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
                 >
@@ -3655,12 +4010,13 @@ export default function App() {
                 </div>
               </div>
               <button 
+                id="navbar-services"
                 onClick={() => setActiveTab('services')} 
                 className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'services' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
                 {t.navServices}
               </button>
-              <div className="relative group py-1">
+              <div id="navbar-dropdown-team" className="relative group py-1">
                 <button 
                   className={`hover:text-[#00B4D8] transition-colors cursor-default select-none text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'doctors' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
                 >
@@ -3750,18 +4106,20 @@ export default function App() {
                 </div>
               </div>
               <button 
+                id="navbar-link-faq"
                 onClick={() => setActiveTab('faq')} 
                 className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'faq' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
                 {t.navFAQ}
               </button>
               <button 
+                id="navbar-link-news"
                 onClick={() => { setActiveTab('news'); window.location.hash = 'news'; }} 
                 className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 ${activeTab === 'news' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
               >
                 {getLangTextInline('Yangiliklar', 'Новости', 'Haberler', 'News')}
               </button>
-              <div className="relative group py-1">
+              <div id="navbar-dropdown-contact" className="relative group py-1">
                 <button
                   onClick={() => setActiveTab('contact')}
                   className={`hover:text-[#00B4D8] transition-colors cursor-pointer text-left focus:outline-none py-1 flex items-center gap-1 ${activeTab === 'contact' || activeTab === 'branches' ? 'text-[#00B4D8] border-b-2 border-[#00B4D8]' : ''}`}
@@ -3807,7 +4165,7 @@ export default function App() {
           <div className="flex items-center gap-2 xl:gap-4 shrink-0">
             
             {/* Language Switcher */}
-            <div className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
+            <div id="lang-switcher" className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
               <button 
                 id="lang-uz"
                 onClick={() => handleLangChange('uz')} 
@@ -3850,6 +4208,7 @@ export default function App() {
 
             {/* Book Appointment CTAs */}
             <button
+              id="navbar-check-receipt"
               onClick={() => setIsCheckModalOpen(true)}
               className="hidden xl:flex px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs xl:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-105 active:scale-95 transition-all items-center gap-2 whitespace-nowrap"
             >
@@ -5899,7 +6258,7 @@ export default function App() {
                             {getLangText(item.title)}
                           </h3>
                           <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-6">
-                            {getLangText(item.summary)}
+                            {getLangText(item.description)}
                           </p>
                         </div>
                         <button
@@ -6112,7 +6471,7 @@ export default function App() {
                 </h3>
                 <div className="h-px bg-slate-100 dark:bg-slate-800/80 mb-5" />
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line font-medium">
-                  {getLangText(item.content)}
+                  {getLangText(item.description)}
                 </p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-950/20 border-t border-slate-100 dark:border-slate-800/40 flex justify-end shrink-0">
@@ -6936,7 +7295,7 @@ export default function App() {
         <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-slate-100 dark:border-slate-900 pb-12">
           
           {/* Column 1: Brand & Socials */}
-          <div className="flex flex-col gap-5 text-left">
+          <div id="footer-brand" className="flex flex-col gap-5 text-left">
             <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-all" onClick={() => setActiveTab('home')}>
               <KaniLabLogo className="w-9 h-9" />
               <div className="flex flex-col">
@@ -7006,7 +7365,7 @@ export default function App() {
           </div>
 
           {/* Column 2: Head Office & Working Hours */}
-          <div className="flex flex-col gap-4 text-left">
+          <div id="footer-info" className="flex flex-col gap-4 text-left">
             <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{getLangTextInline('Bosh Ofis & Ish Tartibi', 'Главный офис и Часы работы', 'Merkez Ofis ve Çalışma Düzeni', 'Head Office & Working Hours')}</h4>
             
             <div className="space-y-3.5 text-xs text-slate-600 dark:text-slate-400 font-semibold">
@@ -7029,7 +7388,7 @@ export default function App() {
           </div>
 
           {/* Column 3: Contact & Rapid Links */}
-          <div className="flex flex-col gap-4 text-left">
+          <div id="footer-contact" className="flex flex-col gap-4 text-left">
             <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{getLangTextInline('Tezkor Bogʻlanish', 'Быстрая Связь', 'Hızlı İletişim', 'Quick Contact')}</h4>
             
             <div className="space-y-3">
@@ -7058,7 +7417,7 @@ export default function App() {
         </div>
 
         <div className="max-w-7xl 2xl:max-w-[1440px] 3xl:max-w-[1600px] w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-6 pt-8 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
-          <div className="flex flex-wrap gap-6 justify-center">
+          <div id="footer-links" className="flex flex-wrap gap-6 justify-center">
             <a href="#privacy" onClick={(e) => { e.preventDefault(); setActiveTab('privacy'); window.location.hash = 'privacy'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{getLangTextInline('Maxfiylik Siyosati', 'Конфиденциальность', 'Gizlilik Politikası', 'Privacy Policy')}</a>
             <a href="#terms" onClick={(e) => { e.preventDefault(); setActiveTab('terms'); window.location.hash = 'terms'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{getLangTextInline('Foydalanish shartlari', 'Условия', 'Kullanım Koşulları', 'Terms of Use')}</a>
             <a href="#gallery" onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); window.location.hash = 'gallery'; window.scrollTo({top:0, behavior:'smooth'}); }} className="hover:text-[#00B4D8] transition-colors">{getLangTextInline('Fotogalereya', 'Фотогалерея', 'Foto Galeri', 'Photo Gallery')}</a>
@@ -7075,7 +7434,7 @@ export default function App() {
             </button>
           </div>
 
-          <div className="text-slate-400 text-center font-extrabold">
+          <div id="footer-copyright" className="text-slate-400 text-center font-extrabold">
             {t.footerCopyright}
           </div>
         </div>
@@ -8374,6 +8733,253 @@ export default function App() {
 
           </div>
         </div>
+      )}
+
+      {/* ==========================================
+          ONBOARDING TOUR FOR FIRST-TIME VISITORS
+         ========================================== */}
+      {showTourPrompt && activeTourStep === -1 && (
+        <div className="fixed bottom-6 right-6 z-[9999] max-w-sm w-full mx-4 sm:mx-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/85 dark:border-slate-800/85 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 animate-slide-up">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">✨</span>
+            <div>
+              <h4 className="text-sm font-black text-slate-800 dark:text-white leading-none">
+                {getLangTextInline("Kani-Lab bilan tanishuv", "Знакомство с Kani-Lab", "Kani-Lab ile Tanışın", "Get to know Kani-Lab")}
+              </h4>
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider mt-1">
+                {getLangTextInline("Tezkor yo'riqnoma", "Быстрый тур", "Hızlı Tur", "Quick Tour")}
+              </p>
+            </div>
+          </div>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 leading-relaxed">
+            {getLangTextInline(
+              "Saytimizga ilk bor tashrif buyurganingiz munosabati bilan, asosiy bo'limlarimiz bilan tanishib chiqishni xohlaysizmi?",
+              "Поскольку вы зашли на наш сайт впервые, не хотите ли вы ознакомиться с его основными разделами?",
+              "Sitemizi ilk kez ziyaret ettiğiniz için, ana bölümlerimizi hızlıca tanımak ister misiniz?",
+              "Since you are visiting our site for the first time, would you like to take a quick tour of its main sections?"
+            )}
+          </p>
+          <div className="flex gap-2.5 mt-2">
+            <button
+              onClick={() => {
+                setShowTourPrompt(false);
+                localStorage.setItem("kanilab_tour_completed", "true");
+              }}
+              className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold transition-all text-center cursor-pointer"
+            >
+              {getLangTextInline("Yo'q, rahmat", "Нет, спасибо", "Hayır, teşekkürler", "No, thanks")}
+            </button>
+            <button
+              onClick={() => {
+                setShowTourPrompt(false);
+                setActiveTourStep(0);
+              }}
+              className="flex-1 py-2 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] hover:scale-105 active:scale-95 text-white rounded-xl text-xs font-bold transition-all text-center cursor-pointer shadow-lg shadow-cyan-500/20"
+            >
+              {getLangTextInline("Tanishish", "Начать тур", "Tura Başla", "Start Tour")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {activeTourStep >= 0 && activeTourStep < tourSteps.length && (
+        <>
+          {/* ── Click-away layer (transparent, just catches clicks) ── */}
+          <div
+            className="fixed inset-0 z-[9997] cursor-pointer"
+            onClick={() => {
+              setActiveTourStep(-1);
+              localStorage.setItem('kanilab_tour_completed', 'true');
+            }}
+          />
+
+          {/* ── Spotlight: boxShadow creates dark surround, element visible through hole ── */}
+          {tourRect && (
+            <div
+              style={{
+                position: 'fixed',
+                top:    tourRect.top    - 10,
+                left:   tourRect.left   - 10,
+                width:  tourRect.width  + 20,
+                height: tourRect.height + 20,
+                borderRadius: '14px',
+                /* glow breathing animation (defined in index.css) */
+                animation: 'tour-glow 2.5s ease-in-out infinite',
+                pointerEvents: 'none',
+                zIndex: 9998,
+                transition: 'top 0.5s cubic-bezier(0.34,1.56,0.64,1), left 0.5s cubic-bezier(0.34,1.56,0.64,1), width 0.5s cubic-bezier(0.34,1.56,0.64,1), height 0.5s cubic-bezier(0.34,1.56,0.64,1)',
+              }}
+            >
+              {/* Corner brackets — top-left */}
+              <span style={{position:'absolute',top:-4,left:-4,width:14,height:14,borderTop:'3px solid #00B4D8',borderLeft:'3px solid #00B4D8',borderRadius:'3px 0 0 0',animation:'tour-corner 1.8s ease-in-out infinite'}} />
+              {/* top-right */}
+              <span style={{position:'absolute',top:-4,right:-4,width:14,height:14,borderTop:'3px solid #00B4D8',borderRight:'3px solid #00B4D8',borderRadius:'0 3px 0 0',animation:'tour-corner 1.8s ease-in-out infinite 0.45s'}} />
+              {/* bottom-left */}
+              <span style={{position:'absolute',bottom:-4,left:-4,width:14,height:14,borderBottom:'3px solid #00B4D8',borderLeft:'3px solid #00B4D8',borderRadius:'0 0 0 3px',animation:'tour-corner 1.8s ease-in-out infinite 0.9s'}} />
+              {/* bottom-right */}
+              <span style={{position:'absolute',bottom:-4,right:-4,width:14,height:14,borderBottom:'3px solid #00B4D8',borderRight:'3px solid #00B4D8',borderRadius:'0 0 3px 0',animation:'tour-corner 1.8s ease-in-out infinite 1.35s'}} />
+            </div>
+          )}
+
+          {/* ── Premium Tour Card ── */}
+          {(() => {
+            const pad = 16;
+            const cardW = 320;
+            const cardH = 260;
+            const viewW = window.innerWidth;
+            const viewH = window.innerHeight;
+            let top: number, left: number;
+            if (tourRect) {
+              /* position card below the spotlight; flip above if insufficient space */
+              const spaceBelow = viewH - (tourRect.bottom + 18);
+              top = spaceBelow >= cardH
+                ? tourRect.bottom + 18
+                : Math.max(pad, tourRect.top - cardH - 18);
+              /* center card on element, clamp within viewport */
+              left = Math.max(pad, Math.min(viewW - cardW - pad, tourRect.left + tourRect.width / 2 - cardW / 2));
+            } else {
+              /* Fallback: center of viewport */
+              top = viewH / 2 - cardH / 2;
+              left = viewW / 2 - cardW / 2;
+            }
+            const progress = ((activeTourStep + 1) / tourSteps.length) * 100;
+
+            return (
+              <div
+                key={activeTourStep}
+                style={{
+                  position: 'fixed',
+                  top,
+                  left,
+                  width: cardW,
+                  zIndex: 9999,
+                  animation: 'tour-card-in 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards',
+                  transition: 'top 0.5s cubic-bezier(0.34,1.56,0.64,1), left 0.5s cubic-bezier(0.34,1.56,0.64,1)',
+                }}
+              >
+                {/* Gradient header */}
+                <div
+                  style={{
+                    background: 'linear-gradient(135deg,#00C6E0 0%,#0096C7 50%,#0077B6 100%)',
+                    borderRadius: '24px 24px 0 0',
+                    padding: '18px 20px 16px',
+                  }}
+                >
+                  {/* Top row */}
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:10}}>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}>
+                      <span style={{fontSize:18}}>{tourSteps[activeTourStep].icon ?? '✨'}</span>
+                      <span style={{color:'rgba(255,255,255,0.75)',fontSize:9,fontWeight:900,textTransform:'uppercase',letterSpacing:'0.12em'}}>
+                        {getLangTextInline('Tanishuv sayohati','Тур знакомства','Tanışma Turu','Site Tour')}
+                        &nbsp;·&nbsp;{activeTourStep + 1}/{tourSteps.length}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => { setActiveTourStep(-1); localStorage.setItem('kanilab_tour_completed','true'); }}
+                      style={{color:'rgba(255,255,255,0.5)',background:'rgba(255,255,255,0.12)',border:'none',borderRadius:999,width:22,height:22,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:900,transition:'all .2s'}}
+                      onMouseEnter={e=>(e.currentTarget.style.color='#fff')}
+                      onMouseLeave={e=>(e.currentTarget.style.color='rgba(255,255,255,0.5)')}
+                    >✕</button>
+                  </div>
+                  {/* Title */}
+                  <h4 style={{color:'#fff',fontWeight:900,fontSize:15,lineHeight:1.25,margin:0}}>
+                    {tourSteps[activeTourStep].title[lang] || tourSteps[activeTourStep].title['uz']}
+                  </h4>
+                  {/* Progress bar */}
+                  <div style={{marginTop:12,height:3,background:'rgba(255,255,255,0.2)',borderRadius:99}}>
+                    <div style={{height:'100%',borderRadius:99,background:'rgba(255,255,255,0.9)',width:`${progress}%`,transition:'width 0.4s ease'}} />
+                  </div>
+                </div>
+
+                {/* Card body */}
+                <div
+                  style={{
+                    background: 'var(--tour-bg, white)',
+                    borderRadius: '0 0 24px 24px',
+                    padding: '16px 20px 18px',
+                    boxShadow: '0 30px 60px -10px rgba(0,0,0,0.35)',
+                  }}
+                  className="dark:[--tour-bg:#0f172a]"
+                >
+                  {/* Description */}
+                  <p style={{fontSize:12.5,lineHeight:1.6,margin:0}} className="text-slate-500 dark:text-slate-400 font-semibold">
+                    {tourSteps[activeTourStep].desc[lang] || tourSteps[activeTourStep].desc['uz']}
+                  </p>
+
+                  {/* Dot navigation */}
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:5,marginTop:14}}>
+                    {tourSteps.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveTourStep(idx)}
+                        style={{
+                          height:5,
+                          width: idx === activeTourStep ? 22 : 5,
+                          borderRadius:99,
+                          border:'none',
+                          cursor:'pointer',
+                          background: idx === activeTourStep ? '#00B4D8' : '#cbd5e1',
+                          transition:'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
+                          padding:0,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Navigation row */}
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:14}}>
+                    <button
+                      onClick={() => { setActiveTourStep(-1); localStorage.setItem('kanilab_tour_completed','true'); }}
+                      style={{fontSize:11,fontWeight:700,background:'none',border:'none',cursor:'pointer',transition:'color .2s',padding:0}}
+                      className="text-slate-400 hover:text-red-400"
+                    >
+                      {getLangTextInline('Yopish','Закрыть','Kapat','Close')}
+                    </button>
+
+                    <div style={{display:'flex',gap:8}}>
+                      {activeTourStep > 0 && (
+                        <button
+                          onClick={() => setActiveTourStep(prev => prev - 1)}
+                          style={{
+                            padding:'7px 14px',borderRadius:12,fontSize:11,fontWeight:800,
+                            border:'none',cursor:'pointer',transition:'all .2s',
+                          }}
+                          className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
+                        >
+                          ← {getLangTextInline('Ortga','Назад','Geri','Back')}
+                        </button>
+                      )}
+                      <button
+                        onClick={() => {
+                          if (activeTourStep === tourSteps.length - 1) {
+                            setActiveTourStep(-1);
+                            localStorage.setItem('kanilab_tour_completed', 'true');
+                          } else {
+                            setActiveTourStep(prev => prev + 1);
+                          }
+                        }}
+                        style={{
+                          padding:'7px 18px',borderRadius:12,fontSize:11,fontWeight:800,
+                          border:'none',cursor:'pointer',
+                          background:'linear-gradient(135deg,#00B4D8,#0096C7)',
+                          color:'#fff',
+                          boxShadow:'0 4px 14px rgba(0,180,216,0.35)',
+                          transition:'all .2s',
+                        }}
+                        onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.05)';e.currentTarget.style.boxShadow='0 6px 20px rgba(0,180,216,0.5)'}}
+                        onMouseLeave={e=>{e.currentTarget.style.transform='scale(1)';e.currentTarget.style.boxShadow='0 4px 14px rgba(0,180,216,0.35)'}}
+                      >
+                        {activeTourStep === tourSteps.length - 1
+                          ? `✓ ${getLangTextInline('Tugadi','Готово','Tamam','Done')}`
+                          : `${getLangTextInline('Keyingi','Далее','İleri','Next')} →`}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+        </>
       )}
 
     </div>
