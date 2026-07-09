@@ -2859,6 +2859,7 @@ export default function App() {
         en: "Kani-Lab Logo"
       },
       icon: "🏥",
+      mobileTab: "home",
       desc: {
         uz: "KANI-LAB klinik laboratoriyasiga xush kelibsiz! Ushbu logotipni bosish orqali istalgan sahifadan bosh sahifaga qaytishingiz mumkin.",
         ru: "Добро пожаловать в клиническую лабораторию KANI-LAB! Нажав на этот логотип, вы можете вернуться на главную страницу с любой другой.",
@@ -2875,6 +2876,7 @@ export default function App() {
         en: "Home Page"
       },
       icon: "🏠",
+      mobileTab: "home",
       desc: {
         uz: "Saytning asosiy sahifasiga o'tish. Bu yerda siz laboratoriyamiz haqida umumiy va eng  muhim ma'lumotlarni topasiz.",
         ru: "Переход на главную страницу. Здесь вы найдете общую и самую важную информацию о нашей лаборатории.",
@@ -2891,6 +2893,7 @@ export default function App() {
         en: "About Us"
       },
       icon: "🔬",
+      mobileTab: "about",
       desc: {
         uz: "Laboratoriyamiz tarixi, qadriyatlari, missiyasi va litsenziyalari bilan tanishish uchun ushbu bo'limni ko'zdan kechiring.",
         ru: "Изучите этот раздел, чтобы узнать об истории, ценностях, миссии и лицензиях нашей лаборатории.",
@@ -2907,6 +2910,7 @@ export default function App() {
         en: "Analyses Catalog"
       },
       icon: "🧪",
+      mobileTab: "services",
       desc: {
         uz: "Bizning barcha tahlillarimiz ro'yxati, ularning batafsil tavsiflari, topshirish qoidalari va narxlari bilan ushbu bo'limda tanishishingiz mumkin.",
         ru: "В этом разделе вы можете ознакомиться со списком всех наших анализов, их подробным описанием, правилами сдачи и ценами.",
@@ -2923,6 +2927,7 @@ export default function App() {
         en: "Our Team"
       },
       icon: "👨‍⚕️",
+      mobileTab: "doctors",
       desc: {
         uz: "Kani-Lab ning yuqori malakali shifokorlari, laboratoriya mutaxassislari hamda tibbiy xodimlari ro'yxati va ular haqida ma'lumot.",
         ru: "Список и информация о высококвалифицированных врачах, лабораторных специалистах и медицинском персонале Kani-Lab.",
@@ -2939,6 +2944,7 @@ export default function App() {
         en: "FAQ"
       },
       icon: "❓",
+      mobileTab: "faq",
       desc: {
         uz: "Tahlillar topshirish va laboratoriya xizmatlariga doir tez-tez beriladigan savollarga javoblarni shu yerdan topishingiz mumkin.",
         ru: "Здесь вы найдете ответы на часто задаваемые вопросы, касающиеся сдачи анализов и лабораторных услуг.",
@@ -2955,6 +2961,7 @@ export default function App() {
         en: "News & Blog"
       },
       icon: "📰",
+      mobileTab: "news",
       desc: {
         uz: "Tibbiyot sohasidagi eng so'nggi yangiliklar, laboratoriya e'lonlari va salomatlikka oid foydali maqolalar bo'limi.",
         ru: "Раздел последних новостей в области медицины, объявлений лаборатории и полезных статей о здоровье.",
@@ -2971,6 +2978,7 @@ export default function App() {
         en: "Contacts & Branches"
       },
       icon: "📞",
+      mobileTab: "contact",
       desc: {
         uz: "Biz bilan bog'lanish ma'lumotlari hamda barcha filiallarimizning joylashuvi, telefon raqamlari va manzillari.",
         ru: "Контактная информация для связи с нами, а также расположение, телефоны и адреса всех наших филиалов.",
@@ -3163,6 +3171,14 @@ export default function App() {
       return;
     }
 
+    const step = tourSteps[activeTourStep];
+    const isMobile = window.innerWidth < 1280;
+
+    // On mobile: navigate to the relevant tab so user can see the inner sections
+    if (isMobile && (step as any).mobileTab) {
+      setActiveTab((step as any).mobileTab as any);
+    }
+
     // Desktop-only elements that are hidden on mobile (<1280px)
     const desktopOnlyIds = [
       'navbar-link-home','navbar-dropdown-about','navbar-services','navbar-dropdown-team',
@@ -3171,9 +3187,6 @@ export default function App() {
     ];
 
     const updateRect = () => {
-      const step = tourSteps[activeTourStep];
-      const isMobile = window.innerWidth < 1280;
-
       // On mobile, desktop-only nav elements → fall back to hamburger button
       let targetId = step.targetId;
       if (isMobile && desktopOnlyIds.includes(targetId)) {
@@ -3185,18 +3198,21 @@ export default function App() {
         const rect = el.getBoundingClientRect();
         // Element exists but is invisible (hidden via display:none etc.)
         if (rect.width === 0 && rect.height === 0) {
-          // Try hamburger as last resort
           const hamburger = document.getElementById('mobile-menu-toggle');
           if (hamburger) {
-            const hr = hamburger.getBoundingClientRect();
-            setTourRect(hr);
+            setTourRect(hamburger.getBoundingClientRect());
           } else {
             setTourRect(null);
           }
           return;
         }
         if (targetId.startsWith('footer-')) {
+          // Scroll to footer then re-read rect
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => {
+            setTourRect(el.getBoundingClientRect());
+          }, 400);
+          return;
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -3208,7 +3224,7 @@ export default function App() {
 
     updateRect();
     const t1 = setTimeout(updateRect, 150);
-    const t2 = setTimeout(updateRect, 450);
+    const t2 = setTimeout(updateRect, 500);
 
     window.addEventListener('resize', updateRect);
     window.addEventListener('scroll', updateRect);
@@ -8763,7 +8779,7 @@ export default function App() {
           ONBOARDING TOUR FOR FIRST-TIME VISITORS
          ========================================== */}
       {showTourPrompt && activeTourStep === -1 && (
-        <div className="fixed bottom-6 right-6 z-[9999] max-w-sm w-full mx-4 sm:mx-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/85 dark:border-slate-800/85 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 animate-slide-up">
+        <div className="fixed bottom-4 inset-x-3 sm:inset-x-auto sm:right-6 sm:w-96 z-[9999] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/85 dark:border-slate-800/85 rounded-3xl p-5 shadow-2xl flex flex-col gap-4 animate-slide-up">
           <div className="flex items-center gap-3">
             <span className="text-3xl">✨</span>
             <div>
@@ -8818,32 +8834,41 @@ export default function App() {
           />
 
           {/* ── Spotlight: boxShadow creates dark surround, element visible through hole ── */}
-          {tourRect && (
-            <div
-              style={{
-                position: 'fixed',
-                top:    tourRect.top    - 10,
-                left:   tourRect.left   - 10,
-                width:  tourRect.width  + 20,
-                height: tourRect.height + 20,
-                borderRadius: '14px',
-                /* glow breathing animation (defined in index.css) */
-                animation: 'tour-glow 2.5s ease-in-out infinite',
-                pointerEvents: 'none',
-                zIndex: 9998,
-                transition: 'top 0.5s cubic-bezier(0.34,1.56,0.64,1), left 0.5s cubic-bezier(0.34,1.56,0.64,1), width 0.5s cubic-bezier(0.34,1.56,0.64,1), height 0.5s cubic-bezier(0.34,1.56,0.64,1)',
-              }}
-            >
-              {/* Corner brackets — top-left */}
-              <span style={{position:'absolute',top:-4,left:-4,width:14,height:14,borderTop:'3px solid #00B4D8',borderLeft:'3px solid #00B4D8',borderRadius:'3px 0 0 0',animation:'tour-corner 1.8s ease-in-out infinite'}} />
-              {/* top-right */}
-              <span style={{position:'absolute',top:-4,right:-4,width:14,height:14,borderTop:'3px solid #00B4D8',borderRight:'3px solid #00B4D8',borderRadius:'0 3px 0 0',animation:'tour-corner 1.8s ease-in-out infinite 0.45s'}} />
-              {/* bottom-left */}
-              <span style={{position:'absolute',bottom:-4,left:-4,width:14,height:14,borderBottom:'3px solid #00B4D8',borderLeft:'3px solid #00B4D8',borderRadius:'0 0 0 3px',animation:'tour-corner 1.8s ease-in-out infinite 0.9s'}} />
-              {/* bottom-right */}
-              <span style={{position:'absolute',bottom:-4,right:-4,width:14,height:14,borderBottom:'3px solid #00B4D8',borderRight:'3px solid #00B4D8',borderRadius:'0 0 3px 0',animation:'tour-corner 1.8s ease-in-out infinite 1.35s'}} />
-            </div>
-          )}
+          {tourRect && (() => {
+            const vW = window.innerWidth;
+            const vH = window.innerHeight;
+            const pad = 10;
+            const sTop  = Math.max(0, tourRect.top - pad);
+            const sLeft = Math.max(0, tourRect.left - pad);
+            const sRight = Math.min(vW, tourRect.right + pad);
+            const sBottom = Math.min(vH, tourRect.bottom + pad);
+            return (
+              <div
+                style={{
+                  position: 'fixed',
+                  top:    sTop,
+                  left:   sLeft,
+                  width:  sRight - sLeft,
+                  height: sBottom - sTop,
+                  borderRadius: '14px',
+                  animation: 'tour-glow 2.5s ease-in-out infinite',
+                  pointerEvents: 'none',
+                  zIndex: 9998,
+                  overflow: 'visible',
+                  transition: 'top 0.5s cubic-bezier(0.34,1.56,0.64,1), left 0.5s cubic-bezier(0.34,1.56,0.64,1), width 0.5s cubic-bezier(0.34,1.56,0.64,1), height 0.5s cubic-bezier(0.34,1.56,0.64,1)',
+                }}
+              >
+                {/* Corner brackets — top-left */}
+                <span style={{position:'absolute',top:-4,left:-4,width:14,height:14,borderTop:'3px solid #00B4D8',borderLeft:'3px solid #00B4D8',borderRadius:'3px 0 0 0',animation:'tour-corner 1.8s ease-in-out infinite'}} />
+                {/* top-right */}
+                <span style={{position:'absolute',top:-4,right:-4,width:14,height:14,borderTop:'3px solid #00B4D8',borderRight:'3px solid #00B4D8',borderRadius:'0 3px 0 0',animation:'tour-corner 1.8s ease-in-out infinite 0.45s'}} />
+                {/* bottom-left */}
+                <span style={{position:'absolute',bottom:-4,left:-4,width:14,height:14,borderBottom:'3px solid #00B4D8',borderLeft:'3px solid #00B4D8',borderRadius:'0 0 0 3px',animation:'tour-corner 1.8s ease-in-out infinite 0.9s'}} />
+                {/* bottom-right */}
+                <span style={{position:'absolute',bottom:-4,right:-4,width:14,height:14,borderBottom:'3px solid #00B4D8',borderRight:'3px solid #00B4D8',borderRadius:'0 0 3px 0',animation:'tour-corner 1.8s ease-in-out infinite 1.35s'}} />
+              </div>
+            );
+          })()}
 
           {/* ── Premium Tour Card ── */}
           {(() => {
@@ -8858,7 +8883,15 @@ export default function App() {
             if (tourRect) {
               /* On mobile: always show card at BOTTOM of screen so it doesn't overlap element */
               if (isMobile) {
-                top = viewH - cardH - pad - 8; // near bottom
+                const spotlightMidY = tourRect.top + tourRect.height / 2;
+                const safeBottom = 80; // avoid browser bottom bar
+                if (spotlightMidY > viewH / 2) {
+                  // Spotlight is in bottom half → card goes ABOVE
+                  top = Math.max(pad + 60, tourRect.top - cardH - 14);
+                } else {
+                  // Spotlight is in top half → card goes at BOTTOM
+                  top = viewH - cardH - safeBottom;
+                }
                 left = pad;
               } else {
                 /* position card below the spotlight; flip above if insufficient space */
@@ -8872,7 +8905,7 @@ export default function App() {
             } else {
               /* Fallback: bottom of viewport on mobile, center otherwise */
               if (isMobile) {
-                top = viewH - cardH - pad - 8;
+                top = viewH - cardH - 80;
                 left = pad;
               } else {
                 top = viewH / 2 - cardH / 2;
