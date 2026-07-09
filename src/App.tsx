@@ -2423,6 +2423,26 @@ export default function App() {
   // Geolocation API fetch
   useEffect(() => {
     const fetchGeoLocation = async () => {
+      // 1. Try freeipapi.com (Recommended: free, HTTPS, supports CORS, no keys)
+      try {
+        const res = await fetch('https://freeipapi.com/api/json');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.countryName) {
+            setUserLocation({
+              country: data.countryName,
+              countryCode: data.countryCode || 'UZ',
+              region: data.regionName || 'Tashkent',
+              city: data.cityName || 'Tashkent'
+            });
+            return;
+          }
+        }
+      } catch (e) {
+        // Silent catch to prevent red noise in console
+      }
+
+      // 2. Fallback to ipapi.co only if freeipapi fails
       try {
         const res = await fetch('https://ipapi.co/json/');
         if (res.ok) {
@@ -2438,26 +2458,16 @@ export default function App() {
           }
         }
       } catch (e) {
-        console.warn("ipapi.co failed, trying fallback...", e);
+        // Silent catch
       }
-      
-      try {
-        const res = await fetch('https://ipwhois.app/json/');
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.country) {
-            setUserLocation({
-              country: data.country,
-              countryCode: data.country_code || 'UZ',
-              region: data.region || 'Tashkent',
-              city: data.city || 'Tashkent'
-            });
-            return;
-          }
-        }
-      } catch (err) {
-        console.warn("All geolocation APIs failed, using defaults:", err);
-      }
+
+      // Default fallback
+      setUserLocation({
+        country: 'Uzbekistan',
+        countryCode: 'UZ',
+        region: 'Tashkent',
+        city: 'Tashkent'
+      });
     };
     fetchGeoLocation();
   }, []);
@@ -2533,8 +2543,7 @@ export default function App() {
       }
       setTotalVisits(localVisits);
 
-      if (!supabase) {
-        setHasDbAnalyticsTable(false);
+      if (!supabase || !hasDbAnalyticsTable) {
         return;
       }
 
@@ -2558,6 +2567,7 @@ export default function App() {
             
           if (insertError) {
             setHasDbAnalyticsTable(false);
+            return;
           }
         }
 
@@ -2572,15 +2582,14 @@ export default function App() {
           setHasDbAnalyticsTable(true);
         }
       } catch (err) {
-        console.warn("Analytics DB operation failed:", err);
         setHasDbAnalyticsTable(false);
       }
     };
 
-    if (userLocation.country) {
+    if (userLocation.country && hasDbAnalyticsTable) {
       registerVisit();
     }
-  }, [userLocation]);
+  }, [userLocation, hasDbAnalyticsTable]);
 
   // Qanday boriladi states
   const [routeFrom, setRouteFrom] = useState('');
