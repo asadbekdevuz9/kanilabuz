@@ -3163,28 +3163,52 @@ export default function App() {
       return;
     }
 
+    // Desktop-only elements that are hidden on mobile (<1280px)
+    const desktopOnlyIds = [
+      'navbar-link-home','navbar-dropdown-about','navbar-services','navbar-dropdown-team',
+      'navbar-link-faq','navbar-link-news','navbar-dropdown-contact',
+      'lang-switcher','navbar-check-receipt','book-appointment-navbar'
+    ];
+
     const updateRect = () => {
       const step = tourSteps[activeTourStep];
-      const el = document.getElementById(step.targetId);
+      const isMobile = window.innerWidth < 1280;
+
+      // On mobile, desktop-only nav elements → fall back to hamburger button
+      let targetId = step.targetId;
+      if (isMobile && desktopOnlyIds.includes(targetId)) {
+        targetId = 'mobile-menu-toggle';
+      }
+
+      const el = document.getElementById(targetId);
       if (el) {
-        if (step.targetId.startsWith('footer-')) {
+        const rect = el.getBoundingClientRect();
+        // Element exists but is invisible (hidden via display:none etc.)
+        if (rect.width === 0 && rect.height === 0) {
+          // Try hamburger as last resort
+          const hamburger = document.getElementById('mobile-menu-toggle');
+          if (hamburger) {
+            const hr = hamburger.getBoundingClientRect();
+            setTourRect(hr);
+          } else {
+            setTourRect(null);
+          }
+          return;
+        }
+        if (targetId.startsWith('footer-')) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        const rect = el.getBoundingClientRect();
         setTourRect(rect);
-        console.log('[Tour] step', activeTourStep, 'element', step.targetId, 'rect:', rect);
       } else {
-        console.warn('[Tour] Element NOT FOUND:', step.targetId);
         setTourRect(null);
       }
     };
 
-    // Try immediately, then retry a few times in case of DOM timing
     updateRect();
     const t1 = setTimeout(updateRect, 150);
-    const t2 = setTimeout(updateRect, 400);
+    const t2 = setTimeout(updateRect, 450);
 
     window.addEventListener('resize', updateRect);
     window.addEventListener('scroll', updateRect);
@@ -8823,24 +8847,37 @@ export default function App() {
 
           {/* ── Premium Tour Card ── */}
           {(() => {
-            const pad = 16;
-            const cardW = 320;
-            const cardH = 260;
+            const pad = 12;
             const viewW = window.innerWidth;
             const viewH = window.innerHeight;
+            const isMobile = viewW < 640;
+            /* Responsive card width */
+            const cardW = Math.min(320, viewW - pad * 2);
+            const cardH = isMobile ? 240 : 260;
             let top: number, left: number;
             if (tourRect) {
-              /* position card below the spotlight; flip above if insufficient space */
-              const spaceBelow = viewH - (tourRect.bottom + 18);
-              top = spaceBelow >= cardH
-                ? tourRect.bottom + 18
-                : Math.max(pad, tourRect.top - cardH - 18);
-              /* center card on element, clamp within viewport */
-              left = Math.max(pad, Math.min(viewW - cardW - pad, tourRect.left + tourRect.width / 2 - cardW / 2));
+              /* On mobile: always show card at BOTTOM of screen so it doesn't overlap element */
+              if (isMobile) {
+                top = viewH - cardH - pad - 8; // near bottom
+                left = pad;
+              } else {
+                /* position card below the spotlight; flip above if insufficient space */
+                const spaceBelow = viewH - (tourRect.bottom + 18);
+                top = spaceBelow >= cardH
+                  ? tourRect.bottom + 18
+                  : Math.max(pad, tourRect.top - cardH - 18);
+                /* center card on element, clamp within viewport */
+                left = Math.max(pad, Math.min(viewW - cardW - pad, tourRect.left + tourRect.width / 2 - cardW / 2));
+              }
             } else {
-              /* Fallback: center of viewport */
-              top = viewH / 2 - cardH / 2;
-              left = viewW / 2 - cardW / 2;
+              /* Fallback: bottom of viewport on mobile, center otherwise */
+              if (isMobile) {
+                top = viewH - cardH - pad - 8;
+                left = pad;
+              } else {
+                top = viewH / 2 - cardH / 2;
+                left = viewW / 2 - cardW / 2;
+              }
             }
             const progress = ((activeTourStep + 1) / tourSteps.length) * 100;
 
@@ -8862,23 +8899,21 @@ export default function App() {
                   style={{
                     background: 'linear-gradient(135deg,#00C6E0 0%,#0096C7 50%,#0077B6 100%)',
                     borderRadius: '24px 24px 0 0',
-                    padding: '18px 20px 16px',
+                    padding: isMobile ? '14px 16px 12px' : '18px 20px 16px',
                   }}
                 >
                   {/* Top row */}
-                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:10}}>
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom: isMobile ? 6 : 10}}>
                     <div style={{display:'flex',alignItems:'center',gap:8}}>
-                      <span style={{fontSize:18}}>{tourSteps[activeTourStep].icon ?? '✨'}</span>
+                      <span style={{fontSize: isMobile ? 16 : 18}}>{tourSteps[activeTourStep].icon ?? '✨'}</span>
                       <span style={{color:'rgba(255,255,255,0.75)',fontSize:9,fontWeight:900,textTransform:'uppercase',letterSpacing:'0.12em'}}>
-                        {getLangTextInline('Tanishuv sayohati','Тур знакомства','Tanışma Turu','Site Tour')}
+                        {getLangTextInline('Tanishuv','Тур','Tanışma','Tour')}
                         &nbsp;·&nbsp;{activeTourStep + 1}/{tourSteps.length}
                       </span>
                     </div>
                     <button
                       onClick={() => { setActiveTourStep(-1); localStorage.setItem('kanilab_tour_completed','true'); }}
-                      style={{color:'rgba(255,255,255,0.5)',background:'rgba(255,255,255,0.12)',border:'none',borderRadius:999,width:22,height:22,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:900,transition:'all .2s'}}
-                      onMouseEnter={e=>(e.currentTarget.style.color='#fff')}
-                      onMouseLeave={e=>(e.currentTarget.style.color='rgba(255,255,255,0.5)')}
+                      style={{color:'rgba(255,255,255,0.5)',background:'rgba(255,255,255,0.12)',border:'none',borderRadius:999,width: isMobile ? 28 : 22,height: isMobile ? 28 : 22,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',fontSize: isMobile ? 13 : 11,fontWeight:900,transition:'all .2s',flexShrink:0}}
                     >✕</button>
                   </div>
                   {/* Title */}
@@ -8896,17 +8931,18 @@ export default function App() {
                   style={{
                     background: 'var(--tour-bg, white)',
                     borderRadius: '0 0 24px 24px',
-                    padding: '16px 20px 18px',
+                    padding: isMobile ? '12px 16px 14px' : '16px 20px 18px',
                     boxShadow: '0 30px 60px -10px rgba(0,0,0,0.35)',
                   }}
                   className="dark:[--tour-bg:#0f172a]"
                 >
                   {/* Description */}
-                  <p style={{fontSize:12.5,lineHeight:1.6,margin:0}} className="text-slate-500 dark:text-slate-400 font-semibold">
+                  <p style={{fontSize: isMobile ? 12 : 12.5, lineHeight:1.55,margin:0}} className="text-slate-500 dark:text-slate-400 font-semibold">
                     {tourSteps[activeTourStep].desc[lang] || tourSteps[activeTourStep].desc['uz']}
                   </p>
 
-                  {/* Dot navigation */}
+                  {/* Dot navigation — only on desktop (too many dots for mobile) */}
+                  {!isMobile && (
                   <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:5,marginTop:14}}>
                     {tourSteps.map((_, idx) => (
                       <button
@@ -8925,9 +8961,10 @@ export default function App() {
                       />
                     ))}
                   </div>
+                  )}
 
                   {/* Navigation row */}
-                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:14}}>
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop: isMobile ? 10 : 14}}>
                     <button
                       onClick={() => { setActiveTourStep(-1); localStorage.setItem('kanilab_tour_completed','true'); }}
                       style={{fontSize:11,fontWeight:700,background:'none',border:'none',cursor:'pointer',transition:'color .2s',padding:0}}
@@ -8941,7 +8978,8 @@ export default function App() {
                         <button
                           onClick={() => setActiveTourStep(prev => prev - 1)}
                           style={{
-                            padding:'7px 14px',borderRadius:12,fontSize:11,fontWeight:800,
+                            padding: isMobile ? '9px 16px' : '7px 14px',
+                            borderRadius:12,fontSize: isMobile ? 12 : 11,fontWeight:800,
                             border:'none',cursor:'pointer',transition:'all .2s',
                           }}
                           className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300"
@@ -8959,7 +8997,8 @@ export default function App() {
                           }
                         }}
                         style={{
-                          padding:'7px 18px',borderRadius:12,fontSize:11,fontWeight:800,
+                          padding: isMobile ? '9px 20px' : '7px 18px',
+                          borderRadius:12, fontSize: isMobile ? 12 : 11, fontWeight:800,
                           border:'none',cursor:'pointer',
                           background:'linear-gradient(135deg,#00B4D8,#0096C7)',
                           color:'#fff',
