@@ -7440,14 +7440,14 @@ export default function App() {
           <div id="footer-contact" className="flex flex-col gap-4 text-left">
             <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{getLangTextInline('Tezkor Bogʻlanish', 'Быстрая Связь', 'Hızlı İletişim', 'Quick Contact')}</h4>
             
-            <div className="space-y-3">
+            <div className="grid grid-cols-2 xl:grid-cols-1 gap-3">
               <a href="tel:+998900751234" className="flex items-center gap-3 text-xs font-extrabold text-slate-700 dark:text-slate-300 hover:text-[#00B4D8] transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center group-hover:bg-[#00B4D8] group-hover:text-white transition-colors shrink-0">
                   <Phone className="w-3.5 h-3.5" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider leading-none mb-1">Mobile Concierge</span>
-                  <span className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors">+998 90 075 12 34</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[9px] text-slate-400 uppercase font-black tracking-wider leading-none mb-1 truncate">Mobile Concierge</span>
+                  <span className="text-[11px] sm:text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors truncate">+998 90 075 12 34</span>
                 </div>
               </a>
 
@@ -7455,9 +7455,9 @@ export default function App() {
                 <div className="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center group-hover:bg-[#00B4D8] group-hover:text-white transition-colors shrink-0">
                   <Phone className="w-3.5 h-3.5" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider leading-none mb-1">Landline Support</span>
-                  <span className="text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors">+998 78 150 12 34</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[9px] text-slate-400 uppercase font-black tracking-wider leading-none mb-1 truncate">Landline Support</span>
+                  <span className="text-[11px] sm:text-xs font-black text-slate-800 dark:text-slate-200 group-hover:text-[#00B4D8] transition-colors truncate">+998 78 150 12 34</span>
                 </div>
               </a>
             </div>
