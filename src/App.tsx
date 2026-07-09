@@ -3262,6 +3262,8 @@ export default function App() {
             setTourRect(el.getBoundingClientRect());
           }, 400);
           return;
+        } else if (targetId.startsWith('mobile-')) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -4743,12 +4745,14 @@ export default function App() {
 
             <div className="flex flex-col gap-3 pb-6">
               <button 
+                id="mobile-nav-book"
                 onClick={() => { setIsMobileMenuOpen(false); startEmptyBooking(); }} 
                 className="w-full py-4 bg-gradient-to-r from-[#00B4D8] to-[#0096C7] text-white rounded-2xl text-sm font-black flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
               >
                 <Calendar className="w-5 h-5" /><span>{t.btnBook}</span>
               </button>
               <button 
+                id="mobile-nav-check"
                 onClick={() => { setIsMobileMenuOpen(false); setIsCheckModalOpen(true); }} 
                 className="w-full py-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white rounded-2xl text-sm font-black flex items-center justify-center gap-2"
               >
