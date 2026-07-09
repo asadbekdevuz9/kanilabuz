@@ -4535,7 +4535,6 @@ export default function App() {
 
             <div className="flex flex-col gap-2">
               <button 
-                id="mobile-nav-book"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   startEmptyBooking();
@@ -4546,7 +4545,6 @@ export default function App() {
                 <span>{t.btnBook}</span>
               </button>
               <button 
-                id="mobile-nav-check"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   setIsCheckModalOpen(true);
