@@ -2300,7 +2300,9 @@ export default function App() {
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
   const [onlineCount, setOnlineCount] = useState<number>(0);
   const [totalVisits, setTotalVisits] = useState<number>(14250);
-  const [hasDbAnalyticsTable, setHasDbAnalyticsTable] = useState<boolean>(true);
+  const [hasDbAnalyticsTable, setHasDbAnalyticsTable] = useState<boolean>(() => {
+    return localStorage.getItem('kanilab_db_analytics_failed') !== 'true';
+  });
   const [userLocation, setUserLocation] = useState({
     country: 'Uzbekistan',
     countryCode: 'UZ',
@@ -2423,6 +2425,20 @@ export default function App() {
   // Geolocation API fetch
   useEffect(() => {
     const fetchGeoLocation = async () => {
+      // If running on localhost / development environment, skip API fetches to avoid console CORS errors
+      const isLocal = window.location.hostname === 'localhost' || 
+                      window.location.hostname === '127.0.0.1' || 
+                      window.location.hostname.endsWith('.local');
+      if (isLocal) {
+        setUserLocation({
+          country: 'Uzbekistan',
+          countryCode: 'UZ',
+          region: 'Tashkent',
+          city: 'Tashkent'
+        });
+        return;
+      }
+
       // 1. Try freeipapi.com (Recommended: free, HTTPS, supports CORS, no keys)
       try {
         const res = await fetch('https://freeipapi.com/api/json');
@@ -2567,6 +2583,7 @@ export default function App() {
             
           if (insertError) {
             setHasDbAnalyticsTable(false);
+            localStorage.setItem('kanilab_db_analytics_failed', 'true');
             return;
           }
         }
@@ -2577,12 +2594,14 @@ export default function App() {
 
         if (countError) {
           setHasDbAnalyticsTable(false);
+          localStorage.setItem('kanilab_db_analytics_failed', 'true');
         } else if (count !== null) {
           setTotalVisits(count + 14250);
           setHasDbAnalyticsTable(true);
         }
       } catch (err) {
         setHasDbAnalyticsTable(false);
+        localStorage.setItem('kanilab_db_analytics_failed', 'true');
       }
     };
 
