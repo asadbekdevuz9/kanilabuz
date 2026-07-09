@@ -3208,13 +3208,17 @@ export default function App() {
 
     // On mobile: mapping of desktop navbar IDs to their corresponding links inside the mobile menu panel
     const mobileMenuLinkMapping: Record<string, string> = {
-      'navbar-link-home':      'mobile-nav-home',
-      'navbar-dropdown-about': 'mobile-nav-about',
-      'navbar-services':       'mobile-nav-services',
-      'navbar-dropdown-team':  'mobile-nav-team',
-      'navbar-link-faq':       'mobile-nav-faq',
-      'navbar-link-news':      'mobile-nav-news',
-      'navbar-dropdown-contact': 'mobile-nav-contact'
+      'navbar-link-home':        'mobile-nav-home',
+      'navbar-dropdown-about':   'mobile-nav-about',
+      'navbar-services':         'mobile-nav-services',
+      'navbar-dropdown-team':    'mobile-nav-team',
+      'navbar-link-faq':         'mobile-nav-faq',
+      'navbar-link-news':        'mobile-nav-news',
+      'navbar-dropdown-contact':  'mobile-nav-contact',
+      'navbar-check-receipt':     'mobile-nav-check',
+      'book-appointment-navbar':  'mobile-nav-book',
+      'lang-switcher':           'mobile-lang-switcher',
+      'theme-toggle':            'mobile-theme-toggle'
     };
 
     if (isMobile) {
@@ -3226,9 +3230,7 @@ export default function App() {
     }
 
     // Desktop-only elements that are hidden on mobile (<1280px) and should fall back to hamburger button
-    const desktopOnlyIds = [
-      'navbar-check-receipt','book-appointment-navbar'
-    ];
+    const desktopOnlyIds: string[] = [];
 
     const updateRect = () => {
       let targetId = step.targetId;
@@ -4252,7 +4254,7 @@ export default function App() {
           <div className="flex items-center gap-2 xl:gap-4 shrink-0">
             
             {/* Language Switcher */}
-            <div id="lang-switcher" className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
+            <div id="lang-switcher" className="hidden sm:flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
               <button 
                 id="lang-uz"
                 onClick={() => handleLangChange('uz')} 
@@ -4288,7 +4290,7 @@ export default function App() {
               id="theme-toggle"
               onClick={handleThemeToggle} 
               aria-label="Toggle theme"
-              className="p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-300"
+              className="hidden sm:block p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-300"
             >
               {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-800" />}
             </button>
@@ -4533,6 +4535,7 @@ export default function App() {
 
             <div className="flex flex-col gap-2">
               <button 
+                id="mobile-nav-book"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   startEmptyBooking();
@@ -4543,6 +4546,7 @@ export default function App() {
                 <span>{t.btnBook}</span>
               </button>
               <button 
+                id="mobile-nav-check"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   setIsCheckModalOpen(true);
@@ -4567,13 +4571,13 @@ export default function App() {
               <KaniLabLogo className="w-10 h-10" />
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1">
+              <div id="mobile-lang-switcher" className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1">
                 <button onClick={() => handleLangChange('uz')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'uz' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>UZ</button>
                 <button onClick={() => handleLangChange('ru')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'ru' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>RU</button>
                 <button onClick={() => handleLangChange('tr')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'tr' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>TR</button>
                 <button onClick={() => handleLangChange('en')} className={`px-3 py-1.5 rounded-full transition-all ${lang === 'en' ? 'bg-[#00B4D8] text-white' : 'text-slate-500'}`}>EN</button>
               </div>
-              <button onClick={() => handleThemeToggle()} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
+              <button id="mobile-theme-toggle" onClick={() => handleThemeToggle()} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
                 {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
               </button>
               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full text-slate-700 dark:text-slate-300">
@@ -8941,10 +8945,10 @@ export default function App() {
                 const spotlightMidY = tourRect.top + tourRect.height / 2;
                 const safeBottom = 80; // avoid browser bottom bar
                 if (spotlightMidY > viewH / 2) {
-                  // Spotlight is in bottom half → card goes ABOVE
-                  top = Math.max(pad + 60, tourRect.top - cardH - 14);
+                  // Spotlight is in bottom half → place card at absolute TOP of screen (below header)
+                  top = pad + 60;
                 } else {
-                  // Spotlight is in top half → card goes at BOTTOM
+                  // Spotlight is in top half → place card at absolute BOTTOM of screen
                   top = viewH - cardH - safeBottom;
                 }
                 left = pad;
