@@ -3216,9 +3216,7 @@ export default function App() {
       'navbar-link-news':        'mobile-nav-news',
       'navbar-dropdown-contact':  'mobile-nav-contact',
       'navbar-check-receipt':     'mobile-nav-check',
-      'book-appointment-navbar':  'mobile-nav-book',
-      'lang-switcher':           'mobile-lang-switcher',
-      'theme-toggle':            'mobile-theme-toggle'
+      'book-appointment-navbar':  'mobile-nav-book'
     };
 
     if (isMobile) {
@@ -4256,7 +4254,7 @@ export default function App() {
           <div className="flex items-center gap-2 xl:gap-4 shrink-0">
             
             {/* Language Switcher */}
-            <div id="lang-switcher" className="hidden sm:flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
+            <div id="lang-switcher" className="flex bg-slate-200/50 dark:bg-slate-800/60 p-1 rounded-full text-xs font-bold gap-1 border border-white/5">
               <button 
                 id="lang-uz"
                 onClick={() => handleLangChange('uz')} 
@@ -4292,7 +4290,7 @@ export default function App() {
               id="theme-toggle"
               onClick={handleThemeToggle} 
               aria-label="Toggle theme"
-              className="hidden sm:block p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-300"
+              className="p-2.5 bg-slate-200/30 dark:bg-slate-800/40 border border-white/10 rounded-full hover:scale-105 active:scale-95 transition-all text-slate-700 dark:text-slate-300"
             >
               {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-800" />}
             </button>
