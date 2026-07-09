@@ -3194,31 +3194,50 @@ export default function App() {
 
   // Update spotlight rect when activeTourStep changes or window scroll/resize occurs
   useEffect(() => {
+    const isMobile = window.innerWidth < 1280;
+
     if (activeTourStep < 0 || activeTourStep >= tourSteps.length) {
       setTourRect(null);
+      if (isMobile) {
+        setIsMobileMenuOpen(false);
+      }
       return;
     }
 
     const step = tourSteps[activeTourStep];
-    const isMobile = window.innerWidth < 1280;
 
-    // On mobile: navigate to the relevant tab so user can see the inner sections
-    if (isMobile && (step as any).mobileTab) {
-      setActiveTab((step as any).mobileTab as any);
+    // On mobile: mapping of desktop navbar IDs to their corresponding links inside the mobile menu panel
+    const mobileMenuLinkMapping: Record<string, string> = {
+      'navbar-link-home':      'mobile-nav-home',
+      'navbar-dropdown-about': 'mobile-nav-about',
+      'navbar-services':       'mobile-nav-services',
+      'navbar-dropdown-team':  'mobile-nav-team',
+      'navbar-link-faq':       'mobile-nav-faq',
+      'navbar-link-news':      'mobile-nav-news',
+      'navbar-dropdown-contact': 'mobile-nav-contact'
+    };
+
+    if (isMobile) {
+      if (mobileMenuLinkMapping[step.targetId]) {
+        setIsMobileMenuOpen(true);
+      } else {
+        setIsMobileMenuOpen(false);
+      }
     }
 
-    // Desktop-only elements that are hidden on mobile (<1280px)
+    // Desktop-only elements that are hidden on mobile (<1280px) and should fall back to hamburger button
     const desktopOnlyIds = [
-      'navbar-link-home','navbar-dropdown-about','navbar-services','navbar-dropdown-team',
-      'navbar-link-faq','navbar-link-news','navbar-dropdown-contact',
-      'lang-switcher','navbar-check-receipt','book-appointment-navbar'
+      'navbar-check-receipt','book-appointment-navbar'
     ];
 
     const updateRect = () => {
-      // On mobile, desktop-only nav elements → fall back to hamburger button
       let targetId = step.targetId;
-      if (isMobile && desktopOnlyIds.includes(targetId)) {
-        targetId = 'mobile-menu-toggle';
+      if (isMobile) {
+        if (mobileMenuLinkMapping[targetId]) {
+          targetId = mobileMenuLinkMapping[targetId];
+        } else if (desktopOnlyIds.includes(targetId)) {
+          targetId = 'mobile-menu-toggle';
+        }
       }
 
       const el = document.getElementById(targetId);
@@ -4568,12 +4587,14 @@ export default function App() {
             {/* Nav Links */}
             <div className="flex flex-col gap-1 font-semibold">
               <button 
+                id="mobile-nav-home"
                 onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'home' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{t.navHome}</button>
 
               <div className="flex flex-col">
                 <button 
+                  id="mobile-nav-about"
                   onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
                   className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold flex items-center justify-between ${['about','about-history','about-values','about-mission'].includes(activeTab) ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
                 >
@@ -4598,12 +4619,14 @@ export default function App() {
               </div>
 
               <button 
+                id="mobile-nav-services"
                 onClick={() => { setActiveTab('services'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'services' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{t.navServices}</button>
 
               <div className="flex flex-col">
                 <button 
+                  id="mobile-nav-team"
                   onClick={() => setIsMobileTeamOpen(!isMobileTeamOpen)}
                   className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold flex items-center justify-between ${activeTab === 'doctors' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
                 >
@@ -4676,21 +4699,25 @@ export default function App() {
               </div>
 
               <button 
+                id="mobile-nav-faq"
                 onClick={() => { setActiveTab('faq'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'faq' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{t.navFAQ}</button>
 
               <button 
+                id="mobile-nav-news"
                 onClick={() => { setActiveTab('news'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'news' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{getLangTextInline('Yangiliklar', 'Новости', 'Haberler', 'News')}</button>
 
               <button 
+                id="mobile-nav-gallery"
                 onClick={() => { setActiveTab('gallery'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'gallery' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{getLangTextInline('Fotogalereya', 'Фотогалерея', 'Foto Galeri', 'Photo Gallery')}</button>
 
               <button 
+                id="mobile-nav-contact"
                 onClick={() => { setActiveTab('contact'); setIsMobileMenuOpen(false); }}
                 className={`px-4 py-3 rounded-xl transition-colors text-left text-sm font-bold ${activeTab === 'contact' ? 'text-[#00B4D8] bg-cyan-50 dark:bg-cyan-950/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'}`}
               >{t.navContact}</button>
