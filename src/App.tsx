@@ -2757,7 +2757,7 @@ export default function App() {
   const [patientEmail, setPatientEmail] = useState('');
   
   // Custom Searchable Branch Dropdown States
-  const [selectedBranch, setSelectedBranch] = useState('Qiziriq tuman tibbiyot birlashmasi');
+  const [selectedBranch, setSelectedBranch] = useState('Kani-Lab markaziy laboratoriyasi');
   const [isBranchDropdownOpen, setIsBranchDropdownOpen] = useState(false);
   const [branchSearchQuery, setBranchSearchQuery] = useState('');
 
@@ -2765,6 +2765,12 @@ export default function App() {
   const [selectedTime, setSelectedTime] = useState('08:00 - 08:30');
 
   const BRANCH_CATEGORIES = [
+    {
+      category: "Markaziy Laboratoriya",
+      options: [
+        "Kani-Lab markaziy laboratoriyasi"
+      ]
+    },
     {
       category: "Tuman Tibbiyot Birlashmalari (TTB)",
       options: [
@@ -3462,28 +3468,28 @@ export default function App() {
       img.src = dataUrl;
       await new Promise((resolve) => { img.onload = resolve; });
 
-      // Use A5-like portrait size in mm for compact output
+      const pageW = 80;
+      const imgH = (img.height / img.width) * pageW;
+      const pageH = Math.max(160, Math.ceil(22 + imgH + 4));
       const pdf = new _jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: [80, 200]  // receipt width 80mm
+        format: [pageW, pageH]
       });
 
       // --- Cover page: Name + Ticket ID overlay ---
       pdf.setFillColor(0, 180, 216);
-      pdf.rect(0, 0, 80, 20, 'F');
+      pdf.rect(0, 0, pageW, 20, 'F');
       pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(9);
       pdf.setFont('helvetica', 'bold');
-      pdf.text('KANILAB - ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
+      pdf.text('KANILAB — ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
       pdf.setFontSize(8);
       pdf.text(getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient') + `: ${patientName}`, 4, 13);
       pdf.text(getLangTextInline('Raqam', 'Номер', 'Numara', 'Number') + `: ${generatedTicketID}`, 4, 18);
 
       // --- Ticket image below the header ---
-      const pageW = 80;
-      const imgH = (img.height / img.width) * pageW;
-      pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
+      pdf.addImage(dataUrl, 'PNG', 0, 22, pageW, imgH);
       
       const pdfBlob = pdf.output('blob');
 
@@ -3565,25 +3571,26 @@ export default function App() {
           img.src = dataUrl;
           await new Promise((resolve) => { img.onload = resolve; });
 
+          const pageW = 80;
+          const imgH = (img.height / img.width) * pageW;
+          const pageH = Math.max(160, Math.ceil(22 + imgH + 4));
           const pdf = new _jsPDF({
             orientation: 'portrait',
             unit: 'mm',
-            format: [80, 200]
+            format: [pageW, pageH]
           });
 
           pdf.setFillColor(0, 180, 216);
-          pdf.rect(0, 0, 80, 20, 'F');
+          pdf.rect(0, 0, pageW, 20, 'F');
           pdf.setTextColor(255, 255, 255);
           pdf.setFontSize(9);
           pdf.setFont('helvetica', 'bold');
-          pdf.text('KANILAB - ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
+          pdf.text('KANILAB — ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
           pdf.setFontSize(8);
           pdf.text(getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient') + `: ${patientName}`, 4, 13);
           pdf.text(getLangTextInline('Raqam', 'Номер', 'Numara', 'Number') + `: ${generatedTicketID}`, 4, 18);
 
-          const pageW = 80;
-          const imgH = (img.height / img.width) * pageW;
-          pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
+          pdf.addImage(dataUrl, 'PNG', 0, 22, pageW, imgH);
           
           const pdfBlob = pdf.output('blob');
 
@@ -8056,11 +8063,11 @@ export default function App() {
 
                       {/* === TOTAL === */}
                       <div style={{ padding: '10px 16px 8px', borderBottom: '1px dashed #cbd5e1' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#1e293b', letterSpacing: '1px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#1e293b', letterSpacing: '1px', whiteSpace: 'nowrap', flexShrink: 0 }}>
                             {getLangTextInline('JAMI SUMMA', 'ИТОГОВАЯ СУММА', 'TOPLAM TUTAR', 'TOTAL AMOUNT')}
                           </span>
-                          <span style={{ fontSize: '16px', fontWeight: 900, color: '#0096C7' }}>{formatPrice(cartTotalAmount)}</span>
+                          <span style={{ fontSize: '15px', fontWeight: 900, color: '#0096C7', whiteSpace: 'nowrap', textAlign: 'right' }}>{formatPrice(cartTotalAmount)}</span>
                         </div>
                       </div>
 
@@ -8124,21 +8131,22 @@ export default function App() {
                           const { jsPDF: _jsPDF } = await import('jspdf');
                           const ticketEl = document.getElementById('printable-ticket');
                           if (!ticketEl) return;
-                          const dataUrl = await _toPng(ticketEl, { pixelRatio: 2, cacheBust: true });
+                          const dataUrl = await _toPng(ticketEl, { pixelRatio: 2.5, cacheBust: true });
                           const img = new Image(); img.src = dataUrl;
                           await new Promise(r => { img.onload = r; });
-                          const pdf = new _jsPDF({ orientation: 'portrait', unit: 'mm', format: [80, 200] });
+                          const pageW = 80;
+                          const imgH = (img.height / img.width) * pageW;
+                          const pageH = Math.max(160, Math.ceil(22 + imgH + 4));
+                          const pdf = new _jsPDF({ orientation: 'portrait', unit: 'mm', format: [pageW, pageH] });
                           pdf.setFillColor(0, 180, 216);
-                          pdf.rect(0, 0, 80, 20, 'F');
+                          pdf.rect(0, 0, pageW, 20, 'F');
                           pdf.setTextColor(255, 255, 255);
                           pdf.setFontSize(9); pdf.setFont('helvetica', 'bold');
-                          pdf.text('KANILAB - ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
+                          pdf.text('KANILAB — ' + getLangTextInline('CHIPTA', 'ЧЕК', 'BİLET', 'RECEIPT'), 4, 7);
                           pdf.setFontSize(8);
                           pdf.text(getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient') + `: ${patientName}`, 4, 13);
                           pdf.text(getLangTextInline('Raqam', 'Номер', 'Numara', 'Number') + `: ${generatedTicketID}`, 4, 18);
-                          const pageW = 80;
-                          const imgH = (img.height / img.width) * pageW;
-                          pdf.addImage(dataUrl, 'JPEG', 0, 22, pageW, Math.min(imgH, 175));
+                          pdf.addImage(dataUrl, 'PNG', 0, 22, pageW, imgH);
                           pdf.save(`KaniLab_${generatedTicketID}_${patientName.replace(/\s+/g, '_')}.pdf`);
                         } catch(e) { console.error(e); }
                       }}
