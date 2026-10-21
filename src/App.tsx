@@ -2011,6 +2011,10 @@ const BRANCHES: {
 
 // Loaded dynamically from ignored .env file or Vercel Environment Variables to prevent GitHub leaks
 const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || "";
+const TELEGRAM_ADMIN_CHAT_ID = import.meta.env.VITE_TELEGRAM_ADMIN_CHAT_ID || "5393810155";
+const TELEGRAM_REGISTRATURA_CHAT_ID = import.meta.env.VITE_TELEGRAM_REGISTRATURA_CHAT_ID || "1073399822";
+// Registratura faqat cheklarni oladi, Admin esa chekni ham, tekshirish xabarlarini ham oladi:
+const TELEGRAM_TICKET_CHAT_IDS = [TELEGRAM_REGISTRATURA_CHAT_ID, TELEGRAM_ADMIN_CHAT_ID];
 
 const NEWS_ITEMS = [
   {
@@ -3427,7 +3431,7 @@ export default function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: '5393810155',
+          chat_id: TELEGRAM_ADMIN_CHAT_ID,
           text: `🔍 *CHEK TEKSHIRISH*\n━━━━━━━━━━━━\n${statusText}`,
           parse_mode: 'Markdown'
         })
@@ -3493,11 +3497,8 @@ export default function App() {
       
       const pdfBlob = pdf.output('blob');
 
-      const formData = new FormData();
-      formData.append('chat_id', '5393810155');
       const fileName = `KaniLab_${generatedTicketID}_${patientName.replace(/\s+/g, '_')}.pdf`;
-      formData.append('document', pdfBlob, fileName);
-      formData.append('caption',
+      const caption =
         `🏥 *YANGI BEMOR*\n` +
         `━━━━━━━━━━━━━━━\n` +
         `📋 Chek: \`${generatedTicketID}\`\n` +
@@ -3506,15 +3507,25 @@ export default function App() {
         `🏢 Filial: ${selectedBranch}\n` +
         `📅 Sana: ${selectedDate} — ${selectedTime}\n` +
         `🧪 Tahlillar: ${cart.length} ta\n` +
-        `💰 Jami: ${formatPrice(cartTotalAmount)}`,
+        `💰 Jami: ${formatPrice(cartTotalAmount)}`;
+
+      // Send to both Registratura (1073399822) and Admin (5393810155)
+      const sendResults = await Promise.allSettled(
+        TELEGRAM_TICKET_CHAT_IDS.map(async (chatId) => {
+          const formData = new FormData();
+          formData.append('chat_id', chatId);
+          formData.append('document', pdfBlob, fileName);
+          formData.append('caption', caption);
+          return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, {
+            method: 'POST',
+            body: formData
+          });
+        })
       );
 
-      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, {
-        method: 'POST',
-        body: formData
-      });
+      const anySuccess = sendResults.some(r => r.status === 'fulfilled' && (r.value as Response).ok);
 
-      if (res.ok) {
+      if (anySuccess) {
         alert(lang === 'uz' ? '✅ Chek muvaffaqiyatli markazga yuborildi!' : lang === 'ru' ? '✅ Чек успешно отправлен!' : '✅ Chek muvaffaqiyatli markazga yuborildi!');
       } else {
         alert(lang === 'uz' ? 'Yuborishda xatolik yuz berdi.' : lang === 'ru' ? 'Ошибка при отправке.' : 'Yuborishda xatolik yuz berdi.');
@@ -3594,11 +3605,8 @@ export default function App() {
           
           const pdfBlob = pdf.output('blob');
 
-          const formData = new FormData();
-          formData.append('chat_id', '5393810155');
           const fileName = `KaniLab_${generatedTicketID}_${patientName.replace(/\s+/g, '_')}.pdf`;
-          formData.append('document', pdfBlob, fileName);
-          formData.append('caption',
+          const caption =
             `🏥 *YANGI BEMOR*\n` +
             `━━━━━━━━━━━━━━━\n` +
             `📋 Chek: \`${generatedTicketID}\`\n` +
@@ -3607,13 +3615,21 @@ export default function App() {
             `🏢 Filial: ${selectedBranch}\n` +
             `📅 Sana: ${selectedDate} — ${selectedTime}\n` +
             `🧪 Tahlillar: ${cart.length} ta\n` +
-            `💰 Jami: ${formatPrice(cartTotalAmount)}`,
-          );
+            `💰 Jami: ${formatPrice(cartTotalAmount)}`;
 
-          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, {
-            method: 'POST',
-            body: formData
-          });
+          // Auto-send to both Registratura (1073399822) and Admin (5393810155)
+          await Promise.allSettled(
+            TELEGRAM_TICKET_CHAT_IDS.map(async (chatId) => {
+              const formData = new FormData();
+              formData.append('chat_id', chatId);
+              formData.append('document', pdfBlob, fileName);
+              formData.append('caption', caption);
+              return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, {
+                method: 'POST',
+                body: formData
+              });
+            })
+          );
         } catch (err) {
           console.error('Auto Telegram send error:', err);
         }
