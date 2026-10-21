@@ -7967,7 +7967,7 @@ export default function App() {
                   {/* Thermal Paper Receipt Design */}
                   <div className="flex justify-center bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
                     <div id="printable-ticket" style={{
-                      width: '300px',
+                      width: '320px',
                       background: '#ffffff',
                       borderRadius: '12px',
                       overflow: 'hidden',
@@ -7980,21 +7980,26 @@ export default function App() {
                       <div style={{
                         backgroundColor: '#0096C7',
                         background: 'linear-gradient(135deg, #0096C7 0%, #00B4D8 60%, #48CAE4 100%)',
-                        padding: '20px 16px 16px',
+                        padding: '20px 16px 20px',
                         textAlign: 'center',
                         position: 'relative'
                       }}>
                         {/* Logo */}
-                        <div style={{ 
-                          background: 'white', 
-                          width: '56px\', height: \'56px', 
-                          borderRadius: '50%', 
-                          margin: '0 auto 8px', 
-                          display: 'flex\', alignItems: \'center\', justifyContent: \'center',
+                        <div style={{
+                          backgroundColor: '#ffffff',
+                          width: '56px',
+                          height: '56px',
+                          borderRadius: '50%',
+                          margin: '0 auto 8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
                         }}>
                           <img src={kaniLabLogoImg} alt="KaniLab" crossOrigin="anonymous" style={{
-                            width: 36, height: 36, objectFit: 'contain',
+                            width: '36px',
+                            height: '36px',
+                            objectFit: 'contain',
                             display: 'block'
                           }} />
                         </div>
@@ -8004,26 +8009,31 @@ export default function App() {
                         </div>
                         {/* Decorative bottom wave */}
                         <div style={{
-                          position: 'absolute\', bottom: -1, left: 0, right: 0, height: \'12px',
-                          background: '#fff\', borderRadius: \'50% 50% 0 0 / 100% 100% 0 0'
+                          position: 'absolute',
+                          bottom: -1,
+                          left: 0,
+                          right: 0,
+                          height: '12px',
+                          backgroundColor: '#ffffff',
+                          borderRadius: '50% 50% 0 0 / 100% 100% 0 0'
                         }} />
                       </div>
 
                       {/* === PATIENT BANNER === */}
                       <div style={{ padding: '14px 16px 8px', borderBottom: '1px dashed #cbd5e1' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ minWidth: 0, flex: 1 }}>
                             <div style={{ fontSize: '8px', color: '#94a3b8', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
                               {getLangTextInline('Bemor', 'Пациент', 'Hasta', 'Patient')}
                             </div>
-                            <div style={{ fontSize: '13px', fontWeight: 900, color: '#0f172a', marginTop: '2px' }}>{patientName}</div>
-                            <div style={{ fontSize: '10px', color: '#64748b', marginTop: '1px' }}>{patientPhone}</div>
+                            <div style={{ fontSize: '13px', fontWeight: 900, color: '#0f172a', marginTop: '2px', wordBreak: 'break-word', textTransform: 'uppercase' }}>{patientName}</div>
+                            <div style={{ fontSize: '10px', color: '#64748b', marginTop: '1px', whiteSpace: 'nowrap' }}>{patientPhone}</div>
                           </div>
-                          <div style={{ textAlign: 'right' }}>
+                          <div style={{ textAlign: 'right', flexShrink: 0 }}>
                             <div style={{ fontSize: '8px', color: '#94a3b8', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
                               {getLangTextInline('Chek', 'Чек', 'Bilet/Fatura', 'Receipt/Ticket')}
                             </div>
-                            <div style={{ fontSize: '12px', fontWeight: 900, color: '#0096C7', marginTop: '2px', letterSpacing: '1px' }}>{generatedTicketID}</div>
+                            <div style={{ fontSize: '12px', fontWeight: 900, color: '#0096C7', marginTop: '2px', letterSpacing: '1px', whiteSpace: 'nowrap' }}>{generatedTicketID}</div>
                           </div>
                         </div>
                       </div>
@@ -8031,13 +8041,13 @@ export default function App() {
                       {/* === DETAILS ROWS === */}
                       <div style={{ padding: '8px 16px', borderBottom: '1px dashed #cbd5e1' }}>
                         {[
-                          { label: getLangTextInline('Sana', 'Дата', 'Tarih', 'Date'), value: selectedDate },
-                          { label: getLangTextInline('Vaqt', 'Время', 'Saat', 'Time'), value: selectedTime },
-                          { label: getLangTextInline('Filial', 'Филиал', 'Şube', 'Branch'), value: selectedBranch === 'branch1' ? getLangTextInline('Markaziy (Alisher Navoiy)', 'Центральный (Алишер Навои)', 'Merkez (Alisher Navoiy)', 'Central (Alisher Navoiy)') : selectedBranch === 'branch2' ? getLangTextInline('Sharqiy (Olmazor)', 'Восточный (Алмазар)', 'Doğu (Olmazor)', 'Eastern (Olmazor)') : selectedBranch === 'branch3' ? getLangTextInline('Janubiy (Termiz)', 'Южный (Термез)', 'Güney (Termez)', 'Southern (Termez)') : selectedBranch },
+                          { label: getLangTextInline('Sana', 'Дата', 'Tarih', 'Date'), value: selectedDate, noWrap: true },
+                          { label: getLangTextInline('Vaqt', 'Время', 'Saat', 'Time'), value: selectedTime, noWrap: true },
+                          { label: getLangTextInline('Filial', 'Филиал', 'Şube', 'Branch'), value: selectedBranch === 'branch1' ? getLangTextInline('Markaziy (Alisher Navoiy)', 'Центральный (Алишер Навои)', 'Merkez (Alisher Navoiy)', 'Central (Alisher Navoiy)') : selectedBranch === 'branch2' ? getLangTextInline('Sharqiy (Olmazor)', 'Восточный (Алмазар)', 'Doğu (Olmazor)', 'Eastern (Olmazor)') : selectedBranch === 'branch3' ? getLangTextInline('Janubiy (Termiz)', 'Южный (Термез)', 'Güney (Termez)', 'Southern (Termez)') : selectedBranch, noWrap: false },
                         ].map((row, i) => (
-                          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontSize: '11px' }}>
-                            <span style={{ color: '#94a3b8', fontWeight: 600 }}>{row.label}</span>
-                            <span style={{ fontWeight: 800, color: '#334155' }}>{row.value}</span>
+                          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '4px 0', fontSize: '11px', gap: '8px' }}>
+                            <span style={{ color: '#94a3b8', fontWeight: 600, flexShrink: 0 }}>{row.label}</span>
+                            <span style={{ fontWeight: 800, color: '#334155', textAlign: 'right', whiteSpace: row.noWrap ? 'nowrap' : 'normal', lineHeight: 1.3 }}>{row.value}</span>
                           </div>
                         ))}
                       </div>
