@@ -130,46 +130,6 @@ export const LABORATORY_TESTS: TestItem[] = [
   // --- GEMATOLOGIYA (HEMATOLOGY - FIOLETOVAYA & CHORNAYA KRYSHKA) ---
   // =========================================================================
   {
-    id: 'test_iga',
-    code: '037',
-    name: { uz: 'Иммуноглобулин А (IgA)', ru: 'Иммуноглобулин А (IgA)' },
-    category: 'hematology',
-    price: 145000,
-    fasting: true,
-    time: '3-4 h',
-    desc: { uz: 'Immunitet holatini va shilliq pardalar himoyasini baholash.', ru: 'Оценка состояния иммунной системы и местной защиты слизистых оболочек.' }
-  },
-  {
-    id: 'test_aso',
-    code: '038',
-    name: { uz: 'Антистрептолизин-О (ASO)', ru: 'Антистрептолизин-О (ASO)' },
-    category: 'hematology',
-    price: 70000,
-    fasting: true,
-    time: '3-4 h',
-    desc: { uz: 'Streptokokk infeksiyasidan keyingi asoratlarni aniqlash.', ru: 'Маркер перенесенной стрептококковой инфекции и риска осложнений.' }
-  },
-  {
-    id: 'test_crp_hem',
-    code: '039',
-    name: { uz: 'С-Реактивный Белок (CRP) [Gematologiya]', ru: 'С-Реактивный Белок (CRP) [Гематология]' },
-    category: 'hematology',
-    price: 70000,
-    fasting: true,
-    time: '3 h',
-    desc: { uz: 'Oʻtkir yalligʻlanish va toʻqimalar shikastlanishi koʻrsatkichi.', ru: 'Высокочувствительный индикатор воспаления и повреждения тканей.' }
-  },
-  {
-    id: 'test_rf',
-    code: '040',
-    name: { uz: 'Ревматоидный Фактор (RF)', ru: 'Ревматоидный Фактор (RF)' },
-    category: 'hematology',
-    price: 70000,
-    fasting: true,
-    time: '3-4 h',
-    desc: { uz: 'Sistemali revmatologik kasalliklarni aniqlash uchun.', ru: 'Маркер системных воспалительных (аутоиммунных) заболеваний.' }
-  },
-  {
     id: 'test_hba1c_hem',
     code: '001',
     name: { uz: 'Гликозилированный гемоглобин (HbA1c)', ru: 'Гликозилированный гемоглобин (HbA1c)' },
@@ -540,6 +500,46 @@ export const LABORATORY_TESTS: TestItem[] = [
     fasting: true,
     time: '3 h',
     desc: { uz: 'Kislota-ishqor balansi va gidratatsiyani saqlovchi anion.', ru: 'Основной анион крови, поддерживает кислотно-щелочной баланс.' }
+  },
+  {
+    id: 'test_iga',
+    code: '037',
+    name: { uz: 'Иммуноглобулин А (IgA)', ru: 'Иммуноглобулин А (IgA)' },
+    category: 'biochemistry',
+    price: 145000,
+    fasting: true,
+    time: '3-4 h',
+    desc: { uz: 'Immunitet holatini va shilliq pardalar himoyasini baholash.', ru: 'Оценка состояния иммунной системы и местной защиты слизистых оболочек.' }
+  },
+  {
+    id: 'test_aso',
+    code: '038',
+    name: { uz: 'Антистрептолизин-О (ASO)', ru: 'Антистрептолизин-О (ASO)' },
+    category: 'biochemistry',
+    price: 70000,
+    fasting: true,
+    time: '3-4 h',
+    desc: { uz: 'Streptokokk infeksiyasidan keyingi asoratlarni aniqlash.', ru: 'Маркер перенесенной стрептококковой инфекции и риска осложнений.' }
+  },
+  {
+    id: 'test_crp_hem',
+    code: '039',
+    name: { uz: 'С-Реактивный Белок (CRP)', ru: 'С-Реактивный Белок (CRP)' },
+    category: 'biochemistry',
+    price: 70000,
+    fasting: true,
+    time: '3 h',
+    desc: { uz: 'Oʻtkir yalligʻlanish va toʻqimalar shikastlanishi koʻrsatkichi.', ru: 'Высокочувствительный индикатор воспаления и повреждения тканей.' }
+  },
+  {
+    id: 'test_rf',
+    code: '040',
+    name: { uz: 'Ревматоидный Фактор (RF)', ru: 'Ревматоидный Фактор (RF)' },
+    category: 'biochemistry',
+    price: 70000,
+    fasting: true,
+    time: '3-4 h',
+    desc: { uz: 'Sistemali revmatologik kasalliklarni aniqlash uchun.', ru: 'Маркер системных воспалительных (аутоиммунных) заболеваний.' }
   },
 
   // =========================================================================
